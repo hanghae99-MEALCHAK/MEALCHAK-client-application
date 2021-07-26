@@ -1,4 +1,9 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as userAction } from "../redux/modules/user";
+
+// style
+import { Button, Grid, Text } from "../elements";
 
 import Post from "../components/Post";
 import { Grid, Text } from "../elements";
@@ -10,6 +15,7 @@ import { history } from "../redux/configureStore";
 
 const Main = (props) => {
   const dispatch = useDispatch();
+  const user_info = useSelector((state) => state.user.user);
 
   const post_list = useSelector((state) => state.post.list);
   console.log(post_list);
@@ -22,6 +28,19 @@ const Main = (props) => {
       <Grid width="50rem" minHeight="50rem" margin="0 auto">
         <Grid is_float="left">
           <Text>#오늘의 인기 메뉴</Text>
+          {user_info && (
+              <Grid width="12rem">
+                <Button
+                  _onClick={() => {
+                    dispatch(userAction.logOut());
+                  }}
+                >
+                  <Text margin="0" size="1.6rem">
+                    로그아웃
+                  </Text>
+                </Button>
+              </Grid>
+            )}
           <Grid bg="green" minHeight="15rem"></Grid>
         </Grid>
         <Grid is_flex2 text_align="center">
