@@ -1,6 +1,7 @@
 import "./App.css";
 import React from "react";
 import Main from "../pages/Main";
+import GlobalStyle from "./GlobalStyle";
 
 import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
@@ -13,6 +14,7 @@ function App() {
     <React.Fragment>
       <Grid>
         <ConnectedRouter history={history}>
+          <GlobalStyle/>
           <Route path="/" exact component={Main} />
         </ConnectedRouter>
       </Grid>
