@@ -79,7 +79,8 @@ const ImageCircle = styled.div`
 
   background-image: url("${(props) => props.src}");
   background-size: cover;
-  margin: 0.4rem;
+  /* margin: 0.4rem; */
+  ${(props) => (props.margin ? `margin: ${props.margin}; ` : "margin: 0.4rem")}
 `;
 
 const MainInner = styled.div`
