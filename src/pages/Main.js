@@ -1,14 +1,13 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userAction } from "../redux/modules/user";
 
 // style
 import { Button, Grid, Text } from "../elements";
 
 import Post from "../components/Post";
-import { Grid, Text } from "../elements";
 
 import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as locateActions } from "../redux/modules/loc";
 import { useDispatch, useSelector } from "react-redux";
 
 import { history } from "../redux/configureStore";
@@ -19,8 +18,32 @@ const Main = (props) => {
 
   const post_list = useSelector((state) => state.post.list);
   console.log(post_list);
+
+  const [cor_x, setCorX] = React.useState("");
+  const [cor_y, setCorY] = React.useState("");
+
+  const getLocation = () => {
+    if (navigator.geolocation) { // GPS를 지원하면
+      navigator.geolocation.getCurrentPosition(function(position) {
+        setCorX(position.coords.longitude);
+        setCorY(position.coords.latitude);
+        // alert(position.coords.latitude + ' ' + position.coords.longitude);
+        dispatch(locateActions.getCoordinate(position.coords.longitude, position.coords.latitude));
+      }, function(error) {
+        console.error(error);
+      }, {
+        enableHighAccuracy: false,
+        maximumAge: 0,
+        timeout: Infinity
+      });
+    } else {
+      alert('GPS를 지원하지 않습니다');
+    }
+  }
+  console.log("x: "+cor_x, "y: "+cor_y);
   React.useEffect(() => {
     dispatch(postActions.getPostAX());
+    getLocation();
   }, []);
 
   return (

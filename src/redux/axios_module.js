@@ -6,7 +6,7 @@ const axiosModule = axios.create({
         "Access-Control-Allow-Headers": "Content-Type",
         "Content-Type": "application/json",
     },
-    baseURL: "http://localhost:4000",
+    baseURL: "http://115.85.182.57:8080",
 });
 
 export default axiosModule;
