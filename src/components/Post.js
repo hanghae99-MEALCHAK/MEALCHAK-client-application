@@ -1,16 +1,17 @@
-import React from "react";
-
+import React from 'react';
 import { Grid, Image, Text, Button } from "../elements";
+import {history} from "../redux/configureStore";
+import logger from "../shared/Console";
 
 const Post = (props) => {
-  console.log(props);
+  console.log("Post:8 : ", props);
   return (
     <React.Fragment>
       <Grid is_float="left" margin="2rem 0">
         <Grid is_flex>
           <Image shape="circle" size="4" margin="1rem 1rem 1rem 0" />
           <Grid>
-            <Text>user_name</Text>
+            <Text>{props.username}</Text>
             <Text>{props.insert_dt}</Text>
           </Grid>
         </Grid>
@@ -35,7 +36,13 @@ const Post = (props) => {
           </Grid>
         </Grid>
         <Grid is_flex>
-          <Button>자세히 보기</Button>
+          <Button
+            _onClick={() => {
+              history.push(`/post/${props.post_id}`);
+            }}
+          >
+            자세히 보기
+          </Button>
           <Button>채팅 시작하기</Button>
         </Grid>
       </Grid>
