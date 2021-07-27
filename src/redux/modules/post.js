@@ -16,9 +16,8 @@ const initialState = {
 };
 
 const getPostAX = () => {
-  return async function (dispatch, getState, { history }) {
-    const res = await axiosModule.get('/posts');
-    try {
+  return function (dispatch, getState, { history }) {
+    axiosModule.get("/posts").then((res) => {
       console.log(res);
       let post_list = [];
       res.data.forEach((p) => {
@@ -36,32 +35,32 @@ const getPostAX = () => {
         post_list.push(post);
       });
       dispatch(setPost(post_list));
-    } catch (err) {
+    }).catch((err) => {
       console.log(err);
-    }
+    })
   };
 };
 
 const getOnePostDB = (id) => {
-  return function (dispatch, getState, { history }) {
-    axiosModule
-      .get('/posts')
-      .then((res) => {
-        let p = res.data[id];
-        console.log(id, res);
+    axiosModule.get("/posts").then(
+      console.log(res);
+      let post_list = [];
+      res.data.forEach((p) => {
         let post = {
-          post_id: p.id,
+          post_id: p.postId,
           title: p.title,
           contents: p.contents,
           headCount: p.headCount,
           orderTime: p.orderTime,
           address: p.address,
           insert_dt: p.createdAt,
-          username: p.username,
         };
-        dispatch(setPost([post]));
-      })
-      .catch((err) => logger('post.js 62줄: ', err));
+        post_list.push(post);
+      });
+      dispatch(setPost(post_list));
+    ).catch((err) => {
+      console.log(err);
+    });
   };
 };
 

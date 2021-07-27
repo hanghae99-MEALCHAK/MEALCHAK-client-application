@@ -1,10 +1,10 @@
 import React from 'react';
-import { history } from '../redux/configureStore';
-
-import { Grid, Image, Text, Button } from '../elements';
+import { Grid, Image, Text, Button } from "../elements";
+import {history} from "../redux/configureStore";
+import logger from "../shared/Console";
 
 const Post = (props) => {
-  console.log(props);
+  console.log("Post:8 : ", props);
   return (
     <React.Fragment>
       <Grid is_float="left" margin="2rem 0">
