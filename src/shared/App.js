@@ -8,8 +8,8 @@ import { history } from '../redux/configureStore';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as userAction } from '../redux/modules/user';
 
-import { Main, LoginRedirect, Tutorial, DetailPage } from '../pages';
-import { Grid } from '../elements';
+import { Main, LoginRedirect, Tutorial, Upload, DetailPage } from "../pages";
+import { Grid } from "../elements";
 
 // 사용자 token 여부
 import { token } from './OAuth';
@@ -37,6 +37,7 @@ function App() {
           <Route path="/post/:id" exact component={DetailPage} />
           <Route path="/user/kakao/callback" exact component={LoginRedirect} />
           <Route path="/tutorial" exact component={Tutorial} />
+          <Route path="/upload" exact component={Upload} />
         </ConnectedRouter>
       </Grid>
     </React.Fragment>

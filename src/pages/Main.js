@@ -1,5 +1,5 @@
 import React from 'react';
-// style
+
 import { Button, Grid, Text } from '../elements';
 import Post from '../components/Post';
 

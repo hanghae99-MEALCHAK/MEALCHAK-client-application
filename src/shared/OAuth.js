@@ -1,4 +1,5 @@
-const Client_id = "b78faae6b9d7668b00bea24b201e2157";
+const Client_id = "7bdd85c1e8d3b04bfc556d4b741605ec";
+
 
 // redirect 되는 url로 프론트 배포 후 배포 주소 사용
 // 배포 전에는 프론트 로컬 주소로 개발환경에서 로그인 과정 확인

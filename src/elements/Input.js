@@ -13,6 +13,7 @@ const Input = (props) => {
     is_submit,
     onSubmit,
     length,
+    border,
   } = props;
 
   if (multiLine) {
@@ -23,6 +24,7 @@ const Input = (props) => {
           value={value}
           placeholder={placeholder}
           onChange={_onChange}
+          border={border}
         ></ElTextarea>
       </Grid>
     );
@@ -44,7 +46,7 @@ const Input = (props) => {
             }}
           />
         ) : (
-          <ElInput type={type} placeholder={placeholder} onChange={_onChange} value={value} maxLength={length}/>
+          <ElInput type={type} placeholder={placeholder} onChange={_onChange} value={value} maxLength={length} border={border}/>
         )}
       </Grid>
     </React.Fragment>
@@ -52,6 +54,7 @@ const Input = (props) => {
 };
 
 Input.defaultProps = {
+  border: "0.1rem solid #718093",
   multiLine: false,
   placeholder: "텍스트를 입력해주세요.",
   type: "text",
@@ -63,7 +66,7 @@ Input.defaultProps = {
 };
 
 const ElTextarea = styled.textarea`
-  border: 0.1rem solid #718093;
+  ${(props) => (props.border? `border: ${props.border};` : '')};
   border-radius: 0.4rem;
   width: 100%;
   padding: 1.2rem 0.4rem;
@@ -76,7 +79,7 @@ const ElTextarea = styled.textarea`
 `;
 
 const ElInput = styled.input`
-  border: 0.1rem solid #718093;
+  ${(props) => (props.border? `border: ${props.border};` : '')};
   border-radius: 0.4rem;
   width: 100%;
   padding: 1.2rem 0.4rem;
