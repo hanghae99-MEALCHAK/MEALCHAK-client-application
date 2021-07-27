@@ -6,12 +6,8 @@ import { actionCreators as userAction } from "../redux/modules/user";
 import { Button, Grid, Text } from "../elements";
 
 import Post from "../components/Post";
-import { Grid, Text } from "../elements";
 
 import { actionCreators as postActions } from "../redux/modules/post";
-import { useDispatch, useSelector } from "react-redux";
-
-import { history } from "../redux/configureStore";
 
 const Main = (props) => {
   const dispatch = useDispatch();

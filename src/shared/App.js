@@ -10,7 +10,7 @@ import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userAction } from "../redux/modules/user";
 
-import { Main, LoginRedirect, Tutorial } from "../pages";
+import { Main, LoginRedirect, Tutorial, Upload } from "../pages";
 import { Grid } from "../elements";
 
 // 사용자 token 여부
@@ -41,6 +41,7 @@ function App() {
           <Route path="/post/:id" exact component={PostDetail} />
           <Route path="/user/kakao/callback" exact component={LoginRedirect} />
           <Route path="/tutorial" exact component={Tutorial} />
+          <Route path="/upload" exact component={Upload} />
         </ConnectedRouter>
       </Grid>
     </React.Fragment>
