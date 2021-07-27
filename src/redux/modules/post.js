@@ -4,8 +4,8 @@ import axios from "axios";
 import axiosModule from "../axios_module";
 
 const SET_POST = "SET_POST";
-const GET_ALL_POST = 'GET_ALL_POST';
-const GET_DETAIL_POST = 'GET_DETAIL_POST';
+const GET_ALL_POST = "GET_ALL_POST";
+const GET_DETAIL_POST = "GET_DETAIL_POST";
 
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
 const getAllPost = createAction(GET_ALL_POST, (post_list) => ({ post_list }));
@@ -15,15 +15,39 @@ const initialState = {
   list: [],
 };
 
+// const getPostAX = () => {
+//   return async function (dispatch, getState, { history }) {
+//     const res = await axiosModule.get("/posts");
+//     try {
+//       console.log(res);
+//       let post_list = [];
+//       res.data.forEach((p) => {
+//         let post = {
+//           post_id: p.postId,
+//           title: p.title,
+//           contents: p.contents,
+//           headCount: p.headCount,
+//           orderTime: p.orderTime,
+//           address: p.address,
+//           insert_dt: p.createdAt,
+//         };
+//         post_list.push(post);
+//       });
+//       dispatch(setPost(post_list));
+//     } catch (err){
+//       console.log(err);
+//     }
+//   };
+// };
+
 const getPostAX = () => {
-  return async function (dispatch, getState, { history }) {
-    const res = await axiosModule.get("/posts");
-    try {
+  return function (dispatch, getState, { history }) {
+    axiosModule.get("/posts").then((res) => {
       console.log(res);
       let post_list = [];
       res.data.forEach((p) => {
         let post = {
-          post_id: p.postId,
+          post_id: p.id,
           title: p.title,
           contents: p.contents,
           headCount: p.headCount,
@@ -34,12 +58,32 @@ const getPostAX = () => {
         post_list.push(post);
       });
       dispatch(setPost(post_list));
-    } catch (err){
+    }).catch((err) => {
       console.log(err);
-    }
+    })
   };
 };
-
+//     axiosModule.get("/posts").then(
+//       console.log(res);
+//       let post_list = [];
+//       res.data.forEach((p) => {
+//         let post = {
+//           post_id: p.postId,
+//           title: p.title,
+//           contents: p.contents,
+//           headCount: p.headCount,
+//           orderTime: p.orderTime,
+//           address: p.address,
+//           insert_dt: p.createdAt,
+//         };
+//         post_list.push(post);
+//       });
+//       dispatch(setPost(post_list));
+//     ).catch((err) => {
+//       console.log(err);
+//     });
+//   };
+// };
 // middelware
 const getAllPostDB = () => {
   return function (dispatch, getState, { history }) {
@@ -50,7 +94,7 @@ const getAllPostDB = () => {
         dispatch(getAllPost(result.data));
       })
       .catch((err) => {
-        console.log('에러: ', err);
+        console.log("에러: ", err);
       });
   };
 };
@@ -63,7 +107,7 @@ const getDetailPostDB = (postId) => {
         dispatch(getDetailPost(result.data));
       })
       .catch((err) => {
-        console.log('에러: ', err);
+        console.log("에러: ", err);
       });
   };
 };

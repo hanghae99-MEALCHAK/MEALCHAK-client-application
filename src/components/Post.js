@@ -1,9 +1,11 @@
 import React from "react";
 
 import { Grid, Image, Text, Button } from "../elements";
+import {history} from "../redux/configureStore";
+import logger from "../shared/Console";
 
 const Post = (props) => {
-  console.log(props);
+  console.log("Post:8 : ", props);
   return (
     <React.Fragment>
       <Grid is_float="left" margin="2rem 0">
@@ -35,7 +37,9 @@ const Post = (props) => {
           </Grid>
         </Grid>
         <Grid is_flex>
-          <Button>자세히 보기</Button>
+          <Button _onClick={() => {
+            history.push(`/post/${props.id}`);
+          }}>자세히 보기</Button>
           <Button>채팅 시작하기</Button>
         </Grid>
       </Grid>
