@@ -1,10 +1,10 @@
 import React from 'react';
-import { Grid, Image, Text, Button } from "../elements";
-import {history} from "../redux/configureStore";
-import logger from "../shared/Console";
+import { Grid, Image, Text, Button } from '../elements';
+import { history } from '../redux/configureStore';
+import logger from '../shared/Console';
 
 const Post = (props) => {
-  console.log("Post:8 : ", props);
+  console.log('Post:7 : ', props);
   return (
     <React.Fragment>
       <Grid is_float="left" margin="2rem 0">
@@ -37,13 +37,14 @@ const Post = (props) => {
         </Grid>
         <Grid is_flex>
           <Button
+            shape="smallLight"
             _onClick={() => {
               history.push(`/post/${props.post_id}`);
             }}
           >
             자세히 보기
           </Button>
-          <Button>채팅 시작하기</Button>
+          <Button shape="smallDark">채팅 시작하기</Button>
         </Grid>
       </Grid>
     </React.Fragment>

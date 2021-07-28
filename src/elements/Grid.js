@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Grid = (props) => {
   const {
@@ -7,6 +7,7 @@ const Grid = (props) => {
     is_flex2,
     is_flex3,
     is_flex4,
+    is_flex_column,
     flex,
     is_float,
     position,
@@ -38,6 +39,7 @@ const Grid = (props) => {
     is_border,
     text_align,
     updownborder,
+    cursor,
   } = props;
 
   const styles = {
@@ -45,6 +47,7 @@ const Grid = (props) => {
     is_flex2: is_flex2,
     is_flex3: is_flex3,
     is_flex4: is_flex4,
+    is_flex_column: is_flex_column,
     flex: flex,
     is_float: is_float,
     review_flex: review_flex,
@@ -74,6 +77,7 @@ const Grid = (props) => {
     is_border: is_border,
     text_align: text_align,
     updownborder: updownborder,
+    cursor: cursor,
   };
 
   return (
@@ -93,19 +97,20 @@ Grid.defaultProps = {
   is_flex3: false,
   is_float: false,
   is_flex4: false,
+  is_flex_column: false,
   review_flex: false,
   post_flex: false,
   card_flex: false,
   flex: false,
   position: false,
-  width: "100%",
-  height: "100%",
+  width: '100%',
+  height: '100%',
   padding: false,
   margin: false,
   bg: false,
   center: false,
   maxWidth: false,
-  radius: "",
+  radius: '',
   borderBottom: false,
   borderTop: false,
   minWidth: false,
@@ -116,76 +121,83 @@ Grid.defaultProps = {
   left: false,
   right: false,
   maxHeight: false,
-  wrap: "",
-  border: "",
-  is_header: "",
-  is_border: "",
-  text_align: "",
-  updownborder: "",
+  wrap: '',
+  border: '',
+  is_header: '',
+  is_border: '',
+  text_align: '',
+  updownborder: '',
+  cursor: '',
 };
 
 const GridBox = styled.div`
-  ${(props) => (props.width ? `width: ${props.width};` : "")};
-  ${(props) => (props.height ? `height: ${props.height};` : "")};
+  ${(props) => (props.width ? `width: ${props.width};` : '')};
+  ${(props) => (props.height ? `height: ${props.height};` : '')};
   box-sizing: border-box;
-  ${(props) => (props.maxWidth ? `max-width: ${props.maxWidth};` : "")}
-  ${(props) => (props.minWidth ? `min-width: ${props.minWidth};` : "")}
-  ${(props) => (props.minHeight ? `min-height: ${props.minHeight};` : "")}
-  ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
-  ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
-  ${(props) => (props.center ? `text-align: ${props.center};` : "")}
+  ${(props) => (props.maxWidth ? `max-width: ${props.maxWidth};` : '')}
+  ${(props) => (props.minWidth ? `min-width: ${props.minWidth};` : '')}
+  ${(props) => (props.minHeight ? `min-height: ${props.minHeight};` : '')}
+  ${(props) => (props.padding ? `padding: ${props.padding};` : '')}
+  ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
+  ${(props) => (props.center ? `text-align: ${props.center};` : '')}
 
   ${(props) =>
-    props.borderBottom ? `border-bottom: ${props.borderBottom};` : ""}
-  ${(props) => (props.borderTop ? `border-top: ${props.borderTop};` : "")}
-  ${(props) => (props.radius ? `border-radius: ${props.radius};` : "")}
+    props.borderBottom ? `border-bottom: ${props.borderBottom};` : ''}
+  ${(props) => (props.borderTop ? `border-top: ${props.borderTop};` : '')}
+  ${(props) => (props.radius ? `border-radius: ${props.radius};` : '')}
   ${(props) =>
-    props.shadow ? `box-shadow: 0.3rem 0.3rem 0.3rem #dcdde1;` : ""}
+    props.shadow ? `box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.06);` : ''}
   ${(props) =>
     props.is_flex
       ? `display: flex; align-items: center; justify-content: space-between;`
-      : ""}
+      : ''}
   ${(props) =>
     props.is_flex2
       ? `display: flex; align-items: center; justify-content: center;`
-      : ""}
+      : ''}
   ${(props) =>
-    props.is_flex3 ? `display: flex; justify-content: center;` : ""}
+    props.is_flex3 ? `display: flex; justify-content: center;` : ''}
       ${(props) =>
-    props.is_flex4 ? `display: flex; align-items: center;` : ""}
-  ${(props) => (props.position ? `position: ${props.position};` : "")}
-  ${(props) => (props.top ? `top: ${props.top};` : "")}
-  ${(props) => (props.left ? `left: ${props.left};` : "")}
-  ${(props) => (props.right ? `right: ${props.right};` : "")}
-  ${(props) => (props.maxHeight ? `max-height: ${props.maxHeight};` : "")}
-  ${(props) => (props.flex ? `display: flex; ` : "")}
+    props.is_flex4 ? `display: flex; align-items: center;` : ''}
   ${(props) =>
-    props.card_flex ? `display: flex; justify-content: center;` : ""}
-  ${(props) => (props.wrap ? `flex-wrap: wrap;` : "")}
-  ${(props) => (props.border ? `border: ${props.border};` : "")}
-  ${(props) => (props.is_border ? `border: ${props.is_border};` : "")}
+    props.is_flex_column
+      ? `display: flex; flex-direction: column; align-items: center;`
+      : ''}  
+  ${(props) => (props.position ? `position: ${props.position};` : '')}
+  ${(props) => (props.top ? `top: ${props.top};` : '')}
+  ${(props) => (props.left ? `left: ${props.left};` : '')}
+  ${(props) => (props.right ? `right: ${props.right};` : '')}
+  ${(props) => (props.maxHeight ? `max-height: ${props.maxHeight};` : '')}
+  ${(props) => (props.flex ? `display: flex; ` : '')}
+  ${(props) =>
+    props.card_flex ? `display: flex; justify-content: center;` : ''}
+  ${(props) => (props.wrap ? `flex-wrap: wrap;` : '')}
+  ${(props) => (props.border ? `border: ${props.border};` : '')}
+  ${(props) => (props.is_border ? `border: ${props.is_border};` : '')}
   ${(props) =>
     props.updownborder
       ? `border-top: ${props.updownborder}; border-bottom: ${props.updownborder}`
-      : ""}
+      : ''}
 
   ${(props) =>
-    props.is_header ? `position: sticky; top: 0; z-index: 10;` : ""};
-  ${(props) => (props.is_float ? `float: ${props.is_float}; ` : "")}
-  ${(props) => (props.text_align ? `text-align: ${props.text_align}; ` : "")}
+    props.is_header ? `position: sticky; top: 0; z-index: 10;` : ''};
+  ${(props) => (props.is_float ? `float: ${props.is_float}; ` : '')}
+  ${(props) => (props.text_align ? `text-align: ${props.text_align}; ` : '')}
+  ${(props) => (props.cursor ? `cursor: pointer;` : '')}
+
   @media (min-width: 501px) {
     ${(props) =>
       props.review_flex
         ? `display: flex; align-items: center; justify-content: space-between;`
-        : ""}
+        : ''}
   }
 
   @media (min-width: 510px) {
     ${(props) =>
       props.post_flex
         ? `display: flex; align-items: center; justify-content: center;`
-        : ""}
+        : ''}
   }
 `;
 

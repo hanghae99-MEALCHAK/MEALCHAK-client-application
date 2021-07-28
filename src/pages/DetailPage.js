@@ -23,12 +23,12 @@ const DetailPage = (props) => {
   const post = post_list[post_idx];
   console.log(post);
 
-  // React.useEffect(() => {
-  //   if (post) {
-  //     return;
-  //   }
-  //   dispatch(postActions.getOnePostDB(id));
-  // });
+  React.useEffect(() => {
+    if (post) {
+      return;
+    }
+    dispatch(postActions.getOnePostDB(id));
+  });
 
   return <React.Fragment>{post && <DetailPost {...post} />}</React.Fragment>;
 };

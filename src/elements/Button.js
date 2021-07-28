@@ -1,8 +1,9 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Button = (props) => {
   const {
+    shape,
     _onClick,
     _onClose,
     children,
@@ -19,7 +20,7 @@ const Button = (props) => {
     border,
     ctg,
     bold,
-    borderBottom
+    borderBottom,
   } = props;
 
   const styles = {
@@ -39,6 +40,36 @@ const Button = (props) => {
     borderBottom: borderBottom,
   };
 
+  if (shape === 'large') {
+    return (
+      <React.Fragment>
+        <LargeButton {...styles} onClick={_onClick} onClose={_onClose}>
+          {children}
+        </LargeButton>
+      </React.Fragment>
+    );
+  }
+
+  if (shape === 'smallLight') {
+    return (
+      <React.Fragment>
+        <SmallLightButton {...styles} onClick={_onClick} onClose={_onClose}>
+          {children}
+        </SmallLightButton>
+      </React.Fragment>
+    );
+  }
+
+  if (shape === 'smallDark') {
+    return (
+      <React.Fragment>
+        <SmallDarkButton {...styles} onClick={_onClick} onClose={_onClose}>
+          {children}
+        </SmallDarkButton>
+      </React.Fragment>
+    );
+  }
+
   return (
     <React.Fragment>
       <ElButton {...styles} onClick={_onClick} onClose={_onClose}>
@@ -49,48 +80,82 @@ const Button = (props) => {
 };
 
 Button.defaultProps = {
+  shape: 'large',
   children: null,
   _onClick: () => {},
   _onClose: () => {},
   margin: false,
-  width: "100%",
-  height: "100%",
-  size: "",
+  width: '100%',
+  height: '100%',
+  size: '',
   padding: false,
-  bg: "",
-  color: "",
-  radius: "",
+  bg: '',
+  color: '',
+  radius: '',
   shadow: false,
-  cursor: "",
-  border: "",
-  ctg: "",
-  bold: "",
-  borderBottom: "",
+  cursor: '',
+  border: '',
+  ctg: '',
+  bold: '',
+  borderBottom: '',
 };
 
 const ElButton = styled.button`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  ${(props) => (props.size ? `font-size: ${props.size};` : "")}
-  ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
-  ${(props) => (props.color ? `color: ${props.color};` : "")}
+  ${(props) => (props.size ? `font-size: ${props.size};` : '')}
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
+  ${(props) => (props.color ? `color: ${props.color};` : '')}
   box-sizing: border-box;
-  ${(props) => (props.radius ? `border-radius: ${props.radius};` : "")}
-  ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
+  ${(props) => (props.radius ? `border-radius: ${props.radius};` : '')}
+  ${(props) => (props.padding ? `padding: ${props.padding};` : '')}
+  ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
   ${(props) =>
-    props.shadow ? `box-shadow: 0.5rem 0.5rem 0.5rem #dcdde1;` : ""}
-  ${(props) => (props.cursor ? `cursor: pointer;` : "")};
-  ${(props) => (props.border ? `border: ${props.border};` : "")}
-  ${(props) => (props.bold ? `font-weight: ${props.bold};` : "")}
-  ${(props) => (props.borderBottom ? `border-bottom: ${props.borderBottom};` : "")}
+    props.shadow ? `box-shadow: 0.5rem 0.5rem 0.5rem #dcdde1;` : ''}
+  ${(props) => (props.cursor ? `cursor: pointer;` : '')};
+  ${(props) => (props.border ? `border: ${props.border};` : '')}
+  ${(props) => (props.bold ? `font-weight: ${props.bold};` : '')}
+  ${(props) =>
+    props.borderBottom ? `border-bottom: ${props.borderBottom};` : ''}
   ${(props) =>
     props.ctg
       ? `&:hover {
       background-color: white;
       border: 0.1rem solid #78e08f;
     }`
-      : ""}
+      : ''}
+`;
+
+const LargeButton = styled.button`
+  width: 320px;
+  height: 50px;
+  background: ${(props) => props.theme.color.bg80};
+  color: #ffffff;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+`;
+
+const SmallLightButton = styled.button`
+  margin: 8px;
+  width: 152px;
+  height: 44px;
+  background: ${(props) => props.theme.color.bg40};
+  color: #ffffff;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+`;
+
+const SmallDarkButton = styled.button`
+  margin: 8px;
+  width: 152px;
+  height: 44px;
+  background: ${(props) => props.theme.color.bg80};
+  color: #ffffff;
+  border: none;
+  outline: none;
+  border-radius: 12px;
 `;
 
 export default Button;

@@ -17,11 +17,39 @@ const initialState = {
 
 const getPostAX = () => {
   return function (dispatch, getState, { history }) {
-    axiosModule.get("/posts").then((res) => {
-      console.log(res);
-      let post_list = [];
-      res.data.forEach((p) => {
-        console.log(p.postId, p.id);
+    axiosModule
+      .get('/posts')
+      .then((res) => {
+        console.log(res);
+        let post_list = [];
+        res.data.forEach((p) => {
+          console.log(p.postId, p.id);
+          let post = {
+            post_id: p.id,
+            title: p.title,
+            contents: p.contents,
+            headCount: p.headCount,
+            orderTime: p.orderTime,
+            address: p.address,
+            insert_dt: p.createdAt,
+            username: p.username,
+          };
+          post_list.push(post);
+        });
+        dispatch(setPost(post_list));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+const getOnePostDB = (postId) => {
+  return function (dispatch, getState, { history }) {
+    axiosModule
+      .get(`/posts/${postId}`)
+      .then((res) => {
+        let p = res.data;
         let post = {
           post_id: p.id,
           title: p.title,
@@ -32,69 +60,28 @@ const getPostAX = () => {
           insert_dt: p.createdAt,
           username: p.username,
         };
-        post_list.push(post);
+        dispatch(setPost([post]));
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      dispatch(setPost(post_list));
-    }).catch((err) => {
-      console.log(err);
-    })
   };
 };
-
-const getOnePostDB = (id) => {
-    axiosModule.get("/posts").then(
-      console.log(res);
-      let post_list = [];
-      res.data.forEach((p) => {
-        let post = {
-          post_id: p.postId,
-          title: p.title,
-          contents: p.contents,
-          headCount: p.headCount,
-          orderTime: p.orderTime,
-          address: p.address,
-          insert_dt: p.createdAt,
-        };
-        post_list.push(post);
-      });
-      dispatch(setPost(post_list));
-    ).catch((err) => {
-      console.log(err);
-    });
-  };
-};
-
-// middelware
-// const getDetailPostDB = (postId) => {
-//   return function (dispatch, getState, { history }) {
-//     axios
-//       .get(`http://localhost:4000/posts/${postId}`)
-//       .then((result) => {
-//         dispatch(getDetailPost(result.data));
-//       })
-//       .catch((err) => {
-//         console.log('에러: ', err);
-//       });
-//   };
-// };
 
 export default handleActions(
   {
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = action.payload.post_list;
+        draft.list.push(...action.payload.post_list);
 
-        // draft.list.push(...action.payload.post_list);
-        // console.log(draft.list.push(...action.payload.post_list));
-
-        // draft.list = draft.list.reduce((acc, cur) => {
-        //   if (acc.findIndex((a) => a.id === cur.id) === -1) {
-        //     return [...acc, cur];
-        //   } else {
-        //     acc[acc.findIndex((a) => a.id === cur.id)] = cur;
-        //     return acc;
-        //   }
-        // }, []);
+        draft.list = draft.list.reduce((acc, cur) => {
+          if (acc.findIndex((a) => a.id === cur.post_id) === -1) {
+            return [...acc, cur];
+          } else {
+            acc[acc.findIndex((a) => a.id === cur.post_id)] = cur;
+            return acc;
+          }
+        }, []);
       }),
 
     [GET_DETAIL_POST]: (state, action) =>

@@ -2,12 +2,14 @@ import React from 'react';
 
 import { Button, Grid, Text } from '../elements';
 import Post from '../components/Post';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
-import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as locateActions } from "../redux/modules/loc";
+import { actionCreators as postActions } from '../redux/modules/post';
+import { actionCreators as locateActions } from '../redux/modules/loc';
 import { actionCreators as userAction } from '../redux/modules/user';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 
 import { history } from '../redux/configureStore';
 
@@ -18,35 +20,48 @@ const Main = (props) => {
   const post_list = useSelector((state) => state.post.list);
   console.log(post_list);
 
-  const [cor_x, setCorX] = React.useState("");
-  const [cor_y, setCorY] = React.useState("");
+  const [cor_x, setCorX] = React.useState('');
+  const [cor_y, setCorY] = React.useState('');
 
   const getLocation = () => {
-    if (navigator.geolocation) { // GPS를 지원하면
-      navigator.geolocation.getCurrentPosition(function(position) {
-        setCorX(position.coords.longitude);
-        setCorY(position.coords.latitude);
-        // alert(position.coords.latitude + ' ' + position.coords.longitude);
-        dispatch(locateActions.getCoordinate(position.coords.longitude, position.coords.latitude));
-      }, function(error) {
-        console.error(error);
-      }, {
-        enableHighAccuracy: false,
-        maximumAge: 0,
-        timeout: Infinity
-      });
+    if (navigator.geolocation) {
+      // GPS를 지원하면
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          setCorX(position.coords.longitude);
+          setCorY(position.coords.latitude);
+          // alert(position.coords.latitude + ' ' + position.coords.longitude);
+          dispatch(
+            locateActions.getCoordinate(
+              position.coords.longitude,
+              position.coords.latitude
+            )
+          );
+        },
+        function (error) {
+          console.error(error);
+        },
+        {
+          enableHighAccuracy: false,
+          maximumAge: 0,
+          timeout: Infinity,
+        }
+      );
     } else {
       alert('GPS를 지원하지 않습니다');
     }
-  }
-  console.log("x: "+cor_x, "y: "+cor_y);
+  };
+  console.log('x: ' + cor_x, 'y: ' + cor_y);
   React.useEffect(() => {
-    dispatch(postActions.getPostAX());
+    if (post_list.length < 2) {
+      dispatch(postActions.getPostAX());
+    }
     getLocation();
   }, []);
 
   return (
     <React.Fragment>
+      <Header></Header>
       <Grid width="50rem" minHeight="50rem" margin="0 auto">
         <Grid is_float="left">
           <Text>#오늘의 인기 메뉴</Text>
@@ -107,6 +122,7 @@ const Main = (props) => {
           return <Post {...p} key={p.post_id} />;
         })}
       </Grid>
+      <Footer></Footer>
     </React.Fragment>
   );
 };
