@@ -80,7 +80,6 @@ const Button = (props) => {
 };
 
 Button.defaultProps = {
-  shape: 'large',
   children: null,
   _onClick: () => {},
   _onClose: () => {},
