@@ -8,10 +8,17 @@ import { history } from '../redux/configureStore';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as userAction } from '../redux/modules/user';
 
-import { Main, LoginRedirect, Tutorial, Upload, DetailPage } from "../pages";
-import RoadAddress from "../components/RoadAddress";
+import {
+  Main,
+  LoginRedirect,
+  Tutorial,
+  Upload,
+  DetailPage,
+  Search,
+} from '../pages';
+import RoadAddress from '../components/RoadAddress';
 
-import { Grid } from "../elements";
+import { Grid } from '../elements';
 
 // 사용자 token 여부
 import { token } from './OAuth';
@@ -36,11 +43,12 @@ function App() {
         <ConnectedRouter history={history}>
           <GlobalStyle />
           <Route path="/" exact component={Main} />
-          <Route path="/searchAddress" exact component={RoadAddress}/>
+          <Route path="/searchAddress" exact component={RoadAddress} />
           <Route path="/post/:id" exact component={DetailPage} />
           <Route path="/user/kakao/callback" exact component={LoginRedirect} />
           <Route path="/tutorial" exact component={Tutorial} />
           <Route path="/upload" exact component={Upload} />
+          <Route path="/search" component={Search}></Route>
         </ConnectedRouter>
       </Grid>
     </React.Fragment>
