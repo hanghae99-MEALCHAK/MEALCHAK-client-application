@@ -1,15 +1,16 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
-import axios from 'axios';
-import axiosModule from '../axios_module';
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import axiosModule from "../axios_module";
 
-import logger from '../../shared/Console';
+import logger from "../../shared/Console";
 
-const SET_POST = 'SET_POST';
-const GET_DETAIL_POST = 'GET_DETAIL_POST';
+const SET_POST = "SET_POST";
+const GET_DETAIL_POST = "GET_DETAIL_POST";
+const ADD_POST = "ADD_POST";
 
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
 const getDetailPost = createAction(GET_DETAIL_POST, (post_id) => ({ post_id }));
+const addPost = createAction(ADD_POST, (post_item) => ({ post_item }));
 
 const initialState = {
   list: [],
@@ -17,53 +18,97 @@ const initialState = {
 
 const getPostAX = () => {
   return function (dispatch, getState, { history }) {
-    axiosModule.get("/posts").then((res) => {
-      console.log(res);
-      let post_list = [];
-      res.data.forEach((p) => {
-        console.log(p.postId, p.id);
-        let post = {
-          post_id: p.id,
-          title: p.title,
-          contents: p.contents,
-          headCount: p.headCount,
-          orderTime: p.orderTime,
-          address: p.address,
-          insert_dt: p.createdAt,
-          username: p.username,
-        };
-        post_list.push(post);
+    axiosModule
+      .get("/posts")
+      .then((res) => {
+        console.log(res);
+        let post_list = [];
+        res.data.forEach((p) => {
+          console.log(p.postId, p.id);
+          let post = {
+            post_id: p.id,
+            title: p.title,
+            contents: p.contents,
+            headCount: p.headCount,
+            orderTime: p.orderTime,
+            address: p.address,
+            insert_dt: p.createdAt,
+            username: p.username,
+          };
+          post_list.push(post);
+        });
+        dispatch(setPost(post_list));
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      dispatch(setPost(post_list));
-    }).catch((err) => {
-      console.log(err);
-    })
   };
 };
 
 const getOnePostDB = (id) => {
-  return function (dispatch, getState, { history }){
-
-    axiosModule.get("/posts").then((res) => {
-      
-      console.log(res);
-      let post_list = [];
-      res.data.forEach((p) => {
-        let post = {
-          post_id: p.postId,
-          title: p.title,
-          contents: p.contents,
-          headCount: p.headCount,
-          orderTime: p.orderTime,
-          address: p.address,
-          insert_dt: p.createdAt,
-        };
-        post_list.push(post);
+  return function (dispatch, getState, { history }) {
+    axiosModule
+      .get("/posts")
+      .then((res) => {
+        console.log(res);
+        let post_list = [];
+        res.data.forEach((p) => {
+          let post = {
+            post_id: p.postId,
+            title: p.title,
+            contents: p.contents,
+            headCount: p.headCount,
+            orderTime: p.orderTime,
+            address: p.address,
+            insert_dt: p.createdAt,
+          };
+          post_list.push(post);
+        });
+        dispatch(setPost(post_list));
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      dispatch(setPost(post_list));
-    }).catch((err) => {
-      console.log(err);
-    });
+  };
+};
+
+const addPostAX = (post_info) => {
+  return function (dispatch, getState, { history }) {
+    axiosModule
+      .post("/posts", {
+        title: post_info.title,
+        headCount: post_info.headCount,
+        category: post_info.foodCategory,
+        address: post_info.place,
+        orderTime: post_info.appointmentTime,
+        contents: post_info.contents,
+        restaurant: post_info.restaurant,
+      })
+      .then((res) => {
+        // const post_item = {
+        //   post_id: res.data.id,
+        //   title: res.data.title,
+        //   contents: res.data.contents,
+        //   headCount: res.data.headCount,
+        //   orderTime: res.data.orderTime,
+        //   address: res.data.address,
+        //   insert_dt: res.data.createdAt,
+        //   username: res.data.username,
+        // };
+        // dispatch(addPost(post_item));
+        window.alert('모집글 작성이 완료되었습니다.')
+
+        // tutorial 이랑 주소 바꾸고 나면 수정해야함
+        window.location.replace('/');
+      })
+      .catch((e) => {
+        logger("모집글 작성 모듈 에러", e)
+        if(window.confirm("모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?")){
+          history.replace('/');
+        } else {
+          history.push('/upload');
+        }
+      });
   };
 };
   
@@ -113,6 +158,10 @@ export default handleActions(
           }
         }, []);
       }),
+    [ADD_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list.unshift(action.payload.post_item);
+      }),
   },
   initialState
 );
@@ -121,6 +170,7 @@ const actionCreators = {
   setPost,
   getPostAX,
   getOnePostDB,
+  addPostAX,
 };
 
 export { actionCreators };
