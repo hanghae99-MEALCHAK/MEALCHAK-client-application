@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { Grid, Text, Input } from "../elements";
-import logger from "../shared/Console";
 import { useState } from "react";
+import theme from "../styles/theme";
 
 const UploadInput = (props) => {
+  const {color, fontSize} = theme;
+
   const [post_info, setPostInfo] = useState({
     place: "",
     restaurant: "",
@@ -20,17 +22,17 @@ const UploadInput = (props) => {
           <Grid>
             <Text
               padding="2.4rem 0 0.8rem"
-              color="#888E95"
+              color={color.bg80}
               bold="700"
-              size="1.6rem"
+              size={fontSize.base}
             >
               모집 장소
             </Text>
             <Input
               border="1px solid #C7C8CE"
               padding="1.5rem 1.3rem"
-              size="1.6rem"
-              color="#C7C8CE"
+              size={fontSize.base}
+              color={color.bg60}
               placeholder="모일 장소를 입력해주세요."
               value={post_info.place}
               _onChange={(e) => {
@@ -44,15 +46,15 @@ const UploadInput = (props) => {
               padding="2.4rem 0 0.8rem"
               color="#888E95"
               bold="700"
-              size="1.6rem"
+              size={fontSize.base}
             >
               배달 예정 음식점
             </Text>
             <Input
               border="1px solid #C7C8CE"
               padding="1.5rem 1.3rem"
-              size="1.6rem"
-              color="#C7C8CE"
+              size={fontSize.base}
+              color={color.bg60}
               placeholder="배달 예정인 음식점을 입력해주세요."
               value={post_info.restaurant}
               _onChange={(e) => {
@@ -65,7 +67,7 @@ const UploadInput = (props) => {
             padding="2.4rem 0 0.8rem"
             color="#888E95"
             bold="700"
-            size="1.6rem"
+            size={fontSize.base}
           >
             모집 인원 수
           </Text>
@@ -74,8 +76,8 @@ const UploadInput = (props) => {
             min="0"
             border="1px solid #C7C8CE"
             padding="1.5rem 1.3rem"
-            size="1.6rem"
-            color="#C7C8CE"
+            size={fontSize.base}
+            color={color.bg60}
             placeholder="모집할 인원 수를 입력해주세요."
             value={`${post_info.headCount}`}
             _onChange={(e) => {
@@ -88,7 +90,7 @@ const UploadInput = (props) => {
               padding="2.4rem 0 0.8rem"
               color="#888E95"
               bold="700"
-              size="1.6rem"
+              size={fontSize.base}
             >
               모집 예정 시간
             </Text>
@@ -96,8 +98,8 @@ const UploadInput = (props) => {
               type="time"
               border="1px solid #C7C8CE"
               padding="1.5rem 1.3rem"
-              size="1.6rem"
-              color="#C7C8CE"
+              size={fontSize.base}
+              color={color.bg60}
               value={post_info.appointmentTime}
               _onChange={(e) => {
                 setPostInfo({
@@ -113,7 +115,7 @@ const UploadInput = (props) => {
               padding="2.4rem 0 0.8rem"
               color="#888E95"
               bold="700"
-              size="1.6rem"
+              size={fontSize.base}
             >
               음식 카테고리
             </Text>
@@ -140,7 +142,7 @@ const UploadInput = (props) => {
                 <option value="중식">중식</option>
                 <option value="일식">일식</option>
                 <option value="양식">양식</option>
-                <option value="디저트">디저트</option>
+                <option value="카페">카페</option>
                 <option value="기타">기타</option>
               </Select>
             </Grid>

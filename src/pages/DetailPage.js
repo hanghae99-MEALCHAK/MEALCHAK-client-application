@@ -1,17 +1,17 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import DetailPost from '../components/DetailPost';
-import { actionCreators as postActions } from '../redux/modules/post';
+import { Grid } from "../elements";
+import { Header, DetailPost } from "../components";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 // 개발환경 console.log() 관리용
-import logger from '../shared/Console';
+import logger from "../shared/Console";
 
 const DetailPage = (props) => {
   const dispatch = useDispatch();
 
   const id = props.match.params.id;
-  logger('PostDetial - 11:', id);
 
   const post_list = useSelector((state) => state.post.list);
 
@@ -25,7 +25,21 @@ const DetailPage = (props) => {
     dispatch(postActions.getOnePostDB(id));
   });
 
-  return <React.Fragment>{post && <DetailPost {...post} />}</React.Fragment>;
+  return (
+    <React.Fragment>
+      <Grid
+        // height="100vh"
+        maxWidth="36rem"
+        border="1px solid #CFCFCF"
+        margin="0 auto"
+      >
+        <Grid shape="container">
+          <Header {...props} shape="상세페이지">{post.title}</Header>
+        </Grid>
+      </Grid>
+      {post && <DetailPost {...post} />}
+    </React.Fragment>
+  );
 };
 
 export default DetailPage;

@@ -1,10 +1,12 @@
 import React from "react";
-import { Grid, Text, Input } from "../elements";
+import { Grid, Input } from "../elements";
 import { useState } from "react";
 import styled from "styled-components";
-import logger from "../shared/Console";
+import theme from "../styles/theme";
 
 const UploadContents = (props) => {
+  const {color, border, fontSize} = theme;
+
   const [post_info, setPostInfo] = useState({
     title: "",
     contents: "",
@@ -13,14 +15,15 @@ const UploadContents = (props) => {
   return (
     <React.Fragment>
       <Container>
-        <Grid padding="0 2rem">
+        <Grid borderBottom={border.line2}>
           <Input
+            padding="1.6rem 2rem"
             type="text"
             border="none"
             placeholder="메뉴를 포함해서 제목을 작성해보세요!"
             length={20}
-            size="1.6rem"
-            color="#B7B7B7"
+            size={fontSize.base}
+            color={color.bg60}
             bold="400"
             value={post_info.title}
             _onChange={(e) => {
@@ -29,25 +32,21 @@ const UploadContents = (props) => {
             }}
           ></Input>
         </Grid>
-        <Grid borderBottom="1px solid #CFCFCF"></Grid>
-        <Grid padding="0 2rem">
+        <Grid padding='0 2rem'>
           <Input
             bold="400"
             border="none"
-            size="1.6rem"
+            size={fontSize.base}
             placeholder="어떤 음식을 함께 즐기고 싶으신가요?"
             multiLine="t"
             length="300"
-            color="#B7B7B7"
+            color={color.bg60}
             value={post_info.contents}
             _onChange={(e) => {
               setPostInfo({ ...post_info, contents: e.target.value });
               props.onChange({ contents: e.target.value });
             }}
           ></Input>
-          <Text text_align="right" color="#C7C8CE" margin="0 auto 2rem">
-            0/300
-          </Text>
         </Grid>
       </Container>
     </React.Fragment>

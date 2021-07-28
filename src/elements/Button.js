@@ -91,6 +91,7 @@ const Button = (props) => {
 };
 
 Button.defaultProps = {
+  shape: '',
   children: null,
   _onClick: () => {},
   _onClose: () => {},
@@ -157,9 +158,10 @@ const ElButton = styled.button`
 `;
 
 const LargeButton = styled.button`
+  ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
   width: 320px;
   height: 50px;
-  background: ${(props) => props.theme.color.bg80};
+  background: ${(props) => props.color? props.color : props.theme.color.bg80};
   color: #ffffff;
   border: none;
   outline: none;
@@ -167,10 +169,10 @@ const LargeButton = styled.button`
 `;
 
 const SmallLightButton = styled.button`
-  margin: 8px;
+  ${(props) => (props.margin ? `margin: ${props.margin};` : '0.8rem')}
   width: 152px;
   height: 44px;
-  background: ${(props) => props.theme.color.bg40};
+  background: ${(props) => props.color? props.color :props.theme.color.bg40};
   color: #ffffff;
   border: none;
   outline: none;
@@ -178,10 +180,10 @@ const SmallLightButton = styled.button`
 `;
 
 const SmallDarkButton = styled.button`
-  margin: 8px;
+  ${(props) => (props.margin ? `margin: ${props.margin};` : '0.8rem')}
   width: 152px;
   height: 44px;
-  background: ${(props) => props.theme.color.bg80};
+  background: ${(props) => props.color? props.color : props.theme.color.bg80};
   color: #ffffff;
   border: none;
   outline: none;

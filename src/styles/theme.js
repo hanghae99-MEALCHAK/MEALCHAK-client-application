@@ -14,6 +14,28 @@ const theme = {
     brand40: '#FFE1C2',
     brand20: '#FFF0E1',
   },
+
+  // 글쓰기용 border
+  border: {
+    line1: "1px solid #CFCFCF",
+    line2: "1px solid #E5E5E5",
+  },
+
+  radius: {
+    button: "1.2rem",
+    postBox: "1.6rem",
+    inputBox: "1.2rem",
+  },
+
+  fontSize: {
+    display1: "4.5rem",
+    display2: "3.4rem",
+    display3: "2.4rem",
+    large: "1.9rem",
+    base: "1.6rem",
+    small: "1.3rem",
+    tiny: "1rem",
+  }
   //   view: {
   //     mobile: `(max-width: 767px)`,
   //     tablet: `(max-width: 1024px)`,

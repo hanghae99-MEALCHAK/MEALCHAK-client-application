@@ -20,14 +20,14 @@ const getPostAX = () => {
     axiosModule
       .get('/posts')
       .then((res) => {
-        console.log(res);
         let post_list = [];
         res.data.forEach((p) => {
-          console.log(p.postId, p.id);
           let post = {
             post_id: p.id,
             title: p.title,
             contents: p.contents,
+            category: p.category,
+            shop: p.restaurant,
             headCount: p.headCount,
             orderTime: p.orderTime,
             address: p.address,
@@ -84,16 +84,12 @@ const addPostAX = (post_info) => {
         window.alert('모집글 작성이 완료되었습니다.');
 
         // tutorial 이랑 주소 바꾸고 나면 수정해야함
-        window.location.replace('/');
+        window.location.replace('/home');
       })
       .catch((e) => {
-        logger('모집글 작성 모듈 에러', e);
-        if (
-          window.confirm(
-            '모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?'
-          )
-        ) {
-          history.replace('/');
+        logger("모집글 작성 모듈 에러", e)
+        if(window.confirm("모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?")){
+          history.replace('/home');
         } else {
           history.push('/upload');
         }
