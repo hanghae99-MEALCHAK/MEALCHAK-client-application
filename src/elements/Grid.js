@@ -41,6 +41,7 @@ const Grid = (props) => {
     text_align,
     updownborder,
     cursor,
+    shape,
     flex_direction,
     align_items,
     justify_content,
@@ -87,6 +88,14 @@ const Grid = (props) => {
     align_items: align_items,
     justify_content: justify_content,
   };
+
+  if(shape==="container"){
+    <React.Fragment>
+      <Container {...styles} onClick={_onClick}>
+        {children}
+      </Container>
+    </React.Fragment>
+  }
 
   return (
     <React.Fragment>
@@ -173,13 +182,13 @@ const GridBox = styled.div`
   ${(props) =>
     props.is_flex_column
       ? `display: flex; flex-direction: column; align-items: center;`
-      : ""}  
-  ${(props) => (props.position ? `position: ${props.position};` : "")}
-  ${(props) => (props.top ? `top: ${props.top};` : "")}
-  ${(props) => (props.left ? `left: ${props.left};` : "")}
-  ${(props) => (props.right ? `right: ${props.right};` : "")}
-  ${(props) => (props.maxHeight ? `max-height: ${props.maxHeight};` : "")}
-  ${(props) => (props.flex ? `display: flex; ` : "")}
+      : ''}  
+  ${(props) => (props.position ? `position: ${props.position}; bottom: 0;` : '')}
+  ${(props) => (props.top ? `top: ${props.top};` : '')}
+  ${(props) => (props.left ? `left: ${props.left};` : '')}
+  ${(props) => (props.right ? `right: ${props.right};` : '')}
+  ${(props) => (props.maxHeight ? `max-height: ${props.maxHeight};` : '')}
+  ${(props) => (props.flex ? `display: flex; ` : '')}
   ${(props) =>
     props.card_flex ? `display: flex; justify-content: center;` : ""}
   ${(props) => (props.wrap ? `flex-wrap: wrap;` : "")}
@@ -214,6 +223,12 @@ const GridBox = styled.div`
         ? `display: flex; align-items: center; justify-content: center;`
         : ""}
   }
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  ${(props) => (props.text_align ? `text-align: ${props.text_align}; ` : '')}
 `;
 
 export default Grid;

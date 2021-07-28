@@ -2,9 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Button, Grid, Text } from "../elements";
-import Post from "../components/Post";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import { Post, Footer, Header } from "../components";
 
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as locateActions } from "../redux/modules/loc";
@@ -38,8 +36,11 @@ const Main = (props) => {
 
   return (
     <React.Fragment>
-      <Header></Header>
       <Grid width="36rem" margin="0 auto">
+        <Grid shape="container">
+          <Header {...props}>홈</Header>
+          <Footer {...props}></Footer>
+        </Grid>
         <Grid is_float="left">
           <Grid height="0.8rem" bg="#f4f4f3" />
           <Grid width="15rem" height="4rem">
@@ -230,7 +231,7 @@ const Main = (props) => {
           return null;
         })}
       </Grid>
-      <Footer></Footer>
+      
     </React.Fragment>
   );
 };
