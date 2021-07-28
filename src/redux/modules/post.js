@@ -21,14 +21,14 @@ const getPostAX = () => {
     axiosModule
       .get("/posts")
       .then((res) => {
-        console.log(res);
         let post_list = [];
         res.data.forEach((p) => {
-          console.log(p.postId, p.id);
           let post = {
             post_id: p.id,
             title: p.title,
             contents: p.contents,
+            category: p.category,
+            shop: p.restaurant,
             headCount: p.headCount,
             orderTime: p.orderTime,
             address: p.address,

@@ -10,11 +10,21 @@ const Text = (props) => {
     children,
     margin,
     width,
+    height,
     padding,
     _onClick,
     cursor,
     is_float,
     text_align,
+    shadow,
+    line_height,
+    text_overflow,
+    overflow,
+    white_space,
+    display,
+    webkit_line,
+    webkit_box_orient,
+    border_bottom,
   } = props;
 
   const styles = {
@@ -24,11 +34,21 @@ const Text = (props) => {
     size: size,
     margin,
     width,
+    height,
     padding: padding,
     _onClick: _onClick,
     cursor,
     is_float: is_float,
     text_align: text_align,
+    shadow: shadow,
+    line_height: line_height,
+    text_overflow: text_overflow,
+    overflow: overflow,
+    white_space: white_space,
+    display: display,
+    webkit_line: webkit_line,
+    webkit_box_orient: webkit_box_orient,
+    border_bottom: border_bottom,
   };
 
   return (
@@ -46,15 +66,23 @@ Text.defaultProps = {
   size: "1.4rem",
   margin: false,
   width: "",
+  height: "",
   padding: false,
   _onClick: () => {},
   cursor: "",
   is_float: "",
   text_align: "",
+  text_overflow: "",
+  overflow: "",
+  white_space: "",
+  display: "",
+  webkit_line: "",
+  webkit_box_orient: "",
+  border_bottom: "",
 };
 
 const P = styled.p`
-  word-break: keep-all;
+  /* word-break: keep-all; */
   color: ${(props) => props.color};
   font-size: ${(props) => props.size};
   font-weight: ${(props) => (props.bold ? "600" : "400")};
@@ -62,9 +90,19 @@ const P = styled.p`
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
   ${(props) => (props.width ? `width: ${props.width};` : "")}
+  ${(props) => (props.height ? `height: ${props.height};` : "")}
   ${(props) => (props.cursor ? `cursor: pointer;` : "")};
-  ${(props) => (props.is_float ? `float: ${props.is_float}` : "")}
-  ${(props) => (props.text_align ? `text-align: ${props.text_align}` : "")}
+  ${(props) => (props.is_float ? `float: ${props.is_float};` : "")}
+  ${(props) => (props.text_align ? `text-align: ${props.text_align};` : "")}
+  ${(props) => (props.shadow ? `text-shadow: ${props.shadow};` : "")}
+  ${(props) => (props.line_height ? `line-height: ${props.line_height};` : "")}
+  ${(props) => (props.text_overflow ? `text-overflow: ${props.text_overflow};` : "")}
+  ${(props) => (props.overflow ? `overflow: ${props.overflow};` : "")}
+  ${(props) => (props.white_space ? `white-space: ${props.white_space};` : "")}
+  ${(props) => (props.display ? `display: ${props.display};` : "")}
+  ${(props) => (props.webkit_line ? `-webkit-line-clamp: ${props.webkit_line};` : "")}
+  ${(props) => (props.webkit_box_orient ? `-webkit-box-orient: ${props.webkit_box_orient};` : "")}
+  ${(props) => (props.border_bottom ? `border-bottom: ${props.border_bottom};` : "")}
 `;
 
 export default Text;
