@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { history } from '../redux/configureStore';
 
 import { Grid, Button, Text, Image } from '../elements';
+
 import theme from '../styles/theme';
 
 const DetailPost = (props) => {
@@ -20,91 +21,124 @@ const DetailPost = (props) => {
 
   const { color } = theme;
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <React.Fragment>
-      <Grid width="60rem" minHeight="50rem" margin="0 auto">
-        <Grid margin="2rem 0rem">
+      <DeatilHeader>
+        <Text size="1.6rem" bold2="700">
+          {title}
+        </Text>
+      </DeatilHeader>
+      <Grid
+        width="30rem"
+        margin="1.6rem auto"
+        padding="1.6rem"
+        is_border="0.1rem solid #EBE9E8"
+        radius="1.6rem"
+      >
+        <Grid>
           <Grid is_flex>
             <Grid width="auto">
-              <Image shape="circle" size="7.15" margin="1rem" />
+              <Image shape="circle" size="4" />
             </Grid>
             <Grid>
-              <Text bold size="16px" color={color.bg100}>
+              <Text bold size="1.3rem" color={color.bg100}>
                 {username}
               </Text>
-              <Text color={color.bg60}>{insert_dt}</Text>
+              <Text width="10rem" size="1rem" color={color.bg60}>
+                {insert_dt}
+              </Text>
             </Grid>
-            <Grid text_align="right" margin="0px 2rem 0px 0px">
-              <Text>2명 남았어요!</Text>
+            <Grid
+              is_flex4
+              width="9.1rem"
+              height="2.3rem"
+              radius="0.5rem"
+              bg={color.bg20}
+            >
+              <Text
+                text_align="center"
+                width="9.1rem"
+                bold2="700"
+                size="1rem"
+                color={color.brand100}
+              >
+                모집 인원 2명/4명
+              </Text>
             </Grid>
           </Grid>
-          <Grid margin="0 0 3rem 0">
-            <Text bold size="16px" color={color.bg100}>
+          <Grid>
+            <Text
+              margin="1.6rem 0 0.8rem 0"
+              bold
+              size="1.6rem"
+              color={color.bg100}
+            >
               {title}
             </Text>
-            <TextBold>{contents}</TextBold>
+            <Text size="1.3rem" color={color.bg100}>
+              {contents}
+            </Text>
           </Grid>
           <GreyLine />
           <Grid>
-            <Text size="16px" color={color.bg80}>
+            <Text margin="0.8rem 0" size="1.3rem" color={color.bg80}>
               배달 받을 곳
             </Text>
-            <Text size="13px" color={color.bg100}>
+            <Text margin="0 0 1.6rem 0" size="1.3rem" color={color.bg100}>
               {address}
             </Text>
           </Grid>
           <GreyLine />
           <Grid is_flex>
             <Grid>
-              <Text size="16px" color={color.bg80}>
+              <Text margin="0.8rem 0" size="1.3rem" color={color.bg80}>
                 배달 식당
               </Text>
-              <Text size="13px" color={color.bg100}>
+              <Text size="1.3rem" color={color.bg100}>
                 어딘가
               </Text>
             </Grid>
-            <Grid is_float="right">
-              <Grid text_align="left" padding="0 0 0 16rem">
-                <Text size="16px" color={color.bg80}>
+            <Grid is_flex>
+              <Grid>
+                <Text margin="0.8rem 0" size="1.3rem" color={color.bg80}>
                   주문 예정 시각
                 </Text>
-                <Text size="13px" color={color.bg100}>
+                <Text size="1.3rem" color={color.bg100}>
                   {orderTime}
                 </Text>
               </Grid>
             </Grid>
           </Grid>
-          <Grid is_flex>
-            <Button shape="large">채팅 시작하기</Button>
-          </Grid>
+          <Grid is_flex></Grid>
         </Grid>
       </Grid>
+      <Button is_float bg={color.brand100}>
+        <Text bold size="1.6rem" color={color.bg0}>
+          채팅 시작하기
+        </Text>
+      </Button>
     </React.Fragment>
   );
 };
 
 DetailPost.defaultProps = {};
 
+const DeatilHeader = styled.div`
+  margin: 1rem auto;
+  text-align: center;
+  vertical-align: middle;
+`;
+
 const GreyLine = styled.div`
   box-sizing: border-box;
-  width: 90%;
+  width: 100%;
   height: 1px;
   margin: 1rem auto;
   background-color: #f1f2f4;
 `;
 
-const TextBold = styled.span`
-  font-family: 'Spoqa Han Sans Neo';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 150%;
-  /* identical to box height, or 19px */
-
-  letter-spacing: -0.01em;
-
-  /* bg100 */
-
-  color: ${(props) => props.theme.color.bg100};
-`;
 export default DetailPost;

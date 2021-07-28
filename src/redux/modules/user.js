@@ -4,14 +4,14 @@ import axiosModule from "../axios_module";
 import jwtDecode from "jwt-decode";
 
 // 개발환경 console.log() 관리용
-import logger from "../../shared/Console";
+import logger from '../../shared/Console';
 
 // token
-import { token } from "../../shared/OAuth";
+import { token } from '../../shared/OAuth';
 
 // Action
-const SET_USER = "SET_USER";
-const LOG_OUT = "LOG_OUT";
+const SET_USER = 'SET_USER';
+const LOG_OUT = 'LOG_OUT';
 
 // Action Creator
 const setUser = createAction(SET_USER, (user_info) => ({ user_info }));
@@ -35,7 +35,7 @@ const kakaoLogin = (code) => {
         const ACCESS_TOKEN = res.data.token;
 
         // 세션에 토큰 저장
-        sessionStorage.setItem("token", ACCESS_TOKEN);
+        sessionStorage.setItem('token', ACCESS_TOKEN);
 
         // 저장된 토큰으로 user 정보 확인 후 리덕스에 저장
         const token = sessionStorage.getItem("token");
@@ -88,13 +88,14 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user = action.payload.user_info;
         draft.is_login = true;
-        logger("set_user 리듀서", draft.user);
+        logger('set_user 리듀서', draft.user);
       }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
-        sessionStorage.removeItem("token");
+        sessionStorage.removeItem('token');
         draft.user = null;
         draft.is_login = false;
+        
         window.location.replace("/home");
         window.alert("로그아웃 되었습니다.");
       }),
@@ -104,7 +105,7 @@ export default handleActions(
 
 const actionCreators = {
   kakaoLogin,
-  loginCheck,
+  // loginCheck,
   logOut,
 };
 

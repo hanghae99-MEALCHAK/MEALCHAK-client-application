@@ -21,6 +21,7 @@ const Button = (props) => {
     ctg,
     bold,
     borderBottom,
+    is_float,
   } = props;
 
   const styles = {
@@ -70,6 +71,16 @@ const Button = (props) => {
     );
   }
 
+  if (is_float) {
+    return (
+      <React.Fragment>
+        <FloatButton {...styles} onClick={_onClick}>
+          {children}
+        </FloatButton>
+      </React.Fragment>
+    );
+  }
+
   return (
     <React.Fragment>
       <ElButton {...styles} onClick={_onClick} onClose={_onClose}>
@@ -98,7 +109,27 @@ Button.defaultProps = {
   ctg: '',
   bold: '',
   borderBottom: '',
+  is_float: false,
 };
+
+const FloatButton = styled.button`
+  width: 320px;
+  height: 50px;
+  ${(props) => (props.size ? `font-size: ${props.size};` : '')}
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
+  ${(props) => (props.color ? `color: ${props.color};` : '')}
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0.8rem;
+  right: 2rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+`;
 
 const ElButton = styled.button`
   width: ${(props) => props.width};

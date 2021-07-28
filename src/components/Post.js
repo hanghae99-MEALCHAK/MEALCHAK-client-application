@@ -6,7 +6,6 @@ import { history } from "../redux/configureStore";
 import logger from "../shared/Console";
 
 const Post = (props) => {
-  console.log("Post:7 : ", props);
   return (
     <React.Fragment>
       <Grid

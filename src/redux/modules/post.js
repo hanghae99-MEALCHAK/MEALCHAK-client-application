@@ -1,15 +1,14 @@
-import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
-import axiosModule from "../axios_module";
+import { createAction, handleActions } from 'redux-actions';
+import { produce } from 'immer';
+import axiosModule from '../axios_module';
 
-import logger from "../../shared/Console";
+import logger from '../../shared/Console';
 
-const SET_POST = "SET_POST";
-const GET_DETAIL_POST = "GET_DETAIL_POST";
-const ADD_POST = "ADD_POST";
+const SET_POST = 'SET_POST';
+const GET_DETAIL_POST = 'GET_DETAIL_POST';
+const ADD_POST = 'ADD_POST';
 
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
-const getDetailPost = createAction(GET_DETAIL_POST, (post_id) => ({ post_id }));
 const addPost = createAction(ADD_POST, (post_item) => ({ post_item }));
 
 const initialState = {
@@ -19,7 +18,7 @@ const initialState = {
 const getPostAX = () => {
   return function (dispatch, getState, { history }) {
     axiosModule
-      .get("/posts")
+      .get('/posts')
       .then((res) => {
         let post_list = [];
         res.data.forEach((p) => {
@@ -64,7 +63,7 @@ const getOnePostDB = (postId) => {
         dispatch(setPost([post]));
       })
       .catch((err) => {
-        console.log(err);
+        logger('post모듈 - getOnePostDB : ', err);
       });
   };
 };
@@ -72,7 +71,7 @@ const getOnePostDB = (postId) => {
 const addPostAX = (post_info) => {
   return function (dispatch, getState, { history }) {
     axiosModule
-      .post("/posts", {
+      .post('/posts', {
         title: post_info.title,
         headCount: post_info.headCount,
         category: post_info.foodCategory,
@@ -82,7 +81,7 @@ const addPostAX = (post_info) => {
         restaurant: post_info.restaurant,
       })
       .then((res) => {
-        window.alert('모집글 작성이 완료되었습니다.')
+        window.alert('모집글 작성이 완료되었습니다.');
 
         // tutorial 이랑 주소 바꾸고 나면 수정해야함
         window.location.replace('/home');

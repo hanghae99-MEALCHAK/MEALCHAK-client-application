@@ -118,7 +118,7 @@ const ButtonCircle = styled.div`
   width: var(--size);
   height: var(--size);
   border-radius: var(--size);
-  background-color: #e1e6e8;
+  background-color: ${(props) => props.theme.color.bg40};
   ${(props) => (props.cursor ? `cursor: pointer;` : '')}
 
   &:hover {
