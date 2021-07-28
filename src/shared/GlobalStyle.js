@@ -6,9 +6,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: "Helvetica", "Arial", sans-serif;
+    font-family: 'Spoqa Han Sans Neo';
     line-height: 1.5;
-    
   }
 
   h2, p {
@@ -23,5 +22,6 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1rem;
   }
 `;
+
 
 export default GlobalStyle;
