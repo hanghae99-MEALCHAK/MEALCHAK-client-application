@@ -111,7 +111,7 @@ const addPostAX = (post_info) => {
       });
   };
 };
-
+  
 // middelware
 // const getDetailPostDB = (postId) => {
 //   return function (dispatch, getState, { history }) {
