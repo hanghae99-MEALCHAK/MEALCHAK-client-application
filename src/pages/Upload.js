@@ -1,25 +1,26 @@
 import React from "react";
-import styled from "styled-components";
 import { useState } from "react";
 import logger from "../shared/Console";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postAction } from "../redux/modules/post";
-import { history } from "../redux/configureStore";
+import { Kakao_auth_url } from "../shared/OAuth";
 
 // style
 import { Button, Grid, Text } from "../elements";
-import UploadInput from "../components/UploadInput";
-import UploadContents from "../components/UploadContents";
+import { UploadInput, UploadContents, Header } from "../components";
+import theme from "../styles/theme";
 
 const Upload = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
-
   const [post_info, setPostInfo] = useState({});
+
+  const {color, border, radius, fontSize} = theme;
 
   const uploadBtn = () => {
     logger("업로드 버튼, post_info", post_info);
 
+    // 모집글 작성 시 상위, 하위 컴포넌트들에서 올바르지 않은 value있을때 처리하는 과정
     if (!post_info.title || post_info.title === "") {
       window.alert("모집글의 제목을 입력해주세요.");
       return;
@@ -56,28 +57,21 @@ const Upload = (props) => {
 
   if (is_login) {
     return (
-      <Grid maxWidth="36rem" border="1px solid #CFCFCF" margin="0 auto">
-        <Container>
-          <Grid is_flex4="t" height="4.4rem">
-            <span
-              className="material-icons-outlined"
-              style={{
-                fontSize: "1.9rem",
-                position: "absolute",
-                marginLeft: "1.2rem",
-              }}
-            >
-              close
-            </span>
-            <Text margin="auto" size="1.6rem" bold2="700">
-              글쓰기
-            </Text>
-          </Grid>
+      <Grid
+        // height="100vh"
+        maxWidth="36rem"
+        border={border.line1}
+        margin="0 auto"
+      >
+        <Grid shape="container">
+          <Header {...props} shape="글쓰기">
+            글쓰기
+          </Header>
           <UploadContents
             onChange={(value) => setPostInfo({ ...post_info, ...value })}
           />
 
-          <Grid borderBottom="1px solid #CFCFCF"></Grid>
+          <Grid borderBottom={border.line2}></Grid>
           <UploadInput
             onChange={(value) => setPostInfo({ ...post_info, ...value })}
           />
@@ -88,56 +82,75 @@ const Upload = (props) => {
             margin="0 auto"
             padding="2.8rem 2rem 2.7rem"
             is_fixed="t"
-            bg="#ffffff"
-            margin="0 auto"
+            bg={color.bg0}
           >
             <Button
-              bg="#FF9425"
+              bg={color.brand100}
               height="5rem"
               border="none"
-              radius="1.4rem"
+              radius={radius.button}
               _onClick={uploadBtn}
             >
-              <Text color="#ffffff" bold2="700" size="1.6rem">
+              <Text color={color.bg0} bold2="700" size={fontSize.base}>
                 밀착할 사람 모집하기
               </Text>
             </Button>
           </Grid>
-        </Container>
+        </Grid>
       </Grid>
     );
   } else {
     return (
-      <Grid maxWidth="36rem" margin="0 auto" padding='2rem'>
-        <Container>
-          <Text size="2.5rem" bold="t" margin="3rem 0.5rem">
-            앗 - 잠깐!
-          </Text>
-          <Text size="1.6rem" bold="t" margin="3rem 0.5rem 3rem">
-            로그인 후에만 글을 쓸 수 있어요!
-          </Text>
-          <Button
-              bg="#FF9425"
-              height="5rem"
-              border="none"
-              radius="1.4rem"
-
-            // 튜토리얼, 메인페이지 주소 변경 후 수정 필요
-              _onClick={() => {history.replace('/tutorial')}}
+      <Grid
+        // height="100vh"
+        maxWidth="36rem"
+        border={border.line1}
+        margin="0 auto"
+      >
+        <Grid shape="container">
+          <Text>로그인 이후 이용가능한 서비스입니다.</Text>
+          <Grid
+            height="auto"
+            maxWidth="35.5rem"
+            margin="0 auto"
+            padding="2.8rem 2rem 2.7rem"
+            is_fixed="t"
+            bg={color.bg0}
+          >
+            <Button
+              shape="large"
+              color="#FEE500"
+              _onClick={() => {
+                window.location.href = `${Kakao_auth_url}`;
+              }}
             >
-              <Text color="#ffffff" bold2="700" size="1.6rem">
-                로그인하러 가기
-              </Text>
+              <Grid is_flex4="t" height="4.4rem">
+                <svg
+                  style={{ position: "absolute", marginLeft: "1.9rem" }}
+                  width="18"
+                  height="17"
+                  viewBox="0 0 18 17"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    opacity="0.9"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M9 0C4.029 0 0 3.13 0 6.989C0.063509 8.21942 0.463823 9.40875 1.15723 10.4272C1.85063 11.4456 2.81048 12.254 3.93201 12.764L2.93201 16.431C2.914 16.5032 2.91832 16.5792 2.9444 16.6489C2.97048 16.7187 3.01708 16.7788 3.07806 16.8215C3.13905 16.8642 3.21157 16.8874 3.28601 16.888C3.36045 16.8886 3.4333 16.8667 3.495 16.825L7.87201 13.925C8.24201 13.961 8.61702 13.982 8.99902 13.982C13.969 13.982 17.999 10.853 17.999 6.993C17.999 3.133 13.969 0.0039978 8.99902 0.0039978"
+                    fill="black"
+                  />
+                </svg>
+                <Text margin="auto" size={fontSize.base} bold2="700">
+                  카카오 로그인
+                </Text>
+              </Grid>
             </Button>
-        </Container>
+          </Grid>
+        </Grid>
       </Grid>
     );
   }
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
 export default Upload;

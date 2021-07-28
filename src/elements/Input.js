@@ -25,7 +25,7 @@ const Input = (props) => {
     return (
       <Grid>
         <ElTextarea
-          rows={11}
+          rows={15}
           value={value}
           color={color}
           placeholder={placeholder}

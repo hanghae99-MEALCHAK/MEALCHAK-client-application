@@ -41,6 +41,7 @@ const Grid = (props) => {
     text_align,
     updownborder,
     cursor,
+    shape,
   } = props;
 
   const styles = {
@@ -81,6 +82,14 @@ const Grid = (props) => {
     updownborder: updownborder,
     cursor: cursor,
   };
+
+  if(shape==="container"){
+    <React.Fragment>
+      <Container {...styles} onClick={_onClick}>
+        {children}
+      </Container>
+    </React.Fragment>
+  }
 
   return (
     <React.Fragment>
@@ -168,7 +177,7 @@ const GridBox = styled.div`
     props.is_flex_column
       ? `display: flex; flex-direction: column; align-items: center;`
       : ''}  
-  ${(props) => (props.position ? `position: ${props.position};` : '')}
+  ${(props) => (props.position ? `position: ${props.position}; bottom: 0;` : '')}
   ${(props) => (props.top ? `top: ${props.top};` : '')}
   ${(props) => (props.left ? `left: ${props.left};` : '')}
   ${(props) => (props.right ? `right: ${props.right};` : '')}
@@ -203,6 +212,12 @@ const GridBox = styled.div`
         ? `display: flex; align-items: center; justify-content: center;`
         : ''}
   }
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  ${(props) => (props.text_align ? `text-align: ${props.text_align}; ` : '')}
 `;
 
 export default Grid;

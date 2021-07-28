@@ -1,15 +1,13 @@
 import React from "react";
 
-import { Button, Grid, Text } from '../elements';
-import Post from '../components/Post';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
+import { Button, Grid, Text } from "../elements";
+import { Post, Footer, Header } from "../components";
 
-import { actionCreators as postActions } from '../redux/modules/post';
-import { actionCreators as locateActions } from '../redux/modules/loc';
-import { actionCreators as userAction } from '../redux/modules/user';
+import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as locateActions } from "../redux/modules/loc";
+import { actionCreators as userAction } from "../redux/modules/user";
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
 import { history } from "../redux/configureStore";
 
@@ -19,7 +17,6 @@ const Main = (props) => {
 
   const post_list = useSelector((state) => state.post.list);
 
-
   React.useEffect(() => {
     if (post_list.length < 2) {
       dispatch(postActions.getPostAX());
@@ -28,7 +25,17 @@ const Main = (props) => {
 
   return (
     <React.Fragment>
-      <Header></Header>
+      <Grid
+        // height="100vh"
+        maxWidth="36rem"
+        border="1px solid #CFCFCF"
+        margin="0 auto"
+      >
+        <Grid shape="container">
+          <Header {...props}>홈</Header>
+          <Footer {...props}></Footer>
+        </Grid>
+      </Grid>
       <Grid width="50rem" minHeight="50rem" margin="0 auto">
         <Grid is_float="left">
           <Text>#오늘의 인기 메뉴</Text>
@@ -89,7 +96,7 @@ const Main = (props) => {
           return <Post {...p} key={p.post_id} />;
         })}
       </Grid>
-      <Footer></Footer>
+      
     </React.Fragment>
   );
 };
