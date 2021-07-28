@@ -42,7 +42,10 @@ const getPostAX = () => {
 };
 
 const getOnePostDB = (id) => {
-    axiosModule.get("/posts").then(
+  return function (dispatch, getState, { history }){
+
+    axiosModule.get("/posts").then((res) => {
+      
       console.log(res);
       let post_list = [];
       res.data.forEach((p) => {
@@ -58,12 +61,12 @@ const getOnePostDB = (id) => {
         post_list.push(post);
       });
       dispatch(setPost(post_list));
-    ).catch((err) => {
+    }).catch((err) => {
       console.log(err);
     });
   };
 };
-
+  
 // middelware
 // const getDetailPostDB = (postId) => {
 //   return function (dispatch, getState, { history }) {

@@ -20,7 +20,7 @@ const getCoordinate = (x, y) => {
     };
     axios
       .get(
-        `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${x}&y=${y}`,
+        `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${x}&y=${y}&input_coord=WGS84`,
         { headers: headers }
       )
       .then((res) => {
@@ -28,6 +28,24 @@ const getCoordinate = (x, y) => {
       });
   };
 };
+
+const getMyCoordinateAX = (address) => {
+  return function (dispatch, getState, { history }) {
+    let rest_api = "3125ba608fbb74bdf912f794ddb65da6";
+    const headers = {
+      Authorization: `KakaoAK ${rest_api}`,
+    };
+    axios
+      .get(
+        `https://dapi.kakao.com/v2/local/search/address.json?analyze_type=exact&query=${address}`,
+        { headers: headers }
+      )
+      .then((res) => {
+        console.log(res);
+      });
+  };
+};
+
 export default handleActions(
   {
     [SET_LOC]: (state, action) =>
@@ -41,6 +59,7 @@ export default handleActions(
 const actionCreators = {
   setLoc,
   getCoordinate,
+  getMyCoordinateAX,
 };
 
 export { actionCreators };
