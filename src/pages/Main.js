@@ -1,13 +1,15 @@
 import React from "react";
 
-import { Button, Grid, Text } from "../elements";
-import Post from "../components/Post";
+import { Button, Grid, Text } from '../elements';
+import Post from '../components/Post';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
-import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as locateActions } from "../redux/modules/loc";
-import { actionCreators as userAction } from "../redux/modules/user";
+import { actionCreators as postActions } from '../redux/modules/post';
+import { actionCreators as locateActions } from '../redux/modules/loc';
+import { actionCreators as userAction } from '../redux/modules/user';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 
 import { history } from "../redux/configureStore";
 
@@ -17,13 +19,16 @@ const Main = (props) => {
 
   const post_list = useSelector((state) => state.post.list);
 
-  
+
   React.useEffect(() => {
-    dispatch(postActions.getPostAX());
+    if (post_list.length < 2) {
+      dispatch(postActions.getPostAX());
+    }
   }, []);
 
   return (
     <React.Fragment>
+      <Header></Header>
       <Grid width="50rem" minHeight="50rem" margin="0 auto">
         <Grid is_float="left">
           <Text>#오늘의 인기 메뉴</Text>
@@ -84,6 +89,7 @@ const Main = (props) => {
           return <Post {...p} key={p.post_id} />;
         })}
       </Grid>
+      <Footer></Footer>
     </React.Fragment>
   );
 };
