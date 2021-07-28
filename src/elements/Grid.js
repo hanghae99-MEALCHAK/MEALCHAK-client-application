@@ -9,6 +9,7 @@ const Grid = (props) => {
     is_flex4,
     flex,
     is_float,
+    is_fixed,
     position,
     padding,
     margin,
@@ -47,6 +48,7 @@ const Grid = (props) => {
     is_flex4: is_flex4,
     flex: flex,
     is_float: is_float,
+    is_fixed: is_fixed,
     review_flex: review_flex,
     post_flex: post_flex,
     position: position,
@@ -93,6 +95,7 @@ Grid.defaultProps = {
   is_flex3: false,
   is_float: false,
   is_flex4: false,
+  is_fixed: false,
   review_flex: false,
   post_flex: false,
   card_flex: false,
@@ -135,6 +138,7 @@ const GridBox = styled.div`
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
   ${(props) => (props.center ? `text-align: ${props.center};` : "")}
+  ${(props) => (props.is_fixed ? `position: fixed; bottom: 0;` : "")}
 
   ${(props) =>
     props.borderBottom ? `border-bottom: ${props.borderBottom};` : ""}
