@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import { history } from "../redux/configureStore";
+import React from 'react';
+import styled from 'styled-components';
+import { history } from '../redux/configureStore';
 
-import { Grid, Button, Text, Image } from "../elements";
+import { Grid, Button, Text, Image } from '../elements';
 
-import theme from "../styles/theme";
+import theme from '../styles/theme';
 
 const DetailPost = (props) => {
   const {
@@ -21,7 +21,7 @@ const DetailPost = (props) => {
     user_id,
   } = props;
 
-  const { color } = theme;
+  const { color, border, radius } = theme;
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -34,7 +34,7 @@ const DetailPost = (props) => {
         margin="1.6rem auto"
         padding="1.6rem"
         is_border="0.1rem solid #EBE9E8"
-        radius="1.6rem"
+        radius={radius.postBox}
       >
         <Grid>
           <Grid is_flex>
@@ -115,9 +115,13 @@ const DetailPost = (props) => {
       </Grid>
       {props.is_me && (
         <Grid text_align="center">
-          <Button shape="large" color={color.bg60} _onClick={() => {
-            history.push(`/upload/${post_id}`)
-          }}>
+          <Button
+            shape="large"
+            color={color.bg60}
+            _onClick={() => {
+              history.push(`/upload/${post_id}`);
+            }}
+          >
             <Text bold size="1.6rem" color={color.bg0}>
               수정하기
             </Text>

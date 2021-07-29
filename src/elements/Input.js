@@ -127,6 +127,7 @@ const ElInput = styled.input`
   }
   &:focus {
     outline: none;
+    /* border: 1px solid #ff9425; */
   }
 `;
 
