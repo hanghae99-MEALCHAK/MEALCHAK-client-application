@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Grid } from '../elements';
-import { Header, DetailPost } from '../components';
+import { Header, DetailPost, Footer } from '../components';
 import { actionCreators as postActions } from '../redux/modules/post';
 
 // 개발환경 console.log() 관리용
@@ -33,7 +33,7 @@ const DetailPage = (props) => {
   return (
     <React.Fragment>
       <Grid
-        // height="100vh"
+        minHeight="100vh"
         maxWidth="36rem"
         border="1px solid #CFCFCF"
         margin="0 auto"
@@ -42,6 +42,7 @@ const DetailPage = (props) => {
           <Header {...props} shape="상세페이지">
             {post?.title}
           </Header>
+          <Footer  {...props}/>
         </Grid>
 
         {post && <DetailPost {...post} is_me={is_me} />}

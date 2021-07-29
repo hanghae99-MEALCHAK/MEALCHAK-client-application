@@ -1,16 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Button, Grid, Text } from "../elements";
+import { Grid, Text } from "../elements";
 import { Post, Footer, Header } from "../components";
 
 import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as locateActions } from "../redux/modules/loc";
-import { actionCreators as userAction } from "../redux/modules/user";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { history } from "../redux/configureStore";
 
 import theme from "../styles/theme";
 
@@ -29,7 +26,6 @@ const Main = (props) => {
     etc: false,
   });
 
-  const user_info = useSelector((state) => state.user.user);
   const post_list = useSelector((state) => state.post.list);
 
   React.useEffect(() => {
@@ -59,19 +55,7 @@ const Main = (props) => {
               #오늘의 인기 메뉴
             </Text>
           </Grid>
-          {user_info && (
-            <Grid width="12rem">
-              <Button
-                _onClick={() => {
-                  dispatch(userAction.logOut());
-                }}
-              >
-                <Text margin="0" size="1.6rem">
-                  로그아웃
-                </Text>
-              </Button>
-            </Grid>
-          )}
+          
           <MainBanner />
           <Grid>
             <Text

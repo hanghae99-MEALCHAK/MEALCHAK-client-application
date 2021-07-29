@@ -63,6 +63,8 @@ const kakaoLogin = (code) => {
   };
 };
 
+// getUserAX 만들어야함 - 마이페이지 user profile
+
 // 페이지가 새로고침 되는 상황마다 user check 후 리덕스에 정보 저장
 const loginCheck = () => {
   return function (dispatch, getState, { history }) {
