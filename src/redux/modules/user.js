@@ -105,7 +105,7 @@ export default handleActions(
 
 const actionCreators = {
   kakaoLogin,
-  // loginCheck,
+  loginCheck,
   logOut,
 };
 
