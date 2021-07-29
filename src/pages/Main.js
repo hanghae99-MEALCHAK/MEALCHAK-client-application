@@ -15,7 +15,7 @@ import { history } from "../redux/configureStore";
 import theme from "../styles/theme";
 
 const Main = (props) => {
-  const { color, border } = theme;
+  const { color, border, fontSize } = theme;
 
   const dispatch = useDispatch();
 
@@ -40,14 +40,14 @@ const Main = (props) => {
 
   return (
     <React.Fragment>
-      <Grid width="36rem" margin="0 auto" border={border.line1}>
+      <Grid maxWidth="36rem" margin="0 auto" border={border.line1}>
         <Grid shape="container">
           <Header {...props}>홈</Header>
           <Footer {...props}></Footer>
         </Grid>
         <Grid is_float="left">
           <Grid height="0.8rem" bg="#f4f4f3" />
-          <Grid width="15rem" height="4rem">
+          <Grid maxWidth="15rem" height="4rem">
             <Text
               shadow="0rem 0.4rem 0.4rem rgba(0, 0, 0, 0.25)"
               size="1.6rem"
@@ -59,19 +59,6 @@ const Main = (props) => {
               #오늘의 인기 메뉴
             </Text>
           </Grid>
-          {user_info && (
-            <Grid width="12rem">
-              <Button
-                _onClick={() => {
-                  dispatch(userAction.logOut());
-                }}
-              >
-                <Text margin="0" size="1.6rem">
-                  로그아웃
-                </Text>
-              </Button>
-            </Grid>
-          )}
           <MainBanner />
           <Grid>
             <Text
@@ -85,7 +72,7 @@ const Main = (props) => {
             </Text>
           </Grid>
           <Grid
-            width="3.4rem"
+            maxWidth="3.4rem"
             height="0.6rem"
             bg="orange"
             margin="0 auto 1rem auto"
@@ -93,7 +80,7 @@ const Main = (props) => {
           <Grid height="0.8rem" bg="#f4f4f3" />
         </Grid>
         <Grid
-          width="33.3rem"
+          maxWidth="33.3rem"
           height="3.2rem"
           margin="0 auto"
           flex
@@ -104,7 +91,7 @@ const Main = (props) => {
           <Text
             width="3rem"
             height="2.4rem"
-            size="1.6rem"
+            size={fontSize.base}
             bold
             margin="0 0.9rem"
             border_bottom={category.all ? "0.1rem solid black" : ""}
@@ -194,7 +181,7 @@ const Main = (props) => {
           </Text>
         </Grid>
         <Hr />
-        <Grid is_flex2 width="32rem" margin="1rem auto">
+        <Grid is_flex2 maxWidth="32rem" margin="1rem auto">
           <Grid>
             <Text size="1.3rem" color="#9A9896" bold2="500">
               정렬 기준
@@ -243,7 +230,7 @@ const Main = (props) => {
 Main.defaultProps = {};
 
 const MainBanner = styled.div`
-  width: 32rem;
+  max-width: 32rem;
   height: 10rem;
   margin: 0 auto;
   border-radius: 1rem;
