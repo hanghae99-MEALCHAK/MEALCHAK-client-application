@@ -45,6 +45,7 @@ const Grid = (props) => {
     flex_direction,
     align_items,
     justify_content,
+    absolute
   } = props;
 
   const styles = {
@@ -87,6 +88,7 @@ const Grid = (props) => {
     flex_direction: flex_direction,
     align_items: align_items,
     justify_content: justify_content,
+    absolute: absolute,
   };
 
   if(shape==="container"){
@@ -146,6 +148,7 @@ Grid.defaultProps = {
   text_align: "",
   updownborder: "",
   cursor: "",
+  absolute: "",
 };
 
 const GridBox = styled.div`
@@ -209,6 +212,7 @@ const GridBox = styled.div`
   ${(props) => (props.align_items ? `align-items: ${props.align_items};` : "")}
   ${(props) =>
     props.justify_content ? `justify-content: ${props.justify_content};` : ""}
+  ${(props) => (props.absolute ? `position: ${props.absolute};` : "")}
 
   @media (min-width: 501px) {
     ${(props) =>

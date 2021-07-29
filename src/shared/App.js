@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as userAction } from '../redux/modules/user';
 
 import { Grid } from "../elements";
-import { Main, LoginRedirect, Tutorial, Upload, DetailPage, Search } from "../pages";
+import { Main, LoginRedirect, Tutorial, Upload, DetailPage, Search, MyPage } from "../pages";
 import RoadAddress from "../components/RoadAddress";
 
 // 사용자 token 여부
@@ -41,6 +41,7 @@ function App() {
           <Route path="/user/kakao/callback" exact component={LoginRedirect} />
           <Route path="/upload" exact component={Upload} />
           <Route path="/search" component={Search}></Route>
+          <Route path="/mypage" component={MyPage}></Route>
         </ConnectedRouter>
       </Grid>
     </React.Fragment>

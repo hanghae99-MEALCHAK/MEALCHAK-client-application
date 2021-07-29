@@ -150,15 +150,15 @@ const Footer = (props) => {
             text_align="center"
             width="9rem"
             _onClick={() => {
-              window.alert("준비중인 서비스입니다.");
+              history.push("/mypage");
             }}
           >
             <svg
               style={{ cursor: "pointer" }}
               margin="auto"
-              width="30"
-              height="30"
-              viewBox="0 0 30 30"
+              width="36"
+              height="36"
+              viewBox="0 0 36 36"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
