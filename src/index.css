@@ -29,12 +29,24 @@ html {
   font-size: 62.5%;
 }
 
-@media all and (min-width: 700px) {
+@media all and (min-width: 1000px) {
   html {
-    font-size: 70%;
+    font-size: 120%;
   }
 }
 
+@media all and (min-width: 700px) {
+  html {
+    font-size: 100%;
+  }
+}
+
+
+@media all and (min-width: 360px) {
+  html {
+    font-size: 75%;
+  }
+}
 /* @media all and (max-width: 800px) {
   html {
     font-size: 50%;

@@ -40,6 +40,7 @@ function App() {
           <Route path="/searchAddress" exact component={RoadAddress}/>
           <Route path="/user/kakao/callback" exact component={LoginRedirect} />
           <Route path="/upload" exact component={Upload} />
+          <Route path="/upload/:id" exact component={Upload} />
           <Route path="/search" component={Search}></Route>
           <Route path="/mypage" component={MyPage}></Route>
         </ConnectedRouter>

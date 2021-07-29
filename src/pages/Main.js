@@ -33,7 +33,7 @@ const Main = (props) => {
   const post_list = useSelector((state) => state.post.list);
 
   React.useEffect(() => {
-    if (post_list.length < 2) {
+    if (post_list.length === 0) {
       dispatch(postActions.getPostAX());
     }
   }, []);
