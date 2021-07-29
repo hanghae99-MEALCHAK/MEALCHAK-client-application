@@ -1,12 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import { history } from "../redux/configureStore";
+import React from 'react';
+import styled from 'styled-components';
+import { history } from '../redux/configureStore';
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postAction } from "../redux/modules/post";
 
-import { Grid, Button, Text, Image } from "../elements";
+import { Grid, Button, Text, Image } from '../elements';
 
-import theme from "../styles/theme";
+import theme from '../styles/theme';
 
 const DetailPost = (props) => {
   const {
@@ -23,10 +23,9 @@ const DetailPost = (props) => {
     user_id,
   } = props;
 
+  const { color, border, radius, fontSize } = theme;
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
-
-  const { color, fontSize } = theme;
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -58,7 +57,7 @@ const DetailPost = (props) => {
         margin="1.6rem auto"
         padding="1.6rem"
         is_border="0.1rem solid #EBE9E8"
-        radius="1.6rem"
+        radius={radius.postBox}
       >
         <Grid>
           <Grid is_flex>
