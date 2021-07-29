@@ -4,14 +4,17 @@ import styled from "styled-components";
 import { Grid, Image, Text, Button } from "../elements";
 import { history } from "../redux/configureStore";
 import logger from "../shared/Console";
+import theme from "../styles/theme";
 
 const Post = (props) => {
+  const {color, fontSize} = theme;
+
   return (
     <React.Fragment>
       <Grid
         width="32rem"
         margin="0 auto 2rem auto"
-        bg="#FFFFFF"
+        bg={color.bg0}
         border="0.1rem solid #EBE9E8"
         radius="1.6rem"
       >
@@ -86,7 +89,7 @@ const Post = (props) => {
               width="29rem"
               height="2rem"
               size="1.3rem"
-              bold
+              bold2="500"
               line_height="150%"
               color="#36373C"
               margin="0 0 1rem 0"
@@ -114,7 +117,7 @@ const Post = (props) => {
               <Text
                 width="13.6rem"
                 size="1.3rem"
-                bold
+                bold2="500"
                 line_height="150%"
                 color="#36373C"
                 margin="0 0 1rem 0"
@@ -140,7 +143,7 @@ const Post = (props) => {
                 <Text
                   width="13.6rem"
                   size="1.3rem"
-                  bold
+                  bold2="500"
                   line_height="150%"
                   color="#36373C"
                   margin="0 0 1rem 0"
@@ -157,6 +160,9 @@ const Post = (props) => {
               radius="1.2rem"
               bg="#FFF0E1"
               border="none"
+              color={color.brand100}
+              size={fontSize.small}
+              bold={fontSize.bold}
               _onClick={() => {
                 history.push(`/post/${props.post_id}`);
               }}
@@ -169,6 +175,9 @@ const Post = (props) => {
               radius="1.2rem"
               bg="#FF9425"
               border="none"
+              color={color.bg0}
+              size={fontSize.small}
+              bold={fontSize.bold}
             >
               채팅 시작하기
             </Button>

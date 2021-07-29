@@ -12,7 +12,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { history } from "../redux/configureStore";
 
+import theme from "../styles/theme";
+
 const Main = (props) => {
+  const { color, border } = theme;
+
   const dispatch = useDispatch();
 
   const [category, setCategory] = React.useState({
@@ -36,7 +40,7 @@ const Main = (props) => {
 
   return (
     <React.Fragment>
-      <Grid width="36rem" margin="0 auto">
+      <Grid width="36rem" margin="0 auto" border={border.line1}>
         <Grid shape="container">
           <Header {...props}>홈</Header>
           <Footer {...props}></Footer>
@@ -47,7 +51,7 @@ const Main = (props) => {
             <Text
               shadow="0rem 0.4rem 0.4rem rgba(0, 0, 0, 0.25)"
               size="1.6rem"
-              color="#36373C"
+              color={color.bg100}
               padding="0.8rem 0"
               margin="0 0 0 2.1rem"
               bold
@@ -230,8 +234,8 @@ const Main = (props) => {
           }
           return null;
         })}
+        <Grid height="6rem" />
       </Grid>
-      
     </React.Fragment>
   );
 };

@@ -35,6 +35,7 @@ const theme = {
     base: "1.6rem",
     small: "1.3rem",
     tiny: "1rem",
+    bold: "600",
   }
   //   view: {
   //     mobile: `(max-width: 767px)`,
