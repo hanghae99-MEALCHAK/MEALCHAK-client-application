@@ -128,7 +128,7 @@ const Upload = (props) => {
 
   if (is_login) {
     return (
-      <Grid maxWidth="36rem" border={border.line1} margin="0 auto">
+      <Grid maxWidth="36rem"  minHeight="100vh" border={border.line1} margin="0 auto">
         <Grid shape="container">
           <Header {...props} shape="글쓰기">
             글쓰기

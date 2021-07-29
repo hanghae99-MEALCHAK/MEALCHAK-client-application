@@ -19,9 +19,9 @@ const Footer = (props) => {
     logger("footer props", props);
   }, []);
 
-  const uploadCheck = () => {
+  const loginCheck = (path) => {
     if(is_login){
-      history.push("/upload");
+      history.push(`/${path}`);
     } else {
       window.alert("로그인이 필요한 기능입니다.\n로그인을 해주세요.");
       history.push("/");
@@ -33,7 +33,7 @@ const Footer = (props) => {
       <Grid
         height="auto"
         maxWidth="36rem"
-        margin="0 auto"
+        margin="0 auto 0 -0.1rem"
         padding="0.5rem 0"
         is_fixed="t"
         bg={color.bg0}
@@ -81,7 +81,9 @@ const Footer = (props) => {
           <Grid
             text_align="center"
             maxWidth="9rem"
-            _onClick={uploadCheck}
+            _onClick={() => {
+              loginCheck("upload")
+            }}
           >
             <svg
               style={{ cursor: "pointer" }}
@@ -160,11 +162,11 @@ const Footer = (props) => {
             text_align="center"
             maxWidth="9rem"
             _onClick={() => {
-              history.push("/mypage");
+              loginCheck("mypage")
             }}
           >
             <svg
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", margin: "0 0 -0.5rem 0"}}
               margin="auto"
               width="36"
               height="36"

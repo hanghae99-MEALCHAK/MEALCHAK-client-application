@@ -82,7 +82,58 @@ const UploadInput = (props) => {
               ></Input>
             </FocusWithin>
           </Grid>
-          <FocusWithin>
+
+//           <FocusWithin>
+
+//           <Text
+//             padding="2.4rem 0 0.8rem"
+//             color="#888E95"
+//             bold="700"
+//             size={fontSize.base}
+//           >
+//             모집 인원 수
+//           </Text>
+//           {/* <Input
+//             type="number"
+//             min="0"
+//             border="1px solid #C7C8CE"
+//             padding="1.5rem 1.3rem"
+//             size={fontSize.base}
+//             color={color.bg60}
+//             placeholder="모집할 인원 수를 입력해주세요."
+//             value={`${post_info.headCount}`}
+//             _onChange={(e) => {
+//               setPostInfo({ ...post_info, headCount: e.target.value });
+//               props.onChange({ headCount: e.target.value });
+//             }}
+//           ></Input> */}
+//           <Grid
+//             border="1px solid #C7C8CE"
+//             padding="0 1.3rem"
+//             radius="1.2rem"
+//             height="auto"
+//           >
+//             <Select
+//               value={`${post_info.headCount}`}
+//               onChange={(e) => {
+//                 setPostInfo({
+//                   ...post_info,
+//                   headCount: e.target.value,
+//                 });
+//                 props.onChange({ headCount: e.target.value });
+//               }}
+//             >
+//               <option value="none" hidden defaultValue>
+//                 모집인원을 선택해주세요.
+//               </option>
+//               <option value="2">2명</option>
+//               <option value="3">3명</option>
+//               <option value="4">4명</option>
+//             </Select>
+//           </Grid>
+//             <Text color="red" size={fontSize.tiny} padding="0.5rem 1rem 0">5인 이상 집합금지로 인원에 제한이 있습니다.</Text>
+//           <Grid>
+
             <Text
               padding="2.4rem 0 0.8rem"
               color="#888E95"
@@ -158,7 +209,7 @@ const UploadInput = (props) => {
                   props.onChange({ foodCategory: e.target.value });
                 }}
               >
-                <option value="" disabled defaultValue hidden>
+                <option value="none" defaultValue hidden>
                   음식 카테고리를 선택해주세요.
                 </option>
                 <option value="한식">한식</option>
