@@ -8,6 +8,7 @@ const SET_POST = "SET_POST";
 const GET_DETAIL_POST = "GET_DETAIL_POST";
 const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
+const DELETE_POST = "DELETE_POST";
 
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
 const addPost = createAction(ADD_POST, (post_item) => ({ post_item }));
@@ -15,6 +16,7 @@ const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
   post,
 }));
+const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
 
 const initialState = {
   list: [],
@@ -155,6 +157,21 @@ const editPostAX = (post_id, post_info) => {
   };
 };
 
+const deletePostAX = (post_id) => {
+  return function (dispatch, getState, { history }) {
+    axiosModule
+      .delete(`/posts/${post_id}`)
+      .then(() => {
+        dispatch(deletePost(post_id));
+        window.alert("모집글 삭제가 완료되었습니다");
+        history.replace("/home");
+      })
+      .catch((e) => {
+        logger("삭제 에러", e);
+      });
+  };
+};
+
 export default handleActions(
   {
     [SET_POST]: (state, action) =>
@@ -195,6 +212,13 @@ export default handleActions(
         );
         draft.list[idx] = { ...draft.list[idx], ...action.payload.post };
       }),
+    [DELETE_POST]: (state, action) =>
+      produce(state, (draft) => {
+        let idx = draft.list.findIndex((p) => p.post_id === action.payload.post_id);
+        if (idx !== -1) {
+          draft.list.splice(idx, 1);
+        }
+      }),
   },
   initialState
 );
@@ -205,6 +229,7 @@ const actionCreators = {
   getOnePostDB,
   addPostAX,
   editPostAX,
+  deletePostAX,
 };
 
 export { actionCreators };

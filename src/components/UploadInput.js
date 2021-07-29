@@ -6,27 +6,29 @@ import theme from "../styles/theme";
 import logger from "../shared/Console";
 
 const UploadInput = (props) => {
-  const {color, fontSize} = theme;
+  const { color, fontSize } = theme;
 
   React.useEffect(() => {
     logger("uploadinput 페이지", props);
   }, []);
 
   const [post_info, setPostInfo] = useState(
-    props.post_info !== {} ? {
-      place: props.post_info.place,
-      restaurant: props.post_info.restaurant,
-      headCount: props.post_info.headCount,
-      appointmentTime: props.post_info.appointmentTime,
-      foodCategory: props.post_info.foodCategory,
-    }:
-    {
-    place: "",
-    restaurant: "",
-    headCount: "",
-    appointmentTime: "",
-    foodCategory: "",
-  });
+    props.post_info !== {}
+      ? {
+          place: props.post_info.place,
+          restaurant: props.post_info.restaurant,
+          headCount: props.post_info.headCount,
+          appointmentTime: props.post_info.appointmentTime,
+          foodCategory: props.post_info.foodCategory,
+        }
+      : {
+          place: "",
+          restaurant: "",
+          headCount: "",
+          appointmentTime: "",
+          foodCategory: "",
+        }
+  );
 
   return (
     <React.Fragment>
@@ -84,7 +86,7 @@ const UploadInput = (props) => {
           >
             모집 인원 수
           </Text>
-          <Input
+          {/* <Input
             type="number"
             min="0"
             border="1px solid #C7C8CE"
@@ -97,7 +99,32 @@ const UploadInput = (props) => {
               setPostInfo({ ...post_info, headCount: e.target.value });
               props.onChange({ headCount: e.target.value });
             }}
-          ></Input>
+          ></Input> */}
+          <Grid
+            border="1px solid #C7C8CE"
+            padding="0 1.3rem"
+            radius="1.2rem"
+            height="auto"
+          >
+            <Select
+              value={`${post_info.headCount}`}
+              onChange={(e) => {
+                setPostInfo({
+                  ...post_info,
+                  headCount: e.target.value,
+                });
+                props.onChange({ headCount: e.target.value });
+              }}
+            >
+              <option value="none" hidden defaultValue>
+                모집인원을 선택해주세요.
+              </option>
+              <option value="2">2명</option>
+              <option value="3">3명</option>
+              <option value="4">4명</option>
+            </Select>
+          </Grid>
+            <Text color="red" size={fontSize.tiny} padding="0.5rem 1rem 0">5인 이상 집합금지로 인원에 제한이 있습니다.</Text>
           <Grid>
             <Text
               padding="2.4rem 0 0.8rem"
@@ -148,7 +175,7 @@ const UploadInput = (props) => {
                   props.onChange({ foodCategory: e.target.value });
                 }}
               >
-                <option value="" disabled defaultValue hidden>
+                <option value="none" defaultValue hidden>
                   음식 카테고리를 선택해주세요.
                 </option>
                 <option value="한식">한식</option>

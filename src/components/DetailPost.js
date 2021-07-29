@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as postAction } from "../redux/modules/post";
 
 import { Grid, Button, Text, Image } from "../elements";
 
@@ -21,11 +23,33 @@ const DetailPost = (props) => {
     user_id,
   } = props;
 
-  const { color } = theme;
+  const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.user.is_login);
+
+  const { color, fontSize } = theme;
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const deleteBtn = () => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      dispatch(postAction.deletePostAX(post_id));
+    } else {
+      return;
+    }
+  };
+
+  const loginCheck = (path) => {
+    if(is_login){
+      window.alert("준비중인 서비스입니다.");
+      return;
+      history.push(`/${path}`);
+    } else {
+      window.alert("로그인이 필요한 기능입니다.\n로그인을 해주세요.");
+      history.push("/");
+    }
+  }
 
   return (
     <React.Fragment>
@@ -113,23 +137,55 @@ const DetailPost = (props) => {
           <Grid is_flex></Grid>
         </Grid>
       </Grid>
-      {props.is_me && (
-        <Grid text_align="center">
-          <Button shape="large" color={color.bg60} _onClick={() => {
-            history.push(`/upload/${post_id}`)
-          }}>
-            <Text bold size="1.6rem" color={color.bg0}>
+      {props.is_me ? (
+        <Grid text_align="center" is_flex width="29rem" margin="0 auto 1rem">
+          <Button
+            width="14rem"
+            height="4.4rem"
+            radius="1.2rem"
+            bg="#FFF0E1"
+            border="none"
+            color={color.brand100}
+            size={fontSize.small}
+            bold={fontSize.bold}
+            _onClick={() => {
+              history.push(`/upload/${post_id}`);
+            }}
+          >
+            <Text bold size="1.6rem" color={color.brand100}>
               수정하기
+            </Text>
+          </Button>
+          <Button
+            width="14rem"
+            height="4.4rem"
+            radius="1.2rem"
+            bg="#FF9425"
+            border="none"
+            color={color.bg0}
+            size={fontSize.small}
+            bold={fontSize.bold}
+            _onClick={deleteBtn}
+          >
+            <Text bold size="1.6rem" color={color.bg0}>
+              삭제하기
+            </Text>
+          </Button>
+        </Grid>
+      ) : (
+        <Grid text_align="center">
+          <Button
+            shape="large"
+            color={color.brand100}
+            size={fontSize.small}
+            _onClick={() => {loginCheck("chat")}}
+          >
+            <Text bold size="1.6rem" color={color.bg0}>
+              채팅 시작하기
             </Text>
           </Button>
         </Grid>
       )}
-
-      <Button is_float bg={color.brand100}>
-        <Text bold size="1.6rem" color={color.bg0}>
-          채팅 시작하기
-        </Text>
-      </Button>
     </React.Fragment>
   );
 };
