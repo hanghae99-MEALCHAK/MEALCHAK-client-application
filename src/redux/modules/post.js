@@ -54,6 +54,8 @@ const getOnePostDB = (postId) => {
           post_id: p.id,
           title: p.title,
           contents: p.contents,
+          category: p.category,
+          shop: p.restaurant,
           headCount: p.headCount,
           orderTime: p.orderTime,
           address: p.address,
@@ -87,8 +89,12 @@ const addPostAX = (post_info) => {
         window.location.replace('/home');
       })
       .catch((e) => {
-        logger("모집글 작성 모듈 에러", e)
-        if(window.confirm("모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?")){
+        logger('모집글 작성 모듈 에러', e);
+        if (
+          window.confirm(
+            '모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?'
+          )
+        ) {
           history.replace('/home');
         } else {
           history.push('/upload');

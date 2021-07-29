@@ -15,6 +15,7 @@ const DetailPost = (props) => {
     address,
     orderTime,
     contents,
+    shop,
     createdAt,
     username,
   } = props;
@@ -99,7 +100,7 @@ const DetailPost = (props) => {
                 배달 식당
               </Text>
               <Text size="1.3rem" color={color.bg100}>
-                어딘가
+                {props.shop}
               </Text>
             </Grid>
             <Grid is_flex>

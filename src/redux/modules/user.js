@@ -1,7 +1,7 @@
-import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
-import axiosModule from "../axios_module";
-import jwtDecode from "jwt-decode";
+import { createAction, handleActions } from 'redux-actions';
+import { produce } from 'immer';
+import axiosModule from '../axios_module';
+import jwtDecode from 'jwt-decode';
 
 // 개발환경 console.log() 관리용
 import logger from '../../shared/Console';
@@ -30,7 +30,7 @@ const kakaoLogin = (code) => {
       .get(`user/kakao/callback?code=${code}`)
       .then((res) => {
         // 인가코드에 관한 응답으로 jwt token 받음
-        logger("user모듈 - 36", res);
+        logger('user모듈 - 36', res);
 
         const ACCESS_TOKEN = res.data.token;
 
@@ -38,10 +38,10 @@ const kakaoLogin = (code) => {
         sessionStorage.setItem('token', ACCESS_TOKEN);
 
         // 저장된 토큰으로 user 정보 확인 후 리덕스에 저장
-        const token = sessionStorage.getItem("token");
+        const token = sessionStorage.getItem('token');
 
         // jwtDecode를 이용해서 user 정보 서버에 요청없이 확인 후 저장
-        logger("user 정보 decoding", jwtDecode(token));
+        logger('user 정보 decoding', jwtDecode(token));
         const user_nickname = jwtDecode(token).username;
         const user_id = jwtDecode(token).userId;
 
@@ -53,12 +53,12 @@ const kakaoLogin = (code) => {
         );
 
         window.alert(`${user_nickname}님 환영합니다.`);
-        window.location.replace("/home");
+        window.location.replace('/home');
       })
       .catch((err) => {
-        logger("user 모듈 74 - 소셜로그인 에러", err);
-        window.alert("로그인에 실패하였습니다.");
-        history.replace("/"); // 로그인 실패하면 로그인화면으로 돌려보냄
+        logger('user 모듈 74 - 소셜로그인 에러', err);
+        window.alert('로그인에 실패하였습니다.');
+        history.replace('/'); // 로그인 실패하면 로그인화면으로 돌려보냄
       });
   };
 };
@@ -95,9 +95,9 @@ export default handleActions(
         sessionStorage.removeItem('token');
         draft.user = null;
         draft.is_login = false;
-        
-        window.location.replace("/home");
-        window.alert("로그아웃 되었습니다.");
+
+        window.location.replace('/home');
+        window.alert('로그아웃 되었습니다.');
       }),
   },
   initialState
@@ -105,7 +105,7 @@ export default handleActions(
 
 const actionCreators = {
   kakaoLogin,
-  // loginCheck,
+  loginCheck,
   logOut,
 };
 
