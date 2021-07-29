@@ -3,14 +3,27 @@ import { Grid, Input } from "../elements";
 import { useState } from "react";
 import styled from "styled-components";
 import theme from "../styles/theme";
+import logger from "../shared/Console";
+
 
 const UploadContents = (props) => {
-  const {color, border, fontSize} = theme;
+  const { color, border, fontSize } = theme;
 
-  const [post_info, setPostInfo] = useState({
-    title: "",
-    contents: "",
-  });
+  React.useEffect(() => {
+    logger("uploadinput 페이지", props);
+  }, []);
+
+  const [post_info, setPostInfo] = useState(
+    props.post_info !== {}
+      ? {
+          title: props.post_info.title,
+          contents: props.post_info.contents,
+        }
+      : {
+          title: "",
+          contents: "",
+        }
+  );
 
   return (
     <React.Fragment>
@@ -32,7 +45,7 @@ const UploadContents = (props) => {
             }}
           ></Input>
         </Grid>
-        <Grid padding='0 2rem'>
+        <Grid padding="0 2rem">
           <Input
             bold="400"
             border="none"

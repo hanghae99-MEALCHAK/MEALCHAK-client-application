@@ -3,11 +3,24 @@ import styled from "styled-components";
 import { Grid, Text, Input } from "../elements";
 import { useState } from "react";
 import theme from "../styles/theme";
+import logger from "../shared/Console";
 
 const UploadInput = (props) => {
   const {color, fontSize} = theme;
 
-  const [post_info, setPostInfo] = useState({
+  React.useEffect(() => {
+    logger("uploadinput 페이지", props);
+  }, []);
+
+  const [post_info, setPostInfo] = useState(
+    props.post_info !== {} ? {
+      place: props.post_info.place,
+      restaurant: props.post_info.restaurant,
+      headCount: props.post_info.headCount,
+      appointmentTime: props.post_info.appointmentTime,
+      foodCategory: props.post_info.foodCategory,
+    }:
+    {
     place: "",
     restaurant: "",
     headCount: "",

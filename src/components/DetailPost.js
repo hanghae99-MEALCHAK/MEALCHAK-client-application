@@ -1,14 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
-import { history } from '../redux/configureStore';
+import React from "react";
+import styled from "styled-components";
+import { history } from "../redux/configureStore";
 
-import { Grid, Button, Text, Image } from '../elements';
+import { Grid, Button, Text, Image } from "../elements";
 
-import theme from '../styles/theme';
+import theme from "../styles/theme";
 
 const DetailPost = (props) => {
   const {
-    postId,
+    post_id,
     title,
     headCount,
     insert_dt,
@@ -18,6 +18,7 @@ const DetailPost = (props) => {
     shop,
     createdAt,
     username,
+    user_id,
   } = props;
 
   const { color } = theme;
@@ -28,11 +29,6 @@ const DetailPost = (props) => {
 
   return (
     <React.Fragment>
-      <DeatilHeader>
-        <Text size="1.6rem" bold2="700">
-          {title}
-        </Text>
-      </DeatilHeader>
       <Grid
         width="30rem"
         margin="1.6rem auto"
@@ -67,7 +63,7 @@ const DetailPost = (props) => {
                 size="1rem"
                 color={color.brand100}
               >
-                모집 인원 2명/4명
+                모집 인원 2명/{headCount}명
               </Text>
             </Grid>
           </Grid>
@@ -117,6 +113,18 @@ const DetailPost = (props) => {
           <Grid is_flex></Grid>
         </Grid>
       </Grid>
+      {props.is_me && (
+        <Grid text_align="center">
+          <Button shape="large" color={color.bg60} _onClick={() => {
+            history.push(`/upload/${post_id}`)
+          }}>
+            <Text bold size="1.6rem" color={color.bg0}>
+              수정하기
+            </Text>
+          </Button>
+        </Grid>
+      )}
+
       <Button is_float bg={color.brand100}>
         <Text bold size="1.6rem" color={color.bg0}>
           채팅 시작하기

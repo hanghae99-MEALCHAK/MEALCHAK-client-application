@@ -1,6 +1,7 @@
 import React from "react";
 import logger from "../shared/Console";
 import { history } from "../redux/configureStore";
+import { useSelector } from "react-redux";
 
 import { Grid, Text } from "../elements";
 import theme from "../styles/theme";
@@ -10,11 +11,22 @@ const Footer = (props) => {
   const { color } = theme;
 
   const path = props.match.path;
+  const is_login = useSelector((state) => state.user.is_login);
+
 
   // props로 받아온 주소정보로 현재위치 탭 color 변경
   React.useEffect(() => {
     logger("footer props", props);
   }, []);
+
+  const uploadCheck = () => {
+    if(is_login){
+      history.push("/upload");
+    } else {
+      window.alert("로그인이 필요한 기능입니다.\n로그인을 해주세요.");
+      history.push("/");
+    }
+  }
 
   return (
     <React.Fragment>
@@ -36,7 +48,7 @@ const Footer = (props) => {
         >
           <Grid
             text_align="center"
-            width="9rem"
+            maxWidth="9rem"
             _onClick={() => {
               history.push("/home");
             }}
@@ -68,10 +80,8 @@ const Footer = (props) => {
 
           <Grid
             text_align="center"
-            width="9rem"
-            _onClick={() => {
-              history.push("/upload");
-            }}
+            maxWidth="9rem"
+            _onClick={uploadCheck}
           >
             <svg
               style={{ cursor: "pointer" }}
@@ -102,7 +112,7 @@ const Footer = (props) => {
 
           <Grid
             text_align="center"
-            width="9rem"
+            maxWidth="9rem"
             _onClick={() => {
               window.alert("준비중인 서비스입니다.");
             }}
@@ -148,17 +158,17 @@ const Footer = (props) => {
 
           <Grid
             text_align="center"
-            width="9rem"
+            maxWidth="9rem"
             _onClick={() => {
-              window.alert("준비중인 서비스입니다.");
+              history.push("/mypage");
             }}
           >
             <svg
               style={{ cursor: "pointer" }}
               margin="auto"
-              width="30"
-              height="30"
-              viewBox="0 0 30 30"
+              width="36"
+              height="36"
+              viewBox="0 0 36 36"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
