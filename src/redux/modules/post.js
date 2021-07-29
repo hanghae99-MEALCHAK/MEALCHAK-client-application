@@ -60,6 +60,8 @@ const getOnePostDB = (postId) => {
           post_id: p.id,
           title: p.title,
           contents: p.contents,
+          category: p.category,
+          shop: p.restaurant,
           headCount: p.headCount,
           orderTime: p.orderTime,
           address: p.address,
