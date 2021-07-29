@@ -33,7 +33,7 @@ const Footer = (props) => {
       <Grid
         height="auto"
         maxWidth="36rem"
-        margin="0 auto"
+        margin="0 auto 0 -0.1rem"
         padding="0.5rem 0"
         is_fixed="t"
         bg={color.bg0}
@@ -166,7 +166,7 @@ const Footer = (props) => {
             }}
           >
             <svg
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", margin: "0 0 -0.5rem 0"}}
               margin="auto"
               width="36"
               height="36"
