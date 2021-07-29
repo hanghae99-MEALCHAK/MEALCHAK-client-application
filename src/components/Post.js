@@ -12,45 +12,45 @@ const Post = (props) => {
   return (
     <React.Fragment>
       <Grid
-        width="32rem"
+        maxWidth="32rem"
         margin="0 auto 2rem auto"
         bg={color.bg0}
         border="0.1rem solid #EBE9E8"
-        radius="1.6rem"
+        radius={fontSize.base}
       >
         <Grid is_float="left" margin="0.5rem 1.5rem 1.5rem 1.5rem">
           <Grid is_flex>
             <UserProfile />
             <Grid>
               <Grid is_flex>
-                <Text size="1.3rem" color="#36373C" bold2="500">
+                <Text size={fontSize.small} color={color.bg100} bold2="500">
                   {props.username}
                 </Text>
                 <Grid
-                  width="9.1rem"
+                  maxWidth="9.1rem"
                   height="2.3rem"
-                  bg="#F4F4F3"
+                  bg={color.bg20}
                   radius="0.5rem"
                   padding="0.4rem 0.8rem"
                   margin="0 3.3rem 0 0"
                 >
-                  <Text size="1rem" text_align="center" color="#FF9425" bold>
+                  <Text size="1rem" text_align="center" color={color.brand100} bold>
                     모집 인원 2/4명
                   </Text>
                 </Grid>
               </Grid>
-              <Text size="1rem" color="#9A9896" bold2="400">
+              <Text size="1rem" color={color.bg80} bold2="400">
                 {props.insert_dt}
               </Text>
             </Grid>
           </Grid>
         </Grid>
-        <Grid width="29rem" margin="0 1.5rem">
+        <Grid maxWidth="29rem" margin="0 1.5rem">
           <Grid>
             <Text
-              size="1.6rem"
+              size={fontSize.postBox}
               line_height="150%"
-              color="#36373C"
+              color={color.bg100}
               bold
               margin="0 0 1rem 0"
             >
@@ -59,9 +59,9 @@ const Post = (props) => {
             <Text
               width="28.8rem"
               height="4rem"
-              size="1.3rem"
+              size={fontSize.small}
               line_height="150%"
-              color="36373C"
+              color={color.bg100}
               bold2="400"
               overflow="hidden"
               display="-webkit-box"
@@ -77,10 +77,10 @@ const Post = (props) => {
           <Hr />
           <Grid>
             <Text
-              size="1.3rem"
+              size={fontSize.small}
               bold2="400"
               line_height="150%"
-              color="#9A9896"
+              color={color.bg80}
               margin="1rem 0"
             >
               배달 받을 곳
@@ -106,10 +106,10 @@ const Post = (props) => {
           <Grid is_flex align_items="center">
             <Grid>
               <Text
-                size="1.3rem"
+                size={fontSize.small}
                 bold2="400"
                 line_height="150%"
-                color="#9A9896"
+                color={color.bg80}
                 margin="1rem 0"
               >
                 배달 식당
@@ -132,10 +132,10 @@ const Post = (props) => {
             <Grid is_float="right">
               <Grid text_align="left" padding="0 0 0 1rem">
                 <Text
-                  size="1.3rem"
+                  size={fontSize.small}
                   bold2="400"
                   line_height="150%"
-                  color="#9A9896"
+                  color={color.bg80}
                   margin="1rem 0"
                 >
                   주문 예정 시각
@@ -153,12 +153,12 @@ const Post = (props) => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid is_flex width="29rem" margin="0 0 1.5rem 0">
+          <Grid is_flex maxWidth="29rem" margin="0 0 1.5rem 0">
             <Button
               width="14rem"
               height="4.4rem"
               radius="1.2rem"
-              bg="#FFF0E1"
+              bg={color.brand20}
               border="none"
               color={color.brand100}
               size={fontSize.small}
@@ -173,7 +173,7 @@ const Post = (props) => {
               width="14rem"
               height="4.4rem"
               radius="1.2rem"
-              bg="#FF9425"
+              bg={color.brand100}
               border="none"
               color={color.bg0}
               size={fontSize.small}
