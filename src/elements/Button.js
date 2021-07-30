@@ -160,9 +160,8 @@ const ElButton = styled.button`
 const LargeButton = styled.button`
   ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
   width: 100%;
-  height: 50px;
-  background: ${(props) =>
-    props.color ? props.color : props.theme.color.bg80};
+  height: 5rem;
+  background: ${(props) => props.color? props.color : props.theme.color.bg80};
   color: #ffffff;
   border: none;
   outline: none;

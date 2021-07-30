@@ -1,5 +1,6 @@
-import React from 'react';
-import { history } from '../redux/configureStore';
+import React from "react";
+import { history } from "../redux/configureStore";
+import { useSelector } from "react-redux";
 // kakao login
 import { Kakao_auth_url } from '../shared/OAuth';
 import { useSelector } from 'react-redux';
@@ -64,7 +65,7 @@ const Tutorial = (props) => {
               shape="large"
               color={color.brand20}
               _onClick={() => {
-                history.push('/home');
+                history.push("/home");
               }}
             >
               <Text

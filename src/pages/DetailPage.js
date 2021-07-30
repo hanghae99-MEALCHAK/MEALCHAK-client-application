@@ -26,10 +26,10 @@ const DetailPage = (props) => {
   React.useEffect(() => {
     if (post) {
       return;
-    }
+    } 
     dispatch(postActions.getPostAX());
   },[]);
-  
+
   return (
     <React.Fragment>
       <Grid
@@ -44,7 +44,8 @@ const DetailPage = (props) => {
           </Header>
           <Footer {...props} />
         </Grid>
-        {post && <DetailPost {...post} is_me={is_me} />}
+
+        {post && <DetailPost {...post} is_me={is_me}/>}
       </Grid>
     </React.Fragment>
   );
