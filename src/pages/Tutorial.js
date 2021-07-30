@@ -3,7 +3,6 @@ import { history } from "../redux/configureStore";
 import { useSelector } from "react-redux";
 // kakao login
 import { Kakao_auth_url } from '../shared/OAuth';
-import { useSelector } from 'react-redux';
 
 // style
 import { Button, Grid, Text } from '../elements';
