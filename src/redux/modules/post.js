@@ -47,7 +47,7 @@ const getPostAX = () => {
         dispatch(setPost(post_list));
       })
       .catch((err) => {
-        console.log(err);
+        logger("ErrorMessage: ", err)
       });
   };
 };

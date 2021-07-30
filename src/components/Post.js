@@ -34,7 +34,7 @@ const Post = (props) => {
                   padding="0.4rem 0.8rem"
                   margin="0 3.3rem 0 0"
                 >
-                  <Text size="1rem" text_align="center" color={color.brand100} bold>
+                  <Text size="1rem" text_align="center" color={color.success100} bold>
                     모집 인원 2/4명
                   </Text>
                 </Grid>
@@ -83,7 +83,7 @@ const Post = (props) => {
               color={color.bg80}
               margin="1rem 0"
             >
-              배달 받을 곳
+              모집 장소
             </Text>
             <Text
               width="29rem"

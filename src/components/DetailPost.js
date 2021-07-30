@@ -172,7 +172,7 @@ const DetailPost = (props) => {
           </Button>
         </Grid>
       ) : (
-        <Grid text_align="center">
+        <Grid text_align="center" maxWidth="32rem" margin="0 auto">
           <Button
             shape="large"
             color={color.brand100}
