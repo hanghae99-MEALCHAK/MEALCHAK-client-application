@@ -3,6 +3,7 @@ import { produce } from "immer";
 import axiosModule from "../axios_module";
 
 import logger from "../../shared/Console";
+import { actionCreators as userActions } from "./user";
 
 const SET_POST = "SET_POST";
 const GET_DETAIL_POST = "GET_DETAIL_POST";
@@ -20,10 +21,12 @@ const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
 
 const initialState = {
   list: [],
+  is_loaded: false,
 };
 
 const getPostAX = () => {
   return function (dispatch, getState, { history }) {
+    dispatch(userActions.loading(true));
     axiosModule
       .get("/posts")
       .then((res) => {
@@ -45,6 +48,7 @@ const getPostAX = () => {
           post_list.push(post);
         });
         dispatch(setPost(post_list));
+        dispatch(userActions.loading(false));
       })
       .catch((err) => {
         console.log(err);

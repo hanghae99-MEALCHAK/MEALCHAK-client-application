@@ -7,6 +7,7 @@ import { actionCreators as postAction } from "../redux/modules/post";
 import { Grid, Button, Text, Image } from '../elements';
 
 import theme from '../styles/theme';
+import logger from '../shared/Console';
 
 const DetailPost = (props) => {
   const {
@@ -29,6 +30,7 @@ const DetailPost = (props) => {
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
+    logger("is_me", props.is_me)
   }, []);
 
   const deleteBtn = () => {
@@ -172,7 +174,7 @@ const DetailPost = (props) => {
           </Button>
         </Grid>
       ) : (
-        <Grid text_align="center">
+        <Grid maxWidth="32rem" margin="0 auto">
           <Button
             shape="large"
             color={color.brand100}

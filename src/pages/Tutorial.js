@@ -1,5 +1,6 @@
 import React from "react";
 import { history } from "../redux/configureStore";
+import { useSelector } from "react-redux";
 // kakao login
 import { Kakao_auth_url } from "../shared/OAuth";
 
@@ -8,7 +9,16 @@ import { Button, Grid, Text } from "../elements";
 import theme from "../styles/theme";
 
 const Tutorial = (props) => {
-  const {color, border, fontSize} = theme;
+  const is_login = useSelector((state) => state.user.is_login);
+  const { color, border, fontSize } = theme;
+  
+  React.useEffect(() => {
+    if (is_login) {
+      window.alert("로그인 한 사용자입니다. 홈으로 돌아갑니다.");
+      history.replace("/home");
+    }
+  });
+
 
   return (
     <React.Fragment>
@@ -21,12 +31,7 @@ const Tutorial = (props) => {
         text_align="center"
       >
         <Grid shape="container">
-          <Grid
-            maxWidth="32rem"
-            height="auto"
-            margin="0 auto"
-            is_fixed="t"
-          >
+          <Grid maxWidth="32rem" height="auto" margin="0 auto" is_fixed="t">
             <Button
               shape="large"
               color="#FEE500"
@@ -61,10 +66,15 @@ const Tutorial = (props) => {
               shape="large"
               color={color.brand20}
               _onClick={() => {
-                history.push('/home');
+                history.push("/home");
               }}
             >
-              <Text margin="auto" size={fontSize.base} bold2="700" color={color.brand100}>
+              <Text
+                margin="auto"
+                size={fontSize.base}
+                bold2="700"
+                color={color.brand100}
+              >
                 밀착 둘러보기
               </Text>
             </Button>
