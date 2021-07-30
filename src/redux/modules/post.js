@@ -1,14 +1,14 @@
-import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
-import axiosModule from "../axios_module";
+import { createAction, handleActions } from 'redux-actions';
+import { produce } from 'immer';
+import axiosModule from '../axios_module';
 
-import logger from "../../shared/Console";
+import logger from '../../shared/Console';
 
-const SET_POST = "SET_POST";
-const GET_DETAIL_POST = "GET_DETAIL_POST";
-const ADD_POST = "ADD_POST";
-const EDIT_POST = "EDIT_POST";
-const DELETE_POST = "DELETE_POST";
+const SET_POST = 'SET_POST';
+const GET_DETAIL_POST = 'GET_DETAIL_POST';
+const ADD_POST = 'ADD_POST';
+const EDIT_POST = 'EDIT_POST';
+const DELETE_POST = 'DELETE_POST';
 
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
 const addPost = createAction(ADD_POST, (post_item) => ({ post_item }));
@@ -25,7 +25,7 @@ const initialState = {
 const getPostAX = () => {
   return function (dispatch, getState, { history }) {
     axiosModule
-      .get("/posts")
+      .get('/posts')
       .then((res) => {
         let post_list = [];
         res.data.forEach((p) => {
@@ -41,6 +41,7 @@ const getPostAX = () => {
             insert_dt: p.createdAt,
             username: p.username,
             user_id: p.userId,
+            userImg: p.userImg,
           };
           post_list.push(post);
         });
@@ -70,11 +71,12 @@ const getOnePostDB = (postId) => {
           insert_dt: p.createdAt,
           username: p.username,
           user_id: p.userId,
+          userImg: p.userImg,
         };
         dispatch(setPost([post]));
       })
       .catch((err) => {
-        logger("post모듈 - getOnePostDB : ", err);
+        logger('post모듈 - getOnePostDB : ', err);
       });
   };
 };
@@ -82,7 +84,7 @@ const getOnePostDB = (postId) => {
 const addPostAX = (post_info) => {
   return function (dispatch, getState, { history }) {
     axiosModule
-      .post("/posts", {
+      .post('/posts', {
         title: post_info.title,
         headCount: post_info.headCount,
         category: post_info.foodCategory,
@@ -92,19 +94,19 @@ const addPostAX = (post_info) => {
         restaurant: post_info.restaurant,
       })
       .then((res) => {
-        window.alert("모집글 작성이 완료되었습니다.");
-        window.location.replace("/home");
+        window.alert('모집글 작성이 완료되었습니다.');
+        window.location.replace('/home');
       })
       .catch((e) => {
-        logger("모집글 작성 모듈 에러", e);
+        logger('모집글 작성 모듈 에러', e);
         if (
           window.confirm(
-            "모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?"
+            '모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?'
           )
         ) {
-          history.replace("/home");
+          history.replace('/home');
         } else {
-          history.push("/upload");
+          history.push('/upload');
         }
       });
   };
@@ -123,7 +125,7 @@ const editPostAX = (post_id, post_info) => {
         restaurant: post_info.restaurant,
       })
       .then((res) => {
-        logger("수정 후 res", res);
+        logger('수정 후 res', res);
         let post = {
           post_id: res.data.id,
           title: res.data.title,
@@ -139,17 +141,17 @@ const editPostAX = (post_id, post_info) => {
         };
 
         dispatch(editPost(post_id, post));
-        window.alert("모집글 수정이 완료되었습니다.");
+        window.alert('모집글 수정이 완료되었습니다.');
         window.location.replace(`/post/${post_id}`);
       })
       .catch((e) => {
-        logger("모집글 수정 모듈 에러", e);
+        logger('모집글 수정 모듈 에러', e);
         if (
           window.confirm(
-            "모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?"
+            '모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?'
           )
         ) {
-          history.replace("/home");
+          history.replace('/home');
         } else {
           history.push(`/post/${post_id}`);
         }
@@ -163,11 +165,11 @@ const deletePostAX = (post_id) => {
       .delete(`/posts/${post_id}`)
       .then(() => {
         dispatch(deletePost(post_id));
-        window.alert("모집글 삭제가 완료되었습니다");
-        history.replace("/home");
+        window.alert('모집글 삭제가 완료되었습니다');
+        history.replace('/home');
       })
       .catch((e) => {
-        logger("삭제 에러", e);
+        logger('삭제 에러', e);
       });
   };
 };
@@ -214,7 +216,9 @@ export default handleActions(
       }),
     [DELETE_POST]: (state, action) =>
       produce(state, (draft) => {
-        let idx = draft.list.findIndex((p) => p.post_id === action.payload.post_id);
+        let idx = draft.list.findIndex(
+          (p) => p.post_id === action.payload.post_id
+        );
         if (idx !== -1) {
           draft.list.splice(idx, 1);
         }

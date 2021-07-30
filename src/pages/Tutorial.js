@@ -1,11 +1,12 @@
-import React from "react";
-import { history } from "../redux/configureStore";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { history } from '../redux/configureStore';
 // kakao login
-import { Kakao_auth_url } from "../shared/OAuth";
+import { Kakao_auth_url } from '../shared/OAuth';
+import { useSelector } from 'react-redux';
+
 // style
-import { Button, Grid, Text } from "../elements";
-import theme from "../styles/theme";
+import { Button, Grid, Text } from '../elements';
+import theme from '../styles/theme';
 
 const Tutorial = (props) => {
   const {color, border, fontSize} = theme;
@@ -28,12 +29,7 @@ const Tutorial = (props) => {
         text_align="center"
       >
         <Grid shape="container">
-          <Grid
-            maxWidth="32rem"
-            height="auto"
-            margin="0 auto"
-            is_fixed="t"
-          >
+          <Grid maxWidth="32rem" height="auto" margin="0 auto" is_fixed="t">
             <Button
               shape="large"
               color="#FEE500"
@@ -43,7 +39,7 @@ const Tutorial = (props) => {
             >
               <Grid is_flex4="t" height="4.4rem">
                 <svg
-                  style={{ position: "absolute", marginLeft: "1.9rem" }}
+                  style={{ position: 'absolute', marginLeft: '1.9rem' }}
                   width="18"
                   height="17"
                   viewBox="0 0 18 17"
@@ -71,7 +67,12 @@ const Tutorial = (props) => {
                 history.push('/home');
               }}
             >
-              <Text margin="auto" size={fontSize.base} bold2="700" color={color.brand100}>
+              <Text
+                margin="auto"
+                size={fontSize.base}
+                bold2="700"
+                color={color.brand100}
+              >
                 밀착 둘러보기
               </Text>
             </Button>

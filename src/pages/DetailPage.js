@@ -17,6 +17,7 @@ const DetailPage = (props) => {
   const user_info = useSelector((state) => state.user.user);
   const post_idx = post_list.findIndex((p) => p.post_id === parseInt(id));
   const post = post_list[post_idx];
+
   logger("디테일페이지 -", post);
   const is_me = post?.user_id === user_info?.user_id ? true : false;
   

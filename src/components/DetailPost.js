@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { history } from '../redux/configureStore';
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postAction } from "../redux/modules/post";
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as postAction } from '../redux/modules/post';
 
 import { Grid, Button, Text, Image } from '../elements';
 
@@ -32,7 +32,7 @@ const DetailPost = (props) => {
   }, []);
 
   const deleteBtn = () => {
-    if (window.confirm("삭제하시겠습니까?")) {
+    if (window.confirm('삭제하시겠습니까?')) {
       dispatch(postAction.deletePostAX(post_id));
     } else {
       return;
@@ -40,15 +40,15 @@ const DetailPost = (props) => {
   };
 
   const loginCheck = (path) => {
-    if(is_login){
-      window.alert("준비중인 서비스입니다.");
+    if (is_login) {
+      window.alert('준비중인 서비스입니다.');
       return;
       history.push(`/${path}`);
     } else {
-      window.alert("로그인이 필요한 기능입니다.\n로그인을 해주세요.");
-      history.push("/");
+      window.alert('로그인이 필요한 기능입니다.\n로그인을 해주세요.');
+      history.push('/');
     }
-  }
+  };
 
   return (
     <React.Fragment>
@@ -177,7 +177,9 @@ const DetailPost = (props) => {
             shape="large"
             color={color.brand100}
             size={fontSize.small}
-            _onClick={() => {loginCheck("chat")}}
+            _onClick={() => {
+              loginCheck('chat');
+            }}
           >
             <Text bold size="1.6rem" color={color.bg0}>
               채팅 시작하기
