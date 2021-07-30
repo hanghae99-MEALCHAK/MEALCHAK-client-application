@@ -5,5 +5,6 @@ import Upload from './Upload';
 import DetailPage from './DetailPage';
 import Search from './Search';
 import MyPage from './MyPage';
+import RoadAddress from "./RoadAddress";
 
-export { LoginRedirect, Main, Tutorial, Upload, DetailPage, Search, MyPage };
+export { LoginRedirect, Main, Tutorial, Upload, DetailPage, Search, MyPage, RoadAddress };

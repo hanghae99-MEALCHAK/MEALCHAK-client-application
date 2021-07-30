@@ -2,24 +2,23 @@ import React from "react";
 import { history } from "../redux/configureStore";
 import { useSelector } from "react-redux";
 // kakao login
-import { Kakao_auth_url } from "../shared/OAuth";
+import { Kakao_auth_url } from '../shared/OAuth';
+import { useSelector } from 'react-redux';
 
 // style
-import { Button, Grid, Text } from "../elements";
-import theme from "../styles/theme";
+import { Button, Grid, Text } from '../elements';
+import theme from '../styles/theme';
 
 const Tutorial = (props) => {
+  const {color, border, fontSize} = theme;
   const is_login = useSelector((state) => state.user.is_login);
-  const { color, border, fontSize } = theme;
-  
+
   React.useEffect(() => {
-    if (is_login) {
-      window.alert("로그인 한 사용자입니다. 홈으로 돌아갑니다.");
+    if(is_login) {
+      window.alert("로그인 한 사용자입니다. 홈으로 돌아갑니다.")
       history.replace("/home");
     }
-  });
-
-
+  })
   return (
     <React.Fragment>
       <Grid
@@ -41,7 +40,7 @@ const Tutorial = (props) => {
             >
               <Grid is_flex4="t" height="4.4rem">
                 <svg
-                  style={{ position: "absolute", marginLeft: "1.9rem" }}
+                  style={{ position: 'absolute', marginLeft: '1.9rem' }}
                   width="18"
                   height="17"
                   viewBox="0 0 18 17"

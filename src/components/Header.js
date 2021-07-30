@@ -3,9 +3,13 @@ import styled from "styled-components";
 import logger from "../shared/Console";
 import { history } from "../redux/configureStore";
 
+import { useSelector } from "react-redux";
+
 import { Grid, Text, Image } from "../elements";
 
 const Header = (props) => {
+  const is_login = useSelector((state) => state.user.is_login);
+
   React.useEffect(() => {
     // 헤더 props로는 page별 상위컴포넌트에서 내려받는 history, shape이 있음
     logger("헤더 props", props);
@@ -16,12 +20,43 @@ const Header = (props) => {
   if (props.shape === "홈") {
     return (
       <React.Fragment>
-        <Grid is_flex4="t" height="4.4rem" margin="0 auto 0.8rem" bg="#ffffff">
-          <Grid width="24px" margin="0 0 0 1.3rem" />
-          <Text margin="auto" size="1.6rem" bold2="700">
-            {props.children}
+        <Grid
+          is_flex2="t"
+          height="4.4rem"
+          margin="0.8rem auto 0.8rem"
+          bg="#ffffff"
+        >
+          {/* <Grid width="24px" margin="0 0 0 1.3rem" /> */}
+          <Text
+            margin="0 1rem 0 0"
+            size="1.6rem"
+            bold2="700"
+            _onClick={() => {
+              if (!is_login) {
+                window.alert("로그인이 필요한 기능입니다.\n로그인을 해주세요.");
+                return history.push("/");
+              }
+              history.replace("/address");
+            }}
+          >
+            {is_login ? props.children : "주소 default값"}
           </Text>
           <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4 7L10 13L16 7"
+              stroke="#36373C"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          {/* <svg
             style={{ marginRight: "1.3rem", cursor: "pointer" }}
             width="24"
             height="24"
@@ -40,7 +75,7 @@ const Header = (props) => {
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-          </svg>
+          </svg> */}
         </Grid>
       </React.Fragment>
     );
@@ -176,6 +211,32 @@ const Header = (props) => {
     );
   }
 
+  // 주소 입력페이지일때
+  if (props.shape === "주소입력") {
+    return (
+      <React.Fragment>
+        <Grid is_flex4="t" height="4.4rem" margin="0.8rem auto 0.8rem" bg="#ffffff">
+          <span
+            className="material-icons-outlined"
+            style={{
+              fontSize: "1.9rem",
+              position: "absolute",
+              marginLeft: "1.2rem",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              history.replace("/home");
+            }}
+          >
+            close
+          </span>
+          <Text margin="auto" size="1.6rem" bold2="700">
+            {props.children}
+          </Text>
+        </Grid>
+      </React.Fragment>
+    );
+  }
   return (
     <React.Fragment>
       <Grid is_flex4="t" height="4.4rem" margin="0 auto 0.8rem">

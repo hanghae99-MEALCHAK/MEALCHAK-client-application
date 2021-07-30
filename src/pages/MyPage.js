@@ -158,7 +158,6 @@ const MyPage = (props) => {
               </>
             )}
           </Grid>
-
           <Grid
             bg={color.brand20}
             is_flex4="t"
@@ -227,7 +226,6 @@ const MyPage = (props) => {
               내가 쓴 글
             </Text>
           </Grid>
-
           <Grid
             is_flex4="t"
             padding="1.9rem 2rem"

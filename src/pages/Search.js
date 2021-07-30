@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,7 +24,7 @@ const Search = (props) => {
 
   const search = () => {
     dispatch(searchActions.getSearchListDB(food));
-    setFood('');
+    // setFood('');
   };
 
   return (
@@ -88,13 +89,46 @@ const Search = (props) => {
             </Text>
           </Grid>
         </Grid>
-
-        {search_list.map((p, idx) => {
-          return <Post {...p} key={p.id} />;
-        })}
+        {food ? (
+          <Grid>
+            {search_list.length === 0 ? (
+              <Grid maxWidth="30rem" margin="5rem auto">
+                <ZeroImg />
+              </Grid>
+            ) : (
+              <Grid>
+                {search_list.map((p, idx) => {
+                  return <Post {...p} key={p.id} />;
+                })}
+              </Grid>
+            )}
+          </Grid>
+        ) : (
+          <Grid maxWidth="30rem" margin="5rem auto">
+            <SearchLogoImg />
+          </Grid>
+        )}
       </Grid>
     </React.Fragment>
   );
 };
+
+Search.defaultProps = {};
+
+const SearchLogoImg = styled.div`
+  width: 30rem;
+  height: 30rem;
+  border-radius: 2rem;
+  background-image: url('https://cdn.pixabay.com/photo/2017/12/27/12/40/colorful-doodle-3042581_960_720.jpg');
+  background-size: 30rem 30rem;
+`;
+
+const ZeroImg = styled.div`
+  width: 30rem;
+  height: 30rem;
+  border-radius: 2rem;
+  background-image: url('https://cdn.pixabay.com/photo/2017/01/27/17/12/number-2013601__340.png');
+  background-size: 30rem 30rem;
+`;
 
 export default Search;

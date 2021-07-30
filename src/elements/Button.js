@@ -172,7 +172,8 @@ const SmallLightButton = styled.button`
   ${(props) => (props.margin ? `margin: ${props.margin};` : '0.8rem')}
   width: 152px;
   height: 44px;
-  background: ${(props) => props.color? props.color :props.theme.color.bg40};
+  background: ${(props) =>
+    props.color ? props.color : props.theme.color.bg40};
   color: #ffffff;
   border: none;
   outline: none;
@@ -183,7 +184,8 @@ const SmallDarkButton = styled.button`
   ${(props) => (props.margin ? `margin: ${props.margin};` : '0.8rem')}
   width: 152px;
   height: 44px;
-  background: ${(props) => props.color? props.color : props.theme.color.bg80};
+  background: ${(props) =>
+    props.color ? props.color : props.theme.color.bg80};
   color: #ffffff;
   border: none;
   outline: none;
