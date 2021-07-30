@@ -1,20 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Grid, Text } from "../elements";
+import { Grid, Text, Button } from "../elements";
 import { Post, Footer, Header } from "../components";
 
 import { actionCreators as postActions } from "../redux/modules/post";
-
 import { useDispatch, useSelector } from "react-redux";
-
+import { history } from "../redux/configureStore";
 
 import theme from "../styles/theme";
 
 const Main = (props) => {
-  const { color, border, fontSize } = theme;
+  const { color, border, btn_border, fontSize } = theme;
 
   const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.user.is_login);
+  const post_list = useSelector((state) => state.post.list);
 
   const [category, setCategory] = React.useState({
     all: true,
@@ -26,7 +27,14 @@ const Main = (props) => {
     etc: false,
   });
 
-  const post_list = useSelector((state) => state.post.list);
+  // 주소 입력창 이동 함수
+  // const moveToAddress = () => {
+  //   if (is_login === false) {
+  //     window.alert("로그인이 필요한 기능입니다.\n로그인을 해주세요.");
+  //     return history.push("/");
+  //   }
+  //   return history.push("/address");
+  // };
 
   React.useEffect(() => {
     if (post_list.length === 0) {
@@ -36,13 +44,60 @@ const Main = (props) => {
 
   return (
     <React.Fragment>
-      <Grid maxWidth="36rem" margin="0 auto" border={border.line1}>
+      <Grid
+        minWidth="36rem"
+        maxWidth="36rem"
+        margin="0 auto"
+        border={border.line1}
+      >
         <Grid shape="container">
-          <Header {...props}>홈</Header>
+          <Header {...props} shape="홈">서울 영등포구 의사당대로 83</Header>
           <Footer {...props}></Footer>
         </Grid>
+        <Grid width="36rem" margin="0 0 1rem 0">
+          <Button
+            width="32rem"
+            height="4.4rem"
+            margin="0 1.8rem"
+            padding="0 0 0 1.5rem"
+            bg={color.bg0}
+            border={btn_border.bg40}
+            radius="1.2rem"
+          >
+            <Text
+              width="17rem"
+              height="2rem"
+              size={fontSize.small}
+              bold2="400"
+              line_height="150%"
+              color={color.bg80}
+            >
+              오늘은 어떤 음식을 배달 시킬까?
+            </Text>
+            <svg
+              style={{
+                position: "absolute",
+                top: "6.5rem",
+                margin: "0 0 0 12rem",
+              }}
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="11" cy="11" r="6" stroke="#36373C" stroke-width="2" />
+              <path
+                d="M16 16C17.1716 17.1716 19 19 19 19"
+                stroke="#36373C"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </Button>
+        </Grid>
         <Grid is_float="left">
-          <Grid height="0.8rem" bg="#f4f4f3" />
           <Grid maxWidth="15rem" height="4rem">
             <Text
               shadow="0rem 0.4rem 0.4rem rgba(0, 0, 0, 0.25)"

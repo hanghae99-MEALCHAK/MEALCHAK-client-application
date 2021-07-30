@@ -13,12 +13,18 @@ const theme = {
     brand60: '#FFCC97',
     brand40: '#FFE1C2',
     brand20: '#FFF0E1',
+    success100: '#54BD58',
   },
 
   // 글쓰기용 border
   border: {
     line1: "1px solid #CFCFCF",
     line2: "1px solid #E5E5E5",
+  },
+
+  // 버튼 border
+  btn_border: {
+    bg40: "0.1rem solid #EBE9E8",
   },
 
   radius: {

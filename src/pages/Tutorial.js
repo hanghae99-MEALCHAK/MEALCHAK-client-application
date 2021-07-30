@@ -1,15 +1,22 @@
 import React from "react";
 import { history } from "../redux/configureStore";
+import { useSelector } from "react-redux";
 // kakao login
 import { Kakao_auth_url } from "../shared/OAuth";
-
 // style
 import { Button, Grid, Text } from "../elements";
 import theme from "../styles/theme";
 
 const Tutorial = (props) => {
   const {color, border, fontSize} = theme;
+  const is_login = useSelector((state) => state.user.is_login);
 
+  React.useEffect(() => {
+    if(is_login) {
+      window.alert("로그인 한 사용자입니다. 홈으로 돌아갑니다.")
+      history.replace("/home");
+    }
+  })
   return (
     <React.Fragment>
       <Grid
