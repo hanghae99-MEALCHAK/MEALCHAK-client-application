@@ -9,6 +9,7 @@ const axiosModule = axios.create({
   },
   // baseURL: "http://115.85.182.57:8080",
   baseURL: 'http://52.78.204.238:8080',
+//   baseURL: "http://52.78.204.238",
 });
 
 axiosModule.interceptors.request.use((config) => {

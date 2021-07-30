@@ -3,21 +3,21 @@ import { history } from '../redux/configureStore';
 // kakao login
 import { Kakao_auth_url } from '../shared/OAuth';
 import { useSelector } from 'react-redux';
+
 // style
 import { Button, Grid, Text } from '../elements';
 import theme from '../styles/theme';
 
 const Tutorial = (props) => {
-  const { color, border, fontSize } = theme;
+  const {color, border, fontSize} = theme;
   const is_login = useSelector((state) => state.user.is_login);
 
   React.useEffect(() => {
-    if (is_login) {
-      window.alert('로그인 한 사용자입니다. 홈으로 들어갑니다.');
-      history.replace('/home');
+    if(is_login) {
+      window.alert("로그인 한 사용자입니다. 홈으로 돌아갑니다.")
+      history.replace("/home");
     }
-  });
-
+  })
   return (
     <React.Fragment>
       <Grid
