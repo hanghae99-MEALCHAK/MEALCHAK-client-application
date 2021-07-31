@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Text = (props) => {
   const {
@@ -25,6 +25,8 @@ const Text = (props) => {
     webkit_line,
     webkit_box_orient,
     border_bottom,
+    bg,
+    radius,
   } = props;
 
   const styles = {
@@ -49,6 +51,8 @@ const Text = (props) => {
     webkit_line: webkit_line,
     webkit_box_orient: webkit_box_orient,
     border_bottom: border_bottom,
+    bg: bg,
+    radius: radius,
   };
 
   return (
@@ -62,47 +66,57 @@ Text.defaultProps = {
   children: null,
   bold: false,
   bold2: false,
-  color: "#222831",
-  size: "1.4rem",
+  color: '#222831',
+  size: '1.4rem',
   margin: false,
-  width: "",
-  height: "",
+  width: '',
+  height: '',
   padding: false,
   _onClick: () => {},
-  cursor: "",
-  is_float: "",
-  text_align: "",
-  text_overflow: "",
-  overflow: "",
-  white_space: "",
-  display: "",
-  webkit_line: "",
-  webkit_box_orient: "",
-  border_bottom: "",
+  cursor: '',
+  is_float: '',
+  text_align: '',
+  text_overflow: '',
+  overflow: '',
+  white_space: '',
+  display: '',
+  webkit_line: '',
+  webkit_box_orient: '',
+  border_bottom: '',
+  bg: false,
+  radius: '',
 };
 
 const P = styled.p`
   /* word-break: keep-all; */
   color: ${(props) => props.color};
   font-size: ${(props) => props.size};
-  font-weight: ${(props) => (props.bold ? "600" : "400")};
-  ${(props) => (props.bold2 ? `font-weight: ${props.bold2};` : "")}
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
-  ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
-  ${(props) => (props.width ? `width: ${props.width};` : "")}
-  ${(props) => (props.height ? `height: ${props.height};` : "")}
-  ${(props) => (props.cursor ? `cursor: pointer;` : "")};
-  ${(props) => (props.is_float ? `float: ${props.is_float};` : "")}
-  ${(props) => (props.text_align ? `text-align: ${props.text_align};` : "")}
-  ${(props) => (props.shadow ? `text-shadow: ${props.shadow};` : "")}
-  ${(props) => (props.line_height ? `line-height: ${props.line_height};` : "")}
-  ${(props) => (props.text_overflow ? `text-overflow: ${props.text_overflow};` : "")}
-  ${(props) => (props.overflow ? `overflow: ${props.overflow};` : "")}
-  ${(props) => (props.white_space ? `white-space: ${props.white_space};` : "")}
-  ${(props) => (props.display ? `display: ${props.display};` : "")}
-  ${(props) => (props.webkit_line ? `-webkit-line-clamp: ${props.webkit_line};` : "")}
-  ${(props) => (props.webkit_box_orient ? `-webkit-box-orient: ${props.webkit_box_orient};` : "")}
-  ${(props) => (props.border_bottom ? `border-bottom: ${props.border_bottom};` : "")}
+  font-weight: ${(props) => (props.bold ? '600' : '400')};
+  ${(props) => (props.bold2 ? `font-weight: ${props.bold2};` : '')}
+  ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
+  ${(props) => (props.padding ? `padding: ${props.padding};` : '')}
+  ${(props) => (props.width ? `width: ${props.width};` : '')}
+  ${(props) => (props.height ? `height: ${props.height};` : '')}
+  ${(props) => (props.cursor ? `cursor: pointer;` : '')};
+  ${(props) => (props.is_float ? `float: ${props.is_float};` : '')}
+  ${(props) => (props.text_align ? `text-align: ${props.text_align};` : '')}
+  ${(props) => (props.shadow ? `text-shadow: ${props.shadow};` : '')}
+  ${(props) => (props.line_height ? `line-height: ${props.line_height};` : '')}
+  ${(props) =>
+    props.text_overflow ? `text-overflow: ${props.text_overflow};` : ''}
+  ${(props) => (props.overflow ? `overflow: ${props.overflow};` : '')}
+  ${(props) => (props.white_space ? `white-space: ${props.white_space};` : '')}
+  ${(props) => (props.display ? `display: ${props.display};` : '')}
+  ${(props) =>
+    props.webkit_line ? `-webkit-line-clamp: ${props.webkit_line};` : ''}
+  ${(props) =>
+    props.webkit_box_orient
+      ? `-webkit-box-orient: ${props.webkit_box_orient};`
+      : ''}
+  ${(props) =>
+    props.border_bottom ? `border-bottom: ${props.border_bottom};` : ''}
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
+  ${(props) => (props.radius ? `border-radius: ${props.radius};` : '')}
 `;
 
 export default Text;

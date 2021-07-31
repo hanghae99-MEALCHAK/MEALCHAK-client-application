@@ -7,5 +7,6 @@ import Search from './Search';
 import MyPage from './MyPage';
 import RoadAddress from "./RoadAddress";
 import ChatRoomList from './ChatRoomList';
+import PostAddress from "./PostAddress";
 
-export { LoginRedirect, Main, Tutorial, Upload, DetailPage, Search, MyPage, RoadAddress, ChatRoomList };
+export { LoginRedirect, Main, Tutorial, Upload, DetailPage, Search, MyPage, RoadAddress, PostAddress, ChatRoomList };

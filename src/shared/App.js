@@ -10,7 +10,7 @@ import { actionCreators as userAction } from "../redux/modules/user";
 
 import Spinner from "./Spinner";
 import { Grid } from "../elements";
-import { Main, LoginRedirect, Tutorial, Upload, DetailPage, Search, MyPage, RoadAddress, ChatRoomList } from "../pages";
+import { Main, LoginRedirect, Tutorial, Upload, DetailPage, Search, MyPage, RoadAddress, PostAddress, ChatRoomList } from "../pages";
 
 // 사용자 token 여부
 import { token } from "./OAuth";
@@ -48,6 +48,7 @@ function App() {
           <Route path="/home" exact component={Main} />
           <Route path="/post/:id" exact component={DetailPage} />
           <Route path="/address" exact component={RoadAddress}/>
+          <Route path="/postAddress" exact component={PostAddress}/>
           <Route path="/user/kakao/callback" exact component={LoginRedirect} />
           <Route path="/upload" exact component={Upload} />
           <Route path="/upload/:id" exact component={Upload} />

@@ -16,7 +16,7 @@ const Upload = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const post_list = useSelector((state) => state.post.list);
-
+  logger("Upload:19: ", props);
   // style
   const { color, border, radius, fontSize } = theme;
 
@@ -29,6 +29,7 @@ const Upload = (props) => {
   let _post = post_list[post_idx];
 
   React.useEffect(() => {
+    window.scrollTo(0, 0);
     if (is_edit && !_post) {
       window.alert("해당게시물을 찾을 수 없습니다.");
       history.goBack();

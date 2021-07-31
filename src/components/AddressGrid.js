@@ -19,7 +19,15 @@ const AddressGrid = (props) => {
         border={border.line1}
       >
         <Grid shape="container">
-          <Header {...props} shape="주소입력">주소 입력</Header>
+          {props.is_post ? (
+            <Header {...props} shape="주소입력">
+              배달 주소 입력
+            </Header>
+          ) : (
+            <Header {...props} shape="주소입력">
+              주소 입력
+            </Header>
+          )}
         </Grid>
         {props.children}
       </Grid>
