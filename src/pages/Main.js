@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Grid, Text, Button } from "../elements";
-import { Post, Footer, Header } from "../components";
+import { Grid, Text, Button } from '../elements';
+import { Post, Footer, Header, MainBannerTest } from '../components';
 
 import { actionCreators as postActions } from "../redux/modules/post";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import logger from '../shared/Console';
 
-import theme from "../styles/theme";
+import theme from '../styles/theme';
 
 const Main = (props) => {
   const { color, border, btn_border, fontSize } = theme;
@@ -38,6 +38,24 @@ const Main = (props) => {
     }
   }, []);
 
+  const imgList = [
+    {
+      id: 1,
+      mainURL:
+        'https://cdn.pixabay.com/photo/2015/04/08/13/13/food-712665__340.jpg',
+    },
+    {
+      id: 2,
+      mainURL:
+        'https://cdn.pixabay.com/photo/2014/04/22/02/56/pizza-329523__340.jpg',
+    },
+    {
+      id: 3,
+      mainURL:
+        'https://cdn.pixabay.com/photo/2016/06/06/18/29/meat-skewer-1440105__340.jpg',
+    },
+  ];
+
   return (
     <React.Fragment>
       <Grid
@@ -59,6 +77,9 @@ const Main = (props) => {
             bg={color.bg0}
             border={btn_border.bg40}
             radius="1.2rem"
+            _onClick={() => {
+              history.push('/search');
+            }}
           >
             <Text
               width="17rem"
@@ -72,9 +93,9 @@ const Main = (props) => {
             </Text>
             <svg
               style={{
-                position: "absolute",
-                top: "6.5rem",
-                margin: "0 0 0 12rem",
+                position: 'absolute',
+                top: '6.5rem',
+                margin: '0 0 0 12rem',
               }}
               width="24"
               height="24"
@@ -82,13 +103,13 @@ const Main = (props) => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <circle cx="11" cy="11" r="6" stroke="#36373C" stroke-width="2" />
+              <circle cx="11" cy="11" r="6" stroke="#36373C" strokeWidth="2" />
               <path
                 d="M16 16C17.1716 17.1716 19 19 19 19"
                 stroke="#36373C"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </Button>
@@ -105,23 +126,7 @@ const Main = (props) => {
               #오늘의 인기 메뉴
             </Text>
           </Grid>
-          <MainBanner />
-          <Grid>
-            <Text
-              size="1.3rem"
-              bold
-              text_align="center"
-              margin="1rem 0"
-            >
-              1위&nbsp;<span style={{ fontWeight: '400' }}>#떡볶이</span>
-            </Text>
-          </Grid>
-          <Grid
-            maxWidth="3.4rem"
-            height="0.6rem"
-            bg="orange"
-            margin="0 auto 1rem auto"
-          />
+          <MainBannerTest imgList={imgList}></MainBannerTest>
           <Grid height="0.8rem" bg="#f4f4f3" />
         </Grid>
         <Grid

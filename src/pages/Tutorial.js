@@ -1,6 +1,6 @@
-import React from "react";
-import { history } from "../redux/configureStore";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { history } from '../redux/configureStore';
+import { useSelector } from 'react-redux';
 // kakao login
 import { Kakao_auth_url } from '../shared/OAuth';
 
@@ -8,16 +8,18 @@ import { Kakao_auth_url } from '../shared/OAuth';
 import { Button, Grid, Text } from '../elements';
 import theme from '../styles/theme';
 
+import { TutorialSwipter } from '../components';
+
 const Tutorial = (props) => {
-  const {color, border, fontSize} = theme;
+  const { color, border, fontSize } = theme;
   const is_login = useSelector((state) => state.user.is_login);
 
   React.useEffect(() => {
-    if(is_login) {
-      window.alert("로그인 한 사용자입니다. 홈으로 돌아갑니다.")
-      history.replace("/home");
+    if (is_login) {
+      window.alert('로그인 한 사용자입니다. 홈으로 돌아갑니다.');
+      history.replace('/home');
     }
-  })
+  });
   return (
     <React.Fragment>
       <Grid
@@ -29,6 +31,9 @@ const Tutorial = (props) => {
         text_align="center"
       >
         <Grid shape="container">
+          <Grid margin="2rem auto">
+            <TutorialSwipter></TutorialSwipter>
+          </Grid>
           <Grid maxWidth="32rem" height="auto" margin="0 auto" is_fixed="t">
             <Button
               shape="large"
@@ -64,7 +69,7 @@ const Tutorial = (props) => {
               shape="large"
               color={color.brand20}
               _onClick={() => {
-                history.push("/home");
+                history.push('/home');
               }}
             >
               <Text
