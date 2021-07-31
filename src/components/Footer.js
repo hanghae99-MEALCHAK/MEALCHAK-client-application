@@ -13,20 +13,19 @@ const Footer = (props) => {
   const path = props.match.path;
   const is_login = useSelector((state) => state.user.is_login);
 
-
   // props로 받아온 주소정보로 현재위치 탭 color 변경
   React.useEffect(() => {
     logger("footer props", props);
   }, []);
 
   const loginCheck = (path) => {
-    if(is_login){
+    if (is_login) {
       history.push(`/${path}`);
     } else {
       window.alert("로그인이 필요한 기능입니다.\n로그인을 해주세요.");
       history.push("/");
     }
-  }
+  };
 
   return (
     <React.Fragment>
@@ -50,6 +49,7 @@ const Footer = (props) => {
             text_align="center"
             maxWidth="9rem"
             _onClick={() => {
+              window.scrollTo(0, 0);
               history.push("/home");
             }}
           >
@@ -72,6 +72,7 @@ const Footer = (props) => {
             <Text
               text_align="center"
               size="1rem"
+              cursor="t"
               color={path === "/home" ? color.brand100 : color.bg80}
             >
               홈
@@ -82,7 +83,7 @@ const Footer = (props) => {
             text_align="center"
             maxWidth="9rem"
             _onClick={() => {
-              loginCheck("upload")
+              loginCheck("upload");
             }}
           >
             <svg
@@ -107,7 +108,7 @@ const Footer = (props) => {
                 strokeLinejoin="round"
               />
             </svg>
-            <Text text_align="center" size="1rem" color={color.bg80}>
+            <Text text_align="center" size="1rem" color={color.bg80} cursor="t">
               글쓰기
             </Text>
           </Grid>
@@ -152,6 +153,7 @@ const Footer = (props) => {
             <Text
               text_align="center"
               size="1rem"
+              cursor="t"
               color={path === "/chat" ? color.brand100 : color.bg80}
             >
               채팅
@@ -162,11 +164,11 @@ const Footer = (props) => {
             text_align="center"
             maxWidth="9rem"
             _onClick={() => {
-              loginCheck("mypage")
+              loginCheck("mypage");
             }}
           >
             <svg
-              style={{ cursor: "pointer", margin: "0 0 -0.5rem 0"}}
+              style={{ cursor: "pointer", margin: "0 0 -0.5rem 0" }}
               margin="auto"
               width="36"
               height="36"
@@ -200,6 +202,7 @@ const Footer = (props) => {
               text_align="center"
               size="1rem"
               color={path === "/mypage" ? color.brand100 : color.bg80}
+              cursor="t"
             >
               마이페이지
             </Text>
@@ -214,7 +217,6 @@ const Div = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-
 `;
 
 export default Footer;
