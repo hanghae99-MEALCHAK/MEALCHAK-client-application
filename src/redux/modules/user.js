@@ -14,6 +14,7 @@ const SET_USER = "SET_USER";
 const LOG_OUT = "LOG_OUT";
 const LOADING = "LOADING";
 const EDIT_NICK = "EDIT_NICK";
+const EDIT_ADDRESS = "EDIT_ADDRESS";
 
 // Action Creator
 const setUser = createAction(SET_USER, (user_info) => ({ user_info }));
@@ -22,6 +23,7 @@ const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 const editNick = createAction(EDIT_NICK, (edit_nickname) => ({
   edit_nickname,
 }));
+const editAddress = createAction(EDIT_ADDRESS, (address) => ({ address }));
 
 // Initial State
 const initialState = {
@@ -81,7 +83,7 @@ const editUserNickAX = (edit_nickname) => {
         const edit_nickname = res.data;
         dispatch(editNick(edit_nickname));
         logger("nick 수정 모듈", res);
-        window.alert("닉네임 수정이 완료되었습니다.")
+        window.alert("닉네임 수정이 완료되었습니다.");
       })
       .catch((e) => {
         logger("nick수정 모듈 e", e);
@@ -96,28 +98,50 @@ const editUserNickAX = (edit_nickname) => {
 const loginCheck = () => {
   return function (dispatch, getState, { history }) {
     if (token) {
-      axiosModule.get("/user/info").then((res) => {
-        logger("로그인 체크 res", res);
-        const user_info = {
-          user_id: res.data.id,
-          user_nickname: res.data.username,
-          user_profile: res.data.profileImg,
-        }
-        dispatch(
-          setUser({
-            ...user_info
-          })
-        );
-      }).catch((e) => {
-        logger("로그인 체크 에러", e)
-      });
+      axiosModule
+        .get("/user/info")
+        .then((res) => {
+          logger("로그인 체크 res", res);
+          const user_info = {
+            user_id: res.data.id,
+            user_nickname: res.data.username,
+            user_profile: res.data.profileImg,
+            user_address: res.data.location.address,
+          };
+          dispatch(
+            setUser({
+              ...user_info,
+            })
+          );
+        })
+        .catch((e) => {
+          logger("로그인 체크 에러", e);
+        });
     } else {
       dispatch(logOut());
     }
   };
 };
-
-
+// API 연결 후 loginCheck middleware에 추가(App.js확인!)
+const editUserAddressAX = (address) => {
+  return function (dispatch, getState, { history }) {
+    axiosModule
+      .put("/user/location", {
+        "address": address.address,
+        "longitude": address.longitude,
+        "latitude": address.latitude,
+      })
+      .then((res) => {
+        // 유저 정보의 주소 데이터 변경
+        dispatch(editAddress(res.data.address));
+        window.alert("주소 설정이 완료되었습니다.");
+        history.replace("/home");
+      })
+      .catch((err) => {
+        logger("address 모듈 error: ", err);
+      });
+  };
+};
 
 // Reducer
 export default handleActions(
@@ -147,6 +171,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user.user_nickname = action.payload.edit_nickname;
       }),
+    [EDIT_ADDRESS]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user.user_address = action.payload.address;
+      }),
   },
   initialState
 );
@@ -157,6 +185,7 @@ const actionCreators = {
   logOut,
   loading,
   editUserNickAX,
+  editUserAddressAX,
 };
 
 export { actionCreators };

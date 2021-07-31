@@ -59,6 +59,7 @@ const Post = (props) => {
             <Text
               width="28.8rem"
               height="4rem"
+              margin="0 0 1rem 0"
               size={fontSize.small}
               line_height="150%"
               color={color.bg100}
@@ -71,9 +72,6 @@ const Post = (props) => {
               {props.contents}
             </Text>
           </Grid>
-          <Grid margin="0 auto">
-            <MainBanner />
-          </Grid>
           <Hr />
           <Grid>
             <Text
@@ -83,7 +81,7 @@ const Post = (props) => {
               color={color.bg80}
               margin="1rem 0"
             >
-              모집 장소
+              배달 받을 곳
             </Text>
             <Text
               width="29rem"

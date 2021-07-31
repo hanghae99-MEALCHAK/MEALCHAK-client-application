@@ -31,6 +31,7 @@ const Header = (props) => {
             margin="0 1rem 0 0"
             size="1.6rem"
             bold2="700"
+            cursor="t"
             _onClick={() => {
               if (!is_login) {
                 window.alert("로그인이 필요한 기능입니다.\n로그인을 해주세요.");
@@ -39,14 +40,22 @@ const Header = (props) => {
               history.replace("/address");
             }}
           >
-            {is_login ? props.children : "주소 default값"}
+            {is_login ? props.children : "여기를 클릭해서 주소를 설정하세요!"}
           </Text>
           <svg
+            style={{ cursor: "pointer" }}
             width="20"
             height="20"
             viewBox="0 0 20 20"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            onClick={() => {
+              if (!is_login) {
+                window.alert("로그인이 필요한 기능입니다.\n로그인을 해주세요.");
+                return history.push("/");
+              }
+              history.replace("/address");
+            }}
           >
             <path
               d="M4 7L10 13L16 7"
@@ -56,26 +65,6 @@ const Header = (props) => {
               strokeLinejoin="round"
             />
           </svg>
-          {/* <svg
-            style={{ marginRight: "1.3rem", cursor: "pointer" }}
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            onClick={() => {
-              history.push("/search");
-            }}
-          >
-            <circle cx="11" cy="11" r="6" stroke="#36373C" strokeWidth="2" />
-            <path
-              d="M16 16C17.1716 17.1716 19 19 19 19"
-              stroke="#36373C"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg> */}
         </Grid>
       </React.Fragment>
     );
@@ -155,7 +144,7 @@ const Header = (props) => {
             마이페이지
           </Text>
           <svg
-          style={{ marginRight: "1.3rem", cursor: "pointer" }}
+            style={{ marginRight: "1.3rem", cursor: "pointer" }}
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -215,7 +204,12 @@ const Header = (props) => {
   if (props.shape === "주소입력") {
     return (
       <React.Fragment>
-        <Grid is_flex4="t" height="4.4rem" margin="0.8rem auto 0.8rem" bg="#ffffff">
+        <Grid
+          is_flex4="t"
+          height="4.4rem"
+          margin="0.8rem auto 0.8rem"
+          bg="#ffffff"
+        >
           <span
             className="material-icons-outlined"
             style={{

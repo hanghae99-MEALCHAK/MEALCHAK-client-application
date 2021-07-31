@@ -6,5 +6,6 @@ import DetailPage from './DetailPage';
 import Search from './Search';
 import MyPage from './MyPage';
 import RoadAddress from "./RoadAddress";
+import PostAddress from "./PostAddress";
 
-export { LoginRedirect, Main, Tutorial, Upload, DetailPage, Search, MyPage, RoadAddress };
+export { LoginRedirect, Main, Tutorial, Upload, DetailPage, Search, MyPage, RoadAddress, PostAddress };

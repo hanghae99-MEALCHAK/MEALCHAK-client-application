@@ -1,12 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { Grid, Text, Input } from "../elements";
+import { Grid, Text, Input, Button } from "../elements";
 import { useState } from "react";
+import { history } from "../redux/configureStore";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
+import { useSelector } from "react-redux";
 
 const UploadInput = (props) => {
   const { color, fontSize } = theme;
+  const post_address = useSelector((state) => state.loc.post_address);
 
   React.useEffect(() => {
     logger("uploadinput 페이지", props);
@@ -42,9 +45,29 @@ const UploadInput = (props) => {
                 bold="700"
                 size={fontSize.base}
               >
-                모집 장소
+                배달 받을 곳
               </Text>
-              <Input
+              <Grid
+                width="32rem"
+                height="5rem"
+                radius="1.2rem"
+                border="1px solid #C7C8CE"
+                padding="1.5rem 1.3rem"
+                // size={fontSize.base}
+                bg={color.bg0}
+                cursor="t"
+                flex
+                align_items="center"
+                // 주소 선택하면 goBack() 후 input 창에 글 넣어주기 addPost에 추가해주고 
+                _onClick={() => {
+                  history.push("/postAddress");
+                }}
+              >
+                <Text size={fontSize.base} color={color.bg60} text_align="left">
+                  {post_address? post_address : "모일 장소를 지정해주세요."}
+                </Text>
+              </Grid>
+              {/* <Input
                 border="1px solid #C7C8CE"
                 padding="1.5rem 1.3rem"
                 size={fontSize.base}
@@ -55,7 +78,7 @@ const UploadInput = (props) => {
                   setPostInfo({ ...post_info, place: e.target.value });
                   props.onChange({ place: e.target.value });
                 }}
-              ></Input>
+              ></Input> */}
             </FocusWithin>
           </Grid>
           <Grid>
