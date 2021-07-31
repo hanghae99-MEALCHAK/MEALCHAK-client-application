@@ -6,5 +6,6 @@ import RoadAddress from "../pages/RoadAddress";
 import UploadContents from "./UploadContents";
 import UploadInput from "./UploadInput";
 import AddressGrid from "./AddressGrid";
+import ChatListItem from "./ChatListItem";
 
-export {DetailPost, Footer, Header, Post, RoadAddress, UploadContents, UploadInput, AddressGrid};
+export {DetailPost, Footer, Header, Post, RoadAddress, UploadContents, UploadInput, AddressGrid, ChatListItem};

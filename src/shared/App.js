@@ -10,7 +10,7 @@ import { actionCreators as userAction } from "../redux/modules/user";
 
 import Spinner from "./Spinner";
 import { Grid } from "../elements";
-import { Main, LoginRedirect, Tutorial, Upload, DetailPage, Search, MyPage, RoadAddress } from "../pages";
+import { Main, LoginRedirect, Tutorial, Upload, DetailPage, Search, MyPage, RoadAddress, ChatRoomList } from "../pages";
 
 // 사용자 token 여부
 import { token } from "./OAuth";
@@ -53,6 +53,7 @@ function App() {
           <Route path="/upload/:id" exact component={Upload} />
           <Route path="/search" component={Search}></Route>
           <Route path="/mypage" component={MyPage}></Route>
+          <Route path="/chatlist" component={ChatRoomList}></Route>
         </ConnectedRouter>
       </Grid>
     </React.Fragment>
