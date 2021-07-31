@@ -117,7 +117,7 @@ const Footer = (props) => {
             text_align="center"
             maxWidth="9rem"
             _onClick={() => {
-              window.alert("준비중인 서비스입니다.");
+              loginCheck("chatlist")
             }}
           >
             <svg
@@ -130,21 +130,21 @@ const Footer = (props) => {
             >
               <path
                 d="M23.2416 8.01484C24 9.15831 24 10.7501 24 13.9337C24 17.1173 24 18.7091 23.2416 19.8526C22.9133 20.3476 22.4914 20.7726 22.0001 21.1034C21.0085 21.7708 19.6774 21.8552 17.25 21.8659V21.8674L16.0062 24.3735C15.5916 25.2088 14.4084 25.2088 13.9938 24.3735L12.75 21.8674V21.8659C10.3226 21.8552 8.99145 21.7708 7.99993 21.1034C7.50858 20.7726 7.0867 20.3476 6.75839 19.8526C6 18.7091 6 17.1173 6 13.9337C6 10.7501 6 9.15831 6.75839 8.01484C7.0867 7.51982 7.50858 7.0948 7.99993 6.76404C9.13494 6 10.715 6 13.875 6H16.125C19.285 6 20.8651 6 22.0001 6.76404C22.4914 7.0948 22.9133 7.51982 23.2416 8.01484Z"
-                stroke={path === "/chat" ? color.brand100 : color.bg80}
+                stroke={path === "/chatlist" ? color.brand100 : color.bg80}
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
               <path
                 d="M12 12L18 12"
-                stroke={path === "/chat" ? color.brand100 : color.bg80}
+                stroke={path === "/chatlist" ? color.brand100 : color.bg80}
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
               <path
                 d="M12 16H15"
-                stroke={path === "/chat" ? color.brand100 : color.bg80}
+                stroke={path === "/chatlist" ? color.brand100 : color.bg80}
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -153,8 +153,8 @@ const Footer = (props) => {
             <Text
               text_align="center"
               size="1rem"
+              color={path === "/chatlist" ? color.brand100 : color.bg80}
               cursor="t"
-              color={path === "/chat" ? color.brand100 : color.bg80}
             >
               채팅
             </Text>

@@ -12,7 +12,6 @@ import Spinner from "../shared/Spinner";
 import { Button, Grid, Input, Text } from "../elements";
 import { Header, Footer } from "../components";
 import theme from "../styles/theme";
-import { yellow } from "@material-ui/core/colors";
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
