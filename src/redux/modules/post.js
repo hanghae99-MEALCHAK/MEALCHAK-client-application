@@ -4,6 +4,7 @@ import axiosModule from '../axios_module';
 
 import logger from "../../shared/Console";
 import { actionCreators as userActions } from "./user";
+import { actionCreators as chatActions } from './chat';
 
 const SET_POST = 'SET_POST';
 const GET_DETAIL_POST = 'GET_DETAIL_POST';
@@ -98,6 +99,7 @@ const addPostAX = (post_info) => {
         restaurant: post_info.restaurant,
       })
       .then((res) => {
+        dispatch(chatActions.getChatListAX());
         window.alert('모집글 작성이 완료되었습니다.');
         window.location.replace('/home');
       })

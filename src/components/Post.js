@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { actionCreators as chatActions } from '../redux/modules/chat';
+import { useDispatch } from 'react-redux';
+import { socketFuntion as sf } from '../shared/SocketFn';
 
 import { Grid, Image, Text, Button } from '../elements';
 import { history } from '../redux/configureStore';
@@ -8,6 +11,17 @@ import theme from '../styles/theme';
 
 const Post = (props) => {
   const { color, fontSize } = theme;
+  const dispatch = useDispatch();
+  
+
+  // 채팅 시작하면 서버에 게스트 입장 요청
+  // 구독, 채팅 시작
+  const enterRoom = (roomId, roomName, postId) => {
+    dispatch(chatActions.enterRoomAX(postId));
+    dispatch(chatActions.clearMessage());
+    dispatch(chatActions.moveChatRoom(roomId, roomName));
+    history.replace({pathname: '/chatting', state: {roomId: roomId, roomName: roomName}});
+  }
 
   return (
     <React.Fragment>
@@ -176,6 +190,10 @@ const Post = (props) => {
               color={color.bg0}
               size={fontSize.small}
               bold={fontSize.bold}
+              cursor="pointer"
+              _onClick={(e) => {
+                enterRoom(6, props.title, props.post_id);
+            }}
             >
               채팅 시작하기
             </Button>
