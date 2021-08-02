@@ -82,12 +82,13 @@ const Main = (props) => {
             }}
           >
             <Text
-              width="17rem"
+              minWidth="17rem"
               height="2rem"
               size={fontSize.small}
               bold2="400"
               line_height="150%"
               color={color.bg80}
+              text_align="left"
             >
               오늘은 어떤 음식을 배달 시킬까?
             </Text>
