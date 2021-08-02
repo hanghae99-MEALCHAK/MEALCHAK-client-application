@@ -233,7 +233,7 @@ const Header = (props) => {
   if (props.shape === "주소입력") {
     return (
       <React.Fragment>
-        <Grid is_flex4="t" height="4.4rem" margin="0rem auto 0.8rem" bg="#ffffff">
+        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
           <span
             className="material-icons-outlined"
             style={{
@@ -243,7 +243,10 @@ const Header = (props) => {
               cursor: "pointer",
             }}
             onClick={() => {
-              history.replace("/home");
+              if(props?.is_home) {
+                return history.replace("/home");
+              }
+              props?.close();
             }}
           >
             close

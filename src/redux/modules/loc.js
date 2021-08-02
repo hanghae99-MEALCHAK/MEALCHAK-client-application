@@ -13,15 +13,17 @@ import logger from "../../shared/Console";
 
 const SET_LOC = "SET_LOC";
 const SET_POSTADDRESS = "SET_POSTADDRESS";
+const SET_ADDRESSNULL = "SET_ADDRESSNULL";
 
 const setLoc = createAction(SET_LOC, (coordinate) => ({ coordinate }));
 const setPostAddress = createAction(SET_POSTADDRESS, (address) => ({
   address,
 }));
+const setAddressNull = createAction(SET_ADDRESSNULL, () => ({}));
 
 const initialState = {
   list: [],
-  post_address: null,
+  post_address: "",
 };
 
 // 좌표를 주소로 변환하는 middleware
@@ -97,7 +99,10 @@ const getMyPostCoordAX = (address) => {
           // //  경도
           longitude: parseFloat(doc.x),
         };
-        // dispatch(postActions.(address));
+        dispatch(setPostAddress(address));
+        window.alert("주소 설정이 완료되었습니다.");
+        // history.push("/upload");
+        // window.location.replace('/upload');
       });
   };
 };
@@ -112,12 +117,17 @@ export default handleActions(
       produce(state, (draft) => {
         draft.post_address = action.payload.address;
       }),
+    [SET_ADDRESSNULL]: (state, action) =>
+      produce(state, (draft) => {
+        draft.post_address = null;
+      }),
   },
   initialState
 );
 
 const actionCreators = {
   setLoc,
+  setAddressNull,
   // getCoordinate,
   getMyCoordinateAX,
   getMyPostCoordAX,

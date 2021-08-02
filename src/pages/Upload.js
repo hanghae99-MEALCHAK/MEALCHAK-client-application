@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 
 import { actionCreators as postAction } from "../redux/modules/post";
+import { actionCreators as locateActions } from "../redux/modules/loc";
 import { Kakao_auth_url } from "../shared/OAuth";
 import logger from "../shared/Console";
 
@@ -12,7 +13,7 @@ import { Button, Grid, Text } from "../elements";
 import { UploadInput, UploadContents, Header } from "../components";
 import theme from "../styles/theme";
 
-const Upload = (props) => {
+const Upload = React.memo((props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const post_list = useSelector((state) => state.post.list);
@@ -53,6 +54,7 @@ const Upload = (props) => {
 
   const uploadBtn = () => {
     logger("업로드 버튼, post_info", post_info);
+    logger("업로드 버튼, _post", _post);
 
     // 모집글 작성 시 상위, 하위 컴포넌트들에서 올바르지 않은 value있을때 처리하는 과정
     if (!post_info.title || post_info.title === "") {
@@ -63,7 +65,7 @@ const Upload = (props) => {
       window.alert("모집글의 내용을 입력해주세요.");
       return;
     }
-    if (!post_info.place || post_info.place === "") {
+    if (!post_info?.place || post_info?.place === "") {
       window.alert(
         "안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 약속 장소를 입력해주세요."
       );
@@ -234,6 +236,6 @@ const Upload = (props) => {
       </Grid>
     );
   }
-};
+});
 
 export default Upload;

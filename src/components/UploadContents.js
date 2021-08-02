@@ -6,7 +6,7 @@ import theme from "../styles/theme";
 import logger from "../shared/Console";
 
 
-const UploadContents = (props) => {
+const UploadContents = React.memo((props) => {
   const { color, border, fontSize } = theme;
 
   React.useEffect(() => {
@@ -34,7 +34,8 @@ const UploadContents = (props) => {
             type="text"
             border="none"
             placeholder="메뉴를 포함해서 제목을 작성해보세요!"
-            length={20}
+            // length={20} 임시 25
+            length={25}
             size={fontSize.base}
             color={color.bg60}
             bold="400"
@@ -64,7 +65,7 @@ const UploadContents = (props) => {
       </Container>
     </React.Fragment>
   );
-};
+});
 
 const Container = styled.div`
   display: flex;
