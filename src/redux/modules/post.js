@@ -2,8 +2,8 @@ import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axiosModule from '../axios_module';
 
-import logger from "../../shared/Console";
-import { actionCreators as userActions } from "./user";
+import logger from '../../shared/Console';
+import { actionCreators as userActions } from './user';
 import { actionCreators as chatActions } from './chat';
 import { actionCreators as locateActions } from './loc';
 
@@ -33,30 +33,40 @@ const getPostAX = () => {
       .get('/posts/around')
       .then((res) => {
         let post_list = [];
-        logger("post:35: ",res);
-        res.data.forEach((p) => {
+
+        logger('post:35: ', res);
+
+        if (res.data.length !== 0) {
+          res.data.forEach((p) => {
+            let post = {
+              post_id: p.id,
+              title: p.title,
+              contents: p.contents,
+              category: p.menu.category,
+              shop: p.restaurant,
+              headCount: p.headCount,
+              orderTime: p.orderTime,
+              address: p.location.address,
+              insert_dt: p.createdAt,
+              username: p.user.username,
+              user_id: p.user.id,
+              userImg: p.user.thumbnailImg,
+              distance: p.distance,
+            };
+            post_list.push(post);
+          });
+        } else {
           let post = {
-            post_id: p.id,
-            title: p.title,
-            contents: p.contents,
-            category: p.menu.category,
-            shop: p.restaurant,
-            headCount: p.headCount,
-            orderTime: p.orderTime,
-            address: p.location.address,
-            insert_dt: p.createdAt,
-            username: p.user.username,
-            user_id: p.user.id,
-            userImg: p.user.thumbnailImg,
-            distance: p.distance,
+            post_id: '',
           };
           post_list.push(post);
-        });
+        }
+
         dispatch(setPost(post_list));
         dispatch(userActions.loading(false));
       })
       .catch((err) => {
-        logger("ErrorMessage: ", err)
+        logger('ErrorMessage: ', err);
       });
   };
 };

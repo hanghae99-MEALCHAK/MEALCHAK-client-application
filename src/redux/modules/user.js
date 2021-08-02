@@ -1,20 +1,20 @@
-import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
-import axiosModule from "../axios_module";
-import jwtDecode from "jwt-decode";
+import { createAction, handleActions } from 'redux-actions';
+import { produce } from 'immer';
+import axiosModule from '../axios_module';
+import jwtDecode from 'jwt-decode';
 
 // 개발환경 console.log() 관리용
-import logger from "../../shared/Console";
+import logger from '../../shared/Console';
 
 // token
-import { token } from "../../shared/OAuth";
+import { token } from '../../shared/OAuth';
 
 // Action
-const SET_USER = "SET_USER";
-const LOG_OUT = "LOG_OUT";
-const LOADING = "LOADING";
-const EDIT_NICK = "EDIT_NICK";
-const EDIT_ADDRESS = "EDIT_ADDRESS";
+const SET_USER = 'SET_USER';
+const LOG_OUT = 'LOG_OUT';
+const LOADING = 'LOADING';
+const EDIT_NICK = 'EDIT_NICK';
+const EDIT_ADDRESS = 'EDIT_ADDRESS';
 
 // Action Creator
 const setUser = createAction(SET_USER, (user_info) => ({ user_info }));
@@ -41,18 +41,18 @@ const kakaoLogin = (code) => {
       .get(`user/kakao/callback?code=${code}`)
       .then((res) => {
         // 인가코드에 관한 응답으로 jwt token 받음
-        logger("user모듈 - 36", res);
+        logger('user모듈 - 36', res);
 
         const ACCESS_TOKEN = res.data.token;
 
         // 세션에 토큰 저장
-        sessionStorage.setItem("token", ACCESS_TOKEN);
+        sessionStorage.setItem('token', ACCESS_TOKEN);
 
         // 저장된 토큰으로 user 정보 확인 후 리덕스에 저장
-        const token = sessionStorage.getItem("token");
+        const token = sessionStorage.getItem('token');
 
         // jwtDecode를 이용해서 user 정보 서버에 요청없이 확인 후 저장
-        logger("user 정보 decoding", jwtDecode(token));
+        logger('user 정보 decoding', jwtDecode(token));
         const user_nickname = jwtDecode(token).username;
         const user_id = jwtDecode(token).userId;
 
@@ -64,12 +64,12 @@ const kakaoLogin = (code) => {
         );
 
         window.alert(`${user_nickname}님 환영합니다.`);
-        window.location.replace("/home");
+        window.location.replace('/home');
       })
       .catch((err) => {
-        logger("user 모듈 74 - 소셜로그인 에러", err);
-        window.alert("로그인에 실패하였습니다.");
-        history.replace("/"); // 로그인 실패하면 로그인화면으로 돌려보냄
+        logger('user 모듈 74 - 소셜로그인 에러', err);
+        window.alert('로그인에 실패하였습니다.');
+        history.replace('/'); // 로그인 실패하면 로그인화면으로 돌려보냄
       });
   };
 };
@@ -78,15 +78,15 @@ const kakaoLogin = (code) => {
 const editUserNickAX = (edit_nickname) => {
   return function (dispatch, getState, { history }) {
     axiosModule
-      .put("/username/update", edit_nickname)
+      .put('/username/update', edit_nickname)
       .then((res) => {
         const edit_nickname = res.data;
         dispatch(editNick(edit_nickname));
-        logger("nick 수정 모듈", res);
-        window.alert("닉네임 수정이 완료되었습니다.");
+        logger('nick 수정 모듈', res);
+        window.alert('닉네임 수정이 완료되었습니다.');
       })
       .catch((e) => {
-        logger("nick수정 모듈 e", e);
+        logger('nick수정 모듈 e', e);
       });
   };
 };
@@ -99,9 +99,9 @@ const loginCheck = () => {
   return function (dispatch, getState, { history }) {
     if (token) {
       axiosModule
-        .get("/user/info")
+        .get('/user/info')
         .then((res) => {
-          logger("로그인 체크 res", res);
+          logger('로그인 체크 res', res);
           const user_info = {
             user_id: res.data.id,
             user_nickname: res.data.username,
@@ -115,7 +115,7 @@ const loginCheck = () => {
           );
         })
         .catch((e) => {
-          logger("로그인 체크 에러", e);
+          logger('로그인 체크 에러', e);
         });
     } else {
       dispatch(logOut());
@@ -126,19 +126,20 @@ const loginCheck = () => {
 const editUserAddressAX = (address) => {
   return function (dispatch, getState, { history }) {
     axiosModule
-      .put("/user/location", {
-        "address": address.address,
-        "longitude": address.longitude,
-        "latitude": address.latitude,
+      .put('/user/location', {
+        address: address.address,
+        longitude: address.longitude,
+        latitude: address.latitude,
       })
       .then((res) => {
         // 유저 정보의 주소 데이터 변경
         dispatch(editAddress(res.data.address));
-        window.alert("주소 설정이 완료되었습니다.");
-        history.replace("/home");
+        window.alert('주소 설정이 완료되었습니다.');
+        history.replace('/home');
+        window.location.reload();
       })
       .catch((err) => {
-        logger("address 모듈 error: ", err);
+        logger('address 모듈 error: ', err);
       });
   };
 };
@@ -151,17 +152,17 @@ export default handleActions(
         draft.user = action.payload.user_info;
         draft.is_login = true;
         draft.is_loaded = true;
-        logger("set_user 리듀서", draft.user);
+        logger('set_user 리듀서', draft.user);
       }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
-        sessionStorage.removeItem("token");
+        sessionStorage.removeItem('token');
         draft.user = null;
         draft.is_login = false;
         draft.is_loading = false;
 
-        window.location.replace("/home");
-        window.alert("로그아웃 되었습니다.");
+        window.location.replace('/home');
+        window.alert('로그아웃 되었습니다.');
       }),
     [LOADING]: (state, action) =>
       produce(state, (draft) => {

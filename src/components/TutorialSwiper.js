@@ -9,6 +9,8 @@ import SwiperCore, { Pagination, Navigation } from 'swiper';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
+import '../shared/Swiper.scss';
+
 import logger from '../shared/Console';
 
 SwiperCore.use([Pagination, Navigation]);
