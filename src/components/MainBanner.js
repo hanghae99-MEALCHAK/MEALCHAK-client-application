@@ -9,10 +9,11 @@ import SwiperCore, { Pagination, Autoplay } from 'swiper';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
+import '../shared/Swiper.scss';
 
 SwiperCore.use([Pagination, Autoplay]);
 
-const MainBannerTest = (props) => {
+const MainBanner = (props) => {
   const { color } = theme;
   // console.log(props.imgList.map(src =>));
 
@@ -44,60 +45,24 @@ const MainBannerTest = (props) => {
           pagination={{
             clickable: true,
           }}
-          autoplay={{ delay: 1000 }}
+          autoplay={{ delay: 30000 }}
         >
           {props.imgList.map((p) => {
             return (
               <SwiperSlide>
-                <Grid width="36rem">
+                <Grid width="36rem" height="12.6rem" margin="0.5rem auto">
                   <MainBannerBtn src={p.mainURL}>
-                    {/* <Grid
-                      position="absolute"
-                      top="23rem"
-                      right="8.5rem"
-                      is_flex3
-                    >
+                    <Grid position="absolute" top="6.5rem" right="8.5rem">
                       <Text
-                        width="auto"
-                        height="2rem"
-                        size="1.3rem"
-                        padding="0rem 0.8rem"
-                        bold
+                        size="1.6rem"
                         text_align="center"
                         color={color.brand100}
-                        bg={color.bg0}
-                        radius="0.4rem"
                       >
-                        {p.id}위
+                        <SpanTag>1위</SpanTag>
+                        &nbsp;&nbsp;&nbsp;
+                        <SpanTag>#떡볶이</SpanTag>
                       </Text>
-                      <Text
-                        width="auto"
-                        height="2rem"
-                        size="1.3rem"
-                        padding="0rem 0.8rem"
-                        bold
-                        text_align="center"
-                        margin="0 0 0 0.8rem"
-                        color={color.brand100}
-                        bg={color.bg0}
-                        radius="0.4rem"
-                      >
-                        #떡볶이
-                      </Text>
-                    </Grid> */}
-
-                    {/* <Grid>
-                      <Text
-                        size="1.3rem"
-                        bold
-                        shadow="0rem 0.4rem 0.4rem rgba(0, 0, 0, 0.25)"
-                        text_align="center"
-                        margin="1rem 0"
-                      >
-                        1위&nbsp;
-                        <span style={{ fontWeight: '400' }}>#떡볶이</span>
-                      </Text>
-                    </Grid> */}
+                    </Grid>
                   </MainBannerBtn>
                 </Grid>
               </SwiperSlide>
@@ -109,16 +74,24 @@ const MainBannerTest = (props) => {
   );
 };
 
-MainBannerTest.defaultProps = {};
+MainBanner.defaultProps = {};
 
 const MainBannerBtn = styled.div`
   max-width: 32rem;
   height: 10rem;
-  margin: 0 auto;
+  margin: 1rem auto;
   border-radius: 1rem;
   /* background-image: url('https://cdn.pixabay.com/photo/2016/06/06/18/29/meat-skewer-1440105__340.jpg'); */
   background-image: url('${(props) => props.src}');
   background-size: cover;
+  filter: drop-shadow(0px 0px 0.5rem rgba(0, 0, 0, 0.2));
 `;
 
-export default MainBannerTest;
+const SpanTag = styled.span`
+  font-weight: 700;
+  background-color: ${(props) => props.theme.color.bg0};
+  padding: 0.2rem 0.8rem;
+  border-radius: 0.4rem;
+`;
+
+export default MainBanner;

@@ -1,18 +1,18 @@
-import React from "react";
-import styled from "styled-components";
-import { Grid, Text, Input, Button } from "../elements";
-import { useState } from "react";
-import { history } from "../redux/configureStore";
-import theme from "../styles/theme";
-import logger from "../shared/Console";
-import { useSelector } from "react-redux";
+import React from 'react';
+import styled from 'styled-components';
+import { Grid, Text, Input, Button } from '../elements';
+import { useState } from 'react';
+import { history } from '../redux/configureStore';
+import theme from '../styles/theme';
+import logger from '../shared/Console';
+import { useSelector } from 'react-redux';
 
 const UploadInput = (props) => {
   const { color, fontSize } = theme;
   const post_address = useSelector((state) => state.loc.post_address);
 
   React.useEffect(() => {
-    logger("uploadinput 페이지", props);
+    logger('uploadinput 페이지', props);
   }, []);
 
   const [post_info, setPostInfo] = useState(
@@ -25,11 +25,11 @@ const UploadInput = (props) => {
           foodCategory: props.post_info.foodCategory,
         }
       : {
-          place: "",
-          restaurant: "",
-          headCount: "",
-          appointmentTime: "",
-          foodCategory: "",
+          place: '',
+          restaurant: '',
+          headCount: '',
+          appointmentTime: '',
+          foodCategory: '',
         }
   );
 
@@ -58,13 +58,13 @@ const UploadInput = (props) => {
                 cursor="t"
                 flex
                 align_items="center"
-                // 주소 선택하면 goBack() 후 input 창에 글 넣어주기 addPost에 추가해주고 
+                // 주소 선택하면 goBack() 후 input 창에 글 넣어주기 addPost에 추가해주고
                 _onClick={() => {
-                  history.push("/postAddress");
+                  history.push('/postAddress');
                 }}
               >
                 <Text size={fontSize.base} color={color.bg60} text_align="left">
-                  {post_address? post_address : "모일 장소를 지정해주세요."}
+                  {post_address ? post_address : '모일 장소를 지정해주세요.'}
                 </Text>
               </Grid>
               {/* <Input
@@ -106,7 +106,7 @@ const UploadInput = (props) => {
             </FocusWithin>
           </Grid>
 
-          <FocusWithin>
+          <FocusWithinSelect>
             <Text
               padding="2.4rem 0 0.8rem"
               color="#888E95"
@@ -139,11 +139,11 @@ const UploadInput = (props) => {
                 <option value="4">4명</option>
               </Select>
             </Grid>
-            <Text color="red" size={fontSize.tiny} padding="0.5rem 1rem 0">
-              5인 이상 집합금지로 인원에 제한이 있습니다.
-            </Text>
-            <Grid></Grid>
-          </FocusWithin>
+          </FocusWithinSelect>
+          <Text color="red" size={fontSize.tiny} padding="0.5rem 1rem 0">
+            5인 이상 집합금지로 인원에 제한이 있습니다.
+          </Text>
+
           <Grid>
             <FocusWithin>
               <Text
@@ -171,8 +171,9 @@ const UploadInput = (props) => {
               ></Input>
             </FocusWithin>
           </Grid>
-          <FocusWithin>
-            <Grid margin="0 auto 1rem">
+
+          <Grid margin="0 auto 1rem">
+            <FocusWithinSelect>
               <Text
                 padding="2.4rem 0 0.8rem"
                 color="#888E95"
@@ -208,8 +209,8 @@ const UploadInput = (props) => {
                   <option value="기타">기타</option>
                 </Select>
               </Grid>
-            </Grid>
-          </FocusWithin>
+            </FocusWithinSelect>
+          </Grid>
         </Container>
       </Grid>
     </React.Fragment>
@@ -237,6 +238,16 @@ const FocusWithin = styled.div`
     color: #ff9425;
   }
   &:focus-within input {
+    border: 1px solid #ff9425;
+    outline: none;
+  }
+`;
+
+const FocusWithinSelect = styled.div`
+  &:focus-within p {
+    color: #ff9425;
+  }
+  &:focus-within div {
     border: 1px solid #ff9425;
     outline: none;
   }
