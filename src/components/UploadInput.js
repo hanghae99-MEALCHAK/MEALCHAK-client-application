@@ -1,32 +1,38 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Grid, Text, Input } from '../elements';
-import { useState } from 'react';
-import theme from '../styles/theme';
-import logger from '../shared/Console';
-import { useSelector } from 'react-redux';
+import React from "react";
+import styled from "styled-components";
+import { Grid, Text, Input } from "../elements";
+import { useState } from "react";
+import theme from "../styles/theme";
+import logger from "../shared/Console";
+import { useSelector } from "react-redux";
 import DropDown from "./DropDown";
+import moment from "moment";
 
 const UploadInput = React.memo((props) => {
   const { color, fontSize } = theme;
 
+  const today = moment().format("YYYY-MM-DD");
+  const now_time = moment().format("HH:mm");
   const post_address = useSelector((state) => state.loc.post_address?.address);
 
   const [post_info, setPostInfo] = useState(
-    props.post_info !== {}
+    // post_info 자체는 항상 내려오는데 값이 수정전에는 undefined라서 그중에 하나 정해서 있는지 확인해본 코드
+    props.post_info.place
       ? {
           place: props.post_info.place,
           restaurant: props.post_info.restaurant,
           headCount: props.post_info.headCount,
           appointmentTime: props.post_info.appointmentTime,
+          appointmentDate: props.post_info.appointmentDate,
           foodCategory: props.post_info.foodCategory,
         }
       : {
-          place: '',
-          restaurant: '',
-          headCount: '',
-          appointmentTime: '',
-          foodCategory: '',
+          place: "",
+          restaurant: "",
+          headCount: "",
+          appointmentTime: now_time,
+          appointmentDate: today,
+          foodCategory: "",
         }
   );
 
@@ -132,7 +138,37 @@ const UploadInput = React.memo((props) => {
             5인 이상 집합금지로 인원에 제한이 있습니다.
           </Text>
 
-          <Grid>
+          <Grid is_flex4="t" justify_content="space-between">
+            <Grid width="56%" margin="0">
+              <FocusWithin>
+                <Text
+                  padding="2.4rem 0 0.8rem"
+                  color="#888E95"
+                  bold="700"
+                  size={fontSize.base}
+                >
+                  모집 예정 날짜
+                </Text>
+                <Input
+                  type="date"
+                  border="1px solid #C7C8CE"
+                  padding="1.5rem 1rem"
+                  size="1.4rem"
+                  color={color.bg60}
+                  value={post_info.appointmentDate}
+                  _onChange={(e) => {
+                    setPostInfo({
+                      ...post_info,
+                      appointmentDate: e.target.value,
+                    });
+                    logger("약속 날짜", e.target.value);
+                    logger("오늘", today);
+
+                    props.onChange({ appointmentDate: e.target.value });
+                  }}
+                ></Input>
+              </FocusWithin>
+            </Grid>
             <FocusWithin>
               <Text
                 padding="2.4rem 0 0.8rem"
@@ -146,7 +182,7 @@ const UploadInput = React.memo((props) => {
                 type="time"
                 border="1px solid #C7C8CE"
                 padding="1.5rem 1.3rem"
-                size={fontSize.base}
+                size="1.4rem"
                 color={color.bg60}
                 value={post_info.appointmentTime}
                 _onChange={(e) => {

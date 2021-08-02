@@ -21,6 +21,7 @@ const Input = (props) => {
     padding,
     color,
     radius,
+    width,
   } = props;
 
   if (multiLine) {
@@ -78,6 +79,7 @@ const Input = (props) => {
             maxLength={length}
             border={border}
             radius={radius}
+            width={width}
           />
         )}
       </Grid>
@@ -86,6 +88,7 @@ const Input = (props) => {
 };
 
 Input.defaultProps = {
+  width: '100%',
   radius: '1.2rem',
   size: '1.2rem',
   padding: '1.5rem 0',
@@ -124,7 +127,7 @@ const ElTextarea = styled.textarea`
 
 const ElInput = styled.input`
   ${(props) => (props.radius ? `border-radius: ${props.radius};` : '1.2rem')};
-  width: 100%;
+  width: ${(props) => (props.width ? `${props.width};` : '100%')};
   ${(props) => (props.size ? `font-size: ${props.size};` : '1.6rem')};
   ${(props) => (props.border ? `border: ${props.border};` : '')};
   ${(props) => (props.padding ? `padding: ${props.padding};` : '')};

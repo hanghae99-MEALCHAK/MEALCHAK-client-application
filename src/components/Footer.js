@@ -38,13 +38,7 @@ const Footer = (props) => {
         bg={color.bg0}
         shadow="t"
       >
-        <Div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-          }}
-        >
+        <Div>
           <Grid
             text_align="center"
             maxWidth="9rem"

@@ -33,30 +33,34 @@ const getPostAX = () => {
       .then((res) => {
         let post_list = [];
 
-        logger('post:35: ', res);
+        logger("post:35: ", res);
 
         if (res.data.length !== 0) {
           res.data.forEach((p) => {
+            let hour = p.orderTime.split(" ")[1].split(":")[0];
+            let minute = p.orderTime.split(" ")[1].split(":")[1];
+
             let post = {
               post_id: p.id,
               title: p.title,
               contents: p.contents,
-              category: p.menu.category,
+              category: p.category,
               shop: p.restaurant,
               headCount: p.headCount,
-              orderTime: p.orderTime,
-              address: p.location.address,
+              orderTime: hour + ":" + minute,
+              orderDate: p.orderTime.split(" ")[0],
+              address: p.address,
               insert_dt: p.createdAt,
-              username: p.user.username,
-              user_id: p.user.id,
-              userImg: p.user.thumbnailImg,
+              username: p.username,
+              user_id: p.id,
+              userImg: p.profileImg,
               distance: p.distance,
             };
             post_list.push(post);
           });
         } else {
           let post = {
-            post_id: '',
+            post_id: "",
           };
           post_list.push(post);
         }
@@ -65,7 +69,7 @@ const getPostAX = () => {
         dispatch(userActions.loading(false));
       })
       .catch((err) => {
-        logger('ErrorMessage: ', err);
+        logger("ErrorMessage: ", err);
       });
   };
 };
@@ -111,7 +115,7 @@ const addPostAX = (post_info) => {
         category: post_info.foodCategory,
         // address: post_info.place,
         address: address,
-        orderTime: post_info.appointmentTime,
+        orderTime: `${post_info.appointmentDate} ${post_info.appointmentTime}:00`,
         contents: post_info.contents,
         restaurant: post_info.restaurant,
         longitude: longitude,
@@ -147,12 +151,15 @@ const editPostAX = (post_id, post_info) => {
         headCount: post_info.headCount,
         category: post_info.foodCategory,
         address: post_info.place,
-        orderTime: post_info.appointmentTime,
+        orderTime: `${post_info.appointmentDate} ${post_info.appointmentTime}:00`,
         contents: post_info.contents,
         restaurant: post_info.restaurant,
       })
       .then((res) => {
         logger("수정 후 res", res);
+        let hour = res.data.orderTime.split(" ")[1].split(":")[0];
+        let minute = res.data.orderTime.split(" ")[1].split(":")[1];
+
         let post = {
           post_id: res.data.id,
           title: res.data.title,
@@ -160,7 +167,8 @@ const editPostAX = (post_id, post_info) => {
           category: res.data.category,
           shop: res.data.restaurant,
           headCount: res.data.headCount,
-          orderTime: res.data.orderTime,
+          orderTime: hour + ":" + minute,
+          orderDate: res.data.orderTime.split(" ")[0],
           address: res.data.address,
           insert_dt: res.data.createdAt,
           username: res.data.username,
@@ -207,14 +215,14 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list.push(...action.payload.post_list);
 
-        draft.list = draft.list.reduce((acc, cur) => {
-          if (acc.findIndex((a) => a.id === cur.post_id) === -1) {
-            return [...acc, cur];
-          } else {
-            acc[acc.findIndex((a) => a.id === cur.post_id)] = cur;
-            return acc;
-          }
-        }, []);
+        // draft.list = draft.list.reduce((acc, cur) => {
+        //   if (acc.findIndex((a) => a.id === cur.post_id) === -1) {
+        //     return [...acc, cur];
+        //   } else {
+        //     acc[acc.findIndex((a) => a.id === cur.post_id)] = cur;
+        //     return acc;
+        //   }
+        // }, []);
       }),
 
     [GET_DETAIL_POST]: (state, action) =>

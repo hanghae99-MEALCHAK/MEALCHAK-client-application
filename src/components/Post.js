@@ -15,10 +15,12 @@ const Post = (props) => {
   
   // 채팅 시작하면 서버에 게스트 입장 요청
   // 구독, 채팅 시작
+  // 포스트에서 채팅시작하기 누를때는 post 모듈에서 각 게시물 정보로 getPostAX에서 roomId 받아와줘야 가능함
   const enterRoom = (roomId, roomName, postId) => {
     dispatch(chatActions.enterRoomAX(postId));
     dispatch(chatActions.clearMessage());
     dispatch(chatActions.moveChatRoom(roomId, roomName));
+    dispatch(chatActions.getChatMessagesAX());
     history.replace({pathname: '/chatting', state: {roomId: roomId, roomName: roomName}});
   }
 
@@ -210,7 +212,7 @@ const Post = (props) => {
               bold={fontSize.bold}
               cursor="pointer"
               _onClick={(e) => {
-                enterRoom(6, props.title, props.post_id);
+                enterRoom(props.roomId, props.title, props.post_id);
             }}
             >
               채팅 시작하기
@@ -224,14 +226,13 @@ const Post = (props) => {
 
 Post.defaultProps = {};
 
-const UserProfile = styled.img`
-  width: 4.5rem;
+const UserProfile = styled.div`
+  width: 4.3rem;
   height: 3.8rem;
   border-radius: 2rem;
   background-image: url("${(props) => props.src}");
-  /* background-image: url("https://mean0images.s3.ap-northeast-2.amazonaws.com/4.jpeg"); */
   background-size: cover;
-  /* margin: 0.4rem; */
+  background-position: center;
   margin: 1rem 1rem 1rem 0;
 `;
 

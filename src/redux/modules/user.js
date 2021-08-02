@@ -106,7 +106,7 @@ const loginCheck = () => {
             user_id: res.data.id,
             user_nickname: res.data.username,
             user_profile: res.data.profileImg,
-            user_address: res.data.location.address,
+            user_address: res.data.address,
           };
           dispatch(
             setUser({
