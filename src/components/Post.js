@@ -230,10 +230,10 @@ const Post = (props) => {
 Post.defaultProps = {};
 
 const UserProfile = styled.div`
-  width: 4.5rem;
+  width: 4.3rem;
   height: 3.8rem;
   border-radius: 2rem;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   background-size: cover;
   background-position: center;
   margin: 1rem 1rem 1rem 0;

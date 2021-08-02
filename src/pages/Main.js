@@ -85,7 +85,6 @@ const Main = (props) => {
           >
             <Text
               minWidth="17rem"
-              // width="17rem"
               height="2rem"
               size={fontSize.small}
               bold2="400"
