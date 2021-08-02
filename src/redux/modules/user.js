@@ -136,6 +136,7 @@ const editUserAddressAX = (address) => {
         dispatch(editAddress(res.data.address));
         window.alert("주소 설정이 완료되었습니다.");
         history.replace("/home");
+        window.location.reload();
       })
       .catch((err) => {
         logger("address 모듈 error: ", err);

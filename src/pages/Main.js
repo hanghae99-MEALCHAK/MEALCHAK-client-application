@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Grid, Text, Button } from '../elements';
-import { Post, Footer, Header, MainBanner } from '../components';
+import { Grid, Text, Button } from "../elements";
+import { Post, Footer, Header, MainBanner } from "../components";
 
-import { actionCreators as postActions } from '../redux/modules/post';
-import { useDispatch, useSelector } from 'react-redux';
-import { history } from '../redux/configureStore';
-import logger from '../shared/Console';
+import { actionCreators as postActions } from "../redux/modules/post";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
+import logger from "../shared/Console";
 
 import theme from "../styles/theme";
 
@@ -37,13 +37,6 @@ const Main = (props) => {
     }
   }, []);
 
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-    if (post_list.length === 0) {
-      dispatch(postActions.getPostAX());
-    }
-  }, [user?.user_address]);
-
   const imgList = [
     {
       id: 1,
@@ -65,6 +58,7 @@ const Main = (props) => {
   return (
     <React.Fragment>
       <Grid
+      minHeight="100vh"
         minWidth="36rem"
         maxWidth="36rem"
         margin="0 auto"
@@ -257,6 +251,13 @@ const Main = (props) => {
 
         {post_list.length > 0 ? (
           post_list.map((p, idx) => {
+            if (p.post_id === "") {
+              return (
+                <React.Fragment>
+                  <div>하이222</div>
+                </React.Fragment>
+              );
+            }
             if (category.all) {
               return <Post {...p} key={p.post_id} />;
             }
