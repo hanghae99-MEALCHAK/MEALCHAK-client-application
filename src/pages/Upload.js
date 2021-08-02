@@ -47,6 +47,7 @@ const Upload = React.memo((props) => {
     foodCategory: _post?.category,
     place: _post?.address,
     appointmentTime: _post?.orderTime,
+    appointmentDate: _post?.orderDate,
     contents: _post?.contents,
     restaurant: _post?.shop,
   };

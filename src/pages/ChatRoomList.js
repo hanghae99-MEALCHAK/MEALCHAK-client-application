@@ -33,6 +33,7 @@ const ChatRoomList = (props) => {
     // /chat/join/${roomId}
     dispatch(chatActions.clearMessage());
     dispatch(chatActions.moveChatRoom(roomId, roomName));
+    dispatch(chatActions.getChatMessagesAX());
     history.replace({pathname: '/chatting', state: {roomId: roomId, roomName: roomName}});
   };
 
@@ -54,7 +55,6 @@ const ChatRoomList = (props) => {
                 key={idx}
                 roomId={info.roomId}
                 roomName={info.title}
-                roomImg={info.roomImg}
                 _onClick={(e) => {
                     enterRoom(info.roomId, info.roomName);
                 }}

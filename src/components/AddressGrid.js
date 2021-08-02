@@ -13,7 +13,6 @@ const AddressGrid = (props) => {
   return (
     <React.Fragment>
       <Grid
-        minHeight={props.is_home ? '100vh' : ''}
         minHeight={props.is_home ? "100vh" : ""}
         minWidth={props.is_post ? '32rem' : '36rem'}
         maxWidth={props.is_post ? '32rem' : '36rem'}

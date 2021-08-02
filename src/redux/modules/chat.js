@@ -1,8 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axiosModule from "../axios_module";
-import axios from "axios";
-import { token } from "../../shared/OAuth";
 
 import logger from "../../shared/Console";
 
@@ -64,12 +62,10 @@ const initialState = {
 
 // middleware
 const getChatListAX = () => {
-  const header = {
-    Authorization: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2cwNDE2QG5hdGUuY29tIiwidXNlcklkIjoyLCJ1c2VybmFtZSI6ImFzZzA0MTZAbmF0ZS5jb20iLCJpYXQiOjE2Mjc3Mzk5NjMsImV4cCI6MTYyNzc2MTU2M30.-kNIqVP2w8gMld2oNSbEh3Hm_DStnZSeetqaAIGmSPQ",
-  };
+
   return function (dispatch, getState, { history }) {
-    axios
-      .get("http://13.125.39.31/chat/rooms/mine", { headers: header })
+    axiosModule
+      .get("/chat/rooms/mine")
       .then((res) => {
         logger("나의 채팅방 목록", res);
         if (!res.data) {
@@ -100,8 +96,8 @@ const getChatListAX = () => {
 const getChatMessagesAX = () => {
   return function (dispatch, getState, { history }) {
     const roomId = getState().chat.currentChat.roomId;
-    axios
-      .get(`http://13.125.39.31/chat/${roomId}/messages`)
+    axiosModule
+      .get(`/chat/${roomId}/messages`)
       .then((res) => {
         let chatMassageArray = [];
         res.data.forEach((m) => {
@@ -123,14 +119,8 @@ const getChatMessagesAX = () => {
 
 const enterRoomAX = (postId) => {
   return function (dispatch, getState, { history }) {
-    const header = {
-      Authorization: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2cwNDE2QG5hdGUuY29tIiwidXNlcklkIjoyLCJ1c2VybmFtZSI6ImFzZzA0MTZAbmF0ZS5jb20iLCJpYXQiOjE2Mjc3Mzk5NjMsImV4cCI6MTYyNzc2MTU2M30.-kNIqVP2w8gMld2oNSbEh3Hm_DStnZSeetqaAIGmSPQ",
-    };
-
-    axios
-      .get(`http://13.125.39.31/chat/join/${postId}`, {
-        headers: header,
-      })
+    axiosModule
+      .get(`/chat/join/${postId}`)
       .then((res) => {
         //여기서 입장하셨습니다 메세지를 리덕스에 저장해서 띄우줄수있지않을까?
       })

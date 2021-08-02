@@ -157,6 +157,9 @@ const ElButton = styled.button`
       border: 0.1rem solid #78e08f;
     }`
       : ''}
+  :active{
+    opacity: 0.7;
+  }
 `;
 
 const LargeButton = styled.button`
