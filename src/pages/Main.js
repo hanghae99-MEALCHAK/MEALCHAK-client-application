@@ -33,16 +33,8 @@ const Main = (props) => {
     if (post_list.length === 0) {
       dispatch(postActions.getPostAX());
     }
-    // else if()
   }, []);
-
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-    if (post_list.length > 0) {
-      // window.location.reload();
-    }
-  }, [!post_list || !user?.user_address || !user]);
-
+  
   const imgList = [
     {
       id: 1,
@@ -260,7 +252,7 @@ const Main = (props) => {
             if (p.post_id === "") {
               return (
                 <React.Fragment>
-                  <div>하이</div>
+                  <div>하이222</div>
                 </React.Fragment>
               );
             }

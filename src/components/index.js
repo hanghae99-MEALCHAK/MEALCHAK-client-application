@@ -7,8 +7,8 @@ import UploadContents from "./UploadContents";
 import UploadInput from "./UploadInput";
 import AddressGrid from "./AddressGrid";
 import ChatListItem from "./ChatListItem";
-import MainBanner from './MainBanner';
 import TutorialSwiper from './TutorialSwiper';
+import MainBanner from "./MainBanner";
 
-export {DetailPost, Footer, Header, Post, PostAddress, UploadContents, UploadInput, AddressGrid, ChatListItem, MainBanner, TutorialSwiper
+export {DetailPost, Footer, Header, Post, PostAddress, UploadContents, UploadInput, AddressGrid, ChatListItem, TutorialSwiper, MainBanner
 };
