@@ -7,6 +7,7 @@ const Input = (props) => {
   const {
     placeholder,
     _onChange,
+    _onClick,
     type,
     min,
     multiLine,
@@ -49,6 +50,7 @@ const Input = (props) => {
             type={type}
             placeholder={placeholder}
             onChange={_onChange}
+            onClick={_onClick}
             value={value}
             bold={bold}
             border={border}
@@ -71,6 +73,7 @@ const Input = (props) => {
             color={color}
             placeholder={placeholder}
             onChange={_onChange}
+            onClick={_onClick}
             value={value}
             maxLength={length}
             border={border}
@@ -97,6 +100,8 @@ Input.defaultProps = {
   is_submit: false,
   onSubmit: () => {},
   _onChange: () => {},
+  _onClick: () => {},
+
 };
 
 const ElTextarea = styled.textarea`

@@ -6,14 +6,23 @@ import { history } from '../redux/configureStore';
 import theme from '../styles/theme';
 import logger from '../shared/Console';
 import { useSelector } from 'react-redux';
+import DropDown from "./DropDown";
 
-const UploadInput = (props) => {
+const UploadInput = React.memo((props) => {
   const { color, fontSize } = theme;
-  const post_address = useSelector((state) => state.loc.post_address);
+
+  const inputRef = React.useRef();
+  React.useEffect(() => {
+    logger("uploadinput 페이지", props);
+    logger("uploadinput 페이지2", post_info);
+  }, []);
+
+  const post_address = useSelector((state) => state.loc.post_address?.address);
 
   React.useEffect(() => {
-    logger('uploadinput 페이지', props);
-  }, []);
+    setPostInfo({ ...post_info, place: post_address });
+    props?.onChange({ place: post_address });
+  }, [post_address ? post_address : null]);
 
   const [post_info, setPostInfo] = useState(
     props.post_info !== {}
@@ -39,46 +48,26 @@ const UploadInput = (props) => {
         <Container>
           <Grid>
             <FocusWithin>
-              <Text
-                padding="2.4rem 0 0.8rem"
-                color={color.bg80}
-                bold="700"
-                size={fontSize.base}
-              >
-                배달 받을 곳
-              </Text>
+              <Grid flex justify_content="flex-start" align_items="center">
+                <Text
+                  padding="2.4rem 0 0.8rem"
+                  color={color.bg80}
+                  bold="700"
+                  size={fontSize.base}
+                >
+                  배달 받을 곳
+                </Text>
+                <DropDown />
+              </Grid>
               <Grid
-                width="32rem"
-                height="5rem"
                 radius="1.2rem"
                 border="1px solid #C7C8CE"
                 padding="1.5rem 1.3rem"
-                // size={fontSize.base}
-                bg={color.bg0}
-                cursor="t"
-                flex
-                align_items="center"
-                // 주소 선택하면 goBack() 후 input 창에 글 넣어주기 addPost에 추가해주고
-                _onClick={() => {
-                  history.push('/postAddress');
-                }}
               >
-                <Text size={fontSize.base} color={color.bg60} text_align="left">
-                  {post_address ? post_address : '모일 장소를 지정해주세요.'}
+                <Text color={color.bg60} size={fontSize.base}>
+                  {post_address ? post_address : "배달 받을 곳을 선택해주세요"}
                 </Text>
               </Grid>
-              {/* <Input
-                border="1px solid #C7C8CE"
-                padding="1.5rem 1.3rem"
-                size={fontSize.base}
-                color={color.bg60}
-                placeholder="모일 장소를 입력해주세요."
-                value={post_info.place}
-                _onChange={(e) => {
-                  setPostInfo({ ...post_info, place: e.target.value });
-                  props.onChange({ place: e.target.value });
-                }}
-              ></Input> */}
             </FocusWithin>
           </Grid>
           <Grid>
@@ -99,6 +88,7 @@ const UploadInput = (props) => {
                 placeholder="배달 예정인 음식점을 입력해주세요."
                 value={post_info.restaurant}
                 _onChange={(e) => {
+                  console.log(e.target.value);
                   setPostInfo({ ...post_info, restaurant: e.target.value });
                   props.onChange({ restaurant: e.target.value });
                 }}
@@ -215,7 +205,7 @@ const UploadInput = (props) => {
       </Grid>
     </React.Fragment>
   );
-};
+});
 
 const Container = styled.div`
   display: flex;

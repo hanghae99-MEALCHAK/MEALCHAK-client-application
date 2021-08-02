@@ -19,6 +19,7 @@ const Grid = (props) => {
     children,
     center,
     _onClick,
+    _onChange,
     maxWidth,
     radius,
     border,
@@ -104,7 +105,7 @@ const Grid = (props) => {
   return (
     <React.Fragment>
       {/* styles를 GridBox의 props로 넘겨주고 있는것 */}
-      <GridBox {...styles} onClick={_onClick}>
+      <GridBox {...styles} onClick={_onClick} onChange={_onChange}>
         {children}
       </GridBox>
     </React.Fragment>
@@ -140,6 +141,7 @@ Grid.defaultProps = {
   minHeight: false,
   shadow: false,
   _onClick: () => {},
+  _onChange: () => {},
   top: false,
   left: false,
   right: false,
