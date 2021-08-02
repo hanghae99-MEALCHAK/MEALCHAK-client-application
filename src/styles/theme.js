@@ -18,34 +18,34 @@ const theme = {
 
   // 글쓰기용 border
   border: {
-    line1: "1px solid #CFCFCF",
-    line2: "1px solid #E5E5E5",
-    bg20: "1px solid #F1F2F4",
-    boldLine: "0.8rem solid #F1F2F4"
+    line1: '1px solid #CFCFCF',
+    line2: '1px solid #E5E5E5',
+    bg20: '1px solid #F1F2F4',
+    boldLine: '0.8rem solid #F1F2F4',
   },
 
   // 버튼 border
   btn_border: {
-    bg40: "0.1rem solid #EBE9E8",
+    bg40: '0.1rem solid #EBE9E8',
   },
 
   radius: {
-    button: "1.2rem",
-    postBox: "1.6rem",
-    inputBox: "1.2rem",
-    myProfile: "1.2rem",
+    button: '1.2rem',
+    postBox: '1.6rem',
+    inputBox: '1.2rem',
+    myProfile: '1.2rem',
   },
 
   fontSize: {
-    display1: "4.5rem",
-    display2: "3.4rem",
-    display3: "2.4rem",
-    large: "1.9rem",
-    base: "1.6rem",
-    small: "1.3rem",
-    tiny: "1rem",
-    bold: "600",
-  }
+    display1: '4.5rem',
+    display2: '3.4rem',
+    display3: '2.4rem',
+    large: '1.9rem',
+    base: '1.6rem',
+    small: '1.3rem',
+    tiny: '1rem',
+    bold: '600',
+  },
   //   view: {
   //     mobile: `(max-width: 767px)`,
   //     tablet: `(max-width: 1024px)`,

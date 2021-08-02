@@ -7,6 +7,7 @@ const Input = (props) => {
   const {
     placeholder,
     _onChange,
+    _onClick,
     type,
     min,
     multiLine,
@@ -19,6 +20,7 @@ const Input = (props) => {
     size,
     padding,
     color,
+    radius,
   } = props;
 
   if (multiLine) {
@@ -48,11 +50,13 @@ const Input = (props) => {
             type={type}
             placeholder={placeholder}
             onChange={_onChange}
+            onClick={_onClick}
             value={value}
             bold={bold}
             border={border}
             size={size}
             padding={padding}
+            radius={radius}
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
                 onSubmit(e);
@@ -69,9 +73,11 @@ const Input = (props) => {
             color={color}
             placeholder={placeholder}
             onChange={_onChange}
+            onClick={_onClick}
             value={value}
             maxLength={length}
             border={border}
+            radius={radius}
           />
         )}
       </Grid>
@@ -80,6 +86,7 @@ const Input = (props) => {
 };
 
 Input.defaultProps = {
+  radius: '1.2rem',
   size: '1.2rem',
   padding: '1.5rem 0',
   border: '0.1rem solid #718093',
@@ -93,6 +100,8 @@ Input.defaultProps = {
   is_submit: false,
   onSubmit: () => {},
   _onChange: () => {},
+  _onClick: () => {},
+
 };
 
 const ElTextarea = styled.textarea`
@@ -114,7 +123,7 @@ const ElTextarea = styled.textarea`
 `;
 
 const ElInput = styled.input`
-  border-radius: 1.2rem;
+  ${(props) => (props.radius ? `border-radius: ${props.radius};` : '1.2rem')};
   width: 100%;
   ${(props) => (props.size ? `font-size: ${props.size};` : '1.6rem')};
   ${(props) => (props.border ? `border: ${props.border};` : '')};

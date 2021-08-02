@@ -13,6 +13,7 @@ const Text = (props) => {
     height,
     padding,
     _onClick,
+    _onChange,
     cursor,
     is_float,
     text_align,
@@ -39,6 +40,7 @@ const Text = (props) => {
     height,
     padding: padding,
     _onClick: _onClick,
+    _onChange: _onChange,
     cursor,
     is_float: is_float,
     text_align: text_align,
@@ -56,7 +58,7 @@ const Text = (props) => {
   };
 
   return (
-    <P {...styles} onClick={_onClick}>
+    <P {...styles} onClick={_onClick} onChange={_onChange}>
       {children}
     </P>
   );
@@ -73,6 +75,7 @@ Text.defaultProps = {
   height: '',
   padding: false,
   _onClick: () => {},
+  _onChange: () => {},
   cursor: '',
   is_float: '',
   text_align: '',
