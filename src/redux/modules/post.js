@@ -1,7 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axiosModule from '../axios_module';
-
 import logger from '../../shared/Console';
 import { actionCreators as userActions } from './user';
 import { actionCreators as chatActions } from './chat';
@@ -33,7 +32,7 @@ const getPostAX = () => {
   return function (dispatch, getState, { history }) {
     dispatch(userActions.loading(true));
     axiosModule
-      .get('/posts')
+      .get('/posts/around')
       .then((res) => {
         let post_list = [];
 

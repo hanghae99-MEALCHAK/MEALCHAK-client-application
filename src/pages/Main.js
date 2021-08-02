@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Grid, Text, Button } from '../elements';
-import { Post, Footer, Header, MainBanner } from '../components';
+import { Grid, Text, Button } from "../elements";
+import { Post, Footer, Header, MainBanner } from "../components";
 
-import { actionCreators as postActions } from '../redux/modules/post';
-import { useDispatch, useSelector } from 'react-redux';
-import { history } from '../redux/configureStore';
-import logger from '../shared/Console';
+import { actionCreators as postActions } from "../redux/modules/post";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
+import logger from "../shared/Console";
 
 import theme from '../styles/theme';
 
@@ -15,9 +15,7 @@ const Main = (props) => {
   const { color, border, btn_border, fontSize } = theme;
 
   const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.user.is_login);
   const post_list = useSelector((state) => state.post?.list);
-  const distance = useSelector((state) => state.post.list);
   const user = useSelector((state) => state.user.user);
   const rank_list = useSelector((state) => state.post?.rank);
 
@@ -38,7 +36,7 @@ const Main = (props) => {
     }
     dispatch(postActions.getRankDB());
   }, []);
-
+  
   const imgList = [
     {
       id: 1,
@@ -255,6 +253,13 @@ const Main = (props) => {
 
         {post_list.length > 0 ? (
           post_list.map((p, idx) => {
+            if (p.post_id === "") {
+              return (
+                <React.Fragment>
+                  <div>하이222</div>
+                </React.Fragment>
+              );
+            }
             if (category.all) {
               return <Post {...p} key={p.post_id} />;
             }
