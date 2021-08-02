@@ -4,6 +4,7 @@ import axiosModule from '../axios_module';
 
 import logger from "../../shared/Console";
 import { actionCreators as userActions } from "./user";
+import { actionCreators as chatActions } from './chat';
 import { actionCreators as locateActions } from './loc';
 
 const SET_POST = 'SET_POST';
@@ -108,6 +109,7 @@ const addPostAX = (post_info) => {
         latitude: latitude,
       })
       .then((res) => {
+        dispatch(chatActions.getChatListAX());
         window.alert('모집글 작성이 완료되었습니다.');
         window.location.replace('/home');
         dispatch(locateActions.setAddressNull());

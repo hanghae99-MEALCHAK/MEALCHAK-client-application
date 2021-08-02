@@ -7,10 +7,12 @@ import Post from './modules/post';
 import User from './modules/user';
 import Location from './modules/loc';
 import Search from './modules/search';
+import Chat from './modules/chat';
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
+  chat: Chat,
   user: User,
   post: Post,
   loc: Location,

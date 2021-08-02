@@ -1,29 +1,39 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as chatActions } from "../redux/modules/chat";
+import { history } from "../redux/configureStore";
+
+// socket 함수
+import { socketFuntion as sf } from "../shared/SocketFn";
 
 // style
 import { Header, Footer, ChatListItem } from "../components";
 import { Button, Grid, Input, Text } from "../elements";
 import theme from "../styles/theme";
 
-// 소켓 통신
-import Stomp from "stompjs";
-import SockJS from "sockjs-client";
-
 const ChatRoomList = (props) => {
-  const sock = new SockJS("http://34.64.109.170:7777/chatting");
-  const ws = Stomp.over(sock);
+    const dispatch = useDispatch();
+    React.useEffect(()=>{
+        dispatch(chatActions.getChatListAX());
+    },[])
 
   // 현재 roomid 필요
-  //  const roomId = useSelector((state) => state.chat.currentChat.roomId);
 
   const { color, border, radius, fontSize } = theme;
 
-  // 채팅 가짜 데이터
-  const chat_list = props.chatRoom;
+  // 채팅 목록
+  const chat_list = useSelector(state => state.chat.chatListInfo)
 
-  const enterRoom = (roomId) => {
+  const enterRoom = (roomId, roomName) => {
     // 채팅방 들어갔다가 뒤로가기 누르면 자동으로 방나가기
     // roomId 리덕스에 저장된 걸로 실제 채팅 페이지 이동했을 때 서버연결 시켜서 보여줌
+
+    // 채팅 시작하기 버튼 누를때 입장 axios 요청 
+    // 동시에 구독
+    // /chat/join/${roomId}
+    dispatch(chatActions.clearMessage());
+    dispatch(chatActions.moveChatRoom(roomId, roomName));
+    history.replace({pathname: '/chatting', state: {roomId: roomId, roomName: roomName}});
   };
 
   return (
@@ -45,7 +55,9 @@ const ChatRoomList = (props) => {
                 roomId={info.roomId}
                 roomName={info.title}
                 roomImg={info.roomImg}
-                _onClick={(e) => {}}
+                _onClick={(e) => {
+                    enterRoom(info.roomId, info.roomName);
+                }}
               />
             );
           })}
