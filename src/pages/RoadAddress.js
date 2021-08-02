@@ -9,7 +9,7 @@ import logger from "../shared/Console";
 const RoadAddress = () => {
   const dispatch = useDispatch();
   const [address, setAddress] = React.useState("");
-
+  const is_home = true;
   // 주소 검색 후 클릭 시 실행되는 함수(fullname은 추후에 활용 예정)
   // 고객의 선택에 따라 도로명주소, 지번 주소를 메인 화면 최상단 헤더에서 보여줄 예정
   const handleComplete = (data) => {
@@ -26,7 +26,7 @@ const RoadAddress = () => {
       }
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
 
-      setAddress(data.RoadAddress);
+      setAddress(data.roadAddress);
     } else if (data.userSelectedType === "J") {
       setAddress(data.jibunAddress);
     }
@@ -39,7 +39,7 @@ const RoadAddress = () => {
   },[dispatch, address]);
 
   return (
-    <AddressGrid>
+    <AddressGrid is_home={is_home}>
       <DaumPostCode onComplete={handleComplete} className="post-code" style={{height:"52.2rem"}} />
     </AddressGrid>
   );

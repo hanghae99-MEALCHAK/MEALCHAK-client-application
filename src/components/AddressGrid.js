@@ -9,22 +9,24 @@ import theme from "../styles/theme";
 
 const AddressGrid = (props) => {
   const { border } = theme;
-
+  console.log(props);
   return (
     <React.Fragment>
       <Grid
-        minWidth="36rem"
-        maxWidth="36rem"
+        // {props.is_post===true ? `minWidth="32rem"` : `minWidth="36rem"`}
+        minWidth={props.is_post? "32rem" : "36rem"}
+        maxWidth={props.is_post? "32rem" : "36rem"}
+        width={props.is_home? "36rem" : ""}
         margin="0 auto"
         border={border.line1}
       >
         <Grid shape="container">
           {props.is_post ? (
-            <Header {...props} shape="주소입력">
+            <Header {...props} shape="주소입력" close={props?.close}>
               배달 주소 입력
             </Header>
           ) : (
-            <Header {...props} shape="주소입력">
+            <Header {...props} shape="주소입력" close={props?.close}>
               주소 입력
             </Header>
           )}
