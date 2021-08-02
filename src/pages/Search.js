@@ -9,6 +9,7 @@ import { Grid, Input, Text } from '../elements';
 import { actionCreators as searchActions } from '../redux/modules/search';
 
 import theme from '../styles/theme';
+import logger from '../shared/Console';
 
 const Search = (props) => {
   const { color, border } = theme;
@@ -16,7 +17,7 @@ const Search = (props) => {
   const dispatch = useDispatch();
   const [food, setFood] = React.useState('');
 
-  const search_list = useSelector((state) => state.search.search_list);
+  const search_list = useSelector((state) => state.search.list);
 
   const onChange = (e) => {
     setFood(e.target.value);
@@ -103,7 +104,7 @@ const Search = (props) => {
             ) : (
               <Grid>
                 {search_list.map((p, idx) => {
-                  return <Post {...p} key={p.id} />;
+                  return <Post {...p} key={p.post_id} />;
                 })}
               </Grid>
             )}

@@ -34,7 +34,7 @@ const UploadContents = React.memo((props) => {
               type="text"
               border="none"
               placeholder="메뉴를 포함해서 제목을 작성해보세요!"
-              length={25}
+              length={20}
               size={fontSize.base}
               color={color.bg60}
               bold="400"

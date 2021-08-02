@@ -11,29 +11,13 @@ import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import '../shared/Swiper.scss';
 
+import logger from '../shared/Console';
+
 SwiperCore.use([Pagination, Autoplay]);
 
 const MainBanner = (props) => {
   const { color } = theme;
-  // console.log(props.imgList.map(src =>));
-
-  props.imgList.map((src) => {
-    return console.log(src.mainURL);
-  });
-  // const imgList = [
-  //   {
-  //     mainURL:
-  //       'https://cdn.pixabay.com/photo/2015/04/08/13/13/food-712665__340.jpg',
-  //   },
-  //   {
-  //     mainURL:
-  //       'https://cdn.pixabay.com/photo/2014/04/22/02/56/pizza-329523__340.jpg',
-  //   },
-  //   {
-  //     mainURL:
-  //       'https://cdn.pixabay.com/photo/2016/06/06/18/29/meat-skewer-1440105__340.jpg',
-  //   },
-  // ];
+  logger('메인베너', props);
 
   return (
     <React.Fragment>
