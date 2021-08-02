@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 import { Grid, Text, Button } from "../elements";
 import { Post, Footer, Header, MainBanner } from "../components";
@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import logger from "../shared/Console";
 
-import theme from "../styles/theme";
+import theme from '../styles/theme';
 
 const Main = (props) => {
   const { color, border, btn_border, fontSize } = theme;
@@ -39,24 +39,24 @@ const Main = (props) => {
     {
       id: 1,
       mainURL:
-        "https://cdn.pixabay.com/photo/2015/04/08/13/13/food-712665__340.jpg",
+        'https://cdn.pixabay.com/photo/2015/04/08/13/13/food-712665__340.jpg',
     },
     {
       id: 2,
       mainURL:
-        "https://cdn.pixabay.com/photo/2014/04/22/02/56/pizza-329523__340.jpg",
+        'https://cdn.pixabay.com/photo/2014/04/22/02/56/pizza-329523__340.jpg',
     },
     {
       id: 3,
       mainURL:
-        "https://cdn.pixabay.com/photo/2016/06/06/18/29/meat-skewer-1440105__340.jpg",
+        'https://cdn.pixabay.com/photo/2016/06/06/18/29/meat-skewer-1440105__340.jpg',
     },
   ];
 
   return (
     <React.Fragment>
       <Grid
-      minHeight="100vh"
+        minHeight="100vh"
         minWidth="36rem"
         maxWidth="36rem"
         margin="0 auto"
@@ -78,7 +78,7 @@ const Main = (props) => {
             border={btn_border.bg40}
             radius="1.2rem"
             _onClick={() => {
-              history.push("/search");
+              history.push('/search');
             }}
           >
             <Text
@@ -93,9 +93,9 @@ const Main = (props) => {
             </Text>
             <svg
               style={{
-                position: "absolute",
-                top: "6.5rem",
-                margin: "0 0 0 12rem",
+                position: 'absolute',
+                top: '6.5rem',
+                margin: '0 0 0 12rem',
               }}
               width="24"
               height="24"
@@ -144,7 +144,7 @@ const Main = (props) => {
             size={fontSize.base}
             bold
             margin="0 0.9rem"
-            border_bottom={category.all ? "0.1rem solid black" : ""}
+            border_bottom={category.all ? '0.1rem solid black' : ''}
             _onClick={() => {
               setCategory({ ...{ category: false }, all: true });
             }}
@@ -157,7 +157,7 @@ const Main = (props) => {
             size="1.6rem"
             bold
             margin="0 0.9rem"
-            border_bottom={category.kr ? "0.1rem solid black" : ""}
+            border_bottom={category.kr ? '0.1rem solid black' : ''}
             _onClick={() => {
               setCategory({ ...{ category: false }, kr: true });
             }}
@@ -170,7 +170,7 @@ const Main = (props) => {
             size="1.6rem"
             bold
             margin="0 0.9rem"
-            border_bottom={category.cn ? "0.1rem solid black" : ""}
+            border_bottom={category.cn ? '0.1rem solid black' : ''}
             _onClick={() => {
               setCategory({ ...{ category: false }, cn: true });
             }}
@@ -183,7 +183,7 @@ const Main = (props) => {
             size="1.6rem"
             bold
             margin="0 0.9rem"
-            border_bottom={category.jp ? "0.1rem solid black" : ""}
+            border_bottom={category.jp ? '0.1rem solid black' : ''}
             _onClick={() => {
               setCategory({ ...{ category: false }, jp: true });
             }}
@@ -196,7 +196,7 @@ const Main = (props) => {
             size="1.6rem"
             bold
             margin="0 0.9rem"
-            border_bottom={category.west ? "0.1rem solid black" : ""}
+            border_bottom={category.west ? '0.1rem solid black' : ''}
             _onClick={() => {
               setCategory({ ...{ category: false }, west: true });
             }}
@@ -209,7 +209,7 @@ const Main = (props) => {
             size="1.6rem"
             bold
             margin="0 0.9rem"
-            border_bottom={category.cafe ? "0.1rem solid black" : ""}
+            border_bottom={category.cafe ? '0.1rem solid black' : ''}
             _onClick={() => {
               setCategory({ ...{ category: false }, cafe: true });
             }}
@@ -222,7 +222,7 @@ const Main = (props) => {
             size="1.6rem"
             bold
             margin="0 0.9rem"
-            border_bottom={category.etc ? "0.1rem solid black" : ""}
+            border_bottom={category.etc ? '0.1rem solid black' : ''}
             _onClick={() => {
               setCategory({ ...{ category: false }, etc: true });
             }}
@@ -259,22 +259,22 @@ const Main = (props) => {
             if (category.all) {
               return <Post {...p} key={p.post_id} />;
             }
-            if (category.kr && p.category === "한식") {
+            if (category.kr && p.category === '한식') {
               return <Post {...p} key={p.post_id} />;
             }
-            if (category.cn && p.category === "중식") {
+            if (category.cn && p.category === '중식') {
               return <Post {...p} key={p.post_id} />;
             }
-            if (category.jp && p.category === "일식") {
+            if (category.jp && p.category === '일식') {
               return <Post {...p} key={p.post_id} />;
             }
-            if (category.west && p.category === "양식") {
+            if (category.west && p.category === '양식') {
               return <Post {...p} key={p.post_id} />;
             }
-            if (category.cafe && p.category === "카페") {
+            if (category.cafe && p.category === '카페') {
               return <Post {...p} key={p.post_id} />;
             }
-            if (category.etc && p.category === "기타") {
+            if (category.etc && p.category === '기타') {
               return <Post {...p} key={p.post_id} />;
             }
             return null;

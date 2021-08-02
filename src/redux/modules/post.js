@@ -1,7 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axiosModule from "../axios_module";
-
 import logger from "../../shared/Console";
 import { actionCreators as userActions } from "./user";
 import { actionCreators as chatActions } from "./chat";
@@ -34,7 +33,7 @@ const getPostAX = () => {
       .then((res) => {
         let post_list = [];
 
-        logger("post:35: ", res);
+        logger('post:35: ', res);
 
         if (res.data.length !== 0) {
           res.data.forEach((p) => {
@@ -57,7 +56,7 @@ const getPostAX = () => {
           });
         } else {
           let post = {
-            post_id: "",
+            post_id: '',
           };
           post_list.push(post);
         }
@@ -66,7 +65,7 @@ const getPostAX = () => {
         dispatch(userActions.loading(false));
       })
       .catch((err) => {
-        logger("ErrorMessage: ", err);
+        logger('ErrorMessage: ', err);
       });
   };
 };

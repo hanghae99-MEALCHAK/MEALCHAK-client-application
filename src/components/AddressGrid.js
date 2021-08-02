@@ -1,11 +1,11 @@
 // RoadAddress.js의 DaumPostCode 컴포넌트를 감싸줄 컴포넌트
-import React from "react";
+import React from 'react';
 
-import { Header } from "../components";
+import { Header } from '../components';
 
 // style
-import { Grid } from "../elements";
-import theme from "../styles/theme";
+import { Grid } from '../elements';
+import theme from '../styles/theme';
 
 const AddressGrid = (props) => {
   const { border } = theme;
@@ -14,9 +14,9 @@ const AddressGrid = (props) => {
     <React.Fragment>
       <Grid
         minHeight="100vh"
-        minWidth={props.is_post? "32rem" : "36rem"}
-        maxWidth={props.is_post? "32rem" : "36rem"}
-        width={props.is_home? "36rem" : ""}
+        minWidth={props.is_post ? '32rem' : '36rem'}
+        maxWidth={props.is_post ? '32rem' : '36rem'}
+        width={props.is_home ? '36rem' : ''}
         margin="0 auto"
         border={border.line1}
       >
