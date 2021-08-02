@@ -17,6 +17,7 @@ const Main = (props) => {
   const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post?.list);
   const user = useSelector((state) => state.user.user);
+  const rank_list = useSelector((state) => state.post?.rank);
 
   const [category, setCategory] = React.useState({
     all: true,
@@ -33,6 +34,7 @@ const Main = (props) => {
     if (post_list.length === 0) {
       dispatch(postActions.getPostAX());
     }
+    dispatch(postActions.getRankDB());
   }, []);
   
   const imgList = [
@@ -127,7 +129,7 @@ const Main = (props) => {
               #오늘의 인기 메뉴
             </Text>
           </Grid>
-          <MainBanner imgList={imgList}></MainBanner>
+          <MainBanner {...rank_list} imgList={imgList}></MainBanner>
           <Grid height="0.8rem" bg="#f4f4f3" />
         </Grid>
         <Grid

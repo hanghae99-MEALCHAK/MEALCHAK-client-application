@@ -10,18 +10,22 @@ import theme from '../styles/theme';
 import logger from '../shared/Console';
 
 const DetailPost = (props) => {
+  logger('상세포스트 프롭스', props.is_me);
   const {
-    post_id,
-    title,
+    address,
+    category,
+    contents,
+    distance,
     headCount,
     insert_dt,
-    address,
+    is_me,
     orderTime,
-    contents,
+    post_id,
     shop,
-    createdAt,
-    username,
+    title,
+    userImg,
     user_id,
+    username,
   } = props;
 
   const { color, border, radius, fontSize } = theme;
@@ -30,7 +34,7 @@ const DetailPost = (props) => {
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
-    logger("is_me", props.is_me)
+    // logger('is_me', props.is_me);
   }, []);
 
   const deleteBtn = () => {
@@ -63,32 +67,31 @@ const DetailPost = (props) => {
       >
         <Grid>
           <Grid is_flex>
-            <Grid width="auto">
-              <Image shape="circle" size="4" />
-            </Grid>
+            <UserProfile src={userImg} />
             <Grid>
-              <Text bold size="1.3rem" color={color.bg100}>
-                {username}
-              </Text>
-              <Text width="10rem" size="1rem" color={color.bg60}>
+              <Grid is_flex>
+                <Text size={fontSize.small} color={color.bg100} bold2="500">
+                  {username}
+                </Text>
+                <Grid
+                  maxWidth="9.1rem"
+                  height="2.3rem"
+                  bg={color.bg20}
+                  radius="0.5rem"
+                  padding="0.4rem 0.8rem"
+                >
+                  <Text
+                    size="1rem"
+                    text_align="center"
+                    color={color.success100}
+                    bold
+                  >
+                    모집 인원 2/4명
+                  </Text>
+                </Grid>
+              </Grid>
+              <Text size="1rem" color={color.bg80} bold2="400">
                 {insert_dt}
-              </Text>
-            </Grid>
-            <Grid
-              is_flex4
-              width="9.1rem"
-              height="2.3rem"
-              radius="0.5rem"
-              bg={color.bg20}
-            >
-              <Text
-                text_align="center"
-                width="9.1rem"
-                bold2="700"
-                size="1rem"
-                color={color.brand100}
-              >
-                모집 인원 2명/{headCount}명
               </Text>
             </Grid>
           </Grid>
@@ -96,46 +99,81 @@ const DetailPost = (props) => {
             <Text
               margin="1.6rem 0 0.8rem 0"
               bold
-              size="1.6rem"
+              size={fontSize.postBox}
               color={color.bg100}
             >
               {title}
             </Text>
-            <Text size="1.3rem" color={color.bg100}>
+            <Text
+              margin="0 0 1rem 0"
+              size={fontSize.small}
+              line_height="150%"
+              color={color.bg100}
+              bold2="400"
+            >
               {contents}
             </Text>
           </Grid>
           <GreyLine />
-          <Grid>
-            <Text margin="0.8rem 0" size="1.3rem" color={color.bg80}>
+          <Grid is_flex4>
+            <Text
+              margin="0.8rem 0"
+              bold2="400"
+              line_height="150%"
+              size={fontSize.small}
+              color={color.bg80}
+            >
               배달 받을 곳
             </Text>
-            <Text margin="0 0 1.6rem 0" size="1.3rem" color={color.bg100}>
-              {address}
+            <Text
+              height="1.5rem"
+              size="1rem"
+              bold2="500"
+              color={color.success100}
+              line_height="150%"
+              margin="0 0 0 1rem"
+            >
+              {distance > 999
+                ? `내 위치로부터 ${(distance / 1000).toFixed(2)}km`
+                : `내 위치로부터 ${distance}m`}
             </Text>
           </Grid>
+          <Text
+            line_height="150%"
+            margin="0 0 1.6rem 0"
+            size="1.3rem"
+            bold2="500"
+            color={color.bg100}
+          >
+            {address}
+          </Text>
           <GreyLine />
-          <Grid is_flex>
-            <Grid>
-              <Text margin="0.8rem 0" size="1.3rem" color={color.bg80}>
-                배달 식당
-              </Text>
-              <Text size="1.3rem" color={color.bg100}>
-                {props.shop}
-              </Text>
-            </Grid>
-            <Grid is_flex>
-              <Grid>
-                <Text margin="0.8rem 0" size="1.3rem" color={color.bg80}>
-                  주문 예정 시각
-                </Text>
-                <Text size="1.3rem" color={color.bg100}>
-                  {orderTime}
-                </Text>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid is_flex></Grid>
+          <GridGap>
+            <Text
+              width="15rem"
+              margin="0.8rem 0"
+              size="1.3rem"
+              color={color.bg80}
+            >
+              배달 식당
+            </Text>
+            <Text
+              width="15rem"
+              margin="0.8rem 0"
+              size="1.3rem"
+              color={color.bg80}
+            >
+              주문 예정 시각
+            </Text>
+          </GridGap>
+          <GridGap>
+            <Text width="15rem" size="1.3rem" color={color.bg100}>
+              {props.shop}
+            </Text>
+            <Text width="15rem" size="1.3rem" color={color.bg100}>
+              {orderTime}
+            </Text>
+          </GridGap>
         </Grid>
       </Grid>
       {props.is_me ? (
@@ -174,7 +212,7 @@ const DetailPost = (props) => {
           </Button>
         </Grid>
       ) : (
-        <Grid maxWidth="32rem" margin="0 auto">
+        <Grid maxWidth="30rem" margin="0 auto">
           <Button
             shape="large"
             color={color.brand100}
@@ -195,12 +233,31 @@ const DetailPost = (props) => {
 
 DetailPost.defaultProps = {};
 
+<<<<<<< HEAD
+const UserProfile = styled.img`
+  width: 4.5rem;
+  height: 3.8rem;
+  border-radius: 2rem;
+  background-image: url('${(props) => props.src}');
+  /* background-image: url("https://mean0images.s3.ap-northeast-2.amazonaws.com/4.jpeg"); */
+  background-size: cover;
+  /* margin: 0.4rem; */
+  margin: 1rem 1rem 1rem 0;
+`;
+
+=======
+>>>>>>> 7c138f6e37dbe015e52a2134b7a33b35d9342ce5
 const GreyLine = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 1px;
   margin: 1rem auto;
   background-color: #f1f2f4;
+`;
+
+const GridGap = styled.div`
+  display: flex;
+  gap: 0 2rem;
 `;
 
 export default DetailPost;

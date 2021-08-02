@@ -4,23 +4,26 @@ import { actionCreators as chatActions } from '../redux/modules/chat';
 import { useDispatch } from 'react-redux';
 import { socketFuntion as sf } from '../shared/SocketFn';
 
-import { Grid, Image, Text, Button } from "../elements";
-import { history } from "../redux/configureStore";
-import logger from "../shared/Console";
-import theme from "../styles/theme";
+import { Grid, Image, Text, Button } from '../elements';
+import { history } from '../redux/configureStore';
+import logger from '../shared/Console';
+import theme from '../styles/theme';
 
 const Post = (props) => {
   const { color, fontSize } = theme;
   const dispatch = useDispatch();
-  
+
   // 채팅 시작하면 서버에 게스트 입장 요청
   // 구독, 채팅 시작
   const enterRoom = (roomId, roomName, postId) => {
     dispatch(chatActions.enterRoomAX(postId));
     dispatch(chatActions.clearMessage());
     dispatch(chatActions.moveChatRoom(roomId, roomName));
-    history.replace({pathname: '/chatting', state: {roomId: roomId, roomName: roomName}});
-  }
+    history.replace({
+      pathname: '/chatting',
+      state: { roomId: roomId, roomName: roomName },
+    });
+  };
 
   // 내 위치에서부터 얼마나 떨어져있는지 보여주는 변수(소수점이므로 1000을 곱해 m로 나타냄)
   const distance = props.distance * 1000;
@@ -112,7 +115,9 @@ const Post = (props) => {
                 line_height="150%"
                 margin="0 0 0 1rem"
               >
-                {distance > 999 ? `내 위치로부터 ${(distance / 1000).toFixed(2)}km` : `내 위치로부터 ${distance}m`}
+                {distance > 999
+                  ? `내 위치로부터 ${(distance / 1000).toFixed(2)}km`
+                  : `내 위치로부터 ${distance}m`}
               </Text>
             </Grid>
             <Text
@@ -211,7 +216,7 @@ const Post = (props) => {
               cursor="pointer"
               _onClick={(e) => {
                 enterRoom(6, props.title, props.post_id);
-            }}
+              }}
             >
               채팅 시작하기
             </Button>
@@ -225,7 +230,6 @@ const Post = (props) => {
 Post.defaultProps = {};
 
 const UserProfile = styled.div`
-  /* width: 3.8rem; */
   width: 4.3rem;
   height: 3.8rem;
   border-radius: 2rem;
