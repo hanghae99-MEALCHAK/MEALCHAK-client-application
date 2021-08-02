@@ -12,6 +12,7 @@ const GET_DETAIL_POST = 'GET_DETAIL_POST';
 const ADD_POST = 'ADD_POST';
 const EDIT_POST = 'EDIT_POST';
 const DELETE_POST = 'DELETE_POST';
+const SET_RANK = 'SET_RANK';
 
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
 const addPost = createAction(ADD_POST, (post_item) => ({ post_item }));
@@ -20,17 +21,19 @@ const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post,
 }));
 const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
+const setRank = createAction(SET_RANK, (rank_list) => ({ rank_list }));
 
 const initialState = {
   list: [],
   is_loaded: false,
+  rank: [],
 };
 
 const getPostAX = () => {
   return function (dispatch, getState, { history }) {
     dispatch(userActions.loading(true));
     axiosModule
-      .get('/posts/around')
+      .get('/posts')
       .then((res) => {
         let post_list = [];
 
@@ -39,18 +42,18 @@ const getPostAX = () => {
         if (res.data.length !== 0) {
           res.data.forEach((p) => {
             let post = {
-              post_id: p.id,
+              post_id: p.postId,
               title: p.title,
               contents: p.contents,
-              category: p.menu.category,
+              category: p.category,
               shop: p.restaurant,
               headCount: p.headCount,
               orderTime: p.orderTime,
-              address: p.location.address,
+              address: p.address,
               insert_dt: p.createdAt,
-              username: p.user.username,
-              user_id: p.user.id,
-              userImg: p.user.thumbnailImg,
+              username: p.username,
+              user_id: p.userId,
+              userImg: p.profileImg,
               distance: p.distance,
             };
             post_list.push(post);
@@ -202,6 +205,27 @@ const deletePostAX = (post_id) => {
   };
 };
 
+const getRankDB = () => {
+  return function (dispatch, getState, { history }) {
+    axiosModule
+      .get('/menu')
+      .then((res) => {
+        logger('카테고리 랭크', res.data);
+        let rank_list = [];
+        res.data.forEach((p) => {
+          let rank = {
+            category: p.category,
+          };
+          rank_list.push(rank);
+        });
+        dispatch(setRank(rank_list));
+      })
+      .catch((err) => {
+        logger('post모듈 - getRankDB: ', err);
+      });
+  };
+};
+
 export default handleActions(
   {
     [SET_POST]: (state, action) =>
@@ -251,6 +275,10 @@ export default handleActions(
           draft.list.splice(idx, 1);
         }
       }),
+    [SET_RANK]: (state, action) =>
+      produce(state, (draft) => {
+        draft.rank = action.payload.rank_list;
+      }),
   },
   initialState
 );
@@ -262,6 +290,7 @@ const actionCreators = {
   addPostAX,
   editPostAX,
   deletePostAX,
+  getRankDB,
 };
 
 export { actionCreators };

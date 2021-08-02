@@ -9,7 +9,7 @@ const GET_SEARCH_LIST = 'GET_SEARCH_LIST';
 const getSearchList = createAction(GET_SEARCH_LIST, (search) => ({ search }));
 
 const initialState = {
-  search_list: [],
+  list: [],
 };
 
 const getSearchListDB = (food) => {
@@ -17,11 +17,32 @@ const getSearchListDB = (food) => {
     // const username = getState().user.user.username;
     axiosModule
       .post(`/search`, food)
-      .then((result) => {
-        dispatch(getSearchList(result.data));
+      .then((res) => {
+        logger('서치모듈', res);
+        let search_list = [];
+
+        res.data.forEach((p) => {
+          let post = {
+            post_id: p.id,
+            title: p.title,
+            contents: p.contents,
+            category: p.menu.category,
+            shop: p.restaurant,
+            headCount: p.headCount,
+            orderTime: p.orderTime,
+            address: p.location.address,
+            insert_dt: p.createdAt,
+            username: p.user.username,
+            user_id: p.user.id,
+            userImg: p.user.profileImg,
+            distance: p.distance,
+          };
+          search_list.push(post);
+        });
+        dispatch(getSearchList(search_list));
       })
       .catch((err) => {
-        logger('search모듈 - 24: ', err);
+        logger('search모듈 - getSeartchListDB: ', err);
       });
   };
 };
@@ -30,7 +51,7 @@ export default handleActions(
   {
     [GET_SEARCH_LIST]: (state, action) =>
       produce(state, (draft) => {
-        draft.search_list = action.payload.search;
+        draft.list = action.payload.search;
       }),
   },
   initialState
