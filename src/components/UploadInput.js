@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Grid, Text, Input, Button } from '../elements';
+import { Grid, Text, Input } from '../elements';
 import { useState } from 'react';
-import { history } from '../redux/configureStore';
 import theme from '../styles/theme';
 import logger from '../shared/Console';
 import { useSelector } from 'react-redux';
@@ -11,18 +10,7 @@ import DropDown from "./DropDown";
 const UploadInput = React.memo((props) => {
   const { color, fontSize } = theme;
 
-  const inputRef = React.useRef();
-  React.useEffect(() => {
-    logger("uploadinput 페이지", props);
-    logger("uploadinput 페이지2", post_info);
-  }, []);
-
   const post_address = useSelector((state) => state.loc.post_address?.address);
-
-  React.useEffect(() => {
-    setPostInfo({ ...post_info, place: post_address });
-    props?.onChange({ place: post_address });
-  }, [post_address ? post_address : null]);
 
   const [post_info, setPostInfo] = useState(
     props.post_info !== {}
@@ -41,6 +29,16 @@ const UploadInput = React.memo((props) => {
           foodCategory: '',
         }
   );
+
+  React.useEffect(() => {
+    logger("uploadinput 페이지", props);
+    logger("uploadinput 페이지2", post_info);
+  }, []);
+
+  React.useEffect(() => {
+    setPostInfo({ ...post_info, place: post_address });
+    props?.onChange({ place: post_address });
+  }, [post_address ? post_address : null]);
 
   return (
     <React.Fragment>

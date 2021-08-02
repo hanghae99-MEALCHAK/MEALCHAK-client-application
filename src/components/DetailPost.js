@@ -195,12 +195,6 @@ const DetailPost = (props) => {
 
 DetailPost.defaultProps = {};
 
-const DeatilHeader = styled.div`
-  margin: 1rem auto;
-  text-align: center;
-  vertical-align: middle;
-`;
-
 const GreyLine = styled.div`
   box-sizing: border-box;
   width: 100%;

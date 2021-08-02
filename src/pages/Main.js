@@ -15,9 +15,7 @@ const Main = (props) => {
   const { color, border, btn_border, fontSize } = theme;
 
   const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.user.is_login);
   const post_list = useSelector((state) => state.post?.list);
-  const distance = useSelector((state) => state.post.list);
   const user = useSelector((state) => state.user.user);
 
   const [category, setCategory] = React.useState({
@@ -36,7 +34,7 @@ const Main = (props) => {
       dispatch(postActions.getPostAX());
     }
   }, []);
-
+  
   const imgList = [
     {
       id: 1,

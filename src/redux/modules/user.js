@@ -136,6 +136,7 @@ const editUserAddressAX = (address) => {
         dispatch(editAddress(res.data.address));
         window.alert("주소 설정이 완료되었습니다.");
         history.replace("/home");
+        // 유저주소를 변경 후 메인 페이지에서 거리에 따라 게시글 바뀌지 않는 현상 해결
         window.location.reload();
       })
       .catch((err) => {
