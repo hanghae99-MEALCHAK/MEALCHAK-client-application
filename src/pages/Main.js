@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Grid, Text, Button } from '../elements';
-import { Post, Footer, Header, MainBanner } from '../components';
+import { Grid, Text, Button } from "../elements";
+import { Post, Footer, Header, MainBanner } from "../components";
 
-import { actionCreators as postActions } from '../redux/modules/post';
-import { useDispatch, useSelector } from 'react-redux';
-import { history } from '../redux/configureStore';
-import logger from '../shared/Console';
+import { actionCreators as postActions } from "../redux/modules/post";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
+import logger from "../shared/Console";
 
 import theme from "../styles/theme";
 
@@ -15,9 +15,7 @@ const Main = (props) => {
   const { color, border, btn_border, fontSize } = theme;
 
   const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.user.is_login);
   const post_list = useSelector((state) => state.post?.list);
-  const distance = useSelector((state) => state.post.list);
   const user = useSelector((state) => state.user.user);
 
   const [category, setCategory] = React.useState({
@@ -35,14 +33,15 @@ const Main = (props) => {
     if (post_list.length === 0) {
       dispatch(postActions.getPostAX());
     }
+    // else if()
   }, []);
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
-    if (post_list.length === 0) {
-      dispatch(postActions.getPostAX());
+    if (post_list.length > 0) {
+      // window.location.reload();
     }
-  }, [user?.user_address]);
+  }, [!post_list || !user?.user_address || !user]);
 
   const imgList = [
     {
@@ -65,6 +64,7 @@ const Main = (props) => {
   return (
     <React.Fragment>
       <Grid
+      minHeight="100vh"
         minWidth="36rem"
         maxWidth="36rem"
         margin="0 auto"
@@ -257,6 +257,13 @@ const Main = (props) => {
 
         {post_list.length > 0 ? (
           post_list.map((p, idx) => {
+            if (p.post_id === "") {
+              return (
+                <React.Fragment>
+                  <div>하이</div>
+                </React.Fragment>
+              );
+            }
             if (category.all) {
               return <Post {...p} key={p.post_id} />;
             }
