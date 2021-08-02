@@ -9,7 +9,6 @@ import logger from "../shared/Console";
 const PostAddress = React.memo((props) => {
   const dispatch = useDispatch();
   const [address, setAddress] = React.useState("");
-  console.log(props);
   // Header의 주소 입력과 게시글 주소 입력 구분
   const is_post = true;
 

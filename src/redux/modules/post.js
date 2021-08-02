@@ -41,15 +41,17 @@ const getPostAX = () => {
               post_id: p.id,
               title: p.title,
               contents: p.contents,
-              category: p.menu.category,
+              category: p.category,
               shop: p.restaurant,
               headCount: p.headCount,
+              // orderDate: p.orderTime,
               orderTime: p.orderTime,
-              address: p.location.address,
+              address: p.address,
               insert_dt: p.createdAt,
-              username: p.user.username,
-              user_id: p.user.id,
-              userImg: p.user.thumbnailImg,
+              username: p.username,
+              user_id: p.id,
+              userImg: p.profileImg,
+              // userImg: p.thumbnailImg,
               distance: p.distance,
             };
             post_list.push(post);
@@ -207,14 +209,14 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list.push(...action.payload.post_list);
 
-        draft.list = draft.list.reduce((acc, cur) => {
-          if (acc.findIndex((a) => a.id === cur.post_id) === -1) {
-            return [...acc, cur];
-          } else {
-            acc[acc.findIndex((a) => a.id === cur.post_id)] = cur;
-            return acc;
-          }
-        }, []);
+        // draft.list = draft.list.reduce((acc, cur) => {
+        //   if (acc.findIndex((a) => a.id === cur.post_id) === -1) {
+        //     return [...acc, cur];
+        //   } else {
+        //     acc[acc.findIndex((a) => a.id === cur.post_id)] = cur;
+        //     return acc;
+        //   }
+        // }, []);
       }),
 
     [GET_DETAIL_POST]: (state, action) =>
