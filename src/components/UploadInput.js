@@ -1,11 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import { Grid, Text, Input } from "../elements";
-import { useState } from "react";
-import theme from "../styles/theme";
-import logger from "../shared/Console";
+import React from 'react';
+import styled from 'styled-components';
+import { Grid, Text, Input, Button } from '../elements';
+import { useState } from 'react';
+import { history } from '../redux/configureStore';
+import theme from '../styles/theme';
+import logger from '../shared/Console';
+import { useSelector } from 'react-redux';
 import DropDown from "./DropDown";
-import { useSelector } from "react-redux";
 
 const UploadInput = React.memo((props) => {
   const { color, fontSize } = theme;
@@ -33,11 +34,11 @@ const UploadInput = React.memo((props) => {
           foodCategory: props.post_info.foodCategory,
         }
       : {
-          place: "",
-          restaurant: "",
-          headCount: "",
-          appointmentTime: "",
-          foodCategory: "",
+          place: '',
+          restaurant: '',
+          headCount: '',
+          appointmentTime: '',
+          foodCategory: '',
         }
   );
 
@@ -58,21 +59,6 @@ const UploadInput = React.memo((props) => {
                 </Text>
                 <DropDown />
               </Grid>
-              {/* <Input
-                border="1px solid #C7C8CE"
-                padding="1.5rem 1.3rem"
-                size={fontSize.base}
-                color={color.bg60}
-                placeholder="배달 받을 곳을 선택해주세요."
-                value={post_info.place}
-                _onChange={(e) => {
-                  console.log(e);
-                  console.log(e.target.value);
-                  // setPostInfo({ ...post_info, place: post_address });
-                  // props.onChange({ place: post_address });
-                }}
-              >
-              </Input> */}
               <Grid
                 radius="1.2rem"
                 border="1px solid #C7C8CE"
@@ -110,7 +96,7 @@ const UploadInput = React.memo((props) => {
             </FocusWithin>
           </Grid>
 
-          <FocusWithin>
+          <FocusWithinSelect>
             <Text
               padding="2.4rem 0 0.8rem"
               color="#888E95"
@@ -143,11 +129,11 @@ const UploadInput = React.memo((props) => {
                 <option value="4">4명</option>
               </Select>
             </Grid>
-            <Text color="red" size={fontSize.tiny} padding="0.5rem 1rem 0">
-              5인 이상 집합금지로 인원에 제한이 있습니다.
-            </Text>
-            <Grid></Grid>
-          </FocusWithin>
+          </FocusWithinSelect>
+          <Text color="red" size={fontSize.tiny} padding="0.5rem 1rem 0">
+            5인 이상 집합금지로 인원에 제한이 있습니다.
+          </Text>
+
           <Grid>
             <FocusWithin>
               <Text
@@ -175,8 +161,9 @@ const UploadInput = React.memo((props) => {
               ></Input>
             </FocusWithin>
           </Grid>
-          <FocusWithin>
-            <Grid margin="0 auto 1rem">
+
+          <Grid margin="0 auto 1rem">
+            <FocusWithinSelect>
               <Text
                 padding="2.4rem 0 0.8rem"
                 color="#888E95"
@@ -212,8 +199,8 @@ const UploadInput = React.memo((props) => {
                   <option value="기타">기타</option>
                 </Select>
               </Grid>
-            </Grid>
-          </FocusWithin>
+            </FocusWithinSelect>
+          </Grid>
         </Container>
       </Grid>
     </React.Fragment>
@@ -241,6 +228,16 @@ const FocusWithin = styled.div`
     color: #ff9425;
   }
   &:focus-within input {
+    border: 1px solid #ff9425;
+    outline: none;
+  }
+`;
+
+const FocusWithinSelect = styled.div`
+  &:focus-within p {
+    color: #ff9425;
+  }
+  &:focus-within div {
     border: 1px solid #ff9425;
     outline: none;
   }
