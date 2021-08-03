@@ -101,33 +101,15 @@ const editUserProfileAX = (profile) => {
   };
 };
 
-// // 사용자 한 줄 소개 변경 함수
-// const editUserCommentAX = (edit_comment) => {
-//   return function (dispatch, getState, { history }) {
-//     axiosModule
-//       .put("/username/update", edit_comment)
-//       .then((res) => {
-//         const edit_comment = res.data;
-//         dispatch(editComment(edit_comment));
-//         logger("comment 수정 모듈", res);
-//       })
-//       .catch((e) => {
-//         logger("comment 수정 모듈 e", e);
-//       });
-//   };
-// };
-
-// getUserAX 만들어야함 - 마이페이지 user profile
-
 // 로그인 확인
 // 페이지가 새로고침 되는 상황마다 user check 후 리덕스에 정보 저장
 const loginCheck = () => {
   return function (dispatch, getState, { history }) {
     if (token) {
       axiosModule
-        .get("/user/info")
-        .then((res) => {
-          logger("로그인 체크 res", res);
+      .get('/user/info')
+      .then((res) => {
+          logger('로그인 체크 res', res);
           const user_info = {
             user_id: res.data.id,
             user_nickname: res.data.username,
@@ -140,6 +122,12 @@ const loginCheck = () => {
               ...user_info,
             })
           );
+        }).then(() => {
+          // is_login은 안되었는데 토큰 남아있는경우 토큰 지우고 싶은데 방법을 모르겠음
+          const is_login = getState().user.is_login;
+          if(!is_login){
+            dispatch(logOut());
+          }
         })
         .catch((e) => {
           logger("로그인 체크 에러", e);

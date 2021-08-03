@@ -34,6 +34,7 @@ function App() {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
   const is_loading = useSelector((state) => state.user.is_loading);
+  const is_login = useSelector((state) => state.user.is_login);
 
   // token 정보 있을때 user redux에 저장
   React.useEffect(() => {
@@ -43,6 +44,8 @@ function App() {
     }
     logger("app.js token 정보", token);
     logger("is_loading", is_loading);
+    logger("로그인", is_login);
+
   }, []);
 
   if (is_loading) {

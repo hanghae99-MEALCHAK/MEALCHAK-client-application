@@ -58,6 +58,10 @@ const Input = (props) => {
             size={size}
             padding={padding}
             radius={radius}
+            min={min}
+            color={color}
+            maxLength={length}
+            width={width}
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
                 onSubmit(e);
