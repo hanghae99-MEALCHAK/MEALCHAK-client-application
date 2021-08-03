@@ -1,18 +1,18 @@
-import React from "react";
-import styled from "styled-components";
-import { Grid, Text, Input } from "../elements";
-import { useState } from "react";
-import theme from "../styles/theme";
-import logger from "../shared/Console";
-import { useSelector } from "react-redux";
-import DropDown from "./DropDown";
-import moment from "moment";
+import React from 'react';
+import styled from 'styled-components';
+import { Grid, Text, Input } from '../elements';
+import { useState } from 'react';
+import theme from '../styles/theme';
+import logger from '../shared/Console';
+import { useSelector } from 'react-redux';
+import DropDown from './DropDown';
+import moment from 'moment';
 
 const UploadInput = React.memo((props) => {
   const { color, fontSize } = theme;
 
-  const today = moment().format("YYYY-MM-DD");
-  const now_time = moment().format("HH:mm");
+  const today = moment().format('YYYY-MM-DD');
+  const now_time = moment().format('HH:mm');
   const post_address = useSelector((state) => state.loc.post_address?.address);
 
   const [post_info, setPostInfo] = useState(
@@ -27,18 +27,18 @@ const UploadInput = React.memo((props) => {
           foodCategory: props.post_info.foodCategory,
         }
       : {
-          place: "",
-          restaurant: "",
-          headCount: "",
+          place: '',
+          restaurant: '',
+          headCount: '',
           appointmentTime: now_time,
           appointmentDate: today,
-          foodCategory: "",
+          foodCategory: '',
         }
   );
 
   React.useEffect(() => {
-    logger("uploadinput 페이지", props);
-    logger("uploadinput 페이지2", post_info);
+    logger('uploadinput 페이지', props);
+    logger('uploadinput 페이지2', post_info);
   }, []);
 
   React.useEffect(() => {
@@ -69,7 +69,7 @@ const UploadInput = React.memo((props) => {
                 padding="1.5rem 1.3rem"
               >
                 <Text color={color.bg60} size={fontSize.base}>
-                  {post_address ? post_address : "배달 받을 곳을 선택해주세요"}
+                  {post_address ? post_address : '배달 받을 곳을 선택해주세요'}
                 </Text>
               </Grid>
             </FocusWithin>
@@ -92,7 +92,7 @@ const UploadInput = React.memo((props) => {
                 placeholder="배달 예정인 음식점을 입력해주세요."
                 value={post_info.restaurant}
                 _onChange={(e) => {
-                  console.log(e.target.value);
+                  console.log(e.target.value, today);
                   setPostInfo({ ...post_info, restaurant: e.target.value });
                   props.onChange({ restaurant: e.target.value });
                 }}
@@ -161,8 +161,8 @@ const UploadInput = React.memo((props) => {
                       ...post_info,
                       appointmentDate: e.target.value,
                     });
-                    logger("약속 날짜", e.target.value);
-                    logger("오늘", today);
+                    logger('약속 날짜', e.target.value);
+                    logger('오늘', today);
 
                     props.onChange({ appointmentDate: e.target.value });
                   }}

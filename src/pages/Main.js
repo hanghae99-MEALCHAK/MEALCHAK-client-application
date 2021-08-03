@@ -37,27 +37,6 @@ const Main = (props) => {
     dispatch(postActions.getRankDB());
   }, []);
 
-  const imgList = [
-    {
-      id: 1,
-      category: '한식',
-      mainURL:
-        'https://cdn.pixabay.com/photo/2015/04/08/13/13/food-712665__340.jpg',
-    },
-    {
-      id: 2,
-      category: '중식',
-      mainURL:
-        'https://cdn.pixabay.com/photo/2014/04/22/02/56/pizza-329523__340.jpg',
-    },
-    {
-      id: 3,
-      category: '일식',
-      mainURL:
-        'https://cdn.pixabay.com/photo/2016/06/06/18/29/meat-skewer-1440105__340.jpg',
-    },
-  ];
-
   return (
     <React.Fragment>
       <Grid
@@ -132,7 +111,7 @@ const Main = (props) => {
               #오늘의 인기 메뉴
             </Text>
           </Grid>
-          <MainBanner {...rank_list} imgList={imgList}></MainBanner>
+          <MainBanner {...rank_list}></MainBanner>
           <Grid height="0.8rem" bg="#f4f4f3" />
         </Grid>
         <Grid
@@ -258,7 +237,14 @@ const Main = (props) => {
             if (p.post_id === '') {
               return (
                 <React.Fragment>
-                  <div>하이222</div>
+                  <Grid height="100vh">
+                    <Grid is_flex_column height="20rem">
+                      <LogoImg src="/illust/emptyHome_3x.png"></LogoImg>
+                      <Text size={fontSize.base} color={color.bg80}>
+                        설정한 주소 근처에 올라온 글이 없어요
+                      </Text>
+                    </Grid>
+                  </Grid>
                 </React.Fragment>
               );
             }
@@ -287,10 +273,10 @@ const Main = (props) => {
           })
         ) : (
           <React.Fragment>
-            <div>하이</div>
+            <div>하이~</div>
           </React.Fragment>
         )}
-        <Grid height="6rem" />
+        {/* <Grid height="6rem" /> */}
       </Grid>
     </React.Fragment>
   );
@@ -304,4 +290,14 @@ const Hr = styled.hr`
   border: 0.1rem solid #f4f4f3;
   margin: 0;
 `;
+
+const LogoImg = styled.div`
+  margin: auto;
+  background-image: url('${(props) => props.src}');
+  width: 184px;
+  height: 167px;
+  background-size: cover;
+  background-position: center;
+`;
+
 export default Main;

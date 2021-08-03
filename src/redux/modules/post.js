@@ -110,6 +110,7 @@ const addPostAX = (post_info) => {
     const address = getState().loc.post_address.address;
     const longitude = getState().loc.post_address.longitude;
     const latitude = getState().loc.post_address.latitude;
+    logger('post모듈 addPostAX - 1', post_info.appointmentDate);
 
     axiosModule
       .post('/posts', {
@@ -164,7 +165,7 @@ const editPostAX = (post_id, post_info) => {
         let minute = res.data.orderTime.split(' ')[1].split(':')[1];
 
         let post = {
-          post_id: res.data.id,
+          post_id: res.data.postId,
           title: res.data.title,
           contents: res.data.contents,
           category: res.data.category,
@@ -217,7 +218,6 @@ const getRankDB = () => {
     axiosModule
       .get('/menu')
       .then((res) => {
-        logger('카테고리 랭크', res.data);
         let rank_list = [];
         res.data.forEach((p) => {
           let rank = {

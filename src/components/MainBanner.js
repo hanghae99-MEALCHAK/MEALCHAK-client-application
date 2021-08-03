@@ -17,7 +17,7 @@ SwiperCore.use([Pagination, Autoplay]);
 
 const MainBanner = (props) => {
   const { color } = theme;
-  logger('메인베너', props);
+  const rank_list = Object.values(props);
 
   return (
     <React.Fragment>
@@ -31,18 +31,18 @@ const MainBanner = (props) => {
           }}
           autoplay={{ delay: 30000 }}
         >
-          {props.imgList.map((p) => {
+          {rank_list.map((p, idx) => {
             return (
-              <SwiperSlide>
+              <SwiperSlide key={idx}>
                 <Grid width="36rem" height="12.6rem" margin="0.5rem auto">
-                  <MainBannerBtn src={p.mainURL}>
+                  <MainBannerBtn src={p.imgUrl}>
                     <Grid position="absolute" top="6.5rem" right="8.5rem">
                       <Text
                         size="1.6rem"
                         text_align="center"
                         color={color.brand100}
                       >
-                        <SpanTag>{p.id}</SpanTag>
+                        <SpanTag>{idx + 1}위</SpanTag>
                         &nbsp;&nbsp;&nbsp;
                         <SpanTag>#{p.category}</SpanTag>
                       </Text>

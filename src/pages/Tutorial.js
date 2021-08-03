@@ -21,7 +21,7 @@ const Tutorial = (props) => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
 
     if (is_login) {
       window.alert('로그인 한 사용자입니다. 홈으로 돌아갑니다.');
