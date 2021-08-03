@@ -98,7 +98,7 @@ Button.defaultProps = {
   _onClick: () => {},
   _onChange: () => {},
   _onClose: () => {},
-  disabled: true,
+  disabled: false,
   margin: false,
   width: '100%',
   height: '100%',

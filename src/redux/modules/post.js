@@ -58,6 +58,7 @@ const getPostAX = () => {
               user_id: p.userId,
               userImg: p.profileImg,
               distance: p.distance,
+              room_id: p.roomId,
             };
             post_list.push(post);
           });
@@ -128,7 +129,7 @@ const addPostAX = (post_info) => {
         dispatch(chatActions.getChatListAX());
         window.alert('모집글 작성이 완료되었습니다.');
         window.location.replace('/home');
-        dispatch(locateActions.setAddressNull());
+        // dispatch(locateActions.setAddressNull());
       })
       .catch((e) => {
         logger('모집글 작성 모듈 에러', e);
@@ -148,6 +149,9 @@ const addPostAX = (post_info) => {
 
 const editPostAX = (post_id, post_info) => {
   return function (dispatch, getState, { history }) {
+    const longitude = getState().loc.post_address.longitude;
+    const latitude = getState().loc.post_address.latitude;
+
     axiosModule
       .put(`/posts/${post_id}`, {
         title: post_info.title,
@@ -157,6 +161,8 @@ const editPostAX = (post_id, post_info) => {
         orderTime: `${post_info.appointmentDate} ${post_info.appointmentTime}:00`,
         contents: post_info.contents,
         restaurant: post_info.restaurant,
+        longitude: longitude,
+        latitude: latitude,
       })
       .then((res) => {
         logger('수정 후 res', res);
@@ -164,18 +170,20 @@ const editPostAX = (post_id, post_info) => {
         let minute = res.data.orderTime.split(' ')[1].split(':')[1];
 
         let post = {
-          post_id: res.data.id,
+          post_id: res.data.postId,
           title: res.data.title,
           contents: res.data.contents,
+          headCount: res.data.headCount,
           category: res.data.category,
           shop: res.data.restaurant,
-          headCount: res.data.headCount,
           orderTime: hour + ':' + minute,
           orderDate: res.data.orderTime.split(' ')[0],
           address: res.data.address,
-          insert_dt: res.data.createdAt,
-          username: res.data.username,
           user_id: res.data.userId,
+          username: res.data.username,
+          insert_dt: res.data.createdAt,
+          distance: res.data.distance,
+          room_id: res.data.roomId,
         };
 
         dispatch(editPost(post_id, post));

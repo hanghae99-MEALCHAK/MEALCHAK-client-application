@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "connected-react-router": "^6.8.0",
+    "file-loader": "^6.2.0",
     "firebase": "^8.2.10",
     "global": "^4.4.0",
     "history": "^4.10.1",
@@ -28,11 +29,12 @@
     "redux-actions": "^2.6.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "sass": "^1.36.0",
     "sockjs-client": "^1.5.1",
     "stompjs": "^2.3.3",
-    "sass": "^1.36.0",
     "styled-components": "^5.2.1",
     "swiper": "^6.8.0",
+    "url-loader": "^4.1.1",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

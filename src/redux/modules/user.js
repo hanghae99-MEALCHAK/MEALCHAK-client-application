@@ -96,7 +96,7 @@ const editUserProfileAX = (profile) => {
         logger("profile 수정 모듈", res);
       })
       .catch((e) => {
-        logger("nick수정 모듈 e", e);
+        logger("profile 수정 모듈 e", e);
       });
   };
 };
