@@ -177,7 +177,13 @@ const Header = (props) => {
   if (props.shape === "채팅방") {
     return (
       <React.Fragment>
-        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+        <Grid
+        maxWidth="35.8rem"
+          is_flex4="t"
+          height="4.4rem"
+          bg="#ffffff"
+          is_fixed_top="t"
+        >
           <Grid width="24px" margin="0 0 0 1.3rem" />
           <span
             className="material-icons-outlined"
@@ -188,7 +194,7 @@ const Header = (props) => {
               cursor: "pointer",
             }}
             onClick={() => {
-              history.replace('/home');
+              history.replace("/home");
             }}
           >
             close
@@ -261,7 +267,7 @@ const Header = (props) => {
             onClick={() => {
               history.replace("/mypage");
             }}
-            style={{margin: "0 0 0 1rem"}}
+            style={{ margin: "0 0 0 1rem" }}
           >
             <path
               d="M15 5L7 12L15 19"
@@ -274,7 +280,7 @@ const Header = (props) => {
           <Text margin="0 auto" size="1.6rem" bold2="700">
             프로필 수정
           </Text>
-          <Grid width="3rem"/>
+          <Grid width="3rem" />
         </Grid>
       </React.Fragment>
     );

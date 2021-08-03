@@ -58,6 +58,8 @@ const getPostAX = () => {
               user_id: p.userId,
               userImg: p.profileImg,
               distance: p.distance,
+              room_id: p.roomId,
+              nowHeadCount: p.nowHeadCount,
             };
             post_list.push(post);
           });
@@ -164,12 +166,14 @@ const editPostAX = (post_id, post_info) => {
         let minute = res.data.orderTime.split(' ')[1].split(':')[1];
 
         let post = {
-          post_id: res.data.id,
+          post_id: res.data.postId,
           title: res.data.title,
           contents: res.data.contents,
           category: res.data.category,
           shop: res.data.restaurant,
           headCount: res.data.headCount,
+          nowHeadCount: res.data.nowHeadCount,
+          room_id: res.data.roomId,
           orderTime: hour + ':' + minute,
           orderDate: res.data.orderTime.split(' ')[0],
           address: res.data.address,
@@ -178,6 +182,8 @@ const editPostAX = (post_id, post_info) => {
           user_id: res.data.userId,
         };
 
+        logger("수정 포스트 내용", post);
+        
         dispatch(editPost(post_id, post));
         window.alert('모집글 수정이 완료되었습니다.');
         window.location.replace(`/post/${post_id}`);

@@ -1,16 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
-import { history } from '../redux/configureStore';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as postAction } from '../redux/modules/post';
+import React from "react";
+import styled from "styled-components";
+import { history } from "../redux/configureStore";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as postAction } from "../redux/modules/post";
+import { actionCreators as chatActions } from "../redux/modules/chat";
 
-import { Grid, Button, Text, Image } from '../elements';
+import { Grid, Button, Text, Image } from "../elements";
 
-import theme from '../styles/theme';
-import logger from '../shared/Console';
+import theme from "../styles/theme";
+import logger from "../shared/Console";
 
 const DetailPost = (props) => {
-  logger('상세포스트 프롭스', props.is_me);
+  logger("상세포스트 프롭스", props.is_me);
   const {
     address,
     category,
@@ -26,6 +27,7 @@ const DetailPost = (props) => {
     userImg,
     user_id,
     username,
+    room_id,
   } = props;
 
   const { color, border, radius, fontSize } = theme;
@@ -38,21 +40,26 @@ const DetailPost = (props) => {
   }, []);
 
   const deleteBtn = () => {
-    if (window.confirm('삭제하시겠습니까?')) {
+    if (window.confirm("삭제하시겠습니까?")) {
       dispatch(postAction.deletePostAX(post_id));
     } else {
       return;
     }
   };
 
-  const loginCheck = (path) => {
+  const enterRoom = (path, room_id, roomName, postId) => {
     if (is_login) {
-      window.alert('준비중인 서비스입니다.');
+      dispatch(chatActions.enterRoomAX(postId));
+      dispatch(chatActions.clearMessage());
+      dispatch(chatActions.moveChatRoom(room_id, roomName));
+      history.replace({
+        pathname: `/${path}`,
+        state: { room_id: room_id, roomName: roomName },
+      });
       return;
-      history.push(`/${path}`);
     } else {
-      window.alert('로그인이 필요한 기능입니다.\n로그인을 해주세요.');
-      history.push('/');
+      window.alert("로그인이 필요한 기능입니다.\n로그인을 해주세요.");
+      history.push("/");
     }
   };
 
@@ -217,8 +224,8 @@ const DetailPost = (props) => {
             shape="large"
             color={color.brand100}
             size={fontSize.small}
-            _onClick={() => {
-              loginCheck('chat');
+            _onClick={(e) => {
+              enterRoom("chatting", room_id, title, post_id);
             }}
           >
             <Text bold size="1.6rem" color={color.bg0}>
@@ -237,7 +244,7 @@ const UserProfile = styled.div`
   width: 4.3rem;
   height: 3.8rem;
   border-radius: 2rem;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   background-size: cover;
   background-position: center;
   margin: 1rem 1rem 1rem 0;
