@@ -233,7 +233,6 @@ const DetailPost = (props) => {
 
 DetailPost.defaultProps = {};
 
-<<<<<<< HEAD
 const UserProfile = styled.img`
   width: 4.5rem;
   height: 3.8rem;
@@ -245,8 +244,6 @@ const UserProfile = styled.img`
   margin: 1rem 1rem 1rem 0;
 `;
 
-=======
->>>>>>> 7c138f6e37dbe015e52a2134b7a33b35d9342ce5
 const GreyLine = styled.div`
   box-sizing: border-box;
   width: 100%;

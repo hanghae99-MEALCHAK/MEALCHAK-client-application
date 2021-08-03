@@ -45,8 +45,13 @@ const MyPage = (props) => {
   };
 
   React.useEffect(() => {
+    window.scrollTo(0, 0);
     logger("input 여부", openInput);
-  });
+  }, []);
+
+  React.useEffect(() => {
+    dispatch(userAction.loginCheck());
+  }, [user_info? user_info?.user_nickname : null, user_info? user_info?.user_comment : null]);
 
   if (is_login) {
     return (
@@ -63,99 +68,26 @@ const MyPage = (props) => {
           <Grid margin="3.6rem auto 2rem">
             <Profile user_profile={user_info.user_profile}></Profile>
           </Grid>
-
-          <Grid is_flex4="t" margin="0 auto" justify_content="center">
-            {openInput ? (
-              <>
-                <Grid
-                  maxWidth="15rem"
-                  borderBottom={border.line1}
-                  margin="0 0.5rem"
-                >
-                  <Input
-                  border="none" 
-                  padding="0.5rem 2rem"
-                  placeholder="닉네임을 변경해주세요."
-                  type="text"
-                  length={10}
-                  value={edit_nickname}
-                  _onChange={changeNick}
-                  ></Input>
-                </Grid>
-                <Button
-                margin="0 0.5rem 0 0"
-                  width="auto"
-                  bg={color.bg60}
-                  border="none"
-                  radius={radius.button}
-                  _onClick={closeInputBox}
-                  cursor="t"
-                >
-                  <Text
-                    color={color.bg0}
-                    size={fontSize.tiny}
-                    padding="0.3rem 0.5rem"
-                    bold2="700"
-                  >
-                    취소
-                  </Text>
-                </Button>
-                <Button
-                  width="auto"
-                  bg={color.brand100}
-                  border="none"
-                  radius={radius.button}
-                  _onClick={editUser}
-                  cursor="t"
-                >
-                  <Text
-                    color={color.bg0}
-                    size={fontSize.tiny}
-                    padding="0.3rem 0.5rem"
-                    bold2="700"
-                  >
-                    수정
-                  </Text>
-                </Button>
-              </>
-            ) : (
-              <>
-                <Grid width="2.4rem" margin="0 0 2.4rem"></Grid>
-                <Text
-                  width="auto"
-                  size={fontSize.small}
-                  color={color.bg100}
-                  bold
-                  line_height="150%"
-                  text_align="center"
-                  overflow="hidden"
-                  text_overflow="ellipsis"
-                  white_space="nowrap"
-                  display="block"
-                >
-                  {user_info.user_nickname}
-                </Text>
-                <svg
-                  onClick={openInputBox}
-                  style={{
-                    marginLeft: "1rem",
-                    cursor: "pointer",
-                  }}
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M17.204 10.7962L19 9.00019C19.5453 8.45494 19.8179 8.18231 19.9636 7.88822C20.2409 7.32866 20.2409 6.67171 19.9636 6.11215C19.8179 5.81806 19.5453 5.54544 19 5.00019C18.4548 4.45494 18.1821 4.18231 17.888 4.03658C17.3285 3.75929 16.6715 3.75929 16.112 4.03658C15.8179 4.18231 15.5453 4.45494 15 5.00019L13.1814 6.81884C14.1452 8.46944 15.5314 9.845 17.204 10.7962ZM11.7269 8.2733L4.8564 15.1438C4.43134 15.5689 4.21881 15.7814 4.07907 16.0425C3.93934 16.3036 3.88039 16.5983 3.7625 17.1878L3.1471 20.2648C3.08058 20.5974 3.04732 20.7637 3.14193 20.8583C3.23654 20.9529 3.40284 20.9196 3.73545 20.8531L6.81243 20.2377C7.40189 20.1198 7.69661 20.0609 7.95771 19.9211C8.21881 19.7814 8.43134 19.5689 8.8564 19.1438L15.7458 12.2544C14.1241 11.2388 12.7524 9.87646 11.7269 8.2733Z"
-                    fill={openInput ? `${color.brand100}` : `${color.bg60}`}
-                  />
-                </svg>
-              </>
-            )}
+          <Grid margin="0 auto">
+            <Text
+              width="auto"
+              size={fontSize.large}
+              color={color.bg100}
+              bold
+              line_height="150%"
+              text_align="center"
+              overflow="hidden"
+              text_overflow="ellipsis"
+              white_space="nowrap"
+              display="block"
+            >
+              {user_info.user_nickname}
+            </Text>
+            <Grid width="auto" text_align="center">
+              <Text size={fontSize.small} color="#9A9896" line_height="150%">
+                {user_info?.user_comment? user_info?.user_comment : "프로필 수정에서 한 줄 소개를 입력해주세요."}
+              </Text>
+            </Grid>
           </Grid>
           <Grid
             bg={color.brand20}
@@ -316,10 +248,13 @@ MyPage.defaultProps = {};
 
 const Profile = styled.div`
   margin: auto;
-  width: 7.2rem;
-  height: 7.2rem;
-  border-radius: 1.2rem;
-  ${(props) => (props.user_profile? `background-image: url(${props.user_profile});` : `background-image: url(http://115.85.182.57:8080/image/profileDefaultImg.jpg)`)}
+  width: 10rem;
+  height: 10rem;
+  border-radius: 5rem;
+  ${(props) =>
+    props.user_profile
+      ? `background-image: url(${props.user_profile});`
+      : `background-image: url(http://115.85.182.57:8080/image/profileDefaultImg.jpg)`}
   background-size: cover;
   background-position: center;
 `;
