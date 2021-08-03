@@ -23,11 +23,13 @@ const Tutorial = (props) => {
       setLoading(false);
     }, 2000);
 
+    // 로그인 한 사용자가 로딩 시간때문인지 일정시간이 지나야 아래 부분실행됨
     if (is_login) {
       window.alert('로그인 한 사용자입니다. 홈으로 돌아갑니다.');
       history.replace('/home');
     }
   }, []);
+
   return (
     <React.Fragment>
       {loading ? (

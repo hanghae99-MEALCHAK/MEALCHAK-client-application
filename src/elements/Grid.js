@@ -11,6 +11,7 @@ const Grid = (props) => {
     flex,
     is_float,
     is_fixed,
+    is_fixed_top,
     bottom,
     position,
     padding,
@@ -60,6 +61,7 @@ const Grid = (props) => {
     flex: flex,
     is_float: is_float,
     is_fixed: is_fixed,
+    is_fixed_top: is_fixed_top,
     bottom: bottom,
     review_flex: review_flex,
     post_flex: post_flex,
@@ -123,6 +125,7 @@ Grid.defaultProps = {
   is_flex4: false,
   is_flex_column: false,
   is_fixed: false,
+  is_fixed_top: false,
   bottom: false,
   review_flex: false,
   post_flex: false,
@@ -171,6 +174,8 @@ const GridBox = styled.div`
   ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
   ${(props) => (props.center ? `text-align: ${props.center};` : '')}
   ${(props) => (props.is_fixed ? `position: fixed; bottom: 0;` : '')}
+  ${(props) => (props.is_fixed_top ? `position: fixed; top: 0;` : '')}
+
   ${(props) => (props.bottom ? `bottom: ${props.bottom};` : '')}
   ${(props) =>
     props.borderBottom ? `border-bottom: ${props.borderBottom};` : ''}
@@ -246,5 +251,6 @@ const Container = styled.div`
   flex-direction: column;
   ${(props) => (props.text_align ? `text-align: ${props.text_align}; ` : '')}
 `;
+
 
 export default Grid;

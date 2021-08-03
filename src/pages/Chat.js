@@ -24,11 +24,8 @@ const Chat = (props) => {
   // 현재 방정보
   const dispatch = useDispatch();
 
-  // const roomName = useSelector(state => state.chat.currentChat.roomName);
-  // const roomId = useSelector(state => state.chat.currentChat.roomId);
-
   const roomName = props.history.location.state.roomName;
-  const roomId = props.history.location.state.roomId;
+  const room_id = props.history.location.state.room_id;
 
   // 보낼 메세지 정보
   const sender_nick = useSelector(state => state.user.user?.user_nickname);
@@ -38,12 +35,12 @@ const Chat = (props) => {
 
   React.useEffect(() => {
     logger("chat props", props);
-    dispatch(chatActions.moveChatRoom(roomId, roomName));
+    dispatch(chatActions.moveChatRoom(room_id, roomName));
     dispatch(chatActions.getChatMessagesAX());
   }, []);
 
   React.useEffect(() => {
-    if(!roomId){
+    if(!room_id){
       alert("잘못된 접근입니다.\n홈으로 돌아갑니다.")
       history.replace("/home")
       return;
@@ -52,9 +49,9 @@ const Chat = (props) => {
     return () => {
       wsDisConnectUnsubscribe();
     };
-  }, [roomId]);
+  }, [room_id? room_id : null]);
 
-  // 채팅방시작하기, 채팅방 클릭 시 roomid에 해당하는 방을 구독
+  // 채팅방시작하기, 채팅방 클릭 시 room_id에 해당하는 방을 구독
   const wsConnectSubscribe = () => {
     try {
       ws.connect(
@@ -63,7 +60,7 @@ const Chat = (props) => {
         },
         () => {
           ws.subscribe(
-            `/sub/api/chat/rooms/${roomId}`,
+            `/sub/api/chat/rooms/${room_id}`,
             (data) => {
               const newMessage = JSON.parse(data.body);
               logger("구독후 새로운 메세지 data", newMessage)
@@ -115,7 +112,7 @@ const Chat = (props) => {
       // send할 데이터
       const data = {
         type: "TALK",
-        roomId: roomId,
+        roomId: room_id,
         sender: sender_nick,
         message: messageText,
       };
@@ -139,7 +136,7 @@ const Chat = (props) => {
     }
   };
 
-  if (!roomId) {
+  if (!room_id) {
     return (
       // alert("잘못된 접근입니다")
       <React.Fragment>

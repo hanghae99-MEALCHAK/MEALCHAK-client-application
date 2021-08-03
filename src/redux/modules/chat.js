@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axiosModule from "../axios_module";
+import _ from "lodash";
 
 import logger from "../../shared/Console";
 
@@ -29,8 +30,8 @@ const LOADED = "LOADED";
 const setChatList = createAction(SET_CHAT_LIST, (myChatList) => ({
   myChatList,
 }));
-const moveChatRoom = createAction(MOVE_CHAT_ROOM, (roomId, roomName) => ({
-  roomId,
+const moveChatRoom = createAction(MOVE_CHAT_ROOM, (room_id, roomName) => ({
+  room_id,
   roomName,
 }));
 const clearChat = createAction(CLEAR_CHAT, () => {});
@@ -49,7 +50,7 @@ const initialState = {
   chatListInfo: [],
   // 현재 채팅들어갈/들어간 방정보
   currentChat: {
-    roomId: null,
+    room_id: null,
     roomName: null,
   },
   // 현재 접속한 채팅 메시지 (DB저장된 내용에 추가되는 메세지 push)
@@ -74,10 +75,11 @@ const getChatListAX = () => {
         let my_chat_list = [];
         res.data.forEach((c) => {
           let one_chat_info = {
-            roomId: c.roomId,
+            room_id: c.roomId,
             ownUserId: c.ownUserId,
             postId: c.postId,
-            roomName: c.postTitle,
+            roomName: c.title,
+            headCountChat: c.headCountChat,
           };
           my_chat_list.push(one_chat_info);
         });
@@ -94,11 +96,11 @@ const getChatListAX = () => {
 // enterRoom 할때 실행됨
 const getChatMessagesAX = () => {
   return function (dispatch, getState, { history }) {
-    const roomId = getState().chat.currentChat.roomId;
+    const room_id = getState().chat.currentChat.room_id;
     const room = getState().chat.currentChat;
 
     axiosModule
-      .get(`/chat/${roomId}/messages`)
+      .get(`/chat/${room_id}/messages`)
       .then((res) => {
         logger("채팅 메세지 목록 조회", res);
         logger("채팅 메세지 room", room);
@@ -106,9 +108,11 @@ const getChatMessagesAX = () => {
         res.data.content.forEach((m) => {
           let one_msg_info = {
             type: m.type,
-            roomId: m.roomId,
-            sender_nick: m.sender,
+            room_id: m.roomId,
+            sender: m.sender,
             message: m.message,
+            createdAt: m.createdAt,
+            msg_id: m.id,
           };
           chatMassageArray.push(one_msg_info);
         });
@@ -144,13 +148,13 @@ export default handleActions(
     // moveChatRoom - 현재 채팅방 id, name
     [MOVE_CHAT_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        draft.currentChat.roomId = action.payload.roomId;
+        draft.currentChat.room_id = action.payload.room_id;
         draft.currentChat.roomName = action.payload.roomName;
       }),
     // clearChat - 현재방 id, name 초기화
     [CLEAR_CHAT]: (state, action) =>
       produce(state, (draft) => {
-        draft.currentChat.roomId = null;
+        draft.currentChat.room_id = null;
         draft.currentChat.roomName = null;
       }),
     // getMessages - 새로운 메세지 정보를 메세지 리스트에 추가
@@ -161,7 +165,9 @@ export default handleActions(
     // setMessage - 메세지 DB에서 조회할때 해당 방의 메세지 내역 불러옴
     [SET_MSG]: (state, action) =>
       produce(state, (draft) => {
-        draft.messages = action.payload.chatMassageArray;
+        draft.messages = _.remove(
+          action.payload.chatMassageArray, {type: "TALK"}
+        );
       }),
     [CLEAR_MSG]: (state, action) =>
       produce(state, (draft) => {

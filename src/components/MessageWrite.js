@@ -41,6 +41,7 @@ const MessageWrite = (props) => {
         <Grid is_flex4="t" border={border.bg20} radius={radius.inputBox}>
           <Input
             is_submit
+            placeholder="메세지를 입력해주세요."
             type="text"
             length={300}
             onSubmit={sendMessageBtn}
