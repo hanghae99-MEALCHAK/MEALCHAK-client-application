@@ -112,6 +112,7 @@ const addPostAX = (post_info) => {
     const address = getState().loc.post_address.address;
     const longitude = getState().loc.post_address.longitude;
     const latitude = getState().loc.post_address.latitude;
+    logger('post모듈 addPostAX - 1', post_info.appointmentDate);
 
     axiosModule
       .post('/posts', {
@@ -229,7 +230,6 @@ const getRankDB = () => {
     axiosModule
       .get('/menu')
       .then((res) => {
-        logger('카테고리 랭크', res.data);
         let rank_list = [];
         res.data.forEach((p) => {
           let rank = {

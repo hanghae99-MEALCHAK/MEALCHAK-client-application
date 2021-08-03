@@ -85,7 +85,13 @@ const Button = (props) => {
 
   return (
     <React.Fragment>
-      <ElButton {...styles} onClick={_onClick} onChange={_onChange} onClose={_onClose} disabled={disabled}>
+      <ElButton
+        {...styles}
+        onClick={_onClick}
+        onChange={_onChange}
+        onClose={_onClose}
+        disabled={disabled}
+      >
         {children}
       </ElButton>
     </React.Fragment>

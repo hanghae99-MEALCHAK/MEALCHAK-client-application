@@ -24,7 +24,9 @@ import {
   Chat,
   NotFound,
   ProfileEdit,
-} from "../pages";
+} from '../pages';
+
+import ReviewWrite from '../pages/ReviewWrite';
 
 // 사용자 token 여부
 import { token } from './OAuth';
@@ -42,9 +44,9 @@ function App() {
       dispatch(userAction.loginCheck());
       logger('app.js user 정보', user_info);
     }
-    logger("app.js token 정보", token);
-    logger("is_loading", is_loading);
-    logger("로그인", is_login);
+    logger('app.js token 정보', token);
+    logger('is_loading', is_loading);
+    logger('로그인', is_login);
   }, []);
 
   if (is_loading) {
@@ -73,6 +75,7 @@ function App() {
           <Route path="/chatlist" component={ChatRoomList}></Route>
           <Route path="/chatting" component={Chat}></Route>
           {/* <Route path="*" component={NotFound}></Route> */}
+          <Route path="/write" component={ReviewWrite}></Route>
         </ConnectedRouter>
       </Grid>
     </React.Fragment>

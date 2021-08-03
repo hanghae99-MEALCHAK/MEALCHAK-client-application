@@ -2,11 +2,12 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../redux/configureStore';
+import moment from 'moment';
 
-import { actionCreators as postAction } from "../redux/modules/post";
-import { actionCreators as locateActions } from "../redux/modules/loc";
-import { Kakao_auth_url } from "../shared/OAuth";
-import logger from "../shared/Console";
+import { actionCreators as postAction } from '../redux/modules/post';
+import { actionCreators as locateActions } from '../redux/modules/loc';
+import { Kakao_auth_url } from '../shared/OAuth';
+import logger from '../shared/Console';
 
 // style
 import { Button, Grid, Text } from '../elements';
@@ -59,8 +60,9 @@ const Upload = React.memo((props) => {
   };
   const [post_info, setPostInfo] = useState(_post ? { ...past_post } : {});
 
-  const uploadBtn = () => {
+  const today = moment().format('YYYY-MM-DD');
 
+  const uploadBtn = () => {
     // 모집글 작성 시 상위, 하위 컴포넌트들에서 올바르지 않은 value있을때 처리하는 과정
     if (!post_info.title || post_info.title === '') {
       window.alert('모집글의 제목을 입력해주세요.');
@@ -70,7 +72,7 @@ const Upload = React.memo((props) => {
       window.alert('모집글의 내용을 입력해주세요.');
       return;
     }
-    if (!post_info?.place || post_info?.place === "") {
+    if (!post_info?.place || post_info?.place === '') {
       window.alert(
         '안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 약속 장소를 입력해주세요.'
       );
@@ -92,6 +94,9 @@ const Upload = React.memo((props) => {
       window.alert('모집을 희망하는 식품의 카테고리를 입력해주세요.');
       return;
     }
+    post_info.appointmentDate = post_info.appointmentDate
+      ? post_info.appointmentDate
+      : today;
 
     dispatch(postAction.addPostAX(post_info));
   };

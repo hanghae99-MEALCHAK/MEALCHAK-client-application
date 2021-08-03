@@ -21,7 +21,7 @@ const Tutorial = (props) => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
 
     // 로그인 한 사용자가 로딩 시간때문인지 일정시간이 지나야 아래 부분실행됨
     if (is_login) {
