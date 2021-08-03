@@ -48,6 +48,7 @@ const Grid = (props) => {
     align_items,
     justify_content,
     absolute,
+    gap,
   } = props;
 
   const styles = {
@@ -92,6 +93,7 @@ const Grid = (props) => {
     align_items: align_items,
     justify_content: justify_content,
     absolute: absolute,
+    gap: gap,
   };
 
   if (shape === 'container') {
@@ -154,6 +156,7 @@ Grid.defaultProps = {
   updownborder: '',
   cursor: '',
   absolute: '',
+  gap: '',
 };
 
 const GridBox = styled.div`
@@ -219,6 +222,9 @@ const GridBox = styled.div`
   ${(props) =>
     props.justify_content ? `justify-content: ${props.justify_content};` : ''}
   ${(props) => (props.absolute ? `position: ${props.absolute};` : '')}
+  ${(props) => (props.gap ? `gap: ${props.gap};` : '')}
+
+
 
   @media (min-width: 501px) {
     ${(props) =>

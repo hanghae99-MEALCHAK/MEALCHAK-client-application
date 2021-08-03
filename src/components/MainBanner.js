@@ -42,9 +42,9 @@ const MainBanner = (props) => {
                         text_align="center"
                         color={color.brand100}
                       >
-                        <SpanTag>1위</SpanTag>
+                        <SpanTag>{p.id}</SpanTag>
                         &nbsp;&nbsp;&nbsp;
-                        <SpanTag>#떡볶이</SpanTag>
+                        <SpanTag>#{p.category}</SpanTag>
                       </Text>
                     </Grid>
                   </MainBannerBtn>

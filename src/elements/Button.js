@@ -84,7 +84,12 @@ const Button = (props) => {
 
   return (
     <React.Fragment>
-      <ElButton {...styles} onClick={_onClick} onChange={_onChange} onClose={_onClose}>
+      <ElButton
+        {...styles}
+        onClick={_onClick}
+        onChange={_onChange}
+        onClose={_onClose}
+      >
         {children}
       </ElButton>
     </React.Fragment>
@@ -157,7 +162,7 @@ const ElButton = styled.button`
       border: 0.1rem solid #78e08f;
     }`
       : ''}
-  :active{
+  :active {
     opacity: 0.7;
   }
 `;
@@ -175,9 +180,8 @@ const LargeButton = styled.button`
 `;
 
 const SmallLightButton = styled.button`
-  ${(props) => (props.margin ? `margin: ${props.margin};` : '0.8rem')}
-  width: 152px;
-  height: 44px;
+  width: 148px;
+  height: 50px;
   background: ${(props) =>
     props.color ? props.color : props.theme.color.bg40};
   color: #ffffff;
@@ -188,7 +192,7 @@ const SmallLightButton = styled.button`
 
 const SmallDarkButton = styled.button`
   ${(props) => (props.margin ? `margin: ${props.margin};` : '0.8rem')}
-  width: 152px;
+  width: 13rem;
   height: 5rem;
   background: ${(props) =>
     props.color ? props.color : props.theme.color.bg80};
