@@ -1,28 +1,32 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
-import axiosModule from '../axios_module';
-import jwtDecode from 'jwt-decode';
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import axiosModule from "../axios_module";
+import jwtDecode from "jwt-decode";
 
 // 개발환경 console.log() 관리용
-import logger from '../../shared/Console';
+import logger from "../../shared/Console";
 
 // token
-import { token } from '../../shared/OAuth';
+import { token } from "../../shared/OAuth";
 
 // Action
-const SET_USER = 'SET_USER';
-const LOG_OUT = 'LOG_OUT';
-const LOADING = 'LOADING';
-const EDIT_NICK = 'EDIT_NICK';
-const EDIT_ADDRESS = 'EDIT_ADDRESS';
+const SET_USER = "SET_USER";
+const LOG_OUT = "LOG_OUT";
+const LOADING = "LOADING";
+const EDIT_PROFILE = "EDIT_PROFILE";
+// const EDIT_COMMENT = "EDIT_COMMENT";
+const EDIT_ADDRESS = "EDIT_ADDRESS";
 
 // Action Creator
 const setUser = createAction(SET_USER, (user_info) => ({ user_info }));
 const logOut = createAction(LOG_OUT, () => {});
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
-const editNick = createAction(EDIT_NICK, (edit_nickname) => ({
-  edit_nickname,
+const editProfile = createAction(EDIT_PROFILE, (profile) => ({
+  profile,
 }));
+// const editComment = createAction(EDIT_NICK, (edit_comment) => ({
+//   edit_comment,
+// }));
 const editAddress = createAction(EDIT_ADDRESS, (address) => ({ address }));
 
 // Initial State
@@ -41,18 +45,18 @@ const kakaoLogin = (code) => {
       .get(`user/kakao/callback?code=${code}`)
       .then((res) => {
         // 인가코드에 관한 응답으로 jwt token 받음
-        logger('user모듈 - 36', res);
+        logger("user모듈 - 36", res);
 
         const ACCESS_TOKEN = res.data.token;
 
         // 세션에 토큰 저장
-        sessionStorage.setItem('token', ACCESS_TOKEN);
+        sessionStorage.setItem("token", ACCESS_TOKEN);
 
         // 저장된 토큰으로 user 정보 확인 후 리덕스에 저장
-        const token = sessionStorage.getItem('token');
+        const token = sessionStorage.getItem("token");
 
         // jwtDecode를 이용해서 user 정보 서버에 요청없이 확인 후 저장
-        logger('user 정보 decoding', jwtDecode(token));
+        logger("user 정보 decoding", jwtDecode(token));
         const user_nickname = jwtDecode(token).username;
         const user_id = jwtDecode(token).userId;
 
@@ -64,34 +68,38 @@ const kakaoLogin = (code) => {
         );
 
         window.alert(`${user_nickname}님 환영합니다.`);
-        window.location.replace('/home');
+        window.location.replace("/home");
       })
       .catch((err) => {
-        logger('user 모듈 74 - 소셜로그인 에러', err);
-        window.alert('로그인에 실패하였습니다.');
-        history.replace('/'); // 로그인 실패하면 로그인화면으로 돌려보냄
+        logger("user 모듈 74 - 소셜로그인 에러", err);
+        window.alert("로그인에 실패하였습니다.");
+        history.replace("/"); // 로그인 실패하면 로그인화면으로 돌려보냄
       });
   };
 };
 
 // 사용자 닉네임 변경 함수
-const editUserNickAX = (edit_nickname) => {
+const editUserProfileAX = (profile) => {
   return function (dispatch, getState, { history }) {
     axiosModule
-      .put('/username/update', edit_nickname)
+      .put("/userInfo/update", {
+        username: profile.username,
+        comment: profile.comment,
+      })
       .then((res) => {
-        const edit_nickname = res.data;
-        dispatch(editNick(edit_nickname));
-        logger('nick 수정 모듈', res);
-        window.alert('닉네임 수정이 완료되었습니다.');
+        let _profile = res.data;
+        let profile = {
+          username: _profile.username,
+          comment: _profile.comment
+        }
+        dispatch(editProfile(profile));
+        logger("profile 수정 모듈", res);
       })
       .catch((e) => {
-        logger('nick수정 모듈 e', e);
+        logger("nick수정 모듈 e", e);
       });
   };
 };
-
-// getUserAX 만들어야함 - 마이페이지 user profile
 
 // 로그인 확인
 // 페이지가 새로고침 되는 상황마다 user check 후 리덕스에 정보 저장
@@ -107,6 +115,7 @@ const loginCheck = () => {
             user_nickname: res.data.username,
             user_profile: res.data.profileImg,
             user_address: res.data.address,
+            user_comment: res.data.comment
           };
           dispatch(
             setUser({
@@ -121,7 +130,7 @@ const loginCheck = () => {
           }
         })
         .catch((e) => {
-          logger('로그인 체크 에러', e);
+          logger("로그인 체크 에러", e);
         });
     } else {
       dispatch(logOut());
@@ -132,7 +141,7 @@ const loginCheck = () => {
 const editUserAddressAX = (address) => {
   return function (dispatch, getState, { history }) {
     axiosModule
-      .put('/user/location', {
+      .put("/user/location", {
         address: address.address,
         longitude: address.longitude,
         latitude: address.latitude,
@@ -141,12 +150,12 @@ const editUserAddressAX = (address) => {
         // 유저 정보의 주소 데이터 변경
         dispatch(editAddress(res.data.address));
         window.alert("주소 설정이 완료되었습니다.");
-        history.replace("/home");
+        history.push("/home");
         // 유저주소를 변경 후 메인 페이지에서 거리에 따라 게시글 바뀌지 않는 현상 해결
         window.location.reload();
       })
       .catch((err) => {
-        logger('address 모듈 error: ', err);
+        logger("address 모듈 error: ", err);
       });
   };
 };
@@ -159,26 +168,31 @@ export default handleActions(
         draft.user = action.payload.user_info;
         draft.is_login = true;
         draft.is_loaded = true;
-        logger('set_user 리듀서', draft.user);
+        logger("set_user 리듀서", draft.user);
       }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
-        sessionStorage.removeItem('token');
+        sessionStorage.removeItem("token");
         draft.user = null;
         draft.is_login = false;
         draft.is_loading = false;
 
-        window.location.replace('/home');
-        window.alert('로그아웃 되었습니다.');
+        window.location.replace("/home");
+        window.alert("로그아웃 되었습니다.");
       }),
     [LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
       }),
-    [EDIT_NICK]: (state, action) =>
+    [EDIT_PROFILE]: (state, action) =>
       produce(state, (draft) => {
-        draft.user.user_nickname = action.payload.edit_nickname;
+        draft.user.user_nickname = action.payload.profile.username;
+        draft.user.user_comment = action.payload.profile.comment;
       }),
+    // [EDIT_COMMENT]: (state, action) =>
+    //   produce(state, (draft) => {
+    //     draft.user.user_comment = action.payload.edit_comment;
+    //   }),
     [EDIT_ADDRESS]: (state, action) =>
       produce(state, (draft) => {
         draft.user.user_address = action.payload.address;
@@ -192,7 +206,8 @@ const actionCreators = {
   loginCheck,
   logOut,
   loading,
-  editUserNickAX,
+  editUserProfileAX,
+  // editUserCommentAX,
   editUserAddressAX,
 };
 
