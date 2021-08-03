@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Grid, Text, Button } from "../elements";
-import { Post, Footer, Header, MainBanner } from "../components";
+import { Grid, Text, Button } from '../elements';
+import { Post, Footer, Header, MainBanner } from '../components';
 
-import { actionCreators as postActions } from "../redux/modules/post";
-import { useDispatch, useSelector } from "react-redux";
-import { history } from "../redux/configureStore";
-import logger from "../shared/Console";
+import { actionCreators as postActions } from '../redux/modules/post';
+import { useDispatch, useSelector } from 'react-redux';
+import { history } from '../redux/configureStore';
+import logger from '../shared/Console';
 
 import theme from '../styles/theme';
 
@@ -36,20 +36,23 @@ const Main = (props) => {
     }
     dispatch(postActions.getRankDB());
   }, []);
-  
+
   const imgList = [
     {
       id: 1,
+      category: '한식',
       mainURL:
         'https://cdn.pixabay.com/photo/2015/04/08/13/13/food-712665__340.jpg',
     },
     {
       id: 2,
+      category: '중식',
       mainURL:
         'https://cdn.pixabay.com/photo/2014/04/22/02/56/pizza-329523__340.jpg',
     },
     {
       id: 3,
+      category: '일식',
       mainURL:
         'https://cdn.pixabay.com/photo/2016/06/06/18/29/meat-skewer-1440105__340.jpg',
     },
@@ -252,7 +255,7 @@ const Main = (props) => {
 
         {post_list.length > 0 ? (
           post_list.map((p, idx) => {
-            if (p.post_id === "") {
+            if (p.post_id === '') {
               return (
                 <React.Fragment>
                   <div>하이222</div>

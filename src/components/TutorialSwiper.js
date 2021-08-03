@@ -10,46 +10,86 @@ import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import '../shared/Swiper.scss';
-import '../shared/PaginationA.scss';
 
 import logger from '../shared/Console';
 
 SwiperCore.use([Pagination, Navigation]);
 
 const TutorialSwiper = (props) => {
+  const { color, fontSize } = theme;
+
   return (
     <React.Fragment>
       <div>
-        {/* <img src="/illust/logo_2x.png" alt="logo" />
-        <ElLogo /> */}
         <Swiper
           className="banner"
           spaceBetween={50}
           slidesPerView={1}
-          //   navigation
           pagination={{
-            // el: '.my-custom-pagination-div',
             clickable: true,
           }}
         >
           <SwiperSlide>
-            <Grid height="40rem">
-              <ElIntro src="/illust/introA.svg"></ElIntro>
+            <Grid height="42rem">
+              <ElIntro src="/illust/introA_3x.png"></ElIntro>
             </Grid>
-            <Grid is_fixed bottom="-29rem">
-              <Text>배달은 한 번만</Text>
-              <Text>밀착에서는 함께 배달시켜 먹으니까</Text>
-              <Text>배달비 부담은 덜고 자연은 더해요!</Text>
+            <Grid is_fixed bottom="-28rem">
+              <Text
+                margin="1rem 0 1.5rem 0"
+                size={fontSize.large}
+                color={color.brand100}
+                bold2="700"
+              >
+                배달은 한 번만
+              </Text>
+              <Text size={fontSize.base} color={color.bg80}>
+                밀착에서는 함께 배달시켜 먹으니까
+              </Text>
+              <Text size={fontSize.base} color={color.bg80}>
+                배달비 부담은 덜고 자연은 더해요!
+              </Text>
+            </Grid>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Grid height="42rem">
+              <ElIntro src="/illust/introB_3x.png"></ElIntro>
+            </Grid>
+            <Grid is_fixed bottom="-28rem">
+              <Text
+                margin="1rem 0 1.5rem 0"
+                size={fontSize.large}
+                color={color.brand100}
+                bold2="700"
+              >
+                밥 친구와 함께해요!
+              </Text>
+              <Text size={fontSize.base} color={color.bg80}>
+                3초만에 글 쓰고, 함께 배달과 식사할
+              </Text>
+              <Text size={fontSize.base} color={color.bg80}>
+                밥 친구를 구해보세요!
+              </Text>
             </Grid>
           </SwiperSlide>
           <SwiperSlide>
             <Grid height="30rem">
-              <ElIntro src="/illust/introB.svg"></ElIntro>
+              <ElIntro src="/illust/introC_3x.png"></ElIntro>
             </Grid>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Grid height="30rem">
-              <ElIntro src="/illust/introC.svg"></ElIntro>
+            <Grid is_fixed bottom="-28rem">
+              <Text
+                margin="1rem 0 1.5rem 0"
+                size={fontSize.large}
+                color={color.brand100}
+                bold2="700"
+              >
+                더 가깝게, 밀착!
+              </Text>
+              <Text size={fontSize.base} color={color.bg80}>
+                밀착에서 사람도, 환경도
+              </Text>
+              <Text size={fontSize.base} color={color.bg80}>
+                한 걸음 더 가까워져봐요!
+              </Text>
             </Grid>
           </SwiperSlide>
         </Swiper>
@@ -59,16 +99,6 @@ const TutorialSwiper = (props) => {
 };
 
 TutorialSwiper.defaultProps = {};
-
-const TutorialBox = styled.div`
-  /* max-width: 27rem; */
-  height: 30rem;
-  /* margin: 1rem auto; */
-  border-radius: 1rem;
-  /* background-image: url('https://cdn.pixabay.com/photo/2016/06/06/18/29/meat-skewer-1440105__340.jpg'); */
-  background-image: url('${(props) => props.src}');
-  background-size: cover;
-`;
 
 const ElIntro = styled.div`
   /* position: fixed; */

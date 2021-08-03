@@ -36,12 +36,12 @@ const getPostAX = () => {
       .then((res) => {
         let post_list = [];
 
-        logger("post:35: ", res);
+        logger('post:35: ', res);
 
         if (res.data.length !== 0) {
           res.data.forEach((p) => {
-            let hour = p.orderTime.split(" ")[1].split(":")[0];
-            let minute = p.orderTime.split(" ")[1].split(":")[1];
+            let hour = p.orderTime.split(' ')[1].split(':')[0];
+            let minute = p.orderTime.split(' ')[1].split(':')[1];
 
             let post = {
               post_id: p.postId,
@@ -50,8 +50,8 @@ const getPostAX = () => {
               category: p.category,
               shop: p.restaurant,
               headCount: p.headCount,
-              orderTime: hour + ":" + minute,
-              orderDate: p.orderTime.split(" ")[0],
+              orderTime: hour + ':' + minute,
+              orderDate: p.orderTime.split(' ')[0],
               address: p.address,
               insert_dt: p.createdAt,
               username: p.username,
@@ -63,7 +63,7 @@ const getPostAX = () => {
           });
         } else {
           let post = {
-            post_id: "",
+            post_id: '',
           };
           post_list.push(post);
         }
@@ -72,7 +72,7 @@ const getPostAX = () => {
         dispatch(userActions.loading(false));
       })
       .catch((err) => {
-        logger("ErrorMessage: ", err);
+        logger('ErrorMessage: ', err);
       });
   };
 };
@@ -159,9 +159,9 @@ const editPostAX = (post_id, post_info) => {
         restaurant: post_info.restaurant,
       })
       .then((res) => {
-        logger("수정 후 res", res);
-        let hour = res.data.orderTime.split(" ")[1].split(":")[0];
-        let minute = res.data.orderTime.split(" ")[1].split(":")[1];
+        logger('수정 후 res', res);
+        let hour = res.data.orderTime.split(' ')[1].split(':')[0];
+        let minute = res.data.orderTime.split(' ')[1].split(':')[1];
 
         let post = {
           post_id: res.data.id,
@@ -170,8 +170,8 @@ const editPostAX = (post_id, post_info) => {
           category: res.data.category,
           shop: res.data.restaurant,
           headCount: res.data.headCount,
-          orderTime: hour + ":" + minute,
-          orderDate: res.data.orderTime.split(" ")[0],
+          orderTime: hour + ':' + minute,
+          orderDate: res.data.orderTime.split(' ')[0],
           address: res.data.address,
           insert_dt: res.data.createdAt,
           username: res.data.username,
@@ -222,6 +222,7 @@ const getRankDB = () => {
         res.data.forEach((p) => {
           let rank = {
             category: p.category,
+            imgUrl: p.imgUrl,
           };
           rank_list.push(rank);
         });

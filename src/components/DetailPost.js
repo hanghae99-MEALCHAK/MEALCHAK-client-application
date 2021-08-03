@@ -233,14 +233,13 @@ const DetailPost = (props) => {
 
 DetailPost.defaultProps = {};
 
-const UserProfile = styled.img`
-  width: 4.5rem;
+const UserProfile = styled.div`
+  width: 4.3rem;
   height: 3.8rem;
   border-radius: 2rem;
   background-image: url('${(props) => props.src}');
-  /* background-image: url("https://mean0images.s3.ap-northeast-2.amazonaws.com/4.jpeg"); */
   background-size: cover;
-  /* margin: 0.4rem; */
+  background-position: center;
   margin: 1rem 1rem 1rem 0;
 `;
 
