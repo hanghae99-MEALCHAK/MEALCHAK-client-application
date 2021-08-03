@@ -20,6 +20,7 @@ const Tutorial = (props) => {
       history.replace('/home');
     }
   });
+
   return (
     <React.Fragment>
       <Grid

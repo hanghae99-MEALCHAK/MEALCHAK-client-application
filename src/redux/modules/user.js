@@ -99,8 +99,8 @@ const loginCheck = () => {
   return function (dispatch, getState, { history }) {
     if (token) {
       axiosModule
-        .get('/user/info')
-        .then((res) => {
+      .get('/user/info')
+      .then((res) => {
           logger('로그인 체크 res', res);
           const user_info = {
             user_id: res.data.id,
@@ -113,6 +113,12 @@ const loginCheck = () => {
               ...user_info,
             })
           );
+        }).then(() => {
+          // is_login은 안되었는데 토큰 남아있는경우 토큰 지우고 싶은데 방법을 모르겠음
+          const is_login = getState().user.is_login;
+          if(!is_login){
+            dispatch(logOut());
+          }
         })
         .catch((e) => {
           logger('로그인 체크 에러', e);

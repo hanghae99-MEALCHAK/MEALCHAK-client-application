@@ -11,6 +11,7 @@ import TutorialSwiper from "./TutorialSwiper";
 import MainBanner from "./MainBanner";
 import MessageList from "./MessageList";
 import MessageWrite from "./MessageWrite";
+import Message from "./Message";
 
 export {
   DetailPost,
@@ -26,4 +27,5 @@ export {
   MainBanner,
   MessageList,
   MessageWrite,
+  Message,
 };

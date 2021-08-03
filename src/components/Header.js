@@ -188,7 +188,6 @@ const Header = (props) => {
               cursor: 'pointer',
             }}
             onClick={() => {
-              sf.wsDisConnectUnsubscribe();
               history.replace('/home');
             }}
           >
