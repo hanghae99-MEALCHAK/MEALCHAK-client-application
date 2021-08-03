@@ -8,6 +8,7 @@ import User from './modules/user';
 import Location from './modules/loc';
 import Search from './modules/search';
 import Chat from './modules/chat';
+import Image from './modules/image';
 
 export const history = createBrowserHistory();
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   post: Post,
   loc: Location,
   search: Search,
+  image: Image,
   router: connectRouter(history),
 });
 

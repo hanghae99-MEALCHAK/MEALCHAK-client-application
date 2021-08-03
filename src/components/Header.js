@@ -272,9 +272,9 @@ const Header = (props) => {
             <path
               d="M15 5L7 12L15 19"
               stroke="#36373C"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
           <Text margin="0 auto" size="1.6rem" bold2="700">
