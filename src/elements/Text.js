@@ -28,6 +28,7 @@ const Text = (props) => {
     border_bottom,
     bg,
     radius,
+    word_break,
   } = props;
 
   const styles = {
@@ -55,6 +56,7 @@ const Text = (props) => {
     border_bottom: border_bottom,
     bg: bg,
     radius: radius,
+    word_break: word_break,
   };
 
   return (
@@ -88,6 +90,7 @@ Text.defaultProps = {
   border_bottom: '',
   bg: false,
   radius: '',
+  word_break: '',
 };
 
 const P = styled.p`
@@ -120,6 +123,8 @@ const P = styled.p`
     props.border_bottom ? `border-bottom: ${props.border_bottom};` : ''}
   ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
   ${(props) => (props.radius ? `border-radius: ${props.radius};` : '')}
+  ${(props) => (props.word_break ? `word-break: ${props.word_break};` : '')}
+
 `;
 
 export default Text;

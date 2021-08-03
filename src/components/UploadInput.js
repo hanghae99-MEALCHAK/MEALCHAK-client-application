@@ -14,6 +14,9 @@ const UploadInput = React.memo((props) => {
   const today = moment().format('YYYY-MM-DD');
   const now_time = moment().format('HH:mm');
   const post_address = useSelector((state) => state.loc.post_address?.address);
+  const coords = useSelector((state) => state.loc.post_address);
+  const longitude = coords.longitude;
+  const latitude = coords.latitude;
 
   const [post_info, setPostInfo] = useState(
     // post_info 자체는 항상 내려오는데 값이 수정전에는 undefined라서 그중에 하나 정해서 있는지 확인해본 코드
@@ -25,6 +28,8 @@ const UploadInput = React.memo((props) => {
           appointmentTime: props.post_info.appointmentTime,
           appointmentDate: props.post_info.appointmentDate,
           foodCategory: props.post_info.foodCategory,
+          longitude: props.post_info.longitude,
+          latitude: props.post_info.latitude,
         }
       : {
           place: '',
@@ -32,7 +37,9 @@ const UploadInput = React.memo((props) => {
           headCount: '',
           appointmentTime: now_time,
           appointmentDate: today,
-          foodCategory: '',
+          foodCategory: "",
+          longitude: longitude,
+          latitude: latitude,
         }
   );
 

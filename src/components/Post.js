@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { actionCreators as chatActions } from '../redux/modules/chat';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { socketFuntion as sf } from '../shared/SocketFn';
 
 import { Grid, Image, Text, Button } from '../elements';
@@ -11,18 +11,27 @@ import theme from '../styles/theme';
 
 const Post = (props) => {
   const { color, fontSize } = theme;
+  const is_login = useSelector((state) => state.user.is_login);
   const dispatch = useDispatch();
 
   // 채팅 시작하면 서버에 게스트 입장 요청
   // 구독, 채팅 시작
-  // 포스트에서 채팅시작하기 누를때는 post 모듈에서 각 게시물 정보로 getPostAX에서 roomId 받아와줘야 가능함
-  const enterRoom = (roomId, roomName, postId) => {
-    dispatch(chatActions.enterRoomAX(postId));
-    dispatch(chatActions.clearMessage());
-    dispatch(chatActions.moveChatRoom(roomId, roomName));
-    dispatch(chatActions.getChatMessagesAX());
-    history.replace({pathname: '/chatting', state: {roomId: roomId, roomName: roomName}});
-  }
+  // 포스트에서 채팅시작하기 누를때는 post 모듈에서 각 게시물 정보로 getPostAX에서 room_id 받아와줘야 가능함
+  const enterRoom = (path, room_id, roomName, postId) => {
+    if (is_login) {
+      dispatch(chatActions.enterRoomAX(postId));
+      dispatch(chatActions.clearMessage());
+      dispatch(chatActions.moveChatRoom(room_id, roomName));
+      history.replace({
+        pathname: `/${path}`,
+        state: { room_id: room_id, roomName: roomName },
+      });
+      return;
+    } else {
+      window.alert("로그인이 필요한 기능입니다.\n로그인을 해주세요.");
+      history.push("/");
+    }
+  };
 
   // 내 위치에서부터 얼마나 떨어져있는지 보여주는 변수(소수점이므로 1000을 곱해 m로 나타냄)
   const distance = props.distance * 1000;
@@ -57,7 +66,7 @@ const Post = (props) => {
                     color={color.success100}
                     bold
                   >
-                    모집 인원 2/4명
+                    모집 인원 {props.nowHeadCount}/{props.headCount}명
                   </Text>
                 </Grid>
               </Grid>
@@ -214,7 +223,7 @@ const Post = (props) => {
               bold={fontSize.bold}
               cursor="pointer"
               _onClick={(e) => {
-                enterRoom(props.roomId, props.title, props.post_id);
+                enterRoom("chatting", props.room_id, props.title, props.post_id);
             }}
             >
               채팅 시작하기

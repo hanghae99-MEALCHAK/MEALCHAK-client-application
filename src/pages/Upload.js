@@ -22,6 +22,10 @@ const Upload = React.memo((props) => {
   // style
   const { color, border, radius, fontSize } = theme;
 
+  const post_address = useSelector((state) => state.loc.post_address);
+  const longitude = post_address?.longitude;
+  const latitude = post_address?.latitude;
+
   // 수정판별
   const post_id = props.match.params.id;
   const is_edit = post_id ? true : false;
@@ -51,6 +55,8 @@ const Upload = React.memo((props) => {
     appointmentDate: _post?.orderDate,
     contents: _post?.contents,
     restaurant: _post?.shop,
+    longitude: longitude,
+    latitude: latitude,
   };
   const [post_info, setPostInfo] = useState(_post ? { ...past_post } : {});
 
