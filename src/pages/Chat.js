@@ -24,16 +24,22 @@ const Chat = (props) => {
   // 현재 방정보
   const dispatch = useDispatch();
 
-  // const roomName = props.history.location.state.roomName;
-  // const roomId = props.history.location.state.roomId;
-  const roomName = useSelector((state) => state.chat.currentChat.roomName);
-  const roomId = useSelector((state) => state.chat.currentChat.roomId);
+  // const roomName = useSelector(state => state.chat.currentChat.roomName);
+  // const roomId = useSelector(state => state.chat.currentChat.roomId);
+
+  const roomName = props.history.location.state.roomName;
+  const roomId = props.history.location.state.roomId;
+
+  // 보낼 메세지 정보
+  const sender_nick = useSelector(state => state.user.user?.user_nickname);
+  const messageText = useSelector(state => state.chat.messageText);
 
   const { border } = theme;
 
   React.useEffect(() => {
     logger("chat props", props);
     dispatch(chatActions.moveChatRoom(roomId, roomName));
+    dispatch(chatActions.getChatMessagesAX());
   }, []);
 
   React.useEffect(() => {
@@ -57,9 +63,10 @@ const Chat = (props) => {
         },
         () => {
           ws.subscribe(
-            `sub/api/chat/rooms/${roomId}`,
+            `/sub/api/chat/rooms/${roomId}`,
             (data) => {
               const newMessage = JSON.parse(data.body);
+              logger("구독후 새로운 메세지 data", newMessage)
               dispatch(chatActions.getMessages(newMessage));
             },
             {
@@ -98,7 +105,7 @@ const Chat = (props) => {
     }, 1);
   };
 
-  const sendMessage = (roomId, sender, messageText) => {
+  const sendMessage = () => {
     try {
       // 토큰없으면 다시 로그인 시키기
       if (!token) {
@@ -109,7 +116,7 @@ const Chat = (props) => {
       const data = {
         type: "TALK",
         roomId: roomId,
-        sender: sender,
+        sender: sender_nick,
         message: messageText,
       };
       // 빈 텍스트일때 보내기 방지
@@ -118,16 +125,17 @@ const Chat = (props) => {
         return;
       }
       // 로딩
-      // dispatch(chatActions.isLoading());
+      // dispatch(chatActions.loading());
       waitForConnection(ws, () => {
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
         logger("메세지보내기 상태", ws.ws.readyState);
 
         // 메세지 보내고 나면 다시 초기화시켜주는 작업
-        // dispatch(chatActions.writeMessage(""));
+        dispatch(chatActions.writeMessage(""));
       });
     } catch (e) {
       logger("message 소켓 함수 에러", e);
+      logger("메세지보내기 상태", ws.ws.readyState);
     }
   };
 

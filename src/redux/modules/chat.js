@@ -62,13 +62,12 @@ const initialState = {
 
 // middleware
 const getChatListAX = () => {
-
   return function (dispatch, getState, { history }) {
     axiosModule
       .get("/chat/rooms/mine")
       .then((res) => {
         logger("나의 채팅방 목록", res);
-        if (!res.data) {
+        if (res.data.length === 0) {
           alert("개설된 채팅방 목록이 없습니다.\n채팅을 시작해보세요");
           return;
         }
@@ -96,12 +95,17 @@ const getChatListAX = () => {
 const getChatMessagesAX = () => {
   return function (dispatch, getState, { history }) {
     const roomId = getState().chat.currentChat.roomId;
+    const room = getState().chat.currentChat;
+
     axiosModule
       .get(`/chat/${roomId}/messages`)
       .then((res) => {
+        logger("채팅 메세지 목록 조회", res);
+        logger("채팅 메세지 room", room);
         let chatMassageArray = [];
-        res.data.forEach((m) => {
+        res.data.content.forEach((m) => {
           let one_msg_info = {
+            type: m.type,
             roomId: m.roomId,
             sender_nick: m.sender,
             message: m.message,
@@ -163,6 +167,18 @@ export default handleActions(
       produce(state, (draft) => {
         draft.messages = [];
       }),
+    [WRITE_MSG]: (state, action) =>
+      produce(state, (draft) => {
+        draft.messageText = action.payload.message;
+      }),
+    [LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.loading = true;
+      }),
+    [LOADED]: (state, action) =>
+      produce(state, (draft) => {
+        draft.loading = false;
+      }),
   },
   initialState
 );
@@ -175,6 +191,9 @@ const actionCreators = {
   clearChat,
   getMessages,
   clearMessage,
+  writeMessage,
+  loading,
+  loaded,
 };
 
 export { actionCreators };

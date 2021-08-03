@@ -23,7 +23,8 @@ import {
   ChatRoomList,
   Chat,
   NotFound,
-} from '../pages';
+  ProfileEdit,
+} from "../pages";
 
 // 사용자 token 여부
 import { token } from './OAuth';
@@ -33,6 +34,7 @@ function App() {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
   const is_loading = useSelector((state) => state.user.is_loading);
+  const is_login = useSelector((state) => state.user.is_login);
 
   // token 정보 있을때 user redux에 저장
   React.useEffect(() => {
@@ -40,8 +42,9 @@ function App() {
       dispatch(userAction.loginCheck());
       logger('app.js user 정보', user_info);
     }
-    logger('app.js token 정보', token);
-    logger('is_loading', is_loading);
+    logger("app.js token 정보", token);
+    logger("is_loading", is_loading);
+    logger("로그인", is_login);
   }, []);
 
   if (is_loading) {
@@ -66,6 +69,7 @@ function App() {
           <Route path="/upload/:id" exact component={Upload} />
           <Route path="/search" component={Search}></Route>
           <Route path="/mypage" component={MyPage}></Route>
+          <Route path="/profile" component={ProfileEdit}></Route>
           <Route path="/chatlist" component={ChatRoomList}></Route>
           <Route path="/chatting" component={Chat}></Route>
           {/* <Route path="*" component={NotFound}></Route> */}

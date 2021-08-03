@@ -7,6 +7,7 @@ const Button = (props) => {
     _onClick,
     _onChange,
     _onClose,
+    disabled,
     children,
     margin,
     width,
@@ -84,12 +85,7 @@ const Button = (props) => {
 
   return (
     <React.Fragment>
-      <ElButton
-        {...styles}
-        onClick={_onClick}
-        onChange={_onChange}
-        onClose={_onClose}
-      >
+      <ElButton {...styles} onClick={_onClick} onChange={_onChange} onClose={_onClose} disabled={disabled}>
         {children}
       </ElButton>
     </React.Fragment>
@@ -102,6 +98,7 @@ Button.defaultProps = {
   _onClick: () => {},
   _onChange: () => {},
   _onClose: () => {},
+  disabled: true,
   margin: false,
   width: '100%',
   height: '100%',
