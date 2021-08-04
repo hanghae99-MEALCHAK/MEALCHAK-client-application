@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Post, Header, Footer } from '../components/';
+import { Post, Header } from '../components/';
 import { Grid, Input, Text } from '../elements';
 
 import { actionCreators as searchActions } from '../redux/modules/search';
@@ -12,7 +12,7 @@ import theme from '../styles/theme';
 import logger from '../shared/Console';
 
 const Search = (props) => {
-  const { color, border } = theme;
+  const { border } = theme;
 
   const dispatch = useDispatch();
   const [food, setFood] = React.useState('');
