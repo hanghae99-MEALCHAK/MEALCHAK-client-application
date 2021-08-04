@@ -141,8 +141,8 @@ const DetailPost = (props) => {
               margin="0 0 0 1rem"
             >
               {distance > 999
-                ? `내 위치로부터 ${(distance / 1000).toFixed(2)}km`
-                : `내 위치로부터 ${distance}m`}
+                ? `내 위치로부터 ${(distance / 1000).toFixed(2) * 1000}km`
+                : `내 위치로부터 ${distance * 1000}m`}
             </Text>
           </Grid>
           <Text

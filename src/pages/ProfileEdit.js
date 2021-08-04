@@ -55,7 +55,7 @@ const ProfileEdit = (props) => {
         userAction.editUserProfileAX({
           username: editProfile.nickname,
           comment: editProfile.comment,
-          // image: editProfile.image,
+          image: editProfile.image,
         })
       );
       window.alert("프로필이 수정되었습니다.");
