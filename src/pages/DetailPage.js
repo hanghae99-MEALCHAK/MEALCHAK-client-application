@@ -29,7 +29,7 @@ const DetailPage = (props) => {
     }
     dispatch(postActions.getPostAX());
   }, []);
-
+  
   return (
     <React.Fragment>
       <Grid

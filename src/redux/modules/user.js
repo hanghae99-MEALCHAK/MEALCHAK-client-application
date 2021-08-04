@@ -3,6 +3,8 @@ import { produce } from "immer";
 import axiosModule from "../axios_module";
 import jwtDecode from "jwt-decode";
 
+import { actionCreators as imageActions } from "./image";
+
 // 개발환경 console.log() 관리용
 import logger from "../../shared/Console";
 
@@ -81,18 +83,24 @@ const kakaoLogin = (code) => {
 // 사용자 닉네임 변경 함수
 const editUserProfileAX = (profile) => {
   return function (dispatch, getState, { history }) {
+    let form = new FormData();
+    form.append("username", profile.username);
+    form.append("comment", profile.comment);
+    form.append("file", profile.image);
+
     axiosModule
-      .put("/userInfo/update", {
-        username: profile.username,
-        comment: profile.comment,
-      })
+      .put("/userInfo/update", form)
       .then((res) => {
+        console.log(res);
         let _profile = res.data;
         let profile = {
           username: _profile.username,
-          comment: _profile.comment
+          comment: _profile.comment,
+          profileImg: _profile.image,
         }
         dispatch(editProfile(profile));
+        console.log(typeof profile.profileImg);
+        dispatch(imageActions.setPreview(null));
         logger("profile 수정 모듈", res);
       })
       .catch((e) => {
