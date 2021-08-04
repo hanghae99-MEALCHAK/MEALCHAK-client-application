@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import logger from '../shared/Console';
 import { history } from '../redux/configureStore';
-import { socketFuntion as sf } from '../shared/SocketFn';
+import { customAlert } from './Sweet';
 
 import { useSelector } from 'react-redux';
 
@@ -35,8 +35,7 @@ const Header = (props) => {
             cursor="t"
             _onClick={() => {
               if (!is_login) {
-                window.alert('로그인이 필요한 기능입니다.\n로그인을 해주세요.');
-                return history.push('/');
+                customAlert.sweetNeedLogin();
               }
               history.replace('/address');
             }}
@@ -52,8 +51,7 @@ const Header = (props) => {
             xmlns="http://www.w3.org/2000/svg"
             onClick={() => {
               if (!is_login) {
-                window.alert('로그인이 필요한 기능입니다.\n로그인을 해주세요.');
-                return history.push('/');
+                customAlert.sweetNeedLogin();
               }
               history.replace('/address');
             }}

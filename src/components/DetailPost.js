@@ -9,6 +9,7 @@ import { Grid, Button, Text, Image } from '../elements';
 
 import theme from '../styles/theme';
 import logger from '../shared/Console';
+import { customAlert } from './Sweet';
 
 const DetailPost = (props) => {
   logger('상세포스트 프롭스', props.is_me);
@@ -29,7 +30,6 @@ const DetailPost = (props) => {
     user_id,
     username,
     room_id,
-    nowHeadCount,
   } = props;
 
   const { color, border, radius, fontSize } = theme;
@@ -60,8 +60,7 @@ const DetailPost = (props) => {
       });
       return;
     } else {
-      window.alert('로그인이 필요한 기능입니다.\n로그인을 해주세요.');
-      history.push('/');
+      customAlert.sweetNeedLogin();
     }
   };
 

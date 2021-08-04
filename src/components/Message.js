@@ -33,13 +33,32 @@ const Message = (props) => {
 
   // 사용자 정보 잘 들어오는지 확인
   React.useEffect(() => {
-    logger("디비 시간", DB_time);
-    logger("현재 시간", now_time);
+    logger("user id", typeof user_info?.user_id);
+    logger("msg id", typeof messagesInfo.sender_id);
   }, [user_info?.user_nickname]);
 
+
+  if (messagesInfo.type === "ENTER") {
+    return (
+      <Grid
+        is_flex4="t"
+        border="none"
+        radius="0.8rem"
+        justify_content="center"
+        bg="rgba(54, 55, 60, 0.2)"
+        height="2.8rem"
+        margin="0 auto 1.6rem"
+      >
+        <Text color={color.bg0} size={fontSize.small}>
+          {messagesInfo.message}
+        </Text>
+      </Grid>
+    );
+  }
+
   // 지금은 닉네임으로 하지만 나중에 서버에서 메세지 작성자 user 정보주면 그걸로하기
-  // if (user_info?.user_id === messagesInfo.sender_id)
-  if (user_info?.user_nickname === messagesInfo?.sender) {
+  if (user_info?.user_id === parseInt(messagesInfo.sender_id)) {
+  // if (user_info?.user_nickname === messagesInfo?.sender) {
     return (
       <Grid shape="container" margin="0 auto 1.6rem" text_align="left">
         <Grid is_flex4="t" justify_content="space-between">
@@ -70,23 +89,7 @@ const Message = (props) => {
     );
   }
 
-  if (messagesInfo.type === "ENTER") {
-    return (
-      <Grid
-        is_flex4="t"
-        border="none"
-        radius="0.8rem"
-        justify_content="center"
-        bg="rgba(54, 55, 60, 0.2)"
-        height="2.8rem"
-        margin="0 auto 1.6rem"
-      >
-        <Text color={color.bg0} size={fontSize.small}>
-          {messagesInfo.message}
-        </Text>
-      </Grid>
-    );
-  }
+
 
   // 다른 사람 메세지
   return (
@@ -97,7 +100,8 @@ const Message = (props) => {
       align_items="start"
     >
       <Grid width="4rem" margin="0 0.8rem 0 0">
-        <Image size="4"></Image>
+        <Image size="4" src={messagesInfo.sender_img}></Image>
+        {/* <Image size="4"></Image> */}
       </Grid>
       <Grid
         shape="container"

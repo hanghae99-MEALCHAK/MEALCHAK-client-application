@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { Grid, Text } from "../elements";
 import theme from "../styles/theme";
 import styled from "styled-components";
+import { customAlert } from "./Sweet";
 
 const Footer = (props) => {
   const { color } = theme;
@@ -22,8 +23,7 @@ const Footer = (props) => {
     if (is_login) {
       history.push(`/${path}`);
     } else {
-      window.alert("로그인이 필요한 기능입니다.\n로그인을 해주세요.");
-      history.push("/");
+      customAlert.sweetNeedLogin();
     }
   };
 

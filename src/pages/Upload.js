@@ -1,24 +1,25 @@
-import React from 'react';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { history } from '../redux/configureStore';
-import moment from 'moment';
+import React from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
+import moment from "moment";
 
-import { actionCreators as postAction } from '../redux/modules/post';
-import { actionCreators as locateActions } from '../redux/modules/loc';
-import { Kakao_auth_url } from '../shared/OAuth';
-import logger from '../shared/Console';
+import { actionCreators as postAction } from "../redux/modules/post";
+import { actionCreators as locateActions } from "../redux/modules/loc";
+import { Kakao_auth_url } from "../shared/OAuth";
+import logger from "../shared/Console";
 
 // style
-import { Button, Grid, Text } from '../elements';
-import { UploadInput, UploadContents, Header } from '../components';
-import theme from '../styles/theme';
+import { Button, Grid, Text } from "../elements";
+import { UploadInput, UploadContents, Header } from "../components";
+import theme from "../styles/theme";
+import { customAlert } from "../components/Sweet";
 
 const Upload = React.memo((props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const post_list = useSelector((state) => state.post.list);
-  logger('Upload:19: ', props);
+  logger("Upload:19: ", props);
   // style
   const { color, border, radius, fontSize } = theme;
 
@@ -37,12 +38,14 @@ const Upload = React.memo((props) => {
   React.useEffect(() => {
     window.scrollTo(0, 0);
     if (is_edit && !_post) {
-      window.alert('해당게시물을 찾을 수 없습니다.');
-      history.goBack();
+      customAlert.sweetConfirmReload(
+        "해당게시물을 찾을 수 없습니다.", null,
+        "goBack"
+      );
       return;
     }
-    logger('post 수정 전 내용', _post);
-    logger('post 수정 전 내용', is_edit);
+    logger("post 수정 전 내용", _post);
+    logger("post 수정 전 내용", is_edit);
   }, []);
 
   // upload 될 내용
@@ -60,38 +63,39 @@ const Upload = React.memo((props) => {
   };
   const [post_info, setPostInfo] = useState(_post ? { ...past_post } : {});
 
-  const today = moment().format('YYYY-MM-DD');
+  const today = moment().format("YYYY-MM-DD");
 
   const uploadBtn = () => {
     // 모집글 작성 시 상위, 하위 컴포넌트들에서 올바르지 않은 value있을때 처리하는 과정
-    if (!post_info.title || post_info.title === '') {
-      window.alert('모집글의 제목을 입력해주세요.');
+    if (!post_info.title || post_info.title === "") {
+      customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집글의 제목을 입력해주세요.", "");
       return;
     }
-    if (!post_info.contents || post_info.contents === '') {
-      window.alert('모집글의 내용을 입력해주세요.');
+    if (!post_info.contents || post_info.contents === "") {
+      customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집글의 내용을 입력해주세요.", "");
       return;
     }
-    if (!post_info?.place || post_info?.place === '') {
-      window.alert(
-        '안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 약속 장소를 입력해주세요.'
+    if (!post_info?.place || post_info?.place === "") {
+      customAlert.sweetConfirmReload(
+        "빈칸이 있습니다.", "안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 약속 장소를 입력해주세요.",
+        ""
       );
       return;
     }
-    if (!post_info.restaurant || post_info.restaurant === '') {
-      window.alert('배달 예정인 식당을 입력해주세요.');
+    if (!post_info.restaurant || post_info.restaurant === "") {
+      customAlert.sweetConfirmReload("빈칸이 있습니다.", "배달 예정인 식당을 입력해주세요.", "");
       return;
     }
-    if (!post_info.headCount || post_info.headCount === '0') {
-      window.alert('모집원의 인원 수를 입력해주세요.');
+    if (!post_info.headCount || post_info.headCount === "0") {
+      customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집원의 인원 수를 입력해주세요.", "");
       return;
     }
-    if (!post_info.appointmentTime || post_info.appointmentTime === '') {
-      window.alert('모집원을 만날 시간을 입력해주세요.');
+    if (!post_info.appointmentTime || post_info.appointmentTime === "") {
+      customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집원을 만날 시간을 입력해주세요.", "");
       return;
     }
-    if (!post_info.foodCategory || post_info.foodCategory === '') {
-      window.alert('모집을 희망하는 식품의 카테고리를 입력해주세요.');
+    if (!post_info.foodCategory || post_info.foodCategory === "") {
+      customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집을 희망하는 식품의 카테고리를 입력해주세요.", "");
       return;
     }
 
@@ -101,37 +105,38 @@ const Upload = React.memo((props) => {
   };
 
   const UploadEditBtn = () => {
-    logger('수정 버튼, post_info', post_info);
+    logger("수정 버튼, post_info", post_info);
 
     // 모집글 작성 시 상위, 하위 컴포넌트들에서 올바르지 않은 value있을때 처리하는 과정
-    if (!post_info.title || post_info.title === '') {
-      window.alert('모집글의 제목을 입력해주세요.');
+    if (!post_info.title || post_info.title === "") {
+      customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집글의 제목을 입력해주세요.", "");
       return;
     }
-    if (!post_info.contents || post_info.contents === '') {
-      window.alert('모집글의 내용을 입력해주세요.');
+    if (!post_info.contents || post_info.contents === "") {
+      customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집글의 내용을 입력해주세요.", "");
       return;
     }
-    if (!post_info.place || post_info.place === '') {
-      window.alert(
-        '안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 약속 장소를 입력해주세요.'
+    if (!post_info.place || post_info.place === "") {
+      customAlert.sweetConfirmReload(
+        "빈칸이 있습니다.", "안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 약속 장소를 입력해주세요.",
+        ""
       );
       return;
     }
-    if (!post_info.restaurant || post_info.restaurant === '') {
-      window.alert('배달 예정인 식당을 입력해주세요.');
+    if (!post_info.restaurant || post_info.restaurant === "") {
+      customAlert.sweetConfirmReload("빈칸이 있습니다.", "배달 예정인 식당을 입력해주세요.", "");
       return;
     }
-    if (!post_info.headCount || post_info.headCount === '0') {
-      window.alert('모집원의 인원 수를 입력해주세요.');
+    if (!post_info.headCount || post_info.headCount === "0") {
+      customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집원의 인원 수를 입력해주세요.", "");
       return;
     }
-    if (!post_info.appointmentTime || post_info.appointmentTime === '') {
-      window.alert('모집원을 만날 시간을 입력해주세요.');
+    if (!post_info.appointmentTime || post_info.appointmentTime === "") {
+      customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집원을 만날 시간을 입력해주세요.", "");
       return;
     }
-    if (!post_info.foodCategory || post_info.foodCategory === '') {
-      window.alert('모집을 희망하는 식품의 카테고리를 입력해주세요.');
+    if (!post_info.foodCategory || post_info.foodCategory === "") {
+      customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집을 희망하는 식품의 카테고리를 입력해주세요.", "");
       return;
     }
 
@@ -225,7 +230,7 @@ const Upload = React.memo((props) => {
             >
               <Grid is_flex4="t" height="4.4rem">
                 <svg
-                  style={{ position: 'absolute', marginLeft: '1.9rem' }}
+                  style={{ position: "absolute", marginLeft: "1.9rem" }}
                   width="18"
                   height="17"
                   viewBox="0 0 18 17"
