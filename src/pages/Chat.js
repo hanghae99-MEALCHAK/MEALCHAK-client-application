@@ -16,6 +16,8 @@ import { actionCreators as chatActions } from "../redux/modules/chat";
 import { actionCreators as postActions } from "../redux/modules/post";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
+import { customAlert } from "../components/Sweet";
+import { replace } from "lodash";
 
 const Chat = (props) => {
   // 소켓
@@ -29,21 +31,29 @@ const Chat = (props) => {
   const room_id = props.history.location.state.room_id;
 
   // 보낼 메세지 정보
+  const sender_info = useSelector(state => state.user.user);
   const sender_nick = useSelector(state => state.user.user?.user_nickname);
+  const sender_profile = useSelector(state => state.user.user?.user_profile);
+  const sender_id = useSelector(state => state.user.user?.user_id);
+
+
   const messageText = useSelector(state => state.chat.messageText);
 
   const { border } = theme;
 
   React.useEffect(() => {
     logger("chat props", props);
+    logger("chat sender info", sender_profile);
+    logger("chat sender info", sender_nick);
+
+
     dispatch(chatActions.moveChatRoom(room_id, roomName));
     dispatch(chatActions.getChatMessagesAX());
   }, []);
 
   React.useEffect(() => {
     if(!room_id){
-      alert("잘못된 접근입니다.\n홈으로 돌아갑니다.")
-      history.replace("/home")
+      customAlert.sweetWA();
       return;
     }
     wsConnectSubscribe();
@@ -81,6 +91,7 @@ const Chat = (props) => {
     }
   };
 
+
   // 다른 방을 클릭하거나 뒤로가기 버튼 클릭시 연결해제 및 구독해제
   const wsDisConnectUnsubscribe = () => {
     try {
@@ -110,19 +121,20 @@ const Chat = (props) => {
     try {
       // 토큰없으면 다시 로그인 시키기
       if (!token) {
-        alert("로그인이 필요한 기능입니다. 로그인을 해주세요");
-        history.replace("/");
+        customAlert.sweetNeedLogin("replace");
       }
       // send할 데이터
       const data = {
         type: "TALK",
         roomId: room_id,
         sender: sender_nick,
+        senderImg: sender_profile,
+        senderId: sender_id,
         message: messageText,
       };
       // 빈 텍스트일때 보내기 방지
       if (messageText === "") {
-        alert("메세지를 입력해주세요.");
+        customAlert.sweetConfirmReload("메세지를 입력해주세요.", null, "");
         return;
       }
       // 로딩
@@ -171,5 +183,6 @@ const Chat = (props) => {
     );
   }
 };
+
 
 export default Chat;

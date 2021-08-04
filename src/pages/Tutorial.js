@@ -10,6 +10,7 @@ import { Button, Grid, Text } from '../elements';
 import theme from '../styles/theme';
 
 import { TutorialSwiper } from '../components';
+import { customAlert } from '../components/Sweet';
 
 const Tutorial = (props) => {
   const { color, border, fontSize } = theme;
@@ -25,10 +26,9 @@ const Tutorial = (props) => {
 
     // 로그인 한 사용자가 로딩 시간때문인지 일정시간이 지나야 아래 부분실행됨
     if (is_login) {
-      window.alert('로그인 한 사용자입니다. 홈으로 돌아갑니다.');
-      history.replace('/home');
+      customAlert.sweetConfirmReload('로그인 한 사용자입니다.', '홈으로 돌아갑니다.', "history");
     }
-  }, []);
+  }, [is_login]);
 
   return (
     <React.Fragment>

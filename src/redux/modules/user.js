@@ -2,10 +2,8 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axiosModule from "../axios_module";
 import jwtDecode from "jwt-decode";
+import { customAlert } from "../../components/Sweet";
 import { Text } from "../../elements";
-
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 
 import { actionCreators as imageActions } from "./image";
 
@@ -65,7 +63,6 @@ const kakaoLogin = (code) => {
         logger("user 정보 decoding", jwtDecode(token));
         const user_nickname = jwtDecode(token).username;
         const user_id = jwtDecode(token).userId;
-        const sweet = withReactContent(Swal);
 
         dispatch(
           setUser({
@@ -74,18 +71,11 @@ const kakaoLogin = (code) => {
           })
         );
 
-        sweet
-          .fire({
-            title: `${user_nickname}님 환영합니다.`,
-          })
-          .then(() => {
-            window.location.replace("/home");
-          });
+        customAlert.sweetConfirmReload("로그인 성공", `${user_nickname}님 환영합니다.`, "/home");
       })
       .catch((err) => {
         logger("user 모듈 74 - 소셜로그인 에러", err);
-        window.alert("로그인에 실패하였습니다.");
-        history.replace("/"); // 로그인 실패하면 로그인화면으로 돌려보냄
+        customAlert.sweetConfirmReload("로그인 오류", "로그인에 실패하였습니다.", '/') // 로그인 실패하면 로그인화면으로 돌려보냄
       });
   };
 };
@@ -197,8 +187,7 @@ export default handleActions(
         draft.is_login = false;
         draft.is_loading = false;
 
-        window.location.replace("/home");
-        window.alert("로그아웃 되었습니다.");
+        customAlert.sweetConfirmReload("로그아웃 되었습니다.", "또 만나요!" , "/home")
       }),
     [LOADING]: (state, action) =>
       produce(state, (draft) => {

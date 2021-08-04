@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import { actionCreators as chatActions } from "../redux/modules/chat";
-import { useDispatch, useSelector } from "react-redux";
-import { socketFuntion as sf } from "../shared/SocketFn";
+import React from 'react';
+import styled from 'styled-components';
+import { actionCreators as chatActions } from '../redux/modules/chat';
+import { useDispatch, useSelector } from 'react-redux';
+import { customAlert } from './Sweet';
 
 import { Grid, Image, Text, Button } from "../elements";
 import { history } from "../redux/configureStore";
@@ -33,8 +33,7 @@ const Post = (props) => {
       });
       return;
     } else {
-      window.alert("로그인이 필요한 기능입니다.\n로그인을 해주세요.");
-      history.push("/");
+      customAlert.sweetNeedLogin();
     }
   };
 

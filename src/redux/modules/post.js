@@ -4,6 +4,7 @@ import axiosModule from '../axios_module';
 import logger from '../../shared/Console';
 import { actionCreators as userActions } from './user';
 import { actionCreators as chatActions } from './chat';
+import { customAlert } from '../../components/Sweet';
 import { actionCreators as locateActions } from './loc';
 
 const SET_POST = 'SET_POST';
@@ -129,8 +130,9 @@ const addPostAX = (post_info) => {
       })
       .then((res) => {
         dispatch(chatActions.getChatListAX());
-        window.alert('모집글 작성이 완료되었습니다.');
-        window.location.replace('/home');
+        
+        customAlert.sweetConfirmReload("작성 완료", '모집글 작성이 완료되었습니다.', '/home');
+
         // dispatch(locateActions.setAddressNull());
       })
       .catch((e) => {
@@ -192,20 +194,12 @@ const editPostAX = (post_id, post_info) => {
         logger("수정 포스트 내용", post);
         
         dispatch(editPost(post_id, post));
-        window.alert('모집글 수정이 완료되었습니다.');
-        window.location.replace(`/post/${post_id}`);
+
+        customAlert.sweetConfirmReload("수정 완료", '모집글 수정이 완료되었습니다.', `/post/${post_id}`);
       })
       .catch((e) => {
         logger('모집글 수정 모듈 에러', e);
-        if (
-          window.confirm(
-            '모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?'
-          )
-        ) {
-          history.replace('/home');
-        } else {
-          history.push(`/post/${post_id}`);
-        }
+        customAlert.sweetEditError(`/post/${post_id}`);
       });
   };
 };
@@ -216,8 +210,7 @@ const deletePostAX = (post_id) => {
       .delete(`/posts/${post_id}`)
       .then(() => {
         dispatch(deletePost(post_id));
-        window.alert('모집글 삭제가 완료되었습니다');
-        history.replace('/home');
+        customAlert.sweetConfirmReload("삭제 완료", '모집글 삭제가 완료되었습니다', "history")
       })
       .catch((e) => {
         logger('삭제 에러', e);

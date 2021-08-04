@@ -3,6 +3,7 @@ import { produce } from "immer";
 import axiosModule from "../axios_module";
 import _ from "lodash";
 import moment from "moment";
+import { customAlert } from "../../components/Sweet";
 
 import logger from "../../shared/Console";
 
@@ -75,7 +76,11 @@ const getChatListAX = () => {
       .then((res) => {
         logger("나의 채팅방 목록", res);
         if (res.data.length === 0) {
-          alert("개설된 채팅방 목록이 없습니다.\n채팅을 시작해보세요");
+          customAlert.sweetConfirmReload(
+            "개설된 채팅방 목록이 없습니다.",
+            "채팅을 시작해보세요",
+            ""
+          );
           return;
         }
         let my_chat_list = [];
@@ -92,8 +97,11 @@ const getChatListAX = () => {
         dispatch(setChatList(my_chat_list));
       })
       .catch((e) => {
-        alert("채팅방 목록조회에 실패했습니다.\n메인페이지로 돌아갑니다.");
-        history.replace("/home");
+        customAlert.sweetConfirmReload(
+          "채팅방 목록조회에 실패했습니다.",
+          "메인페이지로 돌아갑니다.",
+          "history"
+        );
         logger("나의 채팅방 목록 조회 에러", e);
       });
   };
@@ -115,7 +123,9 @@ const getChatMessagesAX = () => {
           let one_msg_info = {
             type: m.type,
             room_id: m.roomId,
-            sender: m.sender,
+            sender: m.sender.username,
+            sender_id: m.sender.id,
+            sender_img: m.sender.profileImg,
             message: m.message,
             createdAt: m.createdAt,
             msg_id: m.id,
@@ -125,7 +135,11 @@ const getChatMessagesAX = () => {
         dispatch(setMessage(chatMassageArray));
       })
       .catch((e) => {
-        alert("채팅방 메세지 불러오기에 실패했습니다.");
+        customAlert.sweetConfirmReload(
+          "불러오기 실패",
+          "채팅방 메세지 불러오기에 실패했습니다.",
+          ""
+        );
         logger("채팅 메세지 불러오기 실패", e);
       });
   };
@@ -166,12 +180,23 @@ export default handleActions(
     // getMessages - 새로운 메세지 정보를 메세지 리스트에 추가
     [GET_MSG]: (state, action) =>
       produce(state, (draft) => {
-        draft.messages.push(action.payload.newMessage);
+        const m = action.payload.newMessage;
+        const one_msg = {
+          type: m.type,
+          room_id: m.roomId,
+          sender: m.sender.username,
+          sender_id: m.sender.id,
+          sender_img: m.sender.profileImg,
+          message: m.message,
+          createdAt: m.createdAt,
+          msg_id: m.id,
+        };
+        draft.messages.push(one_msg);
       }),
     // setMessage - 메세지 DB에서 조회할때 해당 방의 메세지 내역 불러옴
     [SET_MSG]: (state, action) =>
       produce(state, (draft) => {
-        draft.messages = _.remove(action.payload.chatMassageArray, {
+        draft.messages = _.remove(action.payload.chatMassageArray.reverse(), {
           type: "TALK",
         });
       }),

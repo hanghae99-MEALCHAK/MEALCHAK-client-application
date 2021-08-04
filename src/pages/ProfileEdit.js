@@ -15,7 +15,9 @@ import Spinner from "../shared/Spinner";
 import { Button, Grid, Input, Text, Image } from "../elements";
 import { Header, Footer } from "../components";
 import theme from "../styles/theme";
+import { customAlert } from "../components/Sweet";
 import { actionCreators } from "../redux/modules/image";
+
 
 const ProfileEdit = (props) => {
   const dispatch = useDispatch();
@@ -58,8 +60,7 @@ const ProfileEdit = (props) => {
           image: editProfile.image,
         })
       );
-      window.alert("프로필이 수정되었습니다.");
-      history.replace("/mypage");
+      customAlert.sweetConfirmReload("프로필이 수정되었습니다.", null, "/mypage")
     }
   };
 
