@@ -276,7 +276,7 @@ const Main = (props) => {
             <div>하이~</div>
           </React.Fragment>
         )}
-        {/* <Grid height="6rem" /> */}
+        <Grid height="6rem" />
       </Grid>
     </React.Fragment>
   );

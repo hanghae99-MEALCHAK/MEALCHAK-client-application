@@ -54,7 +54,7 @@ const Search = (props) => {
               is_submit
             ></Input>
           </Grid>
-          <svg
+          {/* <svg
             style={{
               marginLeft: '32rem',
               fontSize: '1.9rem',
@@ -78,7 +78,7 @@ const Search = (props) => {
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-          </svg>
+          </svg> */}
         </Grid>
         <Grid is_flex2 width="32rem" margin="1rem auto">
           <Grid>
@@ -122,19 +122,21 @@ const Search = (props) => {
 Search.defaultProps = {};
 
 const SearchLogoImg = styled.div`
-  width: 30rem;
-  height: 30rem;
+  width: 28rem;
+  height: 25.8rem;
   border-radius: 2rem;
-  background-image: url('https://cdn.pixabay.com/photo/2017/12/27/12/40/colorful-doodle-3042581_960_720.jpg');
-  background-size: 30rem 30rem;
+  background-image: url('/illust/whatDoIeat_3x.png');
+  background-size: 28rem 25.8rem;
+  margin: 0 auto;
 `;
 
 const ZeroImg = styled.div`
-  width: 30rem;
-  height: 30rem;
+  width: 14.3rem;
+  height: 26.4rem;
   border-radius: 2rem;
-  background-image: url('https://cdn.pixabay.com/photo/2017/01/27/17/12/number-2013601__340.png');
-  background-size: 30rem 30rem;
+  background-image: url('/illust/Group182_3x.png');
+  background-size: 14.3rem 26.4rem;
+  margin: 0 auto;
 `;
 
 export default Search;

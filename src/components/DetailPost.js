@@ -1,23 +1,24 @@
-import React from "react";
-import styled from "styled-components";
-import { history } from "../redux/configureStore";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postAction } from "../redux/modules/post";
-import { actionCreators as chatActions } from "../redux/modules/chat";
+import React from 'react';
+import styled from 'styled-components';
+import { history } from '../redux/configureStore';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as postAction } from '../redux/modules/post';
+import { actionCreators as chatActions } from '../redux/modules/chat';
 
-import { Grid, Button, Text, Image } from "../elements";
+import { Grid, Button, Text, Image } from '../elements';
 
-import theme from "../styles/theme";
-import logger from "../shared/Console";
+import theme from '../styles/theme';
+import logger from '../shared/Console';
 
 const DetailPost = (props) => {
-  logger("상세포스트 프롭스", props.is_me);
+  logger('상세포스트 프롭스', props.is_me);
   const {
     address,
     category,
     contents,
     distance,
     headCount,
+    nowHeadCount,
     insert_dt,
     is_me,
     orderTime,
@@ -40,7 +41,7 @@ const DetailPost = (props) => {
   }, []);
 
   const deleteBtn = () => {
-    if (window.confirm("삭제하시겠습니까?")) {
+    if (window.confirm('삭제하시겠습니까?')) {
       dispatch(postAction.deletePostAX(post_id));
     } else {
       return;
@@ -58,8 +59,8 @@ const DetailPost = (props) => {
       });
       return;
     } else {
-      window.alert("로그인이 필요한 기능입니다.\n로그인을 해주세요.");
-      history.push("/");
+      window.alert('로그인이 필요한 기능입니다.\n로그인을 해주세요.');
+      history.push('/');
     }
   };
 
@@ -93,7 +94,7 @@ const DetailPost = (props) => {
                     color={color.success100}
                     bold
                   >
-                    모집 인원 2/4명
+                    모집 인원 {nowHeadCount}/{headCount}명
                   </Text>
                 </Grid>
               </Grid>
@@ -141,8 +142,8 @@ const DetailPost = (props) => {
               margin="0 0 0 1rem"
             >
               {distance > 999
-                ? `내 위치로부터 ${(distance / 1000).toFixed(2)}km`
-                : `내 위치로부터 ${distance}m`}
+                ? `내 위치로부터 ${(distance / 1000).toFixed(2) * 1000}km`
+                : `내 위치로부터 ${distance * 1000}m`}
             </Text>
           </Grid>
           <Text
@@ -225,7 +226,7 @@ const DetailPost = (props) => {
             color={color.brand100}
             size={fontSize.small}
             _onClick={(e) => {
-              enterRoom("chatting", room_id, title, post_id);
+              enterRoom('chatting', room_id, title, post_id);
             }}
           >
             <Text bold size="1.6rem" color={color.bg0}>
@@ -244,7 +245,7 @@ const UserProfile = styled.div`
   width: 4.3rem;
   height: 3.8rem;
   border-radius: 2rem;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   background-size: cover;
   background-position: center;
   margin: 1rem 1rem 1rem 0;
