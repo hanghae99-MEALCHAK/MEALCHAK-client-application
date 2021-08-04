@@ -3,7 +3,7 @@ import { produce } from "immer";
 import axiosModule from "../axios_module";
 import jwtDecode from "jwt-decode";
 import { customAlert } from "../../components/Sweet";
-
+import { Text } from "../../elements";
 
 import { actionCreators as imageActions } from "./image";
 
@@ -72,7 +72,6 @@ const kakaoLogin = (code) => {
         );
 
         customAlert.sweetConfirmReload("로그인 성공", `${user_nickname}님 환영합니다.`, "/home");
-
       })
       .catch((err) => {
         logger("user 모듈 74 - 소셜로그인 에러", err);
@@ -84,6 +83,7 @@ const kakaoLogin = (code) => {
 // 사용자 닉네임 변경 함수
 const editUserProfileAX = (profile) => {
   return function (dispatch, getState, { history }) {
+    const user_info = getState().user.user;
     let form = new FormData();
     form.append("username", profile.username);
     form.append("comment", profile.comment);
@@ -97,12 +97,12 @@ const editUserProfileAX = (profile) => {
         let profile = {
           username: _profile.username,
           comment: _profile.comment,
-          profileImg: _profile.image,
-        }
+          profileImg: _profile.profileImg,
+        };
         dispatch(editProfile(profile));
-        console.log(typeof profile.profileImg);
         dispatch(imageActions.setPreview(null));
         logger("profile 수정 모듈", res);
+        window.location.replace("/mypage");
       })
       .catch((e) => {
         logger("profile 수정 모듈 e", e);
@@ -116,25 +116,26 @@ const loginCheck = () => {
   return function (dispatch, getState, { history }) {
     if (token) {
       axiosModule
-      .get('/user/info')
-      .then((res) => {
-          logger('로그인 체크 res', res);
+        .get("/user/info")
+        .then((res) => {
+          logger("로그인 체크 res", res);
           const user_info = {
             user_id: res.data.id,
             user_nickname: res.data.username,
             user_profile: res.data.profileImg,
             user_address: res.data.address,
-            user_comment: res.data.comment
+            user_comment: res.data.comment,
           };
           dispatch(
             setUser({
               ...user_info,
             })
           );
-        }).then(() => {
+        })
+        .then(() => {
           // is_login은 안되었는데 토큰 남아있는경우 토큰 지우고 싶은데 방법을 모르겠음
           const is_login = getState().user.is_login;
-          if(!is_login){
+          if (!is_login) {
             dispatch(logOut());
           }
         })
@@ -196,11 +197,8 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user.user_nickname = action.payload.profile.username;
         draft.user.user_comment = action.payload.profile.comment;
+        draft.user.user_profile = action.payload.profile.profileImg;
       }),
-    // [EDIT_COMMENT]: (state, action) =>
-    //   produce(state, (draft) => {
-    //     draft.user.user_comment = action.payload.edit_comment;
-    //   }),
     [EDIT_ADDRESS]: (state, action) =>
       produce(state, (draft) => {
         draft.user.user_address = action.payload.address;

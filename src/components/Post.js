@@ -4,16 +4,21 @@ import { actionCreators as chatActions } from '../redux/modules/chat';
 import { useDispatch, useSelector } from 'react-redux';
 import { customAlert } from './Sweet';
 
-import { Grid, Image, Text, Button } from '../elements';
-import { history } from '../redux/configureStore';
-import logger from '../shared/Console';
-import theme from '../styles/theme';
+import { Grid, Image, Text, Button } from "../elements";
+import { history } from "../redux/configureStore";
+import logger from "../shared/Console";
+import theme from "../styles/theme";
 
 const Post = (props) => {
   const { color, fontSize } = theme;
-  const is_login = useSelector((state) => state.user.is_login);
-  const dispatch = useDispatch();
 
+  const is_login = useSelector((state) => state.user.is_login);
+  const user_info = useSelector((state) => state.user.user);
+
+  const dispatch = useDispatch();
+  // 내 위치에서부터 얼마나 떨어져있는지 보여주는 변수(소수점이므로 1000을 곱해 m로 나타냄)
+  const distance = props.distance * 1000;
+  logger("Post.js props: ", props);
   // 채팅 시작하면 서버에 게스트 입장 요청
   // 구독, 채팅 시작
   // 포스트에서 채팅시작하기 누를때는 post 모듈에서 각 게시물 정보로 getPostAX에서 room_id 받아와줘야 가능함
@@ -32,8 +37,6 @@ const Post = (props) => {
     }
   };
 
-  // 내 위치에서부터 얼마나 떨어져있는지 보여주는 변수(소수점이므로 1000을 곱해 m로 나타냄)
-  const distance = props.distance * 1000;
   return (
     <React.Fragment>
       <Grid
@@ -45,7 +48,18 @@ const Post = (props) => {
       >
         <Grid is_float="left" margin="0.5rem 1.5rem 1.5rem 1.5rem">
           <Grid is_flex>
-            <UserProfile src={props.userImg} />
+            <UserProfile
+              src={props.userImg}
+              onClick={() => {
+                if (user_info.user_id === props.user_id) {
+                  return history.push("/mypage");
+                }
+                history.push({
+                  pathname: "/userprofile",
+                  state: { ...props },
+                });
+              }}
+            />
             <Grid>
               <Grid is_flex>
                 <Text size={fontSize.small} color={color.bg100} bold2="500">
@@ -114,18 +128,20 @@ const Post = (props) => {
               >
                 배달 받을 곳
               </Text>
-              <Text
-                height="1.5rem"
-                size="1rem"
-                bold2="500"
-                color={color.success100}
-                line_height="150%"
-                margin="0 0 0 1rem"
-              >
-                {distance > 999
-                  ? `내 위치로부터 ${(distance / 1000).toFixed(2)}km`
-                  : `내 위치로부터 ${distance}m`}
-              </Text>
+              {!props.is_profile && (
+                <Text
+                  height="1.5rem"
+                  size="1rem"
+                  bold2="500"
+                  color={color.success100}
+                  line_height="150%"
+                  margin="0 0 0 1rem"
+                >
+                  {distance > 999
+                    ? `내 위치로부터 ${(distance / 1000).toFixed(2)}km`
+                    : `내 위치로부터 ${distance}m`}
+                </Text>
+              )}
             </Grid>
             <Text
               width="29rem"
@@ -222,8 +238,13 @@ const Post = (props) => {
               bold={fontSize.bold}
               cursor="pointer"
               _onClick={(e) => {
-                enterRoom("chatting", props.room_id, props.title, props.post_id);
-            }}
+                enterRoom(
+                  "chatting",
+                  props.room_id,
+                  props.title,
+                  props.post_id
+                );
+              }}
             >
               채팅 시작하기
             </Button>
@@ -244,6 +265,7 @@ const UserProfile = styled.div`
   background-size: cover;
   background-position: center;
   margin: 1rem 1rem 1rem 0;
+  cursor: pointer;
 `;
 
 const Hr = styled.hr`

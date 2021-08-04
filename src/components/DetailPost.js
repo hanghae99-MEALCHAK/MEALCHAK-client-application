@@ -1,18 +1,18 @@
-import React from 'react';
-import styled from 'styled-components';
-import { history } from '../redux/configureStore';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as postAction } from '../redux/modules/post';
-import { actionCreators as chatActions } from '../redux/modules/chat';
+import React from "react";
+import styled from "styled-components";
+import { history } from "../redux/configureStore";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as postAction } from "../redux/modules/post";
+import { actionCreators as chatActions } from "../redux/modules/chat";
 
-import { Grid, Button, Text, Image } from '../elements';
+import { Grid, Button, Text, Image } from "../elements";
 
 import theme from '../styles/theme';
 import logger from '../shared/Console';
 import { customAlert } from './Sweet';
 
 const DetailPost = (props) => {
-  logger('상세포스트 프롭스', props.is_me);
+  logger("상세포스트 프롭스", props.is_me);
   const {
     address,
     category,
@@ -39,10 +39,11 @@ const DetailPost = (props) => {
   React.useEffect(() => {
     window.scrollTo(0, 0);
     // logger('is_me', props.is_me);
+    console.log(props);
   }, []);
 
   const deleteBtn = () => {
-    if (window.confirm('삭제하시겠습니까?')) {
+    if (window.confirm("삭제하시겠습니까?")) {
       dispatch(postAction.deletePostAX(post_id));
     } else {
       return;
@@ -199,9 +200,7 @@ const DetailPost = (props) => {
               history.push(`/upload/${post_id}`);
             }}
           >
-            <Text bold size="1.6rem" color={color.brand100}>
-              수정하기
-            </Text>
+            수정하기
           </Button>
           <Button
             width="14rem"
@@ -214,23 +213,22 @@ const DetailPost = (props) => {
             bold={fontSize.bold}
             _onClick={deleteBtn}
           >
-            <Text bold size="1.6rem" color={color.bg0}>
-              삭제하기
-            </Text>
+            삭제하기
           </Button>
         </Grid>
       ) : (
-        <Grid maxWidth="30rem" margin="0 auto">
+        <Grid maxWidth="30rem" height="5rem" margin="0 3rem 1rem 3rem" absolute="absolute" bottom="0">
           <Button
             shape="large"
             color={color.brand100}
             size={fontSize.small}
+            disabled={props.headCount === 3? true : false}
             _onClick={(e) => {
-              enterRoom('chatting', room_id, title, post_id);
+              enterRoom("chatting", room_id, title, post_id);
             }}
           >
             <Text bold size="1.6rem" color={color.bg0}>
-              채팅 시작하기
+              {props.headCount === props.nowHeadCount ? "모집 마감됐어요" : "채팅 시작하기"}
             </Text>
           </Button>
         </Grid>
@@ -245,7 +243,7 @@ const UserProfile = styled.div`
   width: 4.3rem;
   height: 3.8rem;
   border-radius: 2rem;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   background-size: cover;
   background-position: center;
   margin: 1rem 1rem 1rem 0;
