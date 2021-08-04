@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { token } from "../shared/OAuth";
 import { history } from "../redux/configureStore";
+import moment from "moment";
 
 // 소켓 통신
 import Stomp from "stompjs";
@@ -64,7 +65,10 @@ const Chat = (props) => {
             (data) => {
               const newMessage = JSON.parse(data.body);
               logger("구독후 새로운 메세지 data", newMessage)
-              dispatch(chatActions.getMessages(newMessage));
+
+              // 실시간 채팅 시간 넣어주는 부분
+              const now_time = moment().format("YYYY-MM-DD hh:mm:ss");
+              dispatch(chatActions.getMessages({...newMessage, createdAt: now_time}));
             },
             {
               token: token,
@@ -123,6 +127,7 @@ const Chat = (props) => {
       }
       // 로딩
       // dispatch(chatActions.loading());
+      dispatch(chatActions.setTime());
       waitForConnection(ws, () => {
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
         logger("메세지보내기 상태", ws.ws.readyState);

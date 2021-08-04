@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axiosModule from "../axios_module";
 import _ from "lodash";
+import moment from "moment";
 
 import logger from "../../shared/Console";
 
@@ -25,6 +26,8 @@ const WRITE_MSG = "WRITE_MSG";
 const LOADING = "LOADING";
 // 로딩 완료 (true)
 const LOADED = "LOADED";
+// 실시간 메세지 시간 보여주기
+const SET_TIME = "SET_TIME";
 
 // ActionCreator
 const setChatList = createAction(SET_CHAT_LIST, (myChatList) => ({
@@ -43,6 +46,7 @@ const clearMessage = createAction(CLEAR_MSG, () => ({}));
 const writeMessage = createAction(WRITE_MSG, (message) => ({ message }));
 const loading = createAction(LOADING, () => {});
 const loaded = createAction(LOADED, () => {});
+const setTime = createAction(SET_TIME, () => ({}));
 
 // initialState
 const initialState = {
@@ -59,6 +63,8 @@ const initialState = {
   messageText: null,
   // 메세지 로딩
   loading: false,
+  // 사용자가 입력하는 순간의 메세지 time
+  now_time: null,
 };
 
 // middleware
@@ -165,9 +171,9 @@ export default handleActions(
     // setMessage - 메세지 DB에서 조회할때 해당 방의 메세지 내역 불러옴
     [SET_MSG]: (state, action) =>
       produce(state, (draft) => {
-        draft.messages = _.remove(
-          action.payload.chatMassageArray, {type: "TALK"}
-        );
+        draft.messages = _.remove(action.payload.chatMassageArray, {
+          type: "TALK",
+        });
       }),
     [CLEAR_MSG]: (state, action) =>
       produce(state, (draft) => {
@@ -185,6 +191,11 @@ export default handleActions(
       produce(state, (draft) => {
         draft.loading = false;
       }),
+    [SET_TIME]: (state, action) =>
+      produce(state, (draft) => {
+        const now_time = moment().format("hh:mm");
+        draft.now_time = now_time;
+      }),
   },
   initialState
 );
@@ -200,6 +211,7 @@ const actionCreators = {
   writeMessage,
   loading,
   loaded,
+  setTime,
 };
 
 export { actionCreators };

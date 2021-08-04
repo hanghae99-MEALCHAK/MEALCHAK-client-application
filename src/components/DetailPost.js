@@ -28,6 +28,7 @@ const DetailPost = (props) => {
     user_id,
     username,
     room_id,
+    nowHeadCount,
   } = props;
 
   const { color, border, radius, fontSize } = theme;
@@ -93,7 +94,7 @@ const DetailPost = (props) => {
                     color={color.success100}
                     bold
                   >
-                    모집 인원 2/4명
+                    모집 인원 {nowHeadCount}/{headCount}명
                   </Text>
                 </Grid>
               </Grid>
@@ -141,8 +142,8 @@ const DetailPost = (props) => {
               margin="0 0 0 1rem"
             >
               {distance > 999
-                ? `내 위치로부터 ${(distance / 1000).toFixed(2)}km`
-                : `내 위치로부터 ${distance}m`}
+                ? `내 위치로부터 ${(distance / 1000).toFixed(2) * 1000}km`
+                : `내 위치로부터 ${distance * 1000}m`}
             </Text>
           </Grid>
           <Text
