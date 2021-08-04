@@ -29,6 +29,7 @@ const DetailPost = (props) => {
     user_id,
     username,
     room_id,
+    nowHeadCount,
   } = props;
 
   const { color, border, radius, fontSize } = theme;

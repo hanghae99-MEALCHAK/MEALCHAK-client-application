@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import logger from "../shared/Console";
 import Spinner from "../shared/Spinner";
+import moment from "moment";
 
 import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
@@ -14,12 +15,14 @@ const Message = (props) => {
   const user_info = useSelector((state) => state.user.user);
 
   //   메세지 타임
+  // const now_time = moment().format("h:m");
+  const now_time = useSelector(state => state.chat.now_time)
+
   let time = "";
   if (!(messagesInfo.createdAt === null)) {
     time = messagesInfo.createdAt?.split(" ")[1];
   }
-  const hour = time.split(":")[0];
-  const minute = time.split(":")[1];
+  const DB_time = time?.split(":")[0] + ":" + time?.split(":")[1];
 
   React.useEffect(() => {
     // 로딩중
@@ -30,34 +33,39 @@ const Message = (props) => {
 
   // 사용자 정보 잘 들어오는지 확인
   React.useEffect(() => {
-    logger("user nick", user_info?.user_nickname);
-    logger("messagesInfo", messagesInfo);
+    logger("디비 시간", DB_time);
+    logger("현재 시간", now_time);
   }, [user_info?.user_nickname]);
 
   // 지금은 닉네임으로 하지만 나중에 서버에서 메세지 작성자 user 정보주면 그걸로하기
   // if (user_info?.user_id === messagesInfo.sender_id)
   if (user_info?.user_nickname === messagesInfo?.sender) {
     return (
-      <Grid is_flex4="t" margin="0 auto 1.6rem" flex_direction="row">
-        <Grid width="4rem" margin="0 0.8rem 0 0">
-          <Image src={user_info.user_profile} size="4"></Image>
-        </Grid>
-        <Grid shape="container" width="auto">
-          <Text color={color.bg0} size={fontSize.tiny}>
-            {messagesInfo.sender}
-          </Text>
+      <Grid shape="container" margin="0 auto 1.6rem" text_align="left">
+        <Grid is_flex4="t" justify_content="space-between">
+          <Grid />
           <Grid
-            bg={color.bg0}
+            is_flex4="t"
             maxWidth="15rem"
-            padding="0.8rem"
-            radius="0 1.2rem 1.2rem 1.2rem"
+            flex_direction="row-reverse"
+            align_items="flex-end"
           >
-            <Text size={fontSize.small} word_break="break-all">{messagesInfo?.message}</Text>
+            <Grid
+              bg={color.brand40}
+              width="auto"
+              padding="0.8rem"
+              radius="1.2rem 0 1.2rem 1.2rem"
+            >
+              <Text size={fontSize.small} word_break="break-all">
+                {messagesInfo?.message}
+              </Text>
+            </Grid>
+
+            <Text size={fontSize.tiny} margin="0 0.4rem 0 0" color={color.bg0}>
+              {DB_time !== ":undefined" ? DB_time : now_time}
+            </Text>
           </Grid>
         </Grid>
-        <Text>
-          {hour}:{minute}
-        </Text>
       </Grid>
     );
   }
@@ -80,18 +88,53 @@ const Message = (props) => {
     );
   }
 
+  // 다른 사람 메세지
   return (
-    <Grid is_flex4="t" margin="0 auto 1.6rem" flex_direction="row">
-      <Text>{messagesInfo.sender}</Text>
-      <Text>{messagesInfo?.message}</Text>
-      <Text>
-        {hour}:{minute}
-      </Text>
+    <Grid
+      is_flex4="t"
+      margin="0 auto 1.6rem -0.4rem"
+      flex_direction="row"
+      align_items="start"
+    >
+      <Grid width="4rem" margin="0 0.8rem 0 0">
+        <Image size="4"></Image>
+      </Grid>
+      <Grid
+        shape="container"
+        margin="0 auto 1.6rem"
+        text_align="left"
+        padding="1rem 0 0"
+      >
+        <Text color={color.bg0} size={fontSize.tiny} text_align="left">
+          {messagesInfo.sender}
+        </Text>
+        <Grid is_flex4="t" justify_content="space-between">
+          <Grid
+            is_flex4="t"
+            maxWidth="15rem"
+            flex_direction="row"
+            align_items="flex-end"
+          >
+            <Grid
+              bg={color.bg0}
+              width="auto"
+              padding="0.8rem"
+              radius="0 1.2rem 1.2rem 1.2rem"
+            >
+              <Text size={fontSize.small} word_break="break-all">
+                {messagesInfo?.message}
+              </Text>
+            </Grid>
+
+            <Text size={fontSize.tiny} margin="0 0 0 0.4rem" color={color.bg0}>
+              {DB_time !== ":undefined" ? DB_time : now_time}
+            </Text>
+            <Grid width="1rem" />
+          </Grid>
+        </Grid>
+      </Grid>
     </Grid>
   );
-
-  // 다른 사람 메세지
-  return <div></div>;
 };
 
 export default Message;

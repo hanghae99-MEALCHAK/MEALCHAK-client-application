@@ -2,6 +2,11 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axiosModule from "../axios_module";
 import jwtDecode from "jwt-decode";
+import { Text } from "../../elements";
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 
 import { actionCreators as imageActions } from "./image";
 
@@ -61,6 +66,7 @@ const kakaoLogin = (code) => {
         logger("user 정보 decoding", jwtDecode(token));
         const user_nickname = jwtDecode(token).username;
         const user_id = jwtDecode(token).userId;
+        const sweet = withReactContent(Swal)
 
         dispatch(
           setUser({
@@ -69,8 +75,12 @@ const kakaoLogin = (code) => {
           })
         );
 
-        window.alert(`${user_nickname}님 환영합니다.`);
-        window.location.replace("/home");
+        sweet.fire({
+          title: `${user_nickname}님 환영합니다.`,
+        }).then(() => {
+          window.location.replace("/home");
+        })
+
       })
       .catch((err) => {
         logger("user 모듈 74 - 소셜로그인 에러", err);
