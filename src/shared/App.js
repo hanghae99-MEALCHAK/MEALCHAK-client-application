@@ -24,6 +24,10 @@ import {
   Chat,
   NotFound,
   ProfileEdit,
+  Settings,
+  MyPost,
+  MyReview,
+  UserProfile,
 } from '../pages';
 
 import ReviewWrite from '../pages/ReviewWrite';
@@ -71,7 +75,11 @@ function App() {
           <Route path="/upload/:id" exact component={Upload} />
           <Route path="/search" component={Search}></Route>
           <Route path="/mypage" component={MyPage}></Route>
+          <Route path="/userprofile" component={UserProfile}></Route>
           <Route path="/profile" component={ProfileEdit}></Route>
+          <Route path="/mypost" component={MyPost}/>
+          <Route path="/myreview" component={MyReview}/>
+          <Route path="/settings" component={Settings}></Route>
           <Route path="/chatlist" component={ChatRoomList}></Route>
           <Route path="/chatting" component={Chat}></Route>
           {/* <Route path="*" component={NotFound}></Route> */}

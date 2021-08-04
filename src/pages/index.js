@@ -10,6 +10,10 @@ import ChatRoomList from "./ChatRoomList";
 import Chat from "./Chat";
 import NotFound from "./NotFound";
 import ProfileEdit from "./ProfileEdit";
+import Settings from "./Settings";
+import MyPost from "./MyPost";
+import MyReview from "./MyReview";
+import UserProfile from "./UserProfile";
 
 export {
   LoginRedirect,
@@ -24,4 +28,8 @@ export {
   Chat,
   NotFound,
   ProfileEdit,
+  Settings,
+  MyPost,
+  MyReview,
+  UserProfile,
 };

@@ -5,6 +5,7 @@ import { Grid, Text, Button } from '../elements';
 import { Post, Footer, Header, MainBanner } from '../components';
 
 import { actionCreators as postActions } from '../redux/modules/post';
+import { actionCreators as userActions } from '../redux/modules/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../redux/configureStore';
 import logger from '../shared/Console';
@@ -128,6 +129,7 @@ const Main = (props) => {
             height="2.4rem"
             size={fontSize.base}
             bold
+            cursor="t"
             margin="0 0.9rem"
             border_bottom={category.all ? '0.1rem solid black' : ''}
             _onClick={() => {
@@ -141,6 +143,7 @@ const Main = (props) => {
             height="2.4rem"
             size="1.6rem"
             bold
+            cursor="t"
             margin="0 0.9rem"
             border_bottom={category.kr ? '0.1rem solid black' : ''}
             _onClick={() => {
@@ -154,6 +157,7 @@ const Main = (props) => {
             height="2.4rem"
             size="1.6rem"
             bold
+            cursor="t"
             margin="0 0.9rem"
             border_bottom={category.cn ? '0.1rem solid black' : ''}
             _onClick={() => {
@@ -167,6 +171,7 @@ const Main = (props) => {
             height="2.4rem"
             size="1.6rem"
             bold
+            cursor="t"
             margin="0 0.9rem"
             border_bottom={category.jp ? '0.1rem solid black' : ''}
             _onClick={() => {
@@ -180,6 +185,7 @@ const Main = (props) => {
             height="2.4rem"
             size="1.6rem"
             bold
+            cursor="t"
             margin="0 0.9rem"
             border_bottom={category.west ? '0.1rem solid black' : ''}
             _onClick={() => {
@@ -193,6 +199,7 @@ const Main = (props) => {
             height="2.4rem"
             size="1.6rem"
             bold
+            cursor="t"
             margin="0 0.9rem"
             border_bottom={category.cafe ? '0.1rem solid black' : ''}
             _onClick={() => {
@@ -206,6 +213,7 @@ const Main = (props) => {
             height="2.4rem"
             size="1.6rem"
             bold
+            cursor="t"
             margin="0 0.9rem"
             border_bottom={category.etc ? '0.1rem solid black' : ''}
             _onClick={() => {
