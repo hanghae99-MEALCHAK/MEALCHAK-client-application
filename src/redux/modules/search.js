@@ -22,20 +22,25 @@ const getSearchListDB = (food) => {
         let search_list = [];
 
         res.data.forEach((p) => {
+          let hour = p.orderTime.split(' ')[1].split(':')[0];
+          let minute = p.orderTime.split(' ')[1].split(':')[1];
           let post = {
-            post_id: p.id,
+            post_id: p.postId,
             title: p.title,
             contents: p.contents,
-            category: p.menu.category,
+            category: p.category,
             shop: p.restaurant,
             headCount: p.headCount,
-            orderTime: p.orderTime,
-            address: p.location.address,
+            orderTime: hour + ':' + minute,
+            orderDate: p.orderTime.split(' ')[0],
+            address: p.address,
             insert_dt: p.createdAt,
-            username: p.user.username,
-            user_id: p.user.id,
-            userImg: p.user.profileImg,
+            username: p.username,
+            user_id: p.userId,
+            userImg: p.profileImg,
             distance: p.distance,
+            room_id: p.roomId,
+            nowHeadCount: p.nowHeadCount,
           };
           search_list.push(post);
         });

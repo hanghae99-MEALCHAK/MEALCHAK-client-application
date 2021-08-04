@@ -22,7 +22,7 @@ const ReviewWrite = (props) => {
           리뷰 남기기
         </Header>
 
-        <Grid margin="2.5rem auto 1rem">
+        <Grid margin="2rem auto 1rem">
           <Profile></Profile>
         </Grid>
         <Grid margin="0 auto 2rem">
@@ -51,20 +51,41 @@ const ReviewWrite = (props) => {
           </Text>
           <Grid
             border="1px solid #C7C8CE"
+            margin="0 0 2rem 0"
             padding="0 1rem"
             radius="1.2rem"
             height="auto"
           >
             <Select>
-              <option value="최고">최고예요!</option>
+              <option value="none" defaultValue hidden>
+                리뷰를 선택해주세요.
+              </option>
+              <option
+                value="최고"
+                style={{ color: 'red', backgroundColor: 'yellow' }}
+              >
+                최고예요!
+              </option>
               <option value="좋아">좋아요~</option>
               <option value="별로">별로예요:(</option>
             </Select>
           </Grid>
         </Grid>
-
         <GreyLine />
-        <Grid width="85%" margin="0 auto">
+        <Grid margin="1.5rem 0" padding="0 2rem">
+          <Text
+            width="auto"
+            size={fontSize.small}
+            color={color.bg80}
+            bold2="400"
+            line_height="150%"
+            text_align="left"
+          >
+            해당 사용자와의 밀착이 만족스러우셨다면 따뜻한 리뷰를 전해보세요!
+          </Text>
+        </Grid>
+
+        <Grid width="89%" margin="0 auto">
           <Button
             shape="large"
             color={color.bg40}

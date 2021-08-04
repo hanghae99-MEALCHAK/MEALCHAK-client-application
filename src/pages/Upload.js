@@ -94,9 +94,8 @@ const Upload = React.memo((props) => {
       window.alert('모집을 희망하는 식품의 카테고리를 입력해주세요.');
       return;
     }
-    post_info.appointmentDate = post_info.appointmentDate
-      ? post_info.appointmentDate
-      : today;
+
+    post_info.appointmentDate = post_info.appointmentDate ?? today;
 
     dispatch(postAction.addPostAX(post_info));
   };
