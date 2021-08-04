@@ -115,7 +115,8 @@ const Header = (props) => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             onClick={() => {
-              history.replace('/home');
+              // history.replace('/home');
+              history.goBack();
             }}
           >
             <path
@@ -132,6 +133,7 @@ const Header = (props) => {
             margin="auto"
             size="1.6rem"
             bold2="700"
+            text_align="center"
             overflow="hidden"
             text_overflow="ellipsis"
             white_space="nowrap"
@@ -286,6 +288,141 @@ const Header = (props) => {
     );
   }
 
+  // 타 유저가 보는 내 프로필
+  if (props.shape === '프로필') {
+    return (
+      <React.Fragment>
+        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            cursor="pointer"
+            onClick={() => {
+              history.replace('/home');
+            }}
+            style={{ margin: '0 0 0 1rem' }}
+          >
+            <path
+              d="M15 5L7 12L15 19"
+              stroke="#36373C"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <Text margin="0 auto" size="1.6rem" bold2="700">
+            프로필
+          </Text>
+          <Grid width="3rem" />
+        </Grid>
+      </React.Fragment>
+    );
+  }
+
+  // 마이페이지 - 앱 설정 - 로그아웃, 탈퇴 페이지
+  if (props.shape === '설정') {
+    return (
+      <React.Fragment>
+        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            cursor="pointer"
+            onClick={() => {
+              history.replace('/mypage');
+            }}
+            style={{ margin: '0 0 0 1rem' }}
+          >
+            <path
+              d="M15 5L7 12L15 19"
+              stroke="#36373C"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <Text margin="0 auto" size="1.6rem" bold2="700">
+            설정
+          </Text>
+          <Grid width="3rem" />
+        </Grid>
+      </React.Fragment>
+    );
+  }
+
+  // 마이페이지 - 내가 쓴 글
+  if (props.shape === '내가쓴글') {
+    return (
+      <React.Fragment>
+        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            cursor="pointer"
+            onClick={() => {
+              history.replace('/mypage');
+            }}
+            style={{ margin: '0 0 0 1rem' }}
+          >
+            <path
+              d="M15 5L7 12L15 19"
+              stroke="#36373C"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <Text margin="0 auto" size="1.6rem" bold2="700">
+            내가 쓴 글
+          </Text>
+          <Grid width="3rem" />
+        </Grid>
+      </React.Fragment>
+    );
+  }
+
+  // 마이페이지 - 내가 받은 리뷰
+  if (props.shape === '내가받은리뷰') {
+    return (
+      <React.Fragment>
+        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            cursor="pointer"
+            onClick={() => {
+              history.replace('/mypage');
+            }}
+            style={{ margin: '0 0 0 1rem' }}
+          >
+            <path
+              d="M15 5L7 12L15 19"
+              stroke="#36373C"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <Text margin="0 auto" size="1.6rem" bold2="700">
+            내가 받은 리뷰
+          </Text>
+          <Grid width="3rem" />
+        </Grid>
+      </React.Fragment>
+    );
+  }
   // 검색페이지일때
   if (props.shape === '검색') {
     return (

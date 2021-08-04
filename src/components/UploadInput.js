@@ -1,23 +1,23 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Grid, Text, Input } from '../elements';
-import { useState } from 'react';
-import theme from '../styles/theme';
-import logger from '../shared/Console';
-import { useSelector } from 'react-redux';
-import DropDown from './DropDown';
-import moment from 'moment';
+import React from "react";
+import styled from "styled-components";
+import { Grid, Text, Input } from "../elements";
+import { useState } from "react";
+import theme from "../styles/theme";
+import logger from "../shared/Console";
+import { useSelector } from "react-redux";
+import DropDown from "./DropDown";
+import moment from "moment";
 
 const UploadInput = React.memo((props) => {
   const { color, fontSize } = theme;
 
-  const today = moment().format('YYYY-MM-DD');
-  const now_time = moment().format('HH:mm');
+  const today = moment().format("YYYY-MM-DD");
+  const now_time = moment().format("HH:mm");
   const post_address = useSelector((state) => state.loc.post_address?.address);
   const coords = useSelector((state) => state.loc.post_address);
   const longitude = coords.longitude;
   const latitude = coords.latitude;
-
+  console.log(post_address);
   const [post_info, setPostInfo] = useState(
     // post_info 자체는 항상 내려오는데 값이 수정전에는 undefined라서 그중에 하나 정해서 있는지 확인해본 코드
     props.post_info.place
@@ -32,9 +32,9 @@ const UploadInput = React.memo((props) => {
           latitude: props.post_info.latitude,
         }
       : {
-          place: '',
-          restaurant: '',
-          headCount: '',
+          place: "",
+          restaurant: "",
+          headCount: "",
           appointmentTime: now_time,
           appointmentDate: today,
           foodCategory: "",
@@ -44,8 +44,8 @@ const UploadInput = React.memo((props) => {
   );
 
   React.useEffect(() => {
-    logger('uploadinput 페이지', props);
-    logger('uploadinput 페이지2', post_info);
+    logger("uploadinput 페이지", props);
+    logger("uploadinput 페이지2", post_info);
   }, []);
 
   React.useEffect(() => {
@@ -76,7 +76,7 @@ const UploadInput = React.memo((props) => {
                 padding="1.5rem 1.3rem"
               >
                 <Text color={color.bg60} size={fontSize.base}>
-                  {post_address ? post_address : '배달 받을 곳을 선택해주세요'}
+                  {post_info.place ? post_info.place : "배달 받을 곳을 선택해주세요"}
                 </Text>
               </Grid>
             </FocusWithin>
@@ -168,8 +168,8 @@ const UploadInput = React.memo((props) => {
                       ...post_info,
                       appointmentDate: e.target.value,
                     });
-                    logger('약속 날짜', e.target.value);
-                    logger('오늘', today);
+                    logger("약속 날짜", e.target.value);
+                    logger("오늘", today);
 
                     props.onChange({ appointmentDate: e.target.value });
                   }}
