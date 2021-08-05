@@ -90,9 +90,6 @@ const ReviewWrite = (props) => {
                   console.log('mouseover');
                   // optionTagBgChange(e);
                 }}
-                // onMouseEnter={() => {
-                //   console.log('mouseEnter');
-                // }}
               >
                 최고예요!
               </option>
@@ -189,6 +186,7 @@ const Select = styled.select`
 const Option = styled.option`
   color: pink;
   &:hover {
+    background: #ff9500 -webkit-linear-gradient(bottom, #ff9500 0%, #ff9500 100%);
     color: red;
     background-color: ${(props) => props.theme.color.brand20};
   }

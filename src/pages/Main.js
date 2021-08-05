@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { Grid, Text, Button } from '../elements';
-import { Post, Footer, Header, MainBanner } from '../components';
+import { Grid, Text, Button } from "../elements";
+import { Post, Footer, Header, MainBanner } from "../components";
 
-import { actionCreators as postActions } from '../redux/modules/post';
-import { actionCreators as userActions } from '../redux/modules/user';
-import { useDispatch, useSelector } from 'react-redux';
-import { history } from '../redux/configureStore';
-import logger from '../shared/Console';
+import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as userActions } from "../redux/modules/user";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
+import logger from "../shared/Console";
 
-import theme from '../styles/theme';
+import theme from "../styles/theme";
 
 const Main = (props) => {
   const { color, border, btn_border, fontSize } = theme;
@@ -63,7 +63,7 @@ const Main = (props) => {
             border={btn_border.bg40}
             radius="1.2rem"
             _onClick={() => {
-              history.push('/search');
+              history.push("/search");
             }}
           >
             <Text
@@ -79,9 +79,9 @@ const Main = (props) => {
             </Text>
             <svg
               style={{
-                position: 'absolute',
-                top: '6.5rem',
-                margin: '0 0 0 12rem',
+                position: "absolute",
+                top: "6.5rem",
+                margin: "0 0 0 12rem",
               }}
               width="24"
               height="24"
@@ -131,7 +131,7 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.all ? '0.1rem solid black' : ''}
+            border_bottom={category.all ? "0.1rem solid black" : ""}
             _onClick={() => {
               setCategory({ ...{ category: false }, all: true });
             }}
@@ -145,7 +145,7 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.kr ? '0.1rem solid black' : ''}
+            border_bottom={category.kr ? "0.1rem solid black" : ""}
             _onClick={() => {
               setCategory({ ...{ category: false }, kr: true });
             }}
@@ -159,7 +159,7 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.cn ? '0.1rem solid black' : ''}
+            border_bottom={category.cn ? "0.1rem solid black" : ""}
             _onClick={() => {
               setCategory({ ...{ category: false }, cn: true });
             }}
@@ -173,7 +173,7 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.jp ? '0.1rem solid black' : ''}
+            border_bottom={category.jp ? "0.1rem solid black" : ""}
             _onClick={() => {
               setCategory({ ...{ category: false }, jp: true });
             }}
@@ -187,7 +187,7 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.west ? '0.1rem solid black' : ''}
+            border_bottom={category.west ? "0.1rem solid black" : ""}
             _onClick={() => {
               setCategory({ ...{ category: false }, west: true });
             }}
@@ -201,7 +201,7 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.cafe ? '0.1rem solid black' : ''}
+            border_bottom={category.cafe ? "0.1rem solid black" : ""}
             _onClick={() => {
               setCategory({ ...{ category: false }, cafe: true });
             }}
@@ -215,7 +215,7 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.etc ? '0.1rem solid black' : ''}
+            border_bottom={category.etc ? "0.1rem solid black" : ""}
             _onClick={() => {
               setCategory({ ...{ category: false }, etc: true });
             }}
@@ -240,9 +240,9 @@ const Main = (props) => {
           </Grid>
         </Grid>
 
-        {post_list.length > 0 ? (
+        {post_list?.length > 0 ? (
           post_list.map((p, idx) => {
-            if (p.post_id === '') {
+            if (p.post_id === "") {
               return (
                 <React.Fragment>
                   <Grid height="100vh">
@@ -259,31 +259,39 @@ const Main = (props) => {
             if (category.all) {
               return <Post {...p} key={p.post_id} />;
             }
-            if (category.kr && p.category === '한식') {
+            if (category.kr && p.category === "한식") {
               return <Post {...p} key={p.post_id} />;
             }
-            if (category.cn && p.category === '중식') {
+            if (category.cn && p.category === "중식") {
               return <Post {...p} key={p.post_id} />;
             }
-            if (category.jp && p.category === '일식') {
+            if (category.jp && p.category === "일식") {
               return <Post {...p} key={p.post_id} />;
             }
-            if (category.west && p.category === '양식') {
+            if (category.west && p.category === "양식") {
               return <Post {...p} key={p.post_id} />;
             }
-            if (category.cafe && p.category === '카페') {
+            if (category.cafe && p.category === "카페") {
               return <Post {...p} key={p.post_id} />;
             }
-            if (category.etc && p.category === '기타') {
+            if (category.etc && p.category === "기타") {
               return <Post {...p} key={p.post_id} />;
             }
-            return null;
+            return console.log(p);
           })
         ) : (
           <React.Fragment>
-            <div>하이~</div>
+            <Grid height="100vh">
+              <Grid is_flex_column height="20rem">
+                <LogoImg src="/illust/emptyHome_3x.png"></LogoImg>
+                <Text size={fontSize.base} color={color.bg80}>
+                  설정한 주소 근처에 올라온 글이 없어요!
+                </Text>
+              </Grid>
+            </Grid>
           </React.Fragment>
         )}
+        
         <Grid height="6rem" />
       </Grid>
     </React.Fragment>
@@ -301,7 +309,7 @@ const Hr = styled.hr`
 
 const LogoImg = styled.div`
   margin: auto;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   width: 184px;
   height: 167px;
   background-size: cover;

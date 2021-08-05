@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import { actionCreators as chatActions } from '../redux/modules/chat';
-import { useDispatch, useSelector } from 'react-redux';
-import { customAlert } from './Sweet';
+import React from "react";
+import styled from "styled-components";
+import { actionCreators as chatActions } from "../redux/modules/chat";
+import { useDispatch, useSelector } from "react-redux";
+import { customAlert } from "./Sweet";
 
 import { Grid, Image, Text, Button } from "../elements";
 import { history } from "../redux/configureStore";
@@ -14,6 +14,7 @@ const Post = (props) => {
 
   const is_login = useSelector((state) => state.user.is_login);
   const user_info = useSelector((state) => state.user.user);
+  const [disabled, setDisabled] = React.useState(false);
 
   const dispatch = useDispatch();
   // 내 위치에서부터 얼마나 떨어져있는지 보여주는 변수(소수점이므로 1000을 곱해 m로 나타냄)
@@ -40,6 +41,15 @@ const Post = (props) => {
   const requestJoin = () => {
     customAlert.SweetChatRequest(user_info.user_id, props.user_id, props.post_id)
   }
+
+  React.useEffect(() => {
+    if (props.headCount === props.nowHeadCount) {
+      console.log(disabled);
+      return setDisabled(true);
+    } else if (props.headCount > props.nowHeadCount) {
+      return setDisabled(false);
+    }
+  }, [disabled ? disabled : null]);
 
   return (
     <React.Fragment>
@@ -235,15 +245,23 @@ const Post = (props) => {
               width="14rem"
               height="4.4rem"
               radius="1.2rem"
-              bg={color.brand100}
+              bg={disabled ? "#EBE9E8" : color.brand100}
               border="none"
-              color={color.bg0}
               size={fontSize.small}
               bold={fontSize.bold}
               cursor="pointer"
-              _onClick={requestJoin}
+//            _onClick={requestJoin}
+              disabled={disabled}
+              _onClick={(e) => {
+                requestJoin();
+                if (props.headCount === props.nowHeadCount) {
+                  return setDisabled(true);
+                }
+              }}
             >
-              채팅 시작하기
+              <Text bold size={fontSize.small} color={disabled ? "#CECAC7" : color.bg0}>
+                {disabled ? "모집 마감됐어요" : "채팅 시작하기"}
+              </Text>
             </Button>
           </Grid>
         </Grid>

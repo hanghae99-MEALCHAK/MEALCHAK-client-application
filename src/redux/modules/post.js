@@ -1,18 +1,18 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
-import axiosModule from '../axios_module';
-import logger from '../../shared/Console';
-import { actionCreators as userActions } from './user';
-import { actionCreators as chatActions } from './chat';
-import { customAlert } from '../../components/Sweet';
-import { actionCreators as locateActions } from './loc';
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import axiosModule from "../axios_module";
+import logger from "../../shared/Console";
+import { actionCreators as userActions } from "./user";
+import { actionCreators as chatActions } from "./chat";
+import { customAlert } from "../../components/Sweet";
+import { actionCreators as locateActions } from "./loc";
 
-const SET_POST = 'SET_POST';
-const GET_DETAIL_POST = 'GET_DETAIL_POST';
-const ADD_POST = 'ADD_POST';
-const EDIT_POST = 'EDIT_POST';
-const DELETE_POST = 'DELETE_POST';
-const SET_RANK = 'SET_RANK';
+const SET_POST = "SET_POST";
+const GET_DETAIL_POST = "GET_DETAIL_POST";
+const ADD_POST = "ADD_POST";
+const EDIT_POST = "EDIT_POST";
+const DELETE_POST = "DELETE_POST";
+const SET_RANK = "SET_RANK";
 
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
 const addPost = createAction(ADD_POST, (post_item) => ({ post_item }));
@@ -27,22 +27,23 @@ const initialState = {
   list: [],
   is_loaded: false,
   rank: [],
+  temp: [],
 };
 
 const getPostAX = () => {
   return function (dispatch, getState, { history }) {
     dispatch(userActions.loading(true));
     axiosModule
-      .get('/posts/around')
+      .get("/posts/around")
       .then((res) => {
         let post_list = [];
 
-        logger('post:35: ', res);
+        logger("post:35: ", res);
 
         if (res.data.length !== 0) {
           res.data.forEach((p) => {
-            let hour = p.orderTime.split(' ')[1].split(':')[0];
-            let minute = p.orderTime.split(' ')[1].split(':')[1];
+            let hour = p.orderTime.split(" ")[1].split(":")[0];
+            let minute = p.orderTime.split(" ")[1].split(":")[1];
 
             let post = {
               post_id: p.postId,
@@ -51,8 +52,8 @@ const getPostAX = () => {
               category: p.category,
               shop: p.restaurant,
               headCount: p.headCount,
-              orderTime: hour + ':' + minute,
-              orderDate: p.orderTime.split(' ')[0],
+              orderTime: hour + ":" + minute,
+              orderDate: p.orderTime.split(" ")[0],
               address: p.address,
               insert_dt: p.createdAt,
               username: p.username,
@@ -66,7 +67,7 @@ const getPostAX = () => {
           });
         } else {
           let post = {
-            post_id: '',
+            post_id: "",
           };
           post_list.push(post);
         }
@@ -75,7 +76,7 @@ const getPostAX = () => {
         dispatch(userActions.loading(false));
       })
       .catch((err) => {
-        logger('ErrorMessage: ', err);
+        logger("ErrorMessage: ", err);
       });
   };
 };
@@ -103,7 +104,7 @@ const getOnePostDB = (postId) => {
         dispatch(setPost([post]));
       })
       .catch((err) => {
-        logger('post모듈 - getOnePostDB : ', err);
+        logger("post모듈 - getOnePostDB : ", err);
       });
   };
 };
@@ -113,10 +114,10 @@ const addPostAX = (post_info) => {
     const address = getState().loc.post_address.address;
     const longitude = getState().loc.post_address.longitude;
     const latitude = getState().loc.post_address.latitude;
-    logger('post모듈 addPostAX - 1', post_info.appointmentDate);
+    logger("post모듈 addPostAX - 1", post_info.appointmentDate);
 
     axiosModule
-      .post('/posts', {
+      .post("/posts", {
         title: post_info.title,
         headCount: post_info.headCount,
         category: post_info.foodCategory,
@@ -130,22 +131,26 @@ const addPostAX = (post_info) => {
       })
       .then((res) => {
         dispatch(chatActions.getChatListAX());
-        
-        customAlert.sweetConfirmReload("작성 완료", '모집글 작성이 완료되었습니다.', '/home');
+
+        customAlert.sweetConfirmReload(
+          "작성 완료",
+          "모집글 작성이 완료되었습니다.",
+          "/home"
+        );
 
         // dispatch(locateActions.setAddressNull());
       })
       .catch((e) => {
-        logger('모집글 작성 모듈 에러', e);
+        logger("모집글 작성 모듈 에러", e);
         if (
           window.confirm(
-            '모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?'
+            "모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?"
           )
         ) {
           console.log(e);
-          history.replace('/home');
+          history.replace("/home");
         } else {
-          history.push('/upload');
+          history.push("/upload");
         }
       });
   };
@@ -169,9 +174,9 @@ const editPostAX = (post_id, post_info) => {
         latitude: latitude,
       })
       .then((res) => {
-        logger('수정 후 res', res);
-        let hour = res.data.orderTime.split(' ')[1].split(':')[0];
-        let minute = res.data.orderTime.split(' ')[1].split(':')[1];
+        logger("수정 후 res", res);
+        let hour = res.data.orderTime.split(" ")[1].split(":")[0];
+        let minute = res.data.orderTime.split(" ")[1].split(":")[1];
 
         let post = {
           post_id: res.data.postId,
@@ -181,8 +186,8 @@ const editPostAX = (post_id, post_info) => {
           shop: res.data.restaurant,
           headCount: res.data.headCount,
           nowHeadCount: res.data.nowHeadCount,
-          orderTime: hour + ':' + minute,
-          orderDate: res.data.orderTime.split(' ')[0],
+          orderTime: hour + ":" + minute,
+          orderDate: res.data.orderTime.split(" ")[0],
           address: res.data.address,
           user_id: res.data.userId,
           username: res.data.username,
@@ -192,13 +197,18 @@ const editPostAX = (post_id, post_info) => {
         };
 
         logger("수정 포스트 내용", post);
-        
+
         dispatch(editPost(post_id, post));
 
-        customAlert.sweetConfirmReload("수정 완료", '모집글 수정이 완료되었습니다.', `/post/${post_id}`);
+        customAlert.sweetConfirmReload(
+          "수정 완료",
+          "모집글 수정이 완료되었습니다.",
+          `/post/${post_id}`
+        );
+        // customAlert.sweetConfirmReload("수정 완료", '모집글 수정이 완료되었습니다.', `/home`);
       })
       .catch((e) => {
-        logger('모집글 수정 모듈 에러', e);
+        logger("모집글 수정 모듈 에러", e);
         customAlert.sweetEditError(`/post/${post_id}`);
       });
   };
@@ -210,10 +220,14 @@ const deletePostAX = (post_id) => {
       .delete(`/posts/${post_id}`)
       .then(() => {
         dispatch(deletePost(post_id));
-        customAlert.sweetConfirmReload("삭제 완료", '모집글 삭제가 완료되었습니다', "history")
+        customAlert.sweetConfirmReload(
+          "삭제 완료",
+          "모집글 삭제가 완료되었습니다",
+          "history"
+        );
       })
       .catch((e) => {
-        logger('삭제 에러', e);
+        logger("삭제 에러", e);
       });
   };
 };
@@ -221,7 +235,7 @@ const deletePostAX = (post_id) => {
 const getRankDB = () => {
   return function (dispatch, getState, { history }) {
     axiosModule
-      .get('/menu')
+      .get("/menu")
       .then((res) => {
         let rank_list = [];
         res.data.forEach((p) => {
@@ -234,7 +248,7 @@ const getRankDB = () => {
         dispatch(setRank(rank_list));
       })
       .catch((err) => {
-        logger('post모듈 - getRankDB: ', err);
+        logger("post모듈 - getRankDB: ", err);
       });
   };
 };
