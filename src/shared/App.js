@@ -78,7 +78,7 @@ function App() {
           <Route path="/mypage" component={MyPage}></Route>
           <Route path="/userprofile" component={UserProfile}></Route>
           <Route path="/profile" component={ProfileEdit}></Route>
-          <Route path="/mypost" component={MyPost}/>
+          <Route path="/mypost" component={MyPost}></Route>
           <Route path="/myreview" component={MyReview}/>
           <Route path="/settings" component={Settings}></Route>
           <Route path="/chatlist" component={ChatRoomList}></Route>

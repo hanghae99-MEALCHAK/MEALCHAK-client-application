@@ -26,9 +26,9 @@ const MyPost = (props) => {
   React.useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(userActions.loginCheck());
-    // if (post_list.length === 0) {
-    //   dispatch(postActions.getPostAX());
-    // }
+    if (post_list.length === 0) {
+      dispatch(postActions.getPostAX());
+    }
   }, []);
 
   if (is_login) {
@@ -48,11 +48,12 @@ const MyPost = (props) => {
               if (p.user_id === user_info.user_id) {
                 return <Post {...p} is_profile={true} key={p.post_id} />;
               }
+              return null;
             })
           ) : (
             <Grid width="36rem" margin="18rem auto 0 auto">
               <MyReviewImg src="illust/emptyMeal_3x.png"></MyReviewImg>
-              <MyReviewText>아직 받은 리뷰가 없어요.</MyReviewText>
+              <MyReviewText>아직 내가 쓴 글이 없어요.</MyReviewText>
             </Grid>
           )}
         </Grid>
