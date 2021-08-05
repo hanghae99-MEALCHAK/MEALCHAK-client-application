@@ -3,7 +3,7 @@
 const theme = {
   color: {
     bg100: '#36373C',
-    bg80: '#888E95',
+    bg80: '#9A9896',
     bg60: '#C7C8CE',
     bg40: '#E1E6E8',
     bg20: '#F1F2F4',

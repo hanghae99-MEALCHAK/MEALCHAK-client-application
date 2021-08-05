@@ -1,14 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { Grid, Button, Text } from '../elements';
-import { Header } from '../components';
-import theme from '../styles/theme';
+import { Grid, Button, Text, Input } from "../elements";
+import { Header } from "../components";
+import theme from "../styles/theme";
+import logger from "../shared/Console";
+import { useLocation } from "react-router";
 
 import Select from '../components/ReactSelect';
 
 const { color, border, fontSize } = theme;
-
 // select options
 const options = [
   { value: 'chocolate', label: '최고예요!' },
@@ -17,9 +18,15 @@ const options = [
 ];
 
 const ReviewWrite = (props) => {
+  const location = useLocation();
   const [manner, setManner] = React.useState({});
-  // const user_info = useSelector((state) => state.user.user);
-  console.log(typeof manner.label);
+  const [review, setReview] = React.useState("");
+
+  React.useEffect(() => {
+    logger("ReviewWrite props: ", props);
+    logger("ReviewWrite location-state: ", location.state);
+  }, []);
+  
   return (
     <Grid
       maxWidth="36rem"
@@ -33,7 +40,7 @@ const ReviewWrite = (props) => {
         </Header>
 
         <Grid margin="2rem auto 1rem">
-          <Profile></Profile>
+          <Profile user_profile={location.state.profile}></Profile>
         </Grid>
         <Grid margin="0 auto 2rem">
           <Text
@@ -44,7 +51,7 @@ const ReviewWrite = (props) => {
             line_height="150%"
             text_align="center"
           >
-            유저이름
+            {location.state.nickname}
           </Text>
         </Grid>
         <GreyLine />
@@ -66,43 +73,15 @@ const ReviewWrite = (props) => {
               onChange={setManner}
             ></Select>
           </Grid>
-          {/* <Grid
+          <Grid
             border="1px solid #C7C8CE"
             margin="0 0 2rem 0"
-            padding="0 1rem"
+            padding="0 1.3rem"
             radius="1.2rem"
             height="auto"
           >
-            <SelectTag
-              value={manner}
-              onChange={(e) => {
-                // console.log(e.target.value);
-                setManner(e.target.value);
-              }}
-              onMouseOver={(e) => {
-                e.target[1].style.color = 'orange';
-                console.log('div에서 mouseover', e);
-              }}
-            >
-              <option value="none" defaultValue hidden>
-                리뷰를 선택해주세요.
-              </option>
-              <option
-                value="최고"
-                onClick={(e) => {
-                  console.log('onclick', e);
-                }}
-                onMouseOver={() => {
-                  console.log('mouseover');
-                  // optionTagBgChange(e);
-                }}
-              >
-                최고예요!
-              </option>
-              <option value="좋아">좋아요~</option>
-              <option value="별로">별로예요:(</option>
-            </SelectTag>
-          </Grid> */}
+            <Input size="1.3rem" border="none" placeholder="리뷰를 작성해주세요."/>
+          </Grid>
         </Grid>
         <GreyLine />
 
@@ -154,7 +133,10 @@ const Profile = styled.div`
   width: 5rem;
   height: 5rem;
   border-radius: 2.5rem;
-  background-image: url('http://115.85.182.57:8080/image/profileDefaultImg.jpg');
+  ${(props) =>
+    props.user_profile
+      ? `background-image: url(${props.user_profile});`
+      : `background-image: url(http://115.85.182.57:8080/image/profileDefaultImg.jpg)`}
   background-size: cover;
   background-position: center;
 `;

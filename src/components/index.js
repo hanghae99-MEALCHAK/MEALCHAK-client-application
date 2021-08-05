@@ -14,6 +14,7 @@ import MessageWrite from "./MessageWrite";
 import Message from "./Message";
 import AwaitList from "./AwaitList";
 import AllowList from "./AllowList";
+import MyOneReview from "./MyOneReview";
 
 export {
   DetailPost,
@@ -32,4 +33,5 @@ export {
   Message,
   AwaitList,
   AllowList,
+  MyOneReview,
 };

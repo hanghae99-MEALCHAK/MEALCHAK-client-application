@@ -7,6 +7,7 @@ import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as userActions } from "../redux/modules/user";
 import Spinner from "../shared/Spinner";
 import { history } from "../redux/configureStore";
+import { MyOneReview } from "../components";
 
 // style
 import { Button, Grid, Input, Text } from "../elements";
@@ -17,12 +18,14 @@ const MyReview = (props) => {
   const dispatch = useDispatch();
 
   const is_login = useSelector((state) => state.user?.is_login);
-
+  const my_review = useSelector((state) => state.user?.myReview);
   const { color, border, fontSize } = theme;
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(userActions.loginCheck());
+    dispatch(userActions.getMyReviewAX());
+    console.log(my_review);
   }, []);
 
   if (is_login) {
@@ -37,10 +40,18 @@ const MyReview = (props) => {
         <Grid shape="container">
           <Header {...props} shape="내가받은리뷰" />
           <Grid height="1.6rem" />
-          <Grid>
-            <MyReviewImg src="illust/emptyMeal_3x.png"></MyReviewImg>
-            <MyReviewText>아직 받은 리뷰가 없어요.</MyReviewText>
-          </Grid>
+          {my_review.length > 0 ? (
+            my_review.map((p, idx) => {
+              return (
+                <MyOneReview {...p} key={idx}/>
+              );
+            })
+          ) : (
+            <Grid>
+              <MyReviewImg src="illust/emptyMeal_3x.png"></MyReviewImg>
+              <MyReviewText>아직 받은 리뷰가 없어요.</MyReviewText>
+            </Grid>
+          )}
         </Grid>
       </Grid>
     );
@@ -71,6 +82,21 @@ const MyReviewText = styled.div`
   text-align: center;
   font-weight: 400;
   color: #9a9896;
+`;
+
+const Profile = styled.div`
+  position: absolute;
+  margin: auto;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 2rem;
+  background-color: black;
+  ${(props) =>
+    props.user_profile
+      ? `background-image: url(${props.user_profile});`
+      : `background-image: url(http://115.85.182.57:8080/image/profileDefaultImg.jpg)`}
+  background-size: cover;
+  background-position: center;
 `;
 
 export default MyReview;

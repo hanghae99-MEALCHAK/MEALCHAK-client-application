@@ -22,7 +22,8 @@ const TutorialSwiper = (props) => {
     <React.Fragment>
       <div>
         <Swiper
-          className="banner"
+        style={{}}
+          className="tutorial"
           spaceBetween={50}
           slidesPerView={1}
           pagination={{
@@ -30,10 +31,12 @@ const TutorialSwiper = (props) => {
           }}
         >
           <SwiperSlide>
-            <Grid height="42rem">
+            <Grid shape="container">
+
+            <Grid maxWidth="36rem">
               <ElIntro src="/illust/introA_3x.png"></ElIntro>
             </Grid>
-            <Grid is_fixed bottom="-28rem">
+            <Grid>
               <Text
                 margin="1rem 0 1.5rem 0"
                 size={fontSize.large}
@@ -49,7 +52,10 @@ const TutorialSwiper = (props) => {
                 배달비 부담은 덜고 자연은 더해요!
               </Text>
             </Grid>
+            </Grid>
           </SwiperSlide>
+
+
           <SwiperSlide>
             <Grid height="42rem">
               <ElIntro src="/illust/introB_3x.png"></ElIntro>
@@ -71,6 +77,8 @@ const TutorialSwiper = (props) => {
               </Text>
             </Grid>
           </SwiperSlide>
+
+
           <SwiperSlide>
             <Grid height="30rem">
               <ElIntro src="/illust/introC_3x.png"></ElIntro>
@@ -100,13 +108,8 @@ const TutorialSwiper = (props) => {
 
 TutorialSwiper.defaultProps = {};
 
-const ElIntro = styled.div`
-  /* position: fixed; */
-  background-image: url('${(props) => props.src}');
-  width: 320px;
-  height: 320px;
-  background-size: cover;
-  background-position: center center;
+const ElIntro = styled.img`
+max-width: 32rem;
 `;
 
 export default TutorialSwiper;
