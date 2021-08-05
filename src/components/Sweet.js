@@ -217,7 +217,7 @@ const SweetChatRequest = (user_id, post_user_id, post_id) => {
             본인이 작성한 글입니다.
           </Text>
         ),
-        text: <Text>채팅 탭으로 이동하시겠습니까?</Text>,
+        text: "채팅 탭으로 이동하시겠습니까?",
         showDenyButton: true,
         denyButtonText: (
           <Text padding="0 2rem" color={color.brand100}>
@@ -257,12 +257,7 @@ const SweetChatRequest = (user_id, post_user_id, post_id) => {
             </Text>
           </Grid>
         ),
-        text: (
-          <Grid text_align="center">
-            <Text>신청확인을 누르면</Text>
-            <Text>방장에게 승인요청을 보냅니다.</Text>
-          </Grid>
-        ),
+        text: "신청확인을 누르면\n방장에게 승인요청을 보냅니다",
         showDenyButton: true,
         denyButtonText: (
           <Text padding="0 2rem" color={color.brand100}>
@@ -325,11 +320,7 @@ const SweetAllowChat = (join_id) => {
           </Text>
         </Grid>
       ),
-      text: (
-        <Grid text_align="center">
-          <Text>수락을 누르면 채팅방으로 초대됩니다.</Text>
-        </Grid>
-      ),
+      text: "수락을 누르면 채팅방으로 초대됩니다.",
       showDenyButton: true,
       denyButtonText: (
         <Text padding="0 2rem" color={color.brand100}>
@@ -388,11 +379,7 @@ const SweetDenyChat = (join_id) => {
           </Text>
         </Grid>
       ),
-      text: (
-        <Grid text_align="center">
-          <Text>거절을 누르면 요청이 삭제됩니다.</Text>
-        </Grid>
-      ),
+      text: "거절을 누르면 요청이 삭제됩니다.",
       showDenyButton: true,
       denyButtonText: (
         <Text padding="0 2rem" color={color.brand100}>

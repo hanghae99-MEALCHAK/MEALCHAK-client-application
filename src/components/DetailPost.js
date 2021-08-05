@@ -35,6 +35,8 @@ const DetailPost = (props) => {
   const { color, border, radius, fontSize } = theme;
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
+  const user_info = useSelector((state) => state.user.user);
+
 
   const [disabled, setDisabled] = React.useState(false);
   React.useEffect(() => {
@@ -58,15 +60,13 @@ const DetailPost = (props) => {
     }
   };
 
-  const enterRoom = (path, room_id, roomName, postId) => {
+  const requestJoin = () => {
     if (is_login) {
-      dispatch(chatActions.enterRoomAX(postId));
-      dispatch(chatActions.clearMessage());
-      dispatch(chatActions.moveChatRoom(room_id, roomName));
-      history.replace({
-        pathname: `/${path}`,
-        state: { room_id: room_id, roomName: roomName },
-      });
+      customAlert.SweetChatRequest(
+        user_info?.user_id,
+        user_id,
+        post_id
+      );
       return;
     } else {
       customAlert.sweetNeedLogin();
@@ -241,7 +241,7 @@ const DetailPost = (props) => {
               if (props.headCount === props.nowHeadCount) {
                 return setDisabled(true);
               }
-              enterRoom("chatting", room_id, title, post_id);
+              requestJoin();
             }}
           >
             <Text bold size="1.6rem" color={disabled ? "#CECAC7" : color.bg0}>

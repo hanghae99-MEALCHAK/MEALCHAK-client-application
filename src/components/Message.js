@@ -60,7 +60,7 @@ const Message = (props) => {
   if (user_info?.user_id === parseInt(messagesInfo.sender_id)) {
   // if (user_info?.user_nickname === messagesInfo?.sender) {
     return (
-      <Grid shape="container" margin="0 auto 1.6rem" text_align="left">
+      <Grid margin="0 auto 1.6rem" text_align="left">
         <Grid is_flex4="t" justify_content="space-between">
           <Grid />
           <Grid
@@ -103,7 +103,7 @@ const Message = (props) => {
         <Image size="4" src={messagesInfo.sender_img}></Image>
       </Grid>
       <Grid
-        shape="container"
+       
         margin="0 auto 1.6rem"
         text_align="left"
         padding="1rem 0 0"
