@@ -45,7 +45,7 @@ const MyPage = (props) => {
             <Grid borderBottom={border.boldLine} />
 
             <Grid margin="3.6rem auto 2rem">
-              <Profile user_profile={user_info.user_profile}></Profile>
+              <Profile user_profile={user_info.user_profile}/>
             </Grid>
             <Grid margin="0 auto">
               <Text
@@ -84,7 +84,7 @@ const MyPage = (props) => {
                 line_height="150%"
                 color={color.brand100}
               >
-                9.5
+                {user_info?.user_manner.toFixed(1)}
               </Text>
               <Text
                 height="2rem"

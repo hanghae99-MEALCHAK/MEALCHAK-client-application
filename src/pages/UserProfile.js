@@ -9,6 +9,7 @@ import { Kakao_auth_url } from "../shared/OAuth";
 import Spinner from "../shared/Spinner";
 import { history } from "../redux/configureStore";
 import { useLocation } from "react-router";
+import { MyOneReview } from "../components";
 
 // style
 import { Button, Grid, Input, Text } from "../elements";
@@ -20,15 +21,16 @@ const UserProfile = (props) => {
   const location = useLocation();
 
   const is_login = useSelector((state) => state.user.is_login);
-  const user_info = useSelector((state) => state.user.user);
-  const post_list = useSelector((state) => state.post.list);
-
+  const other_user = useSelector((state) => state.user?.anotherUser);
+  const user_id = location.state.user_id;
   const { color, border, fontSize, radius } = theme;
-
   React.useEffect(() => {
     window.scrollTo(0, 0);
+    console.log(other_user);
     dispatch(userAction.loginCheck());
+    dispatch(userAction.findUserProfileAX(user_id));
     logger("Mypage props: ", location.state);
+    logger("another_user_info: ", other_user);
   }, []);
 
   // React.useEffect(() => {
@@ -51,7 +53,7 @@ const UserProfile = (props) => {
             <Header {...props} shape="프로필" />
 
             <Grid margin="1.6rem auto 2rem">
-              <Profile user_profile={user_info.user_profile}></Profile>
+              <Profile user_profile={other_user?.user_profile}></Profile>
             </Grid>
             <Grid margin="0 auto">
               <Text
@@ -66,11 +68,11 @@ const UserProfile = (props) => {
                 white_space="nowrap"
                 display="block"
               >
-                {user_info.user_nickname}
+                {other_user?.user_nickname}
               </Text>
               <Grid width="auto" text_align="center">
                 <Text size={fontSize.small} color="#9A9896" line_height="150%">
-                  {user_info?.user_comment ? user_info?.user_comment : ""}
+                  {other_user?.user_comment ? other_user?.user_comment : ""}
                 </Text>
               </Grid>
             </Grid>
@@ -88,7 +90,7 @@ const UserProfile = (props) => {
                 line_height="150%"
                 color={color.brand100}
               >
-                9.5
+                {other_user?.user_manner.toFixed(1)}
               </Text>
               <Text
                 height="2rem"
@@ -110,6 +112,16 @@ const UserProfile = (props) => {
                 border="0.1rem solid #EBE9E8"
                 bg={color.bg0}
                 margin="0 0 6.4rem 0"
+                cursor="t"
+                _onClick={() => {
+                  history.push({
+                    pathname: "/write",
+                    state: {
+                      profile: other_user.user_profile,
+                      nickname: other_user.user_nickname,
+                    },
+                  });
+                }}
               >
                 <Text
                   width="30.4rem"
@@ -125,11 +137,17 @@ const UserProfile = (props) => {
               </Button>
             </Grid>
             <Grid height="1.6rem" />
-            <Grid>
-              <MyReviewImg src="illust/emptyMeal_3x.png"></MyReviewImg>
-              <MyReviewText>아직 받은 리뷰가 없어요.</MyReviewText>
-            </Grid>
-            <Grid height="6rem"/>
+            {other_user ? (
+              other_user?.user_review.map((p, idx) => {
+                return <MyOneReview other_user {...p} key={idx} />;
+              })
+            ) : (
+              <Grid width="36rem" margin="0 auto">
+                <MyReviewImg src="illust/emptyMeal_3x.png"></MyReviewImg>
+                <MyReviewText>아직 받은 리뷰가 없어요.</MyReviewText>
+              </Grid>
+            )}
+            <Grid height="6rem" />
           </Grid>
         </Grid>
       </React.Fragment>
@@ -164,7 +182,7 @@ const MyReviewImg = styled.div`
 `;
 
 const MyReviewText = styled.div`
-width: 36rem;
+  width: 36rem;
   margin: 1rem auto 0 auto;
   font-size: 1.6rem;
   line-height: 150%;
