@@ -20,6 +20,7 @@ const theme = {
   border: {
     line1: '1px solid #CFCFCF',
     line2: '1px solid #E5E5E5',
+    line3: '2px solid #36373C',
     bg20: '1px solid #F1F2F4',
     boldLine: '0.8rem solid #F1F2F4',
   },

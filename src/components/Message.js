@@ -101,7 +101,6 @@ const Message = (props) => {
     >
       <Grid width="4rem" margin="0 0.8rem 0 0">
         <Image size="4" src={messagesInfo.sender_img}></Image>
-        {/* <Image size="4"></Image> */}
       </Grid>
       <Grid
         shape="container"

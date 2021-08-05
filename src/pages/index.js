@@ -14,6 +14,7 @@ import Settings from "./Settings";
 import MyPost from "./MyPost";
 import MyReview from "./MyReview";
 import UserProfile from "./UserProfile";
+import AllowChat from "./AllowChat";
 
 export {
   LoginRedirect,
@@ -32,4 +33,5 @@ export {
   MyPost,
   MyReview,
   UserProfile,
+  AllowChat,
 };
