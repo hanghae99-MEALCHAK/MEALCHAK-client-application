@@ -5,21 +5,21 @@ import { Grid, Button, Text } from '../elements';
 import { Header } from '../components';
 import theme from '../styles/theme';
 
+import Select from '../components/ReactSelect';
+
+const { color, border, fontSize } = theme;
+
+// select options
+const options = [
+  { value: 'chocolate', label: '최고예요!' },
+  { value: 'strawberry', label: '좋아요~' },
+  { value: 'vanilla', label: '별로예요:(' },
+];
+
 const ReviewWrite = (props) => {
-  const { color, border, radius, fontSize } = theme;
-
-  const [manner, setManner] = React.useState('');
+  const [manner, setManner] = React.useState({});
   // const user_info = useSelector((state) => state.user.user);
-
-  const optionTagBgChange = (e) => {
-    e.target.style.color = 'orange';
-  };
-
-  // let test = document.getElementsByTagName('option');
-  // test.addEventListener('mouseover', (e) => {
-  //   e.target.style.color = 'orange';
-  // });
-
+  console.log(typeof manner.label);
   return (
     <Grid
       maxWidth="36rem"
@@ -53,21 +53,27 @@ const ReviewWrite = (props) => {
             width="auto"
             margin="2rem 0 1rem 0"
             size={fontSize.small}
-            color={manner ? color.bg100 : color.bg80}
+            color={manner.label ? color.bg100 : color.bg80}
             bold2="500"
             line_height="150%"
           >
             해당 사용자와의 밀착은 어땠나요?
           </Text>
-
-          <Grid
+          <Grid margin="0 0 2rem 0">
+            <Select
+              value={manner}
+              options={options}
+              onChange={setManner}
+            ></Select>
+          </Grid>
+          {/* <Grid
             border="1px solid #C7C8CE"
             margin="0 0 2rem 0"
             padding="0 1rem"
             radius="1.2rem"
             height="auto"
           >
-            <Select
+            <SelectTag
               value={manner}
               onChange={(e) => {
                 // console.log(e.target.value);
@@ -95,8 +101,8 @@ const ReviewWrite = (props) => {
               </option>
               <option value="좋아">좋아요~</option>
               <option value="별로">별로예요:(</option>
-            </Select>
-          </Grid>
+            </SelectTag>
+          </Grid> */}
         </Grid>
         <GreyLine />
 
@@ -104,12 +110,12 @@ const ReviewWrite = (props) => {
           <Text
             width="auto"
             size={fontSize.small}
-            color={manner ? color.bg100 : color.bg80}
+            color={manner.label ? color.bg100 : color.bg80}
             bold2="400"
             line_height="150%"
             text_align="left"
           >
-            {manner
+            {manner.label
               ? '너무 즐거웠어요! 다음에 또 같이 식사해요~'
               : '해당 사용자와의 밀착이 만족스러우셨다면 따뜻한 리뷰를 전해보세요!'}
           </Text>
@@ -125,10 +131,14 @@ const ReviewWrite = (props) => {
       >
         <Button
           shape="large"
-          color={manner ? color.brand100 : color.bg40}
+          color={manner.label ? color.brand100 : color.bg40}
           size={fontSize.small}
         >
-          <Text bold size="1.6rem" color={manner ? color.bg0 : color.bg60}>
+          <Text
+            bold
+            size="1.6rem"
+            color={manner.label ? color.bg0 : color.bg60}
+          >
             보내기
           </Text>
         </Button>
@@ -160,7 +170,7 @@ const GreyLine = styled.div`
   }
 `;
 
-const Select = styled.select`
+const SelectTag = styled.select`
   width: 100%;
   height: 4.7rem;
   border: none;
