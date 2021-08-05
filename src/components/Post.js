@@ -23,20 +23,24 @@ const Post = (props) => {
   // 채팅 시작하면 서버에 게스트 입장 요청
   // 구독, 채팅 시작
   // 포스트에서 채팅시작하기 누를때는 post 모듈에서 각 게시물 정보로 getPostAX에서 room_id 받아와줘야 가능함
-  const enterRoom = (path, room_id, roomName, postId) => {
-    if (is_login) {
-      dispatch(chatActions.enterRoomAX(postId));
-      dispatch(chatActions.clearMessage());
-      dispatch(chatActions.moveChatRoom(room_id, roomName));
-      history.replace({
-        pathname: `/${path}`,
-        state: { room_id: room_id, roomName: roomName },
-      });
-      return;
-    } else {
-      customAlert.sweetNeedLogin();
-    }
-  };
+  // const enterRoom = (path, room_id, roomName, postId) => {
+  //   if (is_login) {
+  //     dispatch(chatActions.enterRoomAX(postId));
+  //     dispatch(chatActions.clearMessage());
+  //     dispatch(chatActions.moveChatRoom(room_id, roomName));
+  //     history.replace({
+  //       pathname: `/${path}`,
+  //       state: { room_id: room_id, roomName: roomName },
+  //     });
+  //     return;
+  //   } else {
+  //     customAlert.sweetNeedLogin();
+  //   }
+  // };
+
+  const requestJoin = () => {
+    customAlert.SweetChatRequest(user_info.user_id, props.user_id, props.post_id)
+  }
 
   React.useEffect(() => {
     if (props.headCount === props.nowHeadCount) {
@@ -246,17 +250,13 @@ const Post = (props) => {
               size={fontSize.small}
               bold={fontSize.bold}
               cursor="pointer"
+//            _onClick={requestJoin}
               disabled={disabled}
               _onClick={(e) => {
+                requestJoin();
                 if (props.headCount === props.nowHeadCount) {
                   return setDisabled(true);
                 }
-                enterRoom(
-                  "chatting",
-                  props.room_id,
-                  props.title,
-                  props.post_id
-                );
               }}
             >
               <Text bold size={fontSize.small} color={disabled ? "#CECAC7" : color.bg0}>

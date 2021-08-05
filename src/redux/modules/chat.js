@@ -6,6 +6,16 @@ import moment from "moment";
 import { customAlert } from "../../components/Sweet";
 
 import logger from "../../shared/Console";
+// sweet alert2
+// import Swal from "sweetalert2";
+// import withReactContent from "sweetalert2-react-content";
+// // style
+// import { Text, Button, Grid } from "../elements";
+// import theme from "../styles/theme";
+// import "../../components/sweet.css"
+
+// const { color, fontSize } = theme;
+// const sweet = withReactContent(Swal);
 
 // Action
 // 나만의 채팅 목록
@@ -29,6 +39,10 @@ const LOADING = "LOADING";
 const LOADED = "LOADED";
 // 실시간 메세지 시간 보여주기
 const SET_TIME = "SET_TIME";
+// 입장 요청 리스트(방장용)
+const SET_REQ_LIST = "SET_REQ_LIST";
+// 입장 대기 리스트(신청자용)
+const AWAIT_LIST = "AWAIT_LIST";
 
 // ActionCreator
 const setChatList = createAction(SET_CHAT_LIST, (myChatList) => ({
@@ -48,6 +62,10 @@ const writeMessage = createAction(WRITE_MSG, (message) => ({ message }));
 const loading = createAction(LOADING, () => {});
 const loaded = createAction(LOADED, () => {});
 const setTime = createAction(SET_TIME, () => ({}));
+const setRequestList = createAction(SET_REQ_LIST, (request_list) => ({
+  request_list,
+}));
+const setAwaitList = createAction(AWAIT_LIST, (await_list) => ({ await_list }));
 
 // initialState
 const initialState = {
@@ -66,6 +84,9 @@ const initialState = {
   loading: false,
   // 사용자가 입력하는 순간의 메세지 time
   now_time: null,
+  // 방장에게 보이는 승인요청 리스트
+  requestList: [],
+  awaitList: [],
 };
 
 // middleware
@@ -145,15 +166,129 @@ const getChatMessagesAX = () => {
   };
 };
 
+// 이거 이제 안씀
 const enterRoomAX = (postId) => {
   return function (dispatch, getState, { history }) {
     axiosModule
       .get(`/chat/join/${postId}`)
-      .then((res) => {
-        //여기서 입장하셨습니다 메세지를 리덕스에 저장해서 띄우줄수있지않을까?
-      })
+      .then((res) => {})
       .catch((e) => {
         logger("게스트 채팅방 입장 요청 에러발생", e);
+      });
+  };
+};
+
+// 채팅 입장 요청
+// const chatJoinRequestAX = (postId) => {
+//   return function (dispatch, getState, { history }) {
+//     axiosModule
+//       .get(`/posts/join/request/${postId}`)
+//       .then((res) => {
+//         if (res.data === "false") {
+//           customAlert.sweetConfirmReload(
+//             "이미 신청한 방입니다.",
+//             "승인 대기 중이니 기다려주세요.",
+//             ""
+//           );
+//         } else {
+//           customAlert.sweetConfirmReload(
+//             "신청이 완료되었습니다.",
+//             "채팅탭에서 확인가능합니다.",
+//             ""
+//           );
+//         }
+//       })
+//       .catch((e) => {
+//         logger("채팅방 참여 승인 요청 에러", e);
+//       });
+//   };
+// };
+
+// 채팅 수락, 거절 요청
+const chatAllowAX = (joinId, boolean) => {
+  return function (dispatch, getState, { history }) {
+    axiosModule
+      .get(`/posts/join/request/accept/${joinId}?accept=${boolean}`)
+      .then((res) => {
+        logger("승인 수락, 거절 res", res);
+        if (boolean === true) {
+          customAlert.sweetConfirmReload(
+            "수락 완료",
+            "수락이 완료되었습니다.",
+            ""
+          );
+        } else {
+          customAlert.sweetConfirmReload(
+            "거절 완료",
+            "수락 거절이 완료되었습니다.",
+            ""
+          );
+        }
+      })
+      .catch((e) => {
+        logger("채팅방 참여 승인 요청 에러", e);
+      });
+  };
+};
+
+// 채팅 승인 대기 목록
+const requestChatListAX = () => {
+  return function (dispatch, getState, { history }) {
+    axiosModule
+      .get("/posts/join/request/list")
+      .then((res) => {
+        let request_list = [];
+        res.data.forEach((req) => {
+          let one_req = {
+            join_id: req.joinRequestId,
+            user_id: req.userId,
+            username: req.username,
+            user_img: req.profileImg,
+            title: req.postTitle,
+          };
+          request_list.push(one_req);
+        });
+
+        dispatch(setRequestList(request_list));
+      })
+      .catch((e) => {
+        logger("방장 승인 대기 목록 에러", e);
+        customAlert.sweetConfirmReload(
+          "목록 조회 실패",
+          "승인 대기 목록 조회에 실패했습니다.",
+          "/chatlist"
+        );
+      });
+  };
+};
+
+// 채팅 입장 신청 목록
+// footer 채팅 탭 누를 때 실행
+// 채팅 리스트 chatlist 페이지에서 요청
+// 채팅 list 에서 disable 처리 느낌으로 리스트하단에 보여줌
+const awaitChatListAX = () => {
+  return function (dispatch, getState, { history }) {
+    axiosModule
+      .get("/posts/join/request/await")
+      .then((res) => {
+        let await_list = [];
+        res.data.forEach((l) => {
+          let one_list = {
+            title: l.postTitle,
+          };
+          await_list.push(one_list);
+        });
+
+        dispatch(setAwaitList(await_list));
+      })
+      .catch((e) => {
+        // chatlist 페이지에서 열려있는 채팅목록 아래에 비활성화 상태로 뜨도록 하는 것
+        logger("신청자 승인 요청 목록 에러", e);
+        customAlert.sweetConfirmReload(
+          "목록 조회 실패",
+          "승인 대기 목록 조회에 실패했습니다.",
+          "/home"
+        );
       });
   };
 };
@@ -221,6 +356,14 @@ export default handleActions(
         const now_time = moment().format("hh:mm");
         draft.now_time = now_time;
       }),
+    [SET_REQ_LIST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.requestList = action.payload.request_list;
+      }),
+    [AWAIT_LIST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.awaitList = action.payload.await_list;
+      }),
   },
   initialState
 );
@@ -237,6 +380,10 @@ const actionCreators = {
   loading,
   loaded,
   setTime,
+  // chatJoinRequestAX,
+  chatAllowAX,
+  requestChatListAX,
+  awaitChatListAX,
 };
 
 export { actionCreators };

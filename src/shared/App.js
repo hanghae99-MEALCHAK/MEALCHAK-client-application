@@ -28,6 +28,7 @@ import {
   MyPost,
   MyReview,
   UserProfile,
+  AllowChat,
 } from '../pages';
 
 import ReviewWrite from '../pages/ReviewWrite';
@@ -82,6 +83,8 @@ function App() {
           <Route path="/settings" component={Settings}></Route>
           <Route path="/chatlist" component={ChatRoomList}></Route>
           <Route path="/chatting" component={Chat}></Route>
+          <Route path="/allowchat" component={AllowChat}></Route>
+
           {/* <Route path="*" component={NotFound}></Route> */}
           <Route path="/write" component={ReviewWrite}></Route>
         </ConnectedRouter>

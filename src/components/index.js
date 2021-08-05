@@ -12,6 +12,8 @@ import MainBanner from "./MainBanner";
 import MessageList from "./MessageList";
 import MessageWrite from "./MessageWrite";
 import Message from "./Message";
+import AwaitList from "./AwaitList";
+import AllowList from "./AllowList";
 
 export {
   DetailPost,
@@ -28,4 +30,6 @@ export {
   MessageList,
   MessageWrite,
   Message,
+  AwaitList,
+  AllowList,
 };
