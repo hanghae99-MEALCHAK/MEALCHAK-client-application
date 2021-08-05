@@ -7,9 +7,9 @@ import { actionCreators as chatActions } from "../redux/modules/chat";
 
 import { Grid, Button, Text, Image } from "../elements";
 
-import theme from '../styles/theme';
-import logger from '../shared/Console';
-import { customAlert } from './Sweet';
+import theme from "../styles/theme";
+import logger from "../shared/Console";
+import { customAlert } from "./Sweet";
 
 const DetailPost = (props) => {
   logger("상세포스트 프롭스", props.is_me);
@@ -36,11 +36,19 @@ const DetailPost = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
 
+  const [disabled, setDisabled] = React.useState(false);
   React.useEffect(() => {
     window.scrollTo(0, 0);
-    // logger('is_me', props.is_me);
-    console.log(props);
   }, []);
+
+  React.useEffect(() => {
+    if (props.headCount === props.nowHeadCount) {
+      console.log(disabled);
+      return setDisabled(true);
+    } else if(props.headCount > props.nowHeadCount){
+      return setDisabled(false);
+    }
+  }, [disabled ? disabled : null]);
 
   const deleteBtn = () => {
     if (window.confirm("삭제하시겠습니까?")) {
@@ -217,18 +225,27 @@ const DetailPost = (props) => {
           </Button>
         </Grid>
       ) : (
-        <Grid maxWidth="30rem" height="5rem" margin="0 3rem 1rem 3rem" absolute="absolute" bottom="0">
+        <Grid
+          maxWidth="30rem"
+          height="5rem"
+          margin="0 3rem 1rem 3rem"
+          absolute="absolute"
+          bottom="0"
+        >
           <Button
             shape="large"
-            color={color.brand100}
+            color={disabled ? "#EBE9E8" : color.brand100}
             size={fontSize.small}
-            disabled={props.headCount === 3? true : false}
+            disabled={disabled}
             _onClick={(e) => {
+              if (props.headCount === props.nowHeadCount) {
+                return setDisabled(true);
+              }
               enterRoom("chatting", room_id, title, post_id);
             }}
           >
-            <Text bold size="1.6rem" color={color.bg0}>
-              {props.headCount === props.nowHeadCount ? "모집 마감됐어요" : "채팅 시작하기"}
+            <Text bold size="1.6rem" color={disabled ? "#CECAC7" : color.bg0}>
+              {disabled ? "모집 마감됐어요" : "채팅 시작하기"}
             </Text>
           </Button>
         </Grid>
