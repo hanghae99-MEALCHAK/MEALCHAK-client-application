@@ -29,7 +29,7 @@ const MessageList = (props) => {
   }, []);
 
   return (
-    <Grid shape="container" padding="0 2rem">
+    <Grid padding="0 2rem">
       <Grid height="6rem"></Grid>
         {messages.map((m, idx) => {
           return <Message key={idx} messagesInfo={m} />;

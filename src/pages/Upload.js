@@ -172,6 +172,7 @@ const Upload = React.memo((props) => {
             margin="0 auto"
             padding="2.8rem 2rem 2.7rem"
             is_fixed="t"
+            fix_center
             bg={color.bg0}
           >
             {is_edit ? (

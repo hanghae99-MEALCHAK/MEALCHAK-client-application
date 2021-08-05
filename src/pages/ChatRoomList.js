@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 import { history } from "../redux/configureStore";
 
-
 // style
 import { Header, Footer, ChatListItem, AwaitList } from "../components";
 import { Button, Grid, Input, Text } from "../elements";
 import theme from "../styles/theme";
+import styled from "styled-components";
+
 import logger from "../shared/Console";
 
 const ChatRoomList = (props) => {
@@ -70,10 +71,16 @@ const ChatRoomList = (props) => {
               </Text>
             </Grid>
             <Grid width="auto" padding="0 2rem" margin="auto">
-              <Text size={fontSize.base} margin="0 0 0.8rem" color={color.bg60} _onClick={() => {
-                history.push("/allowchat");
-              }}
-              cursor="pointer">
+              <Text
+                bold2="700"
+                size={fontSize.base}
+                margin="0 0 0.8rem"
+                color={color.bg60}
+                _onClick={() => {
+                  history.push("/allowchat");
+                }}
+                cursor="pointer"
+              >
                 들어온 승인 요청
               </Text>
             </Grid>
@@ -95,6 +102,16 @@ const ChatRoomList = (props) => {
           {await_list.map((info, idx) => {
             return <AwaitList key={idx} roomName={info.title} />;
           })}
+
+          {await_list.length === 0 && chat_list.length === 0 && (
+            <>
+              <Grid shape="empty" src="illust/emptyBubbles.png">
+                <EmptyText theme={theme}>아직 채팅 내용이 없어요.</EmptyText>
+              </Grid>
+              <Grid height="20rem"></Grid>
+            </>
+          )}
+
           <Footer {...props}></Footer>
         </Grid>
       </Grid>
@@ -103,5 +120,13 @@ const ChatRoomList = (props) => {
 };
 
 ChatRoomList.defaultProps = {};
+
+const EmptyText = styled.p`
+  position: relative;
+  text-align: center;
+  top: 15rem;
+  font-size: ${(props) => props.theme.fontSize.base};
+  color: ${(props) => props.theme.color.bg80};
+`;
 
 export default ChatRoomList;

@@ -20,27 +20,19 @@ const Post = (props) => {
   // 내 위치에서부터 얼마나 떨어져있는지 보여주는 변수(소수점이므로 1000을 곱해 m로 나타냄)
   const distance = props.distance * 1000;
   logger("Post.js props: ", props);
-  // 채팅 시작하면 서버에 게스트 입장 요청
-  // 구독, 채팅 시작
-  // 포스트에서 채팅시작하기 누를때는 post 모듈에서 각 게시물 정보로 getPostAX에서 room_id 받아와줘야 가능함
-  // const enterRoom = (path, room_id, roomName, postId) => {
-  //   if (is_login) {
-  //     dispatch(chatActions.enterRoomAX(postId));
-  //     dispatch(chatActions.clearMessage());
-  //     dispatch(chatActions.moveChatRoom(room_id, roomName));
-  //     history.replace({
-  //       pathname: `/${path}`,
-  //       state: { room_id: room_id, roomName: roomName },
-  //     });
-  //     return;
-  //   } else {
-  //     customAlert.sweetNeedLogin();
-  //   }
-  // };
 
   const requestJoin = () => {
-    customAlert.SweetChatRequest(user_info.user_id, props.user_id, props.post_id)
-  }
+    if (is_login) {
+      customAlert.SweetChatRequest(
+        user_info?.user_id,
+        props.user_id,
+        props.post_id
+      );
+      return;
+    } else {
+      customAlert.sweetNeedLogin();
+    }
+  };
 
   React.useEffect(() => {
     if (props.headCount === props.nowHeadCount) {
@@ -250,7 +242,7 @@ const Post = (props) => {
               size={fontSize.small}
               bold={fontSize.bold}
               cursor="pointer"
-//            _onClick={requestJoin}
+              //            _onClick={requestJoin}
               disabled={disabled}
               _onClick={(e) => {
                 requestJoin();
@@ -259,7 +251,11 @@ const Post = (props) => {
                 }
               }}
             >
-              <Text bold size={fontSize.small} color={disabled ? "#CECAC7" : color.bg0}>
+              <Text
+                bold
+                size={fontSize.small}
+                color={disabled ? "#CECAC7" : color.bg0}
+              >
                 {disabled ? "모집 마감됐어요" : "채팅 시작하기"}
               </Text>
             </Button>

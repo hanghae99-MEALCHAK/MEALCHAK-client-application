@@ -4,8 +4,9 @@ import { actionCreators as chatActions } from "../redux/modules/chat";
 import { history } from "../redux/configureStore";
 
 // style
+import styled from "styled-components";
 import { Header, Footer, AllowList } from "../components";
-import { Button, Grid, Input, Text } from "../elements";
+import { Button, Grid, Image, Text } from "../elements";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
 
@@ -44,7 +45,7 @@ const AllowChat = (props) => {
               }}
               cursor="pointer"
             >
-              <Text size={fontSize.base} margin="0 0 0.8rem" color={color.bg60}>
+              <Text size={fontSize.base} margin="0 0 0.8rem" color={color.bg60} bold2="700">
                 참여중인 채팅방
               </Text>
             </Grid>
@@ -78,11 +79,13 @@ const AllowChat = (props) => {
           })}
 
           {allow_list.length === 0 && (
-              <Grid>
-                  
+            <>
+              <Grid shape="empty" src="illust/emptyBubbles.png">
+                <EmptyText theme={theme}>아직 채팅 내용이 없어요.</EmptyText>
               </Grid>
+              <Grid height="20rem"></Grid>
+            </>
           )}
-
           <Footer {...props}></Footer>
         </Grid>
       </Grid>
@@ -92,4 +95,11 @@ const AllowChat = (props) => {
 
 AllowChat.defaultProps = {};
 
+const EmptyText = styled.p`
+  position: relative;
+  text-align: center;
+  top: 15rem;
+  font-size: ${props => props.theme.fontSize.base};
+  color: ${props => props.theme.color.bg80};
+`;
 export default AllowChat;

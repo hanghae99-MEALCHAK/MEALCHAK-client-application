@@ -237,6 +237,7 @@ const requestChatListAX = () => {
     axiosModule
       .get("/posts/join/request/list")
       .then((res) => {
+        logger("승인 요청 res", res);
         let request_list = [];
         res.data.forEach((req) => {
           let one_req = {

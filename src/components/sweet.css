@@ -1,12 +1,12 @@
 button {
     border-radius: 1.2rem !important;
-    width: 12rem;
+    /* width: 12rem; */
     height: 4.4rem;
 }
 
 .border {
     border-radius: 1.2rem !important;
-    max-width: 30rem;
+    max-width: 26.4rem;
 }
 
 .confirmButton {

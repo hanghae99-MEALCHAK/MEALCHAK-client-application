@@ -8,7 +8,7 @@ const AwaitList = (props) => {
   const { roomName } = props;
 
   React.useEffect(() => {
-    logger("chat list item props정보", props);
+    logger("참여대기 리스트", props);
   }, []);
 
   return (
@@ -39,7 +39,7 @@ const AwaitList = (props) => {
             </svg>
           </Grid>
 
-          <Grid shape="container" maxWidth="18rem">
+          <Grid maxWidth="18rem">
             <Text
               white_space="nowrap"
               color={color.bg100}

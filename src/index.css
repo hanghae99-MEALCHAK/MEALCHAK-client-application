@@ -1,14 +1,15 @@
 @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 
 body {
+  position: relative;
   overflow-x: hidden;
   width: 100vw;
   height: 100vh;
   min-width: 250px;
   background-color: "#f5f6fa";
   margin: 0;
-  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -21,32 +22,40 @@ body::-webkit-scrollbar {
 }
 
 code {
-  font-family: 'Spoqa Han Sans Neo', "source-code-pro", "Menlo", "Monaco", "Consolas", "Courier New",
-    monospace;
+  font-family: "Spoqa Han Sans Neo", "source-code-pro", "Menlo", "Monaco",
+    "Consolas", "Courier New", monospace;
 }
 
 html {
+  position: relative;
+  overflow-x: hidden;
   font-size: 62.5%;
 }
 
-@media all and (min-width: 1000px) {
+@media all and (min-width: 800px) {
   html {
-    font-size: 120%;
-  }
-}
-
-@media all and (min-width: 700px) {
-  html {
-    font-size: 100%;
+    position: relative;
+    overflow-x: hidden;
+    font-size: 85%;
   }
 }
 
 
-@media all and (min-width: 360px) {
+@media all and (max-width: 800px) {
   html {
-    font-size: 75%;
+    position: relative;
+    overflow-x: hidden;
+    font-size: 85%;
   }
 }
+
+/* @media all and (min-width: 360px) {
+  html {
+    position: relative;
+    overflow-x: hidden;
+    font-size: 65%;
+  }
+} */
 /* @media all and (max-width: 800px) {
   html {
     font-size: 50%;
@@ -59,8 +68,43 @@ html {
   }
 }*/
 
-@media all and (max-width: 300px) {
+@media all and (max-width: 600px) {
   html {
+    position: relative;
+    overflow-x: hidden;
+    font-size: 80%;
+  }
+}
+
+@media all and (max-width: 450px) {
+  html {
+    position: relative;
+    overflow-x: hidden;
+    font-size: 70%;
+  }
+}
+
+@media all and (max-width: 400px) {
+  html {
+    position: relative;
+    overflow-x: hidden;
+    font-size: 62.5%;
+  }
+}
+
+
+@media all and (max-width: 330px) {
+  html {
+    position: relative;
+    overflow-x: hidden;
     font-size: 55%;
   }
-} 
+}
+
+@media all and (max-width: 300px) {
+  html {
+    position: relative;
+    overflow-x: hidden;
+    font-size: 48.3%;
+  }
+}
