@@ -27,24 +27,6 @@ const initialState = {
   post_address: "",
 };
 
-// 좌표를 주소로 변환하는 middleware
-// const getCoordinate = (x, y) => {
-//   return function (dispatch, getState, { history }) {
-//     let rest_api = "3125ba608fbb74bdf912f794ddb65da6";
-//     const headers = {
-//       Authorization: `KakaoAK ${rest_api}`,
-//     };
-//     axios
-//       .get(
-//         `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${x}&y=${y}&input_coord=WGS84`,
-//         { headers: headers }
-//       )
-//       .then((res) => {
-//         console.log(res);
-//       });
-//   };
-// };
-
 // 특정 주소(도로명주소 혹은 지번주소)로 위도, 경도, 지번, 도로명주소, 우편번호 도출 middleware
 const getMyCoordinateAX = (address) => {
   return function (dispatch, getState, { history }) {
