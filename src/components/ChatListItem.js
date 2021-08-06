@@ -22,7 +22,7 @@ const ChatListItem = (props) => {
         _onClick={_onClick}
       >
         <Grid is_flex4="t" width="70%">
-          <Grid width="auto" is_flex4="t" margin="0 1rem 0 0">
+          <Grid width="5rem" is_flex4="t" margin="0 1rem 0 0">
             <svg
               width="50"
               height="50"
