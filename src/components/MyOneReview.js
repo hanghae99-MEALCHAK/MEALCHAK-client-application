@@ -22,7 +22,7 @@ const MyOneReview = (props) => {
         margin="1.5rem 0 0 0"
         borderBottom="0.1rem solid #F4F4F3"
       >
-        <Profile user_profile={props.other_user? props.profileImg: props.user_profile} />
+        <Profile user_profile={props.other_user? props.profileImg : props.user_profile} />
         <Grid minWidth="3.6rem" height="2rem" padding="0 0 0 5rem">
           <Text size={fontSize.small} line_height="150%" color={color.bg100}>
             {props.other_user? props.username: props.user_nickname}
@@ -33,12 +33,12 @@ const MyOneReview = (props) => {
           maxHeight="5.6rem"
           bg="#F4F4F3"
           margin="0 0 0 5rem"
-          padding="0.8rem"
+          padding="0.8rem 0.5rem"
           flex
           align_items="flex-start"
           radius="0 1.2rem 1.2rem 1.2rem"
         >
-          <Text margin="0 0.4rem">{props.other_user? props.review : props.review}</Text>
+          <Text margin="0 0.4rem" size={fontSize.small}>{props.other_user? props.review : props.review}</Text>
         </Grid>
         <Grid height="1.5rem" padding="0 0 0 5rem">
           <Text size={fontSize.tiny} line_height="150%" color="#9A9896">

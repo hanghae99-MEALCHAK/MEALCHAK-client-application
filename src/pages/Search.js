@@ -16,8 +16,9 @@ const Search = (props) => {
 
   const dispatch = useDispatch();
   const [food, setFood] = React.useState('');
-
-  const search_list = useSelector((state) => state.search.list);
+  let search_list = useSelector((state) => state.search.list);
+  const is_food = useSelector((state) => state.search.is_food);
+  console.log(is_food);
 
   const onChange = (e) => {
     setFood(e.target.value);
@@ -28,6 +29,9 @@ const Search = (props) => {
     // setFood('');
   };
 
+  React.useEffect(() => {
+    search_list = [];
+  }, []);
   return (
     <React.Fragment>
       <Grid
@@ -95,7 +99,7 @@ const Search = (props) => {
             </Text>
           </Grid>
         </Grid>
-        {food ? (
+        {is_food ? (
           <Grid>
             {search_list.length === 0 ? (
               <Grid maxWidth="30rem" margin="5rem auto">

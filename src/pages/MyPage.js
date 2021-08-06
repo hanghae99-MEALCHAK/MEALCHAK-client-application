@@ -22,7 +22,7 @@ const MyPage = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const user_info = useSelector((state) => state.user.user);
-  const post_list = useSelector((state) => state.post.list);
+  const my_post = useSelector((state) => state.user.myPost);
 
   const location = useLocation();
 
