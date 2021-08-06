@@ -19,8 +19,7 @@ import theme from "../styles/theme";
 const UserProfile = (props) => {
   const dispatch = useDispatch();
   const location = useLocation();
-
-  const is_login = useSelector((state) => state.user.is_login);
+  const is_login = useSelector((state) => state.user?.is_login);
   const other_user = useSelector((state) => state.user?.anotherUser);
   const user_id = location.state.user_id;
   const { color, border, fontSize, radius } = theme;
@@ -116,6 +115,7 @@ const UserProfile = (props) => {
                   history.push({
                     pathname: "/write",
                     state: {
+                      user_id: other_user.user_id,
                       profile: other_user.user_profile,
                       nickname: other_user.user_nickname,
                     },

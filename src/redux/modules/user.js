@@ -17,6 +17,7 @@ import { token } from "../../shared/OAuth";
 const SET_USER = "SET_USER";
 const SET_ANOTHER_USER = "SET_ANOTHER_USER";
 const SET_MYREVIEW = "SET_MYREVIEW";
+const SET_MYPOST = "SET_MYPOST";
 const LOG_OUT = "LOG_OUT";
 const LOADING = "LOADING";
 const EDIT_PROFILE = "EDIT_PROFILE";
@@ -28,6 +29,7 @@ const setAnotherUser = createAction(SET_ANOTHER_USER, (user_info) => ({
   user_info,
 }));
 const setMyReview = createAction(SET_MYREVIEW, (my_review) => ({ my_review }));
+const setMyPost = createAction(SET_MYPOST, (my_post) => ({ my_post }));
 const logOut = createAction(LOG_OUT, () => {});
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 const editProfile = createAction(EDIT_PROFILE, (profile) => ({
@@ -43,6 +45,7 @@ const initialState = {
   user: null,
   anotherUser: null,
   myReview: [],
+  myPost: [],
   is_login: false,
   is_loading: false,
 };
@@ -221,6 +224,52 @@ const findUserProfileAX = (user_id) => {
     }
   };
 };
+// 마이페이지 - 내가 쓴 글 조회
+const getMyPostAX = () => {
+  return function (dispatch, getState, { history }) {
+    if (token) {
+      axiosModule
+        .get("/posts/myPosts")
+        .then((res) => {
+          logger("내가 쓴 글 res", res);
+          let posts = [];
+
+          if (res.data.length !== 0) {
+            res.data.forEach((p) => {
+              let hour = p.orderTime.split(" ")[1].split(":")[0];
+              let minute = p.orderTime.split(" ")[1].split(":")[1];
+
+              const my_post = {
+                post_id: p.postId,
+                title: p.title,
+                contents: p.contents,
+                category: p.category,
+                shop: p.restaurant,
+                headCount: p.headCount,
+                orderTime: hour + ":" + minute,
+                orderDate: p.orderTime.split(" ")[0],
+                address: p.address,
+                insert_dt: p.createdAt,
+                username: p.username,
+                user_id: p.userId,
+                userImg: p.profileImg,
+                // distance: p.distance,
+                room_id: p.roomId,
+                nowHeadCount: p.nowHeadCount,
+              };
+              posts.push(my_post);
+            });
+          }
+          dispatch(setMyPost(posts));
+        })
+        .catch((e) => {
+          logger("내가 받은 리뷰 에러", e);
+        });
+    } else {
+      dispatch(logOut());
+    }
+  };
+};
 
 // 마이페이지 - 내가 받은 리뷰 조회
 const getMyReviewAX = () => {
@@ -255,6 +304,41 @@ const getMyReviewAX = () => {
   };
 };
 
+// 타 유저 프로필 - 리뷰 남기기
+const reviewWriteAX = (manner, review, user_id) => {
+  return function (dispatch, getState, { history }) {
+    if (token) {
+      axiosModule
+        .post(`/review/${user_id}`, {
+          mannerType: manner,
+          review: review,
+        })
+        .then((res) => {
+          logger("내가 받은 리뷰 res", res);
+          // let reviews = [];
+
+          // if (res.data.length !== 0) {
+          //   res.data.forEach((p) => {
+          //     const my_review = {
+          //       user_profile: p.profileImg,
+          //       user_nickname: p.username,
+          //       my_manner: p.manner,
+          //       review: p.review,
+          //       insert_dt: p.createdAt,
+          //     };
+          //     reviews.push(my_review);
+          //   });
+          // }
+          // dispatch(setMyReview(reviews));
+        })
+        .catch((e) => {
+          logger("내가 받은 리뷰 에러", e);
+        });
+    } else {
+      dispatch(logOut());
+    }
+  };
+};
 // Reducer
 export default handleActions(
   {
@@ -274,6 +358,11 @@ export default handleActions(
       produce(state, (draft) => {
         draft.myReview.push(...action.payload.my_review);
         logger("set_my_review 리듀서", draft.myReview);
+      }),
+    [SET_MYPOST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.myPost.push(...action.payload.my_post);
+        logger("set_my_post 리듀서", draft.myPost);
       }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
@@ -315,6 +404,8 @@ const actionCreators = {
   editUserAddressAX,
   findUserProfileAX,
   getMyReviewAX,
+  getMyPostAX,
+  reviewWriteAX,
 };
 
 export { actionCreators };
