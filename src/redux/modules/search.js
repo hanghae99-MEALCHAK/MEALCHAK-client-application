@@ -5,20 +5,24 @@ import axiosModule from '../axios_module';
 import logger from '../../shared/Console';
 
 const GET_SEARCH_LIST = 'GET_SEARCH_LIST';
+const FOOD_CHECK = 'FOOD_CHECK';
 
 const getSearchList = createAction(GET_SEARCH_LIST, (search) => ({ search }));
+const food_check = createAction(FOOD_CHECK, (is_food) => ({ is_food }));
 
 const initialState = {
   list: [],
+  is_food: false,
 };
 
 const getSearchListDB = (food) => {
   return function (dispatch, getState, { history }) {
     // const username = getState().user.user.username;
+    dispatch(food_check(true));
     axiosModule
       .post(`/search`, food)
       .then((res) => {
-        logger('서치모듈', res);
+        // logger('서치모듈', res);
         let search_list = [];
 
         res.data.forEach((p) => {
@@ -57,6 +61,11 @@ export default handleActions(
     [GET_SEARCH_LIST]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.search;
+        // draft.is_food = false;
+      }),
+    [FOOD_CHECK]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_food = action.payload.is_food;
       }),
   },
   initialState
