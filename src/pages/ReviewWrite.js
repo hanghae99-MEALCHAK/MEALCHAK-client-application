@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import { Grid, Button, Text, Input } from "../elements";
-import { Header } from "../components";
-import theme from "../styles/theme";
-import logger from "../shared/Console";
-import { useLocation } from "react-router";
+import { Grid, Button, Text, Input } from '../elements';
+import { Header } from '../components';
+import theme from '../styles/theme';
+import logger from '../shared/Console';
+import { useLocation } from 'react-router';
 
 import Select from '../components/ReactSelect';
 
@@ -19,14 +19,15 @@ const options = [
 
 const ReviewWrite = (props) => {
   const location = useLocation();
+  console.log(location);
   const [manner, setManner] = React.useState({});
-  const [review, setReview] = React.useState("");
+  const [review, setReview] = React.useState('');
 
   React.useEffect(() => {
-    logger("ReviewWrite props: ", props);
-    logger("ReviewWrite location-state: ", location.state);
+    logger('ReviewWrite props: ', props);
+    logger('ReviewWrite location-state: ', location.state);
   }, []);
-  
+
   return (
     <Grid
       maxWidth="36rem"
@@ -52,6 +53,7 @@ const ReviewWrite = (props) => {
             text_align="center"
           >
             {location.state.nickname}
+            123123
           </Text>
         </Grid>
         <GreyLine />
@@ -80,7 +82,11 @@ const ReviewWrite = (props) => {
             radius="1.2rem"
             height="auto"
           >
-            <Input size="1.3rem" border="none" placeholder="리뷰를 작성해주세요."/>
+            <Input
+              size="1.3rem"
+              border="none"
+              placeholder="리뷰를 작성해주세요."
+            />
           </Grid>
         </Grid>
         <GreyLine />
@@ -136,7 +142,7 @@ const Profile = styled.div`
   ${(props) =>
     props.user_profile
       ? `background-image: url(${props.user_profile});`
-      : `background-image: url(http://115.85.182.57:8080/image/profileDefaultImg.jpg)`}
+      : `background-image: url(http://115.85.182.57:8080/image/profileDefaultImg.jpg);`}
   background-size: cover;
   background-position: center;
 `;
@@ -150,42 +156,6 @@ const GreyLine = styled.div`
   &:hover {
     background-color: red;
   }
-`;
-
-const SelectTag = styled.select`
-  width: 100%;
-  height: 4.7rem;
-  border: none;
-  padding: 0;
-  font-size: ${(props) => props.theme.fontSize.small};
-  font-weight: 400;
-  color: ${(props) => props.theme.color.bg80};
-  &:focus {
-    outline: none;
-  }
-  /* &:focus-within option {
-    color: ${(props) => props.theme.color.brand100};
-    background-color: ${(props) => props.theme.color.brand20};
-    &:focus {
-      color: red;
-    }
-    &:hover {
-      color: pink;
-    }
-  } */
-`;
-
-const Option = styled.option`
-  color: pink;
-  &:hover {
-    background: #ff9500 -webkit-linear-gradient(bottom, #ff9500 0%, #ff9500 100%);
-    color: red;
-    background-color: ${(props) => props.theme.color.brand20};
-  }
-  /* &:focus-within option {
-    color: ${(props) => props.theme.color.brand100};
-    background-color: ${(props) => props.theme.color.brand20};
-  } */
 `;
 
 export default ReviewWrite;
