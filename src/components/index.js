@@ -15,6 +15,8 @@ import Message from "./Message";
 import AwaitList from "./AwaitList";
 import AllowList from "./AllowList";
 import MyOneReview from "./MyOneReview";
+import SideContent from "./SideContent";
+import ChatUserItem from "./ChatUserItem";
 
 export {
   DetailPost,
@@ -34,4 +36,6 @@ export {
   AwaitList,
   AllowList,
   MyOneReview,
+  SideContent,
+  ChatUserItem,
 };

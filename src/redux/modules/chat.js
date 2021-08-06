@@ -43,6 +43,8 @@ const SET_TIME = "SET_TIME";
 const SET_REQ_LIST = "SET_REQ_LIST";
 // 입장 대기 리스트(신청자용)
 const AWAIT_LIST = "AWAIT_LIST";
+// 채팅 참여 user 정보
+const GET_CHAT_USER = "GET_CHAT_USER";
 
 // ActionCreator
 const setChatList = createAction(SET_CHAT_LIST, (myChatList) => ({
@@ -66,6 +68,9 @@ const setRequestList = createAction(SET_REQ_LIST, (request_list) => ({
   request_list,
 }));
 const setAwaitList = createAction(AWAIT_LIST, (await_list) => ({ await_list }));
+const getChatUser = createAction(GET_CHAT_USER, (user_in_chat_list) => ({
+  user_in_chat_list,
+}));
 
 // initialState
 const initialState = {
@@ -87,6 +92,7 @@ const initialState = {
   // 방장에게 보이는 승인요청 리스트
   requestList: [],
   awaitList: [],
+  userInList: [],
 };
 
 // middleware
@@ -294,6 +300,34 @@ const awaitChatListAX = () => {
   };
 };
 
+// 채팅방 안에 들어와있는 사용자 정보
+const getChatUserAX = (roomId) => {
+  return function (dispatch, getState, { history }) {
+    axiosModule
+      .get(`/chat/user/${roomId}`)
+      .then((res) => {
+        let user_in_chat_list = [];
+        res.data.forEach((u) => {
+          let one_user = {
+            user_id: u.id,
+            user_name: u.username,
+            user_img: u.profileImg,
+          };
+          user_in_chat_list.push(one_user);
+        });
+        dispatch(getChatUser(user_in_chat_list));
+      })
+      .catch((e) => {
+        logger("채팅 참여 유저 목록확인 에러", e);
+        customAlert.sweetConfirmReload(
+          "사용자 조회 실패",
+          "채팅에 참여중인 사용자를 조회하는 것에 실패했습니다.",
+          "goBack"
+        );
+      });
+  };
+};
+
 export default handleActions(
   {
     // setChatList - 나만의 채팅 목록
@@ -365,6 +399,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.awaitList = action.payload.await_list;
       }),
+    [GET_CHAT_USER]: (state, action) =>
+      produce(state, (draft) => {
+        draft.userInList = action.payload.user_in_chat_list;
+      }),
   },
   initialState
 );
@@ -385,6 +423,7 @@ const actionCreators = {
   chatAllowAX,
   requestChatListAX,
   awaitChatListAX,
+  getChatUserAX,
 };
 
 export { actionCreators };

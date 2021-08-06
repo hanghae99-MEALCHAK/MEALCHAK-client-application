@@ -5,8 +5,10 @@ import { history } from "../redux/configureStore";
 import { customAlert } from "./Sweet";
 
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 import { Grid, Text, Image } from "../elements";
+import theme from "../styles/theme";
 
 const Header = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
@@ -167,6 +169,7 @@ const Header = (props) => {
           height="4.4rem"
           bg="#ffffff"
           is_fixed_top="t"
+          text_align="right"
         >
           <Grid width="24px" margin="0 0 0 1.3rem" />
           <svg
@@ -206,42 +209,8 @@ const Header = (props) => {
           >
             {props.children}
           </Text>
-          <svg
-            style={{ marginRight: "1.3rem", cursor: "pointer" }}
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="5"
-              y1="6"
-              x2="19"
-              y2="6"
-              stroke="#36373C"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-            <line
-              x1="5"
-              y1="12"
-              x2="19"
-              y2="12"
-              stroke="#36373C"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <line
-              x1="5"
-              y1="18"
-              x2="19"
-              y2="18"
-              stroke="#36373C"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
+          
+          <Grid width="2.4rem"></Grid>
         </Grid>
       </React.Fragment>
     );

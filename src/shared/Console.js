@@ -4,6 +4,7 @@ const logger = (msg, log) => {
     if(env === 'production'){
         return;
     }
+    console.log(msg, log);
 }
 
 export default logger;

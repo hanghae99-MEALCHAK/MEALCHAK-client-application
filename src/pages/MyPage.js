@@ -210,7 +210,6 @@ const MyPage = (props) => {
               is_flex4="t"
               padding="1.9rem 2rem"
               borderBottom={border.bg20}
-              cursor="t"
               justify_content="space-between"
             >
               <Grid is_flex4="t" width="60%">
@@ -253,11 +252,13 @@ const MyPage = (props) => {
               <CopyToClipboard text="http://surgo.kr/" onCopy={copy}>
                 <button
                   style={{
+                    height: "auto",
                     width: "11.7rem",
                     border: "none",
                     backgroundColor: color.brand20,
                     padding: "0.4rem 0.8rem",
                     borderRadius: "0.8rem",
+                    cursor: "pointer",
                   }}
                 >
                   <Text
