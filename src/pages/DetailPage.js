@@ -41,7 +41,6 @@ const DetailPage = (props) => {
           <Header {...props} shape="상세페이지">
             {post?.title}
           </Header>
-          {/* <Footer {...props} /> */}
         </Grid>
 
         {post && (

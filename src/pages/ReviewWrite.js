@@ -1,11 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+import { actionCreators as userActions } from "../redux/modules/user";
 
-import { Grid, Button, Text, Input } from '../elements';
-import { Header } from '../components';
-import theme from '../styles/theme';
-import logger from '../shared/Console';
-import { useLocation } from 'react-router';
+import { Grid, Button, Text, Input } from "../elements";
+import { Header } from "../components";
+import theme from "../styles/theme";
+import logger from "../shared/Console";
+import { useDispatch } from "react-redux";
+import { useLocation } from "react-router";
 
 import Select from "../components/ReactSelect";
 
@@ -19,15 +21,44 @@ const options = [
 
 const ReviewWrite = (props) => {
   const location = useLocation();
-  console.log(location);
-  const [manner, setManner] = React.useState({});
-  const [review, setReview] = React.useState('');
+  const dispatch = useDispatch();
+  const [manner, setManner] = React.useState("");
+  const [review, setReview] = React.useState("");
+  const [disabled, setDisabled] = React.useState(true);
+
+  const changeManner = (manner) => {
+    if (manner === "최고예요!") {
+      setManner("BEST");
+      setDisabled(false);
+    }
+    if (manner === "좋아요~") {
+      setManner("GOOD");
+      setDisabled(false);
+    }
+    if (manner === "별로예요:(!") {
+      setManner("BAD");
+      setDisabled(false);
+    }
+  };
+  const changeDisabled = (e) => {
+    setReview(e.target.value);
+    setDisabled(false);
+  };
 
   React.useEffect(() => {
-    logger('ReviewWrite props: ', props);
-    logger('ReviewWrite location-state: ', location.state);
+    logger("ReviewWrite props: ", props);
+    logger("ReviewWrite location-state: ", location.state);
   }, []);
 
+  React.useEffect(() => {
+    if (manner === "" && review === "") {
+      setDisabled(true);
+    } else if (manner && review) {
+      setDisabled(false);
+    }
+  }, [manner, review]);
+
+  console.log(props);
   return (
     <Grid
       maxWidth="36rem"
@@ -53,7 +84,6 @@ const ReviewWrite = (props) => {
             text_align="center"
           >
             {location.state.nickname}
-            123123
           </Text>
         </Grid>
         <GreyLine />
@@ -61,7 +91,7 @@ const ReviewWrite = (props) => {
           <Text
             width="auto"
             margin="2rem 0 1rem 0"
-            size={fontSize.small}
+            size={fontSize.base}
             color={manner.label ? color.bg100 : color.bg80}
             bold2="500"
             line_height="150%"
@@ -72,28 +102,29 @@ const ReviewWrite = (props) => {
             <Select
               value={manner}
               options={options}
-              onChange={setManner}
+              changeManner={changeManner}
             ></Select>
           </Grid>
-          <Grid padding="0 2rem" border="0.1rem solid #EBE9E8">
-            <Input
-              bold="400"
-              border="none"
-              size={fontSize.regular}
-              placeholder="해당 사용자와의 밀착이 만족스러우셨다면 따뜻한 리뷰를 전해보세요!"
-              multiLine="t"
-              length="300"
-              color="#9A9896"
-              value={review}
-              _onChange={(e) => {
-                setReview(e.target.value);
-              }}
-            />
-          </Grid>
         </Grid>
-        <GreyLine />
+        <Grid
+          width="36rem"
+          padding="1rem 3rem 0 3rem"
+          borderTop="0.1rem solid #EBE9E8"
+        >
+          <Input
+            bold="400"
+            border="none"
+            size={fontSize.base}
+            placeholder="해당 사용자와의 밀착이 만족스러우셨다면 따뜻한 리뷰를 전해보세요!"
+            multiLine="t"
+            length="300"
+            color="#9A9896"
+            value={review}
+            _onChange={changeDisabled}
+          />
+        </Grid>
 
-        <Grid margin="1.5rem 0" padding="0 2rem">
+        {/* <Grid margin="1.5rem 0" padding="0 2rem">
           <Text
             width="auto"
             size={fontSize.small}
@@ -106,26 +137,33 @@ const ReviewWrite = (props) => {
               ? "너무 즐거웠어요! 다음에 또 같이 식사해요~"
               : "해당 사용자와의 밀착이 만족스러우셨다면 따뜻한 리뷰를 전해보세요!"}
           </Text>
-        </Grid>
+        </Grid> */}
       </Grid>
       <Grid
-        maxWidth="35.5rem"
+        maxWidth="35.9rem"
         width="100%"
         height="auto"
-        margin="0 auto"
+        margin="1rem auto 0 auto"
         padding="1.5rem 2rem"
         is_fixed="t"
+        borderTop="0.1rem solid #EBE9E8"
       >
         <Button
           shape="large"
-          color={manner.label ? color.brand100 : color.bg40}
+          color={!disabled ? color.brand100 : color.bg40}
           size={fontSize.small}
+          cursor="t"
+          _onClick={() => {
+            window.alert("리뷰를 작성하시겠습니까?");
+            dispatch(
+              userActions.reviewWriteAX(manner, review, location.state?.user_id)
+            );
+            console.log("되는거임?");
+            console.log(manner, review);
+          }}
+          disabled={disabled}
         >
-          <Text
-            bold
-            size="1.6rem"
-            color={manner.label ? color.bg0 : color.bg60}
-          >
+          <Text bold size="1.6rem" color={!disabled ? color.bg0 : color.bg60}>
             보내기
           </Text>
         </Button>

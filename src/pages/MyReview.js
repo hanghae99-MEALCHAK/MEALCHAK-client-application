@@ -24,7 +24,9 @@ const MyReview = (props) => {
   React.useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(userActions.loginCheck());
-    dispatch(userActions.getMyReviewAX());
+    if(my_review.length === 0){
+      dispatch(userActions.getMyReviewAX());
+    }
   }, []);
 
   if (is_login) {

@@ -12,6 +12,13 @@ import theme from "../styles/theme";
 const Post = (props) => {
   const { color, fontSize } = theme;
 
+  // 연, 월
+  const ym = props?.insert_dt.split("-");
+  // 일
+  const day = ym[2].split(" ");
+  // 시, 분
+  const hm = day[1].split(":");
+  
   const is_login = useSelector((state) => state.user.is_login);
   const user_info = useSelector((state) => state.user.user);
   const [disabled, setDisabled] = React.useState(false);
@@ -89,7 +96,8 @@ const Post = (props) => {
                 </Grid>
               </Grid>
               <Text size="1rem" color={color.bg80} bold2="400">
-                {props.insert_dt}
+                {/* {props.insert_dt} */}
+                {ym[0]}년 {ym[1]}월 {day[0]}일 {hm[0]}:{hm[1]}
               </Text>
             </Grid>
           </Grid>
