@@ -15,7 +15,6 @@ const MyOneReview = (props) => {
   // 시, 분
   const hm = day[1].split(":");
 
-  console.log("MyOneReview: ",props);
   return (
     <React.Fragment>
       <Grid

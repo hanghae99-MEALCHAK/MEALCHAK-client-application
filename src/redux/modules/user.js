@@ -106,7 +106,6 @@ const editUserProfileAX = (profile) => {
     axiosModule
       .put("/userInfo/update", form)
       .then((res) => {
-        console.log(res);
         let _profile = res.data;
         let profile = {
           username: _profile.username,

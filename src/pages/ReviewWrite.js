@@ -7,14 +7,14 @@ import theme from "../styles/theme";
 import logger from "../shared/Console";
 import { useLocation } from "react-router";
 
-import Select from '../components/ReactSelect';
+import Select from "../components/ReactSelect";
 
 const { color, border, fontSize } = theme;
 // select options
 const options = [
-  { value: 'chocolate', label: '최고예요!' },
-  { value: 'strawberry', label: '좋아요~' },
-  { value: 'vanilla', label: '별로예요:(' },
+  { value: "chocolate", label: "최고예요!" },
+  { value: "strawberry", label: "좋아요~" },
+  { value: "vanilla", label: "별로예요:(" },
 ];
 
 const ReviewWrite = (props) => {
@@ -26,7 +26,7 @@ const ReviewWrite = (props) => {
     logger("ReviewWrite props: ", props);
     logger("ReviewWrite location-state: ", location.state);
   }, []);
-  
+
   return (
     <Grid
       maxWidth="36rem"
@@ -73,14 +73,20 @@ const ReviewWrite = (props) => {
               onChange={setManner}
             ></Select>
           </Grid>
-          <Grid
-            border="1px solid #C7C8CE"
-            margin="0 0 2rem 0"
-            padding="0 1.3rem"
-            radius="1.2rem"
-            height="auto"
-          >
-            <Input size="1.3rem" border="none" placeholder="리뷰를 작성해주세요."/>
+          <Grid padding="0 2rem" border="0.1rem solid #EBE9E8">
+            <Input
+              bold="400"
+              border="none"
+              size={fontSize.regular}
+              placeholder="해당 사용자와의 밀착이 만족스러우셨다면 따뜻한 리뷰를 전해보세요!"
+              multiLine="t"
+              length="300"
+              color="#9A9896"
+              value={review}
+              _onChange={(e) => {
+                setReview(e.target.value);
+              }}
+            />
           </Grid>
         </Grid>
         <GreyLine />
@@ -95,8 +101,8 @@ const ReviewWrite = (props) => {
             text_align="left"
           >
             {manner.label
-              ? '너무 즐거웠어요! 다음에 또 같이 식사해요~'
-              : '해당 사용자와의 밀착이 만족스러우셨다면 따뜻한 리뷰를 전해보세요!'}
+              ? "너무 즐거웠어요! 다음에 또 같이 식사해요~"
+              : "해당 사용자와의 밀착이 만족스러우셨다면 따뜻한 리뷰를 전해보세요!"}
           </Text>
         </Grid>
       </Grid>

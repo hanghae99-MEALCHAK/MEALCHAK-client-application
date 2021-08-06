@@ -28,7 +28,6 @@ const DetailPage = (props) => {
     }
     dispatch(postActions.getPostAX());
   }, []);
-  console.log(props);
 
   return (
     <React.Fragment>

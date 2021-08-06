@@ -45,7 +45,6 @@ const DetailPost = (props) => {
 
   React.useEffect(() => {
     if (props.headCount === props.nowHeadCount) {
-      console.log(disabled);
       return setDisabled(true);
     } else if(props.headCount > props.nowHeadCount){
       return setDisabled(false);

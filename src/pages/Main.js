@@ -277,7 +277,7 @@ const Main = (props) => {
             if (category.etc && p.category === "기타") {
               return <Post {...p} key={p.post_id} />;
             }
-            return console.log(p);
+            return null;
           })
         ) : (
           <React.Fragment>
