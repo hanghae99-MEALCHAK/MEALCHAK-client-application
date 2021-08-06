@@ -7,7 +7,7 @@ const axiosModule = axios.create({
     'Access-Control-Allow-Headers': 'Content-Type',
     'Content-Type': 'application/json',
   },
-  baseURL: 'http://115.85.182.57:8080',
+  baseURL: "http://115.85.182.57",
   // baseURL: 'http://52.78.204.238:8080',
   // baseURL: "http://52.78.204.238",
 });

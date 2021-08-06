@@ -18,16 +18,17 @@ const MyPost = (props) => {
   const dispatch = useDispatch();
 
   const is_login = useSelector((state) => state.user.is_login);
-  const post_list = useSelector((state) => state.post.list);
+  const my_post = useSelector((state) => state.user?.myPost);
   const user_info = useSelector((state) => state.user.user);
 
+  console.log(my_post);
   const { color, border, fontSize } = theme;
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(userActions.loginCheck());
-    if (post_list.length === 0) {
-      dispatch(postActions.getPostAX());
+    if (my_post.length === 0) {
+      dispatch(userActions.getMyPostAX());
     }
   }, []);
 
@@ -43,12 +44,9 @@ const MyPost = (props) => {
         <Grid shape="container">
           <Header {...props} shape="내가쓴글" />
           <Grid height="1.6rem" />
-          {post_list.length > 0 ? (
-            post_list.map((p, idx) => {
-              if (p.user_id === user_info.user_id) {
-                return <Post {...p} is_profile={true} key={p.post_id} />;
-              }
-              return null;
+          {my_post?.length > 0 ? (
+            my_post.map((p, idx) => {
+              return <Post {...p} is_profile key={idx} />;
             })
           ) : (
             <Grid width="36rem" margin="18rem auto 0 auto">
