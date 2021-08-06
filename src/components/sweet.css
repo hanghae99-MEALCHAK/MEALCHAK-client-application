@@ -1,14 +1,25 @@
 button {
-    border-radius: 1.2rem !important;
-    /* width: 12rem; */
-    height: 4.4rem;
+  /* border-radius: 1.2rem !important; */
+  /* width: 12rem; */
+  height: 4.4rem;
 }
 
 .border {
-    border-radius: 1.2rem !important;
-    max-width: 26.4rem;
+  border-radius: 1.2rem !important;
+  max-width: 26.4rem;
 }
 
 .confirmButton {
-    width: 100% !important;
+  width: 100% !important;
+  border-radius: 1.2rem !important;
+}
+
+.cancelButton {
+  width: 100% !important;
+  border-radius: 1.2rem !important;
+}
+
+.denyButton {
+  width: 100% !important;
+  border-radius: 1.2rem !important;
 }
