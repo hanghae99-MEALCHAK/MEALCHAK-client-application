@@ -9,17 +9,30 @@ import Stomp from "stompjs";
 import SockJS from "sockjs-client";
 
 // style
-import Spinner from "../shared/Spinner"
-import { Header, MessageList, MessageWrite } from "../components";
+import styled from "styled-components";
+import Spinner from "../shared/Spinner";
+import { Header, MessageList, MessageWrite, SideContent } from "../components";
 import { Grid, Text } from "../elements";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 import { actionCreators as postActions } from "../redux/modules/post";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
 import { customAlert } from "../components/Sweet";
+import { HiOutlineMenu } from "react-icons/hi";
 import { replace } from "lodash";
 
+// side bar
+import { useDetectOutsideClick } from "../components/useDetectOutsideClick";
+import Sidebar from "react-sidebar";
+
 const Chat = (props) => {
+  // side nav
+  const dropdownRef = React.useRef(null);
+  const [isOpen, setIsOpen] = useDetectOutsideClick(dropdownRef, false);
+  const onClick = () => {
+    setIsOpen(!isOpen);
+  };
+
   // 소켓
   const sock = new SockJS("http://52.78.204.238/chatting");
   const ws = Stomp.over(sock);
@@ -31,28 +44,28 @@ const Chat = (props) => {
   const room_id = props.history.location.state.room_id;
 
   // 보낼 메세지 정보
-  const sender_info = useSelector(state => state.user.user);
-  const sender_nick = useSelector(state => state.user.user?.user_nickname);
-  const sender_profile = useSelector(state => state.user.user?.user_profile);
-  const sender_id = useSelector(state => state.user.user?.user_id);
+  const sender_info = useSelector((state) => state.user.user);
+  const sender_nick = useSelector((state) => state.user.user?.user_nickname);
+  const sender_profile = useSelector((state) => state.user.user?.user_profile);
+  const sender_id = useSelector((state) => state.user.user?.user_id);
 
+  const messageText = useSelector((state) => state.chat.messageText);
 
-  const messageText = useSelector(state => state.chat.messageText);
-
-  const { border } = theme;
+  const { border, color } = theme;
 
   React.useEffect(() => {
     logger("chat props", props);
     logger("chat sender info", sender_profile);
     logger("chat sender info", sender_nick);
 
-
     dispatch(chatActions.moveChatRoom(room_id, roomName));
     dispatch(chatActions.getChatMessagesAX());
+    dispatch(chatActions.getChatUserAX(room_id));
   }, []);
 
+
   React.useEffect(() => {
-    if(!room_id){
+    if (!room_id) {
       customAlert.sweetWA();
       return;
     }
@@ -60,7 +73,7 @@ const Chat = (props) => {
     return () => {
       wsDisConnectUnsubscribe();
     };
-  }, [room_id? room_id : null]);
+  }, [room_id ? room_id : null]);
 
   // 채팅방시작하기, 채팅방 클릭 시 room_id에 해당하는 방을 구독
   const wsConnectSubscribe = () => {
@@ -74,11 +87,13 @@ const Chat = (props) => {
             `/sub/api/chat/rooms/${room_id}`,
             (data) => {
               const newMessage = JSON.parse(data.body);
-              logger("구독후 새로운 메세지 data", newMessage)
+              logger("구독후 새로운 메세지 data", newMessage);
 
               // 실시간 채팅 시간 넣어주는 부분
               const now_time = moment().format("YYYY-MM-DD hh:mm:ss");
-              dispatch(chatActions.getMessages({...newMessage, createdAt: now_time}));
+              dispatch(
+                chatActions.getMessages({ ...newMessage, createdAt: now_time })
+              );
             },
             {
               token: token,
@@ -90,7 +105,6 @@ const Chat = (props) => {
       logger("소켓 커넥트 에러", e);
     }
   };
-
 
   // 다른 방을 클릭하거나 뒤로가기 버튼 클릭시 연결해제 및 구독해제
   const wsDisConnectUnsubscribe = () => {
@@ -157,7 +171,7 @@ const Chat = (props) => {
     return (
       // alert("잘못된 접근입니다")
       <React.Fragment>
-        <Spinner/>
+        <Spinner />
       </React.Fragment>
     );
   } else {
@@ -171,6 +185,31 @@ const Chat = (props) => {
           bg="#7B6E62"
         >
           <Grid shape="container">
+            <SideGrid>
+              <Sidebar
+                touch={true}
+                pullRight={true}
+                sidebar={<SideContent roomName={roomName}/>}
+                open={isOpen}
+                onSetOpen={setIsOpen}
+                styles={{
+                  sidebar: { background: "white", width: "80%" },
+                  content: { text_align: "right" },
+                }}
+                dragToggleDistance={100}
+              >
+                <HiOutlineMenu
+                  size="24"
+                  color={color.bg100}
+                  style={{
+                    margin: "1rem 1.3rem 0 0",
+                    cursor: "pointer",
+                    zIndex: "1000",
+                  }}
+                  onClick={onClick}
+                />
+              </Sidebar>
+            </SideGrid>
             <Header {...props} shape="채팅방">
               {roomName}
             </Header>
@@ -184,5 +223,12 @@ const Chat = (props) => {
   }
 };
 
+const SideGrid = styled.div`
+  position: fixed;
+  width: 36rem;
+  height: 100vh;
+  z-index: 101;
+  text-align: right;
+`;
 
 export default Chat;
