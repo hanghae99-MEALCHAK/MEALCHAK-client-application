@@ -47,7 +47,6 @@ const customTheme = (theme) => {
   };
 };
 const ReactSelect = (props) => {
-  console.log(props);
 
   return (
     <React.Fragment>
@@ -55,6 +54,7 @@ const ReactSelect = (props) => {
         <Select
           //   value={props.value}
           options={props.options}
+          // placeholder="여기서 수정가능"
           onChange={props.onChange}
           styles={customStyles}
           theme={customTheme}

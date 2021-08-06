@@ -25,7 +25,6 @@ const MyReview = (props) => {
     window.scrollTo(0, 0);
     dispatch(userActions.loginCheck());
     dispatch(userActions.getMyReviewAX());
-    console.log(my_review);
   }, []);
 
   if (is_login) {

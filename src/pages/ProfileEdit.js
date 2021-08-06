@@ -32,9 +32,6 @@ const ProfileEdit = (props) => {
     comment: user_info?.user_comment ? user_info?.user_comment : "",
     image: user_info?.user_profile,
   });
-  console.log(editProfile.nickname);
-  console.log(editProfile.comment);
-  console.log(editProfile.image);
   const fileInput = React.useRef();
   const [disabled, setDisabled] = useState(true);
 
@@ -84,7 +81,6 @@ const ProfileEdit = (props) => {
   React.useEffect(() => {
     if (editProfile.comment === "") {
       setDisabled(true);
-      console.log(disabled);
     }
   }, [editProfile.comment ? editProfile.comment : null]);
 

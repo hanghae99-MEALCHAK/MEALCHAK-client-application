@@ -147,7 +147,6 @@ const addPostAX = (post_info) => {
             "모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?"
           )
         ) {
-          console.log(e);
           history.replace("/home");
         } else {
           history.push("/upload");

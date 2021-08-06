@@ -12,7 +12,6 @@ const DropDown = (props) => {
   const onClick = () => {
     setIsActive(!isActive);
   };
-  console.log(props);
   const { color, fontSize } = theme;
 
   const post_address = useSelector((state) => state.loc.post_address?.address);

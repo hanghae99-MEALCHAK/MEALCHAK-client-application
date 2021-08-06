@@ -26,7 +26,6 @@ const UserProfile = (props) => {
   const { color, border, fontSize, radius } = theme;
   React.useEffect(() => {
     window.scrollTo(0, 0);
-    console.log(other_user);
     dispatch(userAction.loginCheck());
     dispatch(userAction.findUserProfileAX(user_id));
     logger("Mypage props: ", location.state);
@@ -132,7 +131,7 @@ const UserProfile = (props) => {
                   text_align="center"
                   color={color.brand100}
                 >
-                  리뷰남기기
+                  리뷰 남기기
                 </Text>
               </Button>
             </Grid>

@@ -9,7 +9,7 @@ import theme from '../styles/theme';
 
 const AddressGrid = (props) => {
   const { border } = theme;
-  console.log(props);
+
   return (
     <React.Fragment>
       <Grid

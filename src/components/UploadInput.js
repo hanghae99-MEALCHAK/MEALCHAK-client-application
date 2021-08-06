@@ -17,7 +17,7 @@ const UploadInput = React.memo((props) => {
   const coords = useSelector((state) => state.loc.post_address);
   const longitude = coords.longitude;
   const latitude = coords.latitude;
-  console.log(post_address);
+
   const [post_info, setPostInfo] = useState(
     // post_info 자체는 항상 내려오는데 값이 수정전에는 undefined라서 그중에 하나 정해서 있는지 확인해본 코드
     props.post_info.place
@@ -99,7 +99,6 @@ const UploadInput = React.memo((props) => {
                 placeholder="배달 예정인 음식점을 입력해주세요."
                 value={post_info.restaurant}
                 _onChange={(e) => {
-                  console.log(e.target.value, today);
                   setPostInfo({ ...post_info, restaurant: e.target.value });
                   props.onChange({ restaurant: e.target.value });
                 }}

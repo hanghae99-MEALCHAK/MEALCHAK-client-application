@@ -81,7 +81,7 @@ const AllowChat = (props) => {
           {allow_list.length === 0 && (
             <>
               <Grid shape="empty" src="illust/emptyBubbles.png">
-                <EmptyText theme={theme}>아직 채팅 내용이 없어요.</EmptyText>
+                <EmptyText theme={theme}>아직 들어온 요청이 없어요.</EmptyText>
               </Grid>
               <Grid height="20rem"></Grid>
             </>

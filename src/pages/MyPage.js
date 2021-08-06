@@ -15,6 +15,9 @@ import { Button, Grid, Input, Text } from "../elements";
 import { Header, Footer } from "../components";
 import theme from "../styles/theme";
 
+// clipboard
+import CopyToClipboard from "react-copy-to-clipboard";
+
 const MyPage = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
@@ -31,6 +34,15 @@ const MyPage = (props) => {
     logger("Mypage props: ", props);
   }, []);
 
+  const [copied, setCopied] = React.useState(false);
+
+  const copy = () => {
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 1000);
+  };
+
   if (is_login) {
     return (
       <React.Fragment>
@@ -45,7 +57,7 @@ const MyPage = (props) => {
             <Grid borderBottom={border.boldLine} />
 
             <Grid margin="3.6rem auto 2rem">
-              <Profile user_profile={user_info.user_profile}/>
+              <Profile user_profile={user_info.user_profile} />
             </Grid>
             <Grid margin="0 auto">
               <Text
@@ -199,41 +211,64 @@ const MyPage = (props) => {
               padding="1.9rem 2rem"
               borderBottom={border.bg20}
               cursor="t"
+              justify_content="space-between"
             >
-              <svg
-                style={{ marginRight: "1.2rem" }}
-                width="30"
-                height="30"
-                viewBox="0 0 30 30"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g clipPath="url(#clip0)">
-                  <path
-                    d="M22.7274 25.1883C22.2716 23.6998 21.2672 22.3846 19.8701 21.4465C18.4729 20.5085 16.7611 20 15 20C13.2389 20 11.5271 20.5085 10.1299 21.4465C8.73276 22.3846 7.72839 23.6998 7.27259 25.1883"
-                    stroke="#36373C"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  <circle
-                    cx="15"
-                    cy="11"
-                    r="5"
-                    stroke="#36373C"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0">
-                    <rect width="30" height="30" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
+              <Grid is_flex4="t" width="60%">
+                <svg
+                  style={{ marginRight: "1.2rem" }}
+                  width="30"
+                  height="30"
+                  viewBox="0 0 30 30"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clipPath="url(#clip0)">
+                    <path
+                      d="M22.7274 25.1883C22.2716 23.6998 21.2672 22.3846 19.8701 21.4465C18.4729 20.5085 16.7611 20 15 20C13.2389 20 11.5271 20.5085 10.1299 21.4465C8.73276 22.3846 7.72839 23.6998 7.27259 25.1883"
+                      stroke="#36373C"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <circle
+                      cx="15"
+                      cy="11"
+                      r="5"
+                      stroke="#36373C"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0">
+                      <rect width="30" height="30" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
 
-              <Text color={color.bg100} size={fontSize.base} bold2="400">
-                친구 초대
-              </Text>
+                <Text color={color.bg100} size={fontSize.base} bold2="400">
+                  친구 초대
+                </Text>
+              </Grid>
+
+              <CopyToClipboard text="http://surgo.kr/" onCopy={copy}>
+                <button
+                  style={{
+                    width: "11.7rem",
+                    border: "none",
+                    backgroundColor: color.brand20,
+                    padding: "0.4rem 0.8rem",
+                    borderRadius: "0.8rem",
+                  }}
+                >
+                  <Text
+                    size={fontSize.small}
+                    bold2="700"
+                    color={color.brand100}
+                  >
+                    공유 링크 복사하기
+                  </Text>
+                </button>
+              </CopyToClipboard>
             </Grid>
             {user_info && (
               <Grid
