@@ -25,11 +25,10 @@ const Search = (props) => {
 
   const search = () => {
     dispatch(searchActions.getSearchListDB(food));
-    // setFood('');
   };
 
   React.useEffect(() => {
-    search_list = [];
+    dispatch(searchActions.food_check(false));
   }, []);
   return (
     <React.Fragment>
