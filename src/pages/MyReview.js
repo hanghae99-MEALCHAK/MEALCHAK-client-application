@@ -41,7 +41,7 @@ const MyReview = (props) => {
         <Grid shape="container">
           <Header {...props} shape="내가받은리뷰" />
           <Grid height="1.6rem" />
-          {my_review.length > 0 ? (
+          {my_review?.length !== 0 ? (
             my_review.map((p, idx) => {
               return (
                 <MyOneReview {...p} key={idx}/>

@@ -163,7 +163,8 @@ const Upload = React.memo((props) => {
           {/* <Grid borderBottom={border.line2}></Grid> */}
           <UploadInput
             post_info={post_info}
-            find_address={props.location.state.address}
+            // find_address={props.location.state?.address ? props.location.state?.address : null}
+            find_address={props.location.state?.address}
             onChange={(value) => setPostInfo({ ...post_info, ...value })}
           />
           <Grid height="10rem" />
