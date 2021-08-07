@@ -22,7 +22,6 @@ const getSearchListDB = (food) => {
     axiosModule
       .post(`/search`, food)
       .then((res) => {
-        // logger('서치모듈', res);
         let search_list = [];
 
         res.data.forEach((p) => {
@@ -61,7 +60,6 @@ export default handleActions(
     [GET_SEARCH_LIST]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.search;
-        // draft.is_food = false;
       }),
     [FOOD_CHECK]: (state, action) =>
       produce(state, (draft) => {
@@ -73,6 +71,7 @@ export default handleActions(
 
 const actionCreators = {
   getSearchListDB,
+  food_check,
 };
 
 export { actionCreators };

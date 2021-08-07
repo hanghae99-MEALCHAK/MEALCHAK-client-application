@@ -18,19 +18,16 @@ const Search = (props) => {
   const [food, setFood] = React.useState('');
   let search_list = useSelector((state) => state.search.list);
   const is_food = useSelector((state) => state.search.is_food);
-  console.log(is_food);
-
   const onChange = (e) => {
     setFood(e.target.value);
   };
 
   const search = () => {
     dispatch(searchActions.getSearchListDB(food));
-    // setFood('');
   };
 
   React.useEffect(() => {
-    search_list = [];
+    dispatch(searchActions.food_check(false));
   }, []);
   return (
     <React.Fragment>
