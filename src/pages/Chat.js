@@ -19,6 +19,9 @@ import theme from "../styles/theme";
 import logger from "../shared/Console";
 import { customAlert } from "../components/Sweet";
 import { HiOutlineMenu } from "react-icons/hi";
+import { IoClose } from "react-icons/io5";
+import "../styles/side.css";
+
 import { replace } from "lodash";
 
 // side bar
@@ -32,6 +35,8 @@ const Chat = (props) => {
   const onClick = () => {
     setIsOpen(!isOpen);
   };
+
+  // const [isOpen, setIsOpen] = React.useState(false);
 
   // 소켓
   const sock = new SockJS("http://52.78.204.238/chatting");
@@ -62,7 +67,6 @@ const Chat = (props) => {
     dispatch(chatActions.getChatMessagesAX());
     dispatch(chatActions.getChatUserAX(room_id));
   }, []);
-
 
   React.useEffect(() => {
     if (!room_id) {
@@ -184,33 +188,47 @@ const Chat = (props) => {
           margin="0 auto"
           bg="#7B6E62"
         >
-          <Grid shape="container">
-            <SideGrid>
+          <Grid shape="container" align_items="flex-end">
+            <SideGrid isOpen={isOpen}>
               <Sidebar
+                transitions={true}
                 touch={true}
                 pullRight={true}
-                sidebar={<SideContent roomName={roomName}/>}
+                sidebar={<SideContent roomName={roomName} _onClick={onClick} />}
                 open={isOpen}
                 onSetOpen={setIsOpen}
+                sidebarClassName={isOpen ? "side-nav active" : "side-nav"}
                 styles={{
-                  sidebar: { background: "white", width: "80%" },
+                  // sidebar: {
+                  //   background: "white",
+                  //   width: "100%",
+                  //   position: "fixed",
+                  // },
                   content: { text_align: "right" },
                 }}
                 dragToggleDistance={100}
               >
-                <HiOutlineMenu
+                {/* <HiOutlineMenu
                   size="24"
                   color={color.bg100}
                   style={{
-                    margin: "1rem 1.3rem 0 0",
+                    position: "fixed",
+                    right: "50%",
+                    margin: "1rem 0",
+                    transform: 'translateX(16rem)',
                     cursor: "pointer",
-                    zIndex: "1000",
+                    zIndex: "0",
                   }}
                   onClick={onClick}
-                />
+                /> */}
               </Sidebar>
             </SideGrid>
-            <Header {...props} shape="채팅방">
+            <Header
+              {...props}
+              shape="채팅방"
+              roomName={roomName}
+              onChange={(value) => setIsOpen({ value })}
+            >
               {roomName}
             </Header>
 
@@ -224,11 +242,12 @@ const Chat = (props) => {
 };
 
 const SideGrid = styled.div`
-  position: fixed;
-  width: 36rem;
+  position: absolute;
+  width: 30rem;
   height: 100vh;
   z-index: 101;
   text-align: right;
+  display: ${props => props.isOpen? "auto" : "none"};
 `;
 
 export default Chat;

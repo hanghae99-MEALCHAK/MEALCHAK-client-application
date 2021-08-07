@@ -9,9 +9,23 @@ import { useState } from "react";
 
 import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
+import { HiOutlineMenu } from "react-icons/hi";
+import { IoClose } from "react-icons/io5";
+
+import { useDetectOutsideClick } from "../components/useDetectOutsideClick";
+import Sidebar from "react-sidebar";
+import { SideContent } from ".";
 
 const Header = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
+
+  const { color } = theme;
+  // side nav
+  const dropdownRef = React.useRef(null);
+  const [isOpen, setIsOpen] = useDetectOutsideClick(dropdownRef, false);
+  const onClick = () => {
+    setIsOpen(!isOpen);
+  };
 
   React.useEffect(() => {
     // 헤더 props로는 page별 상위컴포넌트에서 내려받는 history, shape이 있음
@@ -178,9 +192,10 @@ const Header = (props) => {
               position: "absolute",
               marginLeft: "1.2rem",
               cursor: "pointer",
+              zIndex: 1,
             }}
-            width="24"
-            height="24"
+            width="2.4rem"
+            height="2.4rem"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -209,7 +224,52 @@ const Header = (props) => {
           >
             {props.children}
           </Text>
-          
+          <HiOutlineMenu
+            size="2.4rem"
+            color={color.bg100}
+            style={{
+              // margin: "1rem 1.3rem 0 0",
+              cursor: "pointer",
+              zIndex: "1",
+              // opacity: isOpen ? 0 : 1,
+            }}
+            onClick={() => {
+              onClick();
+              props.onChange(isOpen);
+            }}
+          />
+          {/* <SideGrid>
+            <Sidebar
+              touch={true}
+              pullRight={true}
+              sidebar={<SideContent roomName={props.roomName} />}
+              open={isOpen}
+              onSetOpen={setIsOpen}
+              styles={{
+                root: { height: "100vh" },
+                sidebar: { background: "white", width: "80%" },
+                content: { text_align: "right" },
+              }}
+            ></Sidebar>
+          </SideGrid>
+          {!isOpen ? (
+            <>
+            </>
+          ) : (
+            <>
+              <IoClose
+                size="24"
+                color={color.bg100}
+                style={{
+                  margin: "1rem 0 0 0",
+                  cursor: "pointer",
+                  zIndex: "1",
+                }}
+                onClick={onClick}
+              />
+            </>
+          )} */}
+
           <Grid width="2.4rem"></Grid>
         </Grid>
       </React.Fragment>
@@ -508,5 +568,13 @@ Header.defaultProps = {
   children: null,
   _onClick: () => {},
 };
+
+const SideGrid = styled.div`
+  position: fixed;
+  width: 36rem;
+  height: inherit;
+  /* z-index: 101; */
+  text-align: right;
+`;
 
 export default Header;
