@@ -200,7 +200,7 @@ const DetailPost = (props) => {
             bold={fontSize.bold}
             cursor="t"
             _onClick={() => {
-              history.push({
+              history.replace({
                 pathname: `/upload/${post_id}`,
                 state: { ...props },
               });
