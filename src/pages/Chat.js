@@ -12,31 +12,25 @@ import SockJS from "sockjs-client";
 import styled from "styled-components";
 import Spinner from "../shared/Spinner";
 import { Header, MessageList, MessageWrite, SideContent } from "../components";
-import { Grid, Text } from "../elements";
+import { Grid } from "../elements";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 import { actionCreators as postActions } from "../redux/modules/post";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
 import { customAlert } from "../components/Sweet";
-import { HiOutlineMenu } from "react-icons/hi";
-import { IoClose } from "react-icons/io5";
 import "../styles/side.css";
 
-import { replace } from "lodash";
 
 // side bar
-import { useDetectOutsideClick } from "../components/useDetectOutsideClick";
 import Sidebar from "react-sidebar";
 
 const Chat = (props) => {
   // side nav
-  const dropdownRef = React.useRef(null);
-  const [isOpen, setIsOpen] = useDetectOutsideClick(dropdownRef, false);
+  const [isOpen, setIsOpen] = React.useState(false);
   const onClick = () => {
     setIsOpen(!isOpen);
   };
 
-  // const [isOpen, setIsOpen] = React.useState(false);
 
   // 소켓
   const sock = new SockJS("http://52.78.204.238/chatting");
@@ -47,6 +41,8 @@ const Chat = (props) => {
 
   const roomName = props.history.location.state.roomName;
   const room_id = props.history.location.state.room_id;
+  const post_id = props.history.location.state.post_id;
+
 
   // 보낼 메세지 정보
   const sender_info = useSelector((state) => state.user.user);
@@ -59,11 +55,15 @@ const Chat = (props) => {
   const { border, color } = theme;
 
   React.useEffect(() => {
+    logger("open", isOpen)
+  }, [isOpen])
+
+  React.useEffect(() => {
     logger("chat props", props);
     logger("chat sender info", sender_profile);
     logger("chat sender info", sender_nick);
 
-    dispatch(chatActions.moveChatRoom(room_id, roomName));
+    dispatch(chatActions.moveChatRoom(room_id, roomName, post_id));
     dispatch(chatActions.getChatMessagesAX());
     dispatch(chatActions.getChatUserAX(room_id));
   }, []);
@@ -194,40 +194,22 @@ const Chat = (props) => {
                 transitions={true}
                 touch={true}
                 pullRight={true}
-                sidebar={<SideContent roomName={roomName} _onClick={onClick} />}
+                sidebar={<SideContent roomName={roomName} _onClick={onClick} post_id={post_id} />}
                 open={isOpen}
                 onSetOpen={setIsOpen}
                 sidebarClassName={isOpen ? "side-nav active" : "side-nav"}
                 styles={{
-                  // sidebar: {
-                  //   background: "white",
-                  //   width: "100%",
-                  //   position: "fixed",
-                  // },
                   content: { text_align: "right" },
                 }}
-                dragToggleDistance={100}
               >
-                {/* <HiOutlineMenu
-                  size="24"
-                  color={color.bg100}
-                  style={{
-                    position: "fixed",
-                    right: "50%",
-                    margin: "1rem 0",
-                    transform: 'translateX(16rem)',
-                    cursor: "pointer",
-                    zIndex: "0",
-                  }}
-                  onClick={onClick}
-                /> */}
+                <></>
               </Sidebar>
             </SideGrid>
             <Header
               {...props}
               shape="채팅방"
               roomName={roomName}
-              onChange={(value) => setIsOpen({ value })}
+              _onClick={onClick}
             >
               {roomName}
             </Header>

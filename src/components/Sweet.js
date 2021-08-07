@@ -423,6 +423,65 @@ const SweetDenyChat = (join_id) => {
     });
 };
 
+
+const SweetOutChat = (post_id) => {
+  sweet
+    .fire({
+      customClass: {
+        popup: "border",
+      },
+      width: "auto",
+      padding: "0 1rem 1rem",
+      title: (
+        <Grid>
+          <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
+            채팅방 나가기
+          </Text>
+        </Grid>
+      ),
+      text: "나가기를 하면 대화내용이 모두 삭제되고 채팅목록에서도 삭제됩니다.",
+      showDenyButton: true,
+      denyButtonText: (
+        <Text padding="0 2rem" color={color.brand100}>
+          취소
+        </Text>
+      ),
+      denyButtonColor: color.brand20,
+      confirmButtonColor: color.brand100,
+      confirmButtonText: (
+        <Text padding="0 2rem" color={color.bg0}>
+          나가기
+        </Text>
+      ),
+      focusConfirm: false,
+    })
+    .then((res) => {
+      if (res.isConfirmed) {
+        axiosModule
+          .delete(`/chat/quit/${post_id}`)
+          .then((res) => {
+            sweetConfirmReload(
+              "수락 완료",
+              "수락이 완료되었습니다.",
+              "/chatlist"
+            );
+          })
+          .catch((e) => {
+            logger("채팅방 나가기 요청 에러", e);
+            sweetConfirmReload(
+              "나가기 요청 에러",
+              "채팅방 나가기 요청 중 에러가 발생했습니다",
+              ""
+            );
+          });
+      } else if (res.isDenied) {
+        return;
+      } else {
+        return;
+      }
+    });
+};
+
 const customAlert = {
   sweetConfirmReload,
   sweetNeedLogin,
@@ -431,6 +490,7 @@ const customAlert = {
   SweetChatRequest,
   SweetAllowChat,
   SweetDenyChat,
+  SweetOutChat,
 };
 
 export { customAlert };
