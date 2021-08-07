@@ -9,7 +9,6 @@ import { Grid, Input, Text } from '../elements';
 import { actionCreators as searchActions } from '../redux/modules/search';
 
 import theme from '../styles/theme';
-import logger from '../shared/Console';
 
 const Search = (props) => {
   const { border } = theme;
@@ -25,6 +24,11 @@ const Search = (props) => {
 
   const search = () => {
     dispatch(searchActions.getSearchListDB(food));
+  };
+
+  const foodReset = () => {
+    setFood('');
+    dispatch(searchActions.food_check(false));
   };
 
   React.useEffect(() => {
@@ -56,15 +60,53 @@ const Search = (props) => {
               is_submit
             ></Input>
           </Grid>
-          {/* <svg
+
+          {food ? (
+            <svg
+              style={{
+                marginTop: '0.5rem',
+                marginLeft: '28.7rem',
+                fontSize: '1.9rem',
+                position: 'absolute',
+                cursor: 'pointer',
+              }}
+              width="2rem"
+              height="2rem"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              onClick={() => {
+                foodReset();
+              }}
+            >
+              <circle cx="10" cy="10" r="8" fill="#CECAC7" />
+              <path
+                d="M7.14307 7.14282L12.8574 12.8571"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <path
+                d="M7.14307 12.8572L12.8574 7.14289"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          ) : (
+            <></>
+          )}
+
+          <svg
             style={{
-              marginLeft: '32rem',
+              marginTop: '0.5rem',
+              marginLeft: '31.5rem',
               fontSize: '1.9rem',
               position: 'absolute',
               cursor: 'pointer',
             }}
-            width="24"
-            height="24"
+            width="2.4rem"
+            height="2.4rem"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -80,9 +122,9 @@ const Search = (props) => {
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-          </svg> */}
+          </svg>
         </Grid>
-        <Grid is_flex2 width="32rem" margin="1rem auto">
+        <Grid is_flex2 width="32rem" margin="1.5rem auto">
           <Grid>
             <Text size="1.3rem" color="#9A9896" bold2="500">
               정렬 기준
