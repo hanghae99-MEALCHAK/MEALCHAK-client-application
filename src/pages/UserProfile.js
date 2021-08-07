@@ -136,7 +136,7 @@ const UserProfile = (props) => {
               </Button>
             </Grid>
             <Grid height="1.6rem" />
-            {other_user ? (
+            {other_user?.user_review.length !== 0 ? (
               other_user?.user_review.map((p, idx) => {
                 return <MyOneReview other_user {...p} key={idx} />;
               })

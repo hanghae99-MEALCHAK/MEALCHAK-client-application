@@ -43,7 +43,7 @@ const MyPost = (props) => {
         <Grid shape="container">
           <Header {...props} shape="내가쓴글" />
           <Grid height="1.6rem" />
-          {my_post?.length > 0 ? (
+          {my_post?.length !== 0 ? (
             my_post.map((p, idx) => {
               return <Post {...p} is_profile key={idx} />;
             })

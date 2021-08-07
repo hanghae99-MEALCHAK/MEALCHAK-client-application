@@ -48,7 +48,7 @@ const UploadInput = React.memo((props) => {
   );
 
   React.useEffect(() => {
-    if (!post_address && props.find_address) {
+    if (!post_address && props?.find_address){
       dispatch(locateActions.getMyPostCoordAX(props.find_address));
       setPostInfo({ ...post_info, place: post_address });
       props?.onChange({ place: post_address });

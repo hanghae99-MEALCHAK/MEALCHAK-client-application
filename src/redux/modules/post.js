@@ -14,7 +14,10 @@ const EDIT_POST = 'EDIT_POST';
 const DELETE_POST = 'DELETE_POST';
 const SET_RANK = 'SET_RANK';
 
-const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
+const setPost = createAction(SET_POST, (post_list, paging) => ({
+  post_list,
+  paging,
+}));
 const addPost = createAction(ADD_POST, (post_item) => ({ post_item }));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
@@ -25,13 +28,13 @@ const setRank = createAction(SET_RANK, (rank_list) => ({ rank_list }));
 
 const initialState = {
   list: [],
-  is_loaded: false,
   rank: [],
 };
 
 const getPostAX = () => {
   return function (dispatch, getState, { history }) {
     dispatch(userActions.loading(true));
+
     axiosModule
       .get('/posts/around')
       .then((res) => {
@@ -201,7 +204,7 @@ const editPostAX = (post_id, post_info) => {
         customAlert.sweetConfirmReload(
           '수정 완료',
           '모집글 수정이 완료되었습니다.',
-          `/post/${post_id}`,
+          `/post/${post_id}`
         );
         // customAlert.sweetConfirmReload("수정 완료", '모집글 수정이 완료되었습니다.', `/home`);
       })
