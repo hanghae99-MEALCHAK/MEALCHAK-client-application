@@ -81,6 +81,8 @@ const Post = (props) => {
                   {props.username}
                 </Text>
                 <Grid
+                  width={props.valid === false || disabled ? "5rem" : ""}
+                  minWidth="5.5rem"
                   maxWidth="9.1rem"
                   height="2.3rem"
                   bg={color.bg20}
@@ -91,10 +93,17 @@ const Post = (props) => {
                   <Text
                     size="1rem"
                     text_align="center"
-                    color={color.success100}
+                    margin="0"
+                    color={
+                      props.valid === false || disabled
+                        ? "#9A9896"
+                        : color.success100
+                    }
                     bold
                   >
-                    모집 인원 {props.nowHeadCount}/{props.headCount}명
+                    {props.valid === false || disabled
+                      ? `모집마감`
+                      : `모집 인원 ${props.nowHeadCount}/${props.headCount}명`}
                   </Text>
                 </Grid>
               </Grid>
@@ -226,54 +235,54 @@ const Post = (props) => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid is_flex maxWidth="29rem" margin="0 0 1.5rem 0">
-            <Button
-              width="14rem"
-              height="4.4rem"
-              radius="1.2rem"
-              bg={props.valid === false ? "#EBE9E8" : color.brand20}
-              border="none"
-              color={props.valid === false ? "#CECAC7" : color.brand100}
-              size={fontSize.small}
-              bold={fontSize.bold}
-              cursor="pointer"
-              disabled={props.valid === false ? true : false}
-              _onClick={() => {
-                history.push(`/post/${props.post_id}`);
-              }}
-            >
-              자세히 보기
-            </Button>
-            <Button
-              width="14rem"
-              height="4.4rem"
-              radius="1.2rem"
-              bg={
-                disabled || props.valid === false ? "#EBE9E8" : color.brand100
-              }
-              border="none"
-              size={fontSize.small}
-              bold={fontSize.bold}
-              cursor="pointer"
-              disabled={disabled}
-              _onClick={(e) => {
-                requestJoin();
-                if (props.headCount === props.nowHeadCount) {
-                  return setDisabled(true);
-                }
-              }}
-            >
-              <Text
-                bold
+          {props.valid === false || disabled ? (
+            ""
+          ) : (
+            <Grid is_flex maxWidth="29rem" margin="0 0 1.5rem 0">
+              <Button
+                width="14rem"
+                height="4.4rem"
+                radius="1.2rem"
+                bg={color.brand20}
+                border="none"
+                color={color.brand100}
                 size={fontSize.small}
-                color={
-                  disabled || props.valid === false ? "#CECAC7" : color.bg0
-                }
+                bold={fontSize.bold}
+                cursor="pointer"
+                _onClick={() => {
+                  history.push(`/post/${props.post_id}`);
+                }}
               >
-                {disabled ? "모집 마감됐어요" : "채팅 시작하기"}
-              </Text>
-            </Button>
-          </Grid>
+                자세히 보기
+              </Button>
+              <Button
+                width="14rem"
+                height="4.4rem"
+                radius="1.2rem"
+                bg={disabled ? "#EBE9E8" : color.brand100}
+                border="none"
+                size={fontSize.small}
+                bold={fontSize.bold}
+                cursor="pointer"
+                disabled={disabled}
+                _onClick={(e) => {
+                  requestJoin();
+                  if (props.headCount === props.nowHeadCount) {
+                    return setDisabled(true);
+                  }
+                }}
+              >
+                <Text
+                  bold
+                  size={fontSize.small}
+                  color={disabled ? "#CECAC7" : color.bg0}
+                >
+                  {/* {disabled ? "모집 마감됐어요" : "채팅 시작하기"} */}
+                  채팅 시작하기
+                </Text>
+              </Button>
+            </Grid>
+          )}
         </Grid>
       </Grid>
     </React.Fragment>
