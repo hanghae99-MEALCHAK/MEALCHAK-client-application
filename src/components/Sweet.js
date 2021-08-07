@@ -76,6 +76,9 @@ const sweetNeedLogin = (way) => {
     .fire({
       customClass: {
         popup: "border",
+        confirmButton: "confirmButton",
+        cancelButton: "cancelButton",
+        denyButton: "denyButton",
       },
       width: "auto",
       padding: "0 1rem 1rem",
@@ -122,6 +125,9 @@ const sweetWA = () => {
     .fire({
       customClass: {
         popup: "border",
+        confirmButton: "confirmButton",
+        cancelButton: "cancelButton",
+        denyButton: "denyButton",
       },
       width: "auto",
       padding: "0 1rem 1rem",
@@ -162,6 +168,9 @@ const sweetEditError = (path) => {
     .fire({
       customClass: {
         popup: "border",
+        confirmButton: "confirmButton",
+        cancelButton: "cancelButton",
+        denyButton: "denyButton",
       },
       width: "auto",
       padding: "0 1rem 1rem",
@@ -209,6 +218,9 @@ const SweetChatRequest = (user_id, post_user_id, post_id) => {
       .fire({
         customClass: {
           popup: "border",
+          confirmButton: "confirmButton",
+          cancelButton: "cancelButton",
+          denyButton: "denyButton",
         },
         width: "auto",
         padding: "0 1rem 1rem",
@@ -247,6 +259,9 @@ const SweetChatRequest = (user_id, post_user_id, post_id) => {
       .fire({
         customClass: {
           popup: "border",
+          confirmButton: "confirmButton",
+          cancelButton: "cancelButton",
+          denyButton: "denyButton",
         },
         width: "auto",
         padding: "0 1rem 1rem",
@@ -310,6 +325,9 @@ const SweetAllowChat = (join_id) => {
     .fire({
       customClass: {
         popup: "border",
+        confirmButton: "confirmButton",
+        cancelButton: "cancelButton",
+        denyButton: "denyButton",
       },
       width: "auto",
       padding: "0 1rem 1rem",
@@ -369,6 +387,9 @@ const SweetDenyChat = (join_id) => {
     .fire({
       customClass: {
         popup: "border",
+        confirmButton: "confirmButton",
+        cancelButton: "cancelButton",
+        denyButton: "denyButton",
       },
       width: "auto",
       padding: "0 1rem 1rem",
@@ -423,12 +444,14 @@ const SweetDenyChat = (join_id) => {
     });
 };
 
-
 const SweetOutChat = (post_id) => {
   sweet
     .fire({
       customClass: {
         popup: "border",
+        confirmButton: "confirmButton",
+        cancelButton: "cancelButton",
+        denyButton: "denyButton",
       },
       width: "auto",
       padding: "0 1rem 1rem",

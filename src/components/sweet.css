@@ -10,16 +10,16 @@ button {
 }
 
 .confirmButton {
-  width: 100% !important;
+  width: auto !important;
   border-radius: 1.2rem !important;
 }
 
 .cancelButton {
-  width: 100% !important;
+  width: auto !important;
   border-radius: 1.2rem !important;
 }
 
 .denyButton {
-  width: 100% !important;
+  width: auto !important;
   border-radius: 1.2rem !important;
 }
