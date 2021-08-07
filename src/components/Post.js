@@ -18,7 +18,7 @@ const Post = (props) => {
   const day = ym[2].split(" ");
   // 시, 분
   const hm = day[1].split(":");
-  
+
   const is_login = useSelector((state) => state.user.is_login);
   const user_info = useSelector((state) => state.user.user);
   const [disabled, setDisabled] = React.useState(false);
@@ -42,6 +42,9 @@ const Post = (props) => {
   };
 
   React.useEffect(() => {
+    if (props.valid === false) {
+      return setDisabled(true);
+    }
     if (props.headCount === props.nowHeadCount) {
       return setDisabled(true);
     } else if (props.headCount > props.nowHeadCount) {
@@ -96,7 +99,6 @@ const Post = (props) => {
                 </Grid>
               </Grid>
               <Text size="1rem" color={color.bg80} bold2="400">
-                {/* {props.insert_dt} */}
                 {ym[0]}년 {ym[1]}월 {day[0]}일 {hm[0]}:{hm[1]}
               </Text>
             </Grid>
@@ -229,11 +231,13 @@ const Post = (props) => {
               width="14rem"
               height="4.4rem"
               radius="1.2rem"
-              bg={color.brand20}
+              bg={props.valid === false ? "#EBE9E8" : color.brand20}
               border="none"
-              color={color.brand100}
+              color={props.valid === false ? "#CECAC7" : color.brand100}
               size={fontSize.small}
               bold={fontSize.bold}
+              cursor="pointer"
+              disabled={props.valid === false ? true : false}
               _onClick={() => {
                 history.push(`/post/${props.post_id}`);
               }}
@@ -244,12 +248,13 @@ const Post = (props) => {
               width="14rem"
               height="4.4rem"
               radius="1.2rem"
-              bg={disabled ? "#EBE9E8" : color.brand100}
+              bg={
+                disabled || props.valid === false ? "#EBE9E8" : color.brand100
+              }
               border="none"
               size={fontSize.small}
               bold={fontSize.bold}
               cursor="pointer"
-              //            _onClick={requestJoin}
               disabled={disabled}
               _onClick={(e) => {
                 requestJoin();
@@ -261,7 +266,9 @@ const Post = (props) => {
               <Text
                 bold
                 size={fontSize.small}
-                color={disabled ? "#CECAC7" : color.bg0}
+                color={
+                  disabled || props.valid === false ? "#CECAC7" : color.bg0
+                }
               >
                 {disabled ? "모집 마감됐어요" : "채팅 시작하기"}
               </Text>

@@ -4,12 +4,16 @@ import { Grid, Text, Input } from "../elements";
 import { useState } from "react";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DropDown from "./DropDown";
 import moment from "moment";
 
+import { actionCreators as locateActions } from "../redux/modules/loc";
+
 const UploadInput = React.memo((props) => {
   const { color, fontSize } = theme;
+
+  const dispatch = useDispatch();
 
   const today = moment().format("YYYY-MM-DD");
   const now_time = moment().format("HH:mm");
@@ -44,6 +48,11 @@ const UploadInput = React.memo((props) => {
   );
 
   React.useEffect(() => {
+    if (!post_address) {
+      dispatch(locateActions.getMyPostCoordAX(props.find_address));
+      setPostInfo({ ...post_info, place: post_address });
+      props?.onChange({ place: post_address });
+    }
     logger("uploadinput 페이지", props);
     logger("uploadinput 페이지2", post_info);
   }, []);
@@ -76,7 +85,11 @@ const UploadInput = React.memo((props) => {
                 padding="1.5rem 1.3rem"
               >
                 <Text color={color.bg60} size={fontSize.base}>
-                  {post_info.place ? post_info.place : "배달 받을 곳을 선택해주세요"}
+                  {post_address
+                    ? post_address
+                    : props?.find_address
+                    ? props.find_address
+                    : "배달 받을 곳을 선택해주세요"}
                 </Text>
               </Grid>
             </FocusWithin>
