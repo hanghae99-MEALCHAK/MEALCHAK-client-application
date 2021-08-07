@@ -8,6 +8,7 @@ import { actionCreators as chatActions } from "../redux/modules/chat";
 import styled from "styled-components";
 import { Grid, Input, Button, Text } from "../elements";
 import theme from "../styles/theme";
+import { customAlert } from "./Sweet";
 
 const MessageWrite = (props) => {
   const dispatch = useDispatch();
@@ -22,6 +23,9 @@ const MessageWrite = (props) => {
   };
 
   const sendMessageBtn = () => {
+    if(new_message === "" ) {
+      return customAlert.sweetConfirmReload("메세지를 입력해주세요.", null, "");
+    }
     logger("보낼 메세지 내용", new_message);
     sendMessage();
     setMessage("");

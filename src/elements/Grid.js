@@ -189,7 +189,7 @@ const GridBox = styled.div`
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
   ${(props) => (props.center ? `text-align: ${props.center};` : "")}
-  ${(props) => (props.is_fixed ? `position: fixed; bottom: 0; z-index: 100;` : "")}
+  ${(props) => (props.is_fixed ? `position: fixed; bottom: 0; z-index: 1;` : "")}
   ${(props) => (props.is_fixed_top ? `position: fixed; top: 0;` : "")}
 
   ${(props) => (props.bottom ? `bottom: ${props.bottom};` : "")}
@@ -266,6 +266,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   ${(props) => (props.text_align ? `text-align: ${props.text_align}; ` : "")}
+  ${(props) => (props.align_items ? `align-items: ${props.align_items};` : "")}
 `;
 
 const EmptyImg = styled.div`
