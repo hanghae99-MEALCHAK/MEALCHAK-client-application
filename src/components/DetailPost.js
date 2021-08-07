@@ -37,7 +37,6 @@ const DetailPost = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
   const user_info = useSelector((state) => state.user.user);
 
-
   const [disabled, setDisabled] = React.useState(false);
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -46,7 +45,7 @@ const DetailPost = (props) => {
   React.useEffect(() => {
     if (props.headCount === props.nowHeadCount) {
       return setDisabled(true);
-    } else if(props.headCount > props.nowHeadCount){
+    } else if (props.headCount > props.nowHeadCount) {
       return setDisabled(false);
     }
   }, [disabled ? disabled : null]);
@@ -61,11 +60,7 @@ const DetailPost = (props) => {
 
   const requestJoin = () => {
     if (is_login) {
-      customAlert.SweetChatRequest(
-        user_info?.user_id,
-        user_id,
-        post_id
-      );
+      customAlert.SweetChatRequest(user_info?.user_id, user_id, post_id);
       return;
     } else {
       customAlert.sweetNeedLogin();
@@ -203,8 +198,12 @@ const DetailPost = (props) => {
             color={color.brand100}
             size={fontSize.small}
             bold={fontSize.bold}
+            cursor="t"
             _onClick={() => {
-              history.push(`/upload/${post_id}`);
+              history.push({
+                pathname: `/upload/${post_id}`,
+                state: { ...props },
+              });
             }}
           >
             수정하기
@@ -218,6 +217,7 @@ const DetailPost = (props) => {
             color={color.bg0}
             size={fontSize.small}
             bold={fontSize.bold}
+            cursor="t"
             _onClick={deleteBtn}
           >
             삭제하기

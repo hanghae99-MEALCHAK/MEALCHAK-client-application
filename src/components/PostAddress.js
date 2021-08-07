@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import DaumPostCode from "react-daum-postcode";
+import { customAlert } from "./Sweet";
 import { AddressGrid } from ".";
 
 import { useDispatch } from "react-redux";
@@ -38,6 +39,7 @@ const PostAddress = React.memo((props) => {
   React.useEffect(() => {
     if (address === "") return;
     dispatch(locateActions.getMyPostCoordAX(address));
+    customAlert.sweetConfirmReload("설정 완료", "주소 설정이 완료되었습니다.", "");
   }, [address]);
 
   return (
