@@ -21,7 +21,6 @@ const MyPost = (props) => {
   const my_post = useSelector((state) => state.user?.myPost);
   const user_info = useSelector((state) => state.user.user);
 
-  console.log(my_post);
   const { color, border, fontSize } = theme;
 
   React.useEffect(() => {

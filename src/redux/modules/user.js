@@ -256,6 +256,7 @@ const getMyPostAX = () => {
                 // distance: p.distance,
                 room_id: p.roomId,
                 nowHeadCount: p.nowHeadCount,
+                valid: p.valid,
               };
               posts.push(my_post);
             });
