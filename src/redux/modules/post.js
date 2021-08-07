@@ -27,7 +27,6 @@ const initialState = {
   list: [],
   is_loaded: false,
   rank: [],
-  temp: [],
 };
 
 const getPostAX = () => {
@@ -202,7 +201,7 @@ const editPostAX = (post_id, post_info) => {
         customAlert.sweetConfirmReload(
           '수정 완료',
           '모집글 수정이 완료되었습니다.',
-          `/post/${post_id}`
+          `/post/${post_id}`,
         );
         // customAlert.sweetConfirmReload("수정 완료", '모집글 수정이 완료되었습니다.', `/home`);
       })

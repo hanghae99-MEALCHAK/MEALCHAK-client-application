@@ -10,7 +10,6 @@ import { actionCreators as postActions } from "./post";
 import jwtDecode from "jwt-decode";
 
 import logger from "../../shared/Console";
-import { customAlert } from "../../components/Sweet";
 
 const SET_LOC = "SET_LOC";
 const SET_POSTADDRESS = "SET_POSTADDRESS";
@@ -83,8 +82,6 @@ const getMyPostCoordAX = (address) => {
           longitude: parseFloat(doc.x),
         };
         dispatch(setPostAddress(address));
-        
-        customAlert.sweetConfirmReload("설정 완료", "주소 설정이 완료되었습니다.", "");
 
         // history.push("/upload");
         // window.location.replace('/upload');

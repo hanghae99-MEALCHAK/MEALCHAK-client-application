@@ -58,7 +58,6 @@ const ReviewWrite = (props) => {
     }
   }, [manner, review]);
 
-  console.log(props);
   return (
     <Grid
       maxWidth="36rem"
@@ -158,8 +157,6 @@ const ReviewWrite = (props) => {
             dispatch(
               userActions.reviewWriteAX(manner, review, location.state?.user_id)
             );
-            console.log("되는거임?");
-            console.log(manner, review);
           }}
           disabled={disabled}
         >

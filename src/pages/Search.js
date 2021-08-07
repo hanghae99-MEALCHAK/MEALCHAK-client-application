@@ -18,6 +18,7 @@ const Search = (props) => {
   const [food, setFood] = React.useState('');
   let search_list = useSelector((state) => state.search.list);
   const is_food = useSelector((state) => state.search.is_food);
+
   const onChange = (e) => {
     setFood(e.target.value);
   };
