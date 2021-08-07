@@ -23,11 +23,11 @@ const Image = (props) => {
   };
 
   if (shape === 'circle') {
-    return <ImageCircle {...styles}></ImageCircle>;
+    return <ImageCircle {...styles} onClick={_onClick}></ImageCircle>;
   }
 
   if (shape === 'circleBtn') {
-    return <ButtonCircle {...styles}></ButtonCircle>;
+    return <ButtonCircle {...styles} onClick={_onClick}></ButtonCircle>;
   }
 
   if (shape === 'rectangle') {
@@ -44,11 +44,11 @@ const Image = (props) => {
   }
 
   if (shape === 'main') {
-    return <MainInner {...styles}>{children}</MainInner>;
+    return <MainInner {...styles}>{children} onClick={_onClick}</MainInner>;
   }
   return (
     <React.Fragment>
-      <ImageDefault {...styles}></ImageDefault>
+      <ImageDefault {...styles} onClick={_onClick}></ImageDefault>
     </React.Fragment>
   );
 };
@@ -95,6 +95,7 @@ const ImageCircle = styled.div`
   width: var(--size);
   height: var(--size);
   border-radius: var(--size);
+  ${(props) => (props.cursor ? `cursor: pointer;` : '')}
 
   background-image: url('${(props) => props.src}');
   background-size: cover;

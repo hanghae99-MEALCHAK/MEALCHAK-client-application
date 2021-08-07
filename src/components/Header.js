@@ -5,27 +5,16 @@ import { history } from '../redux/configureStore';
 import { customAlert } from './Sweet';
 
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
 
-import { Grid, Text, Image } from "../elements";
+import { Grid, Text } from "../elements";
 import theme from "../styles/theme";
 import { HiOutlineMenu } from "react-icons/hi";
-import { IoClose } from "react-icons/io5";
 
-import { useDetectOutsideClick } from "../components/useDetectOutsideClick";
-import Sidebar from "react-sidebar";
-import { SideContent } from ".";
 
 const Header = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
 
   const { color } = theme;
-  // side nav
-  const dropdownRef = React.useRef(null);
-  const [isOpen, setIsOpen] = useDetectOutsideClick(dropdownRef, false);
-  const onClick = () => {
-    setIsOpen(!isOpen);
-  };
 
   React.useEffect(() => {
     // 헤더 props로는 page별 상위컴포넌트에서 내려받는 history, shape이 있음
@@ -228,18 +217,13 @@ const Header = (props) => {
             size="2.4rem"
             color={color.bg100}
             style={{
-              // margin: "1rem 1.3rem 0 0",
+              margin: "0rem 1.2rem 0 0",
               cursor: "pointer",
               zIndex: "1",
               // opacity: isOpen ? 0 : 1,
             }}
-            onClick={() => {
-              onClick();
-              props.onChange(isOpen);
-            }}
+            onClick={props._onClick}
           />
-
-          <Grid width="2.4rem"></Grid>
         </Grid>
       </React.Fragment>
     );

@@ -50,10 +50,14 @@ const GET_CHAT_USER = "GET_CHAT_USER";
 const setChatList = createAction(SET_CHAT_LIST, (myChatList) => ({
   myChatList,
 }));
-const moveChatRoom = createAction(MOVE_CHAT_ROOM, (room_id, roomName) => ({
-  room_id,
-  roomName,
-}));
+const moveChatRoom = createAction(
+  MOVE_CHAT_ROOM,
+  (room_id, roomName, post_id) => ({
+    room_id,
+    roomName,
+    post_id,
+  })
+);
 const clearChat = createAction(CLEAR_CHAT, () => {});
 const getMessages = createAction(GET_MSG, (newMessage) => ({ newMessage }));
 const setMessage = createAction(SET_MSG, (chatMassageArray) => ({
@@ -80,6 +84,7 @@ const initialState = {
   currentChat: {
     room_id: null,
     roomName: null,
+    post_id: null,
   },
   // 현재 접속한 채팅 메시지 (DB저장된 내용에 추가되는 메세지 push)
   messages: [],
@@ -96,7 +101,7 @@ const initialState = {
 };
 
 // middleware
-const getChatListAX = () => {
+const setChatListAX = () => {
   return function (dispatch, getState, { history }) {
     axiosModule
       .get("/chat/rooms/mine")
@@ -340,6 +345,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.currentChat.room_id = action.payload.room_id;
         draft.currentChat.roomName = action.payload.roomName;
+        draft.currentChat.post_id = action.payload.post_id;
       }),
     // clearChat - 현재방 id, name 초기화
     [CLEAR_CHAT]: (state, action) =>
@@ -408,7 +414,7 @@ export default handleActions(
 );
 
 const actionCreators = {
-  getChatListAX,
+  setChatListAX,
   getChatMessagesAX,
   enterRoomAX,
   moveChatRoom,
