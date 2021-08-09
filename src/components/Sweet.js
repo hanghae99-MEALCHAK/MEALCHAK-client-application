@@ -36,7 +36,7 @@ const sweetConfirmReload = (msg_title, msg_content, path) => {
           <Text size={fontSize.base} bold2="700" margin="0 auto 1rem">
             {msg_title}
           </Text>
-          <Text size={fontSize.small}>{msg_content}</Text>
+          <Text size={fontSize.small} word_break="keep-all">{msg_content}</Text>
         </Grid>
       ),
       confirmButtonColor: color.brand100,
@@ -505,6 +505,51 @@ const SweetOutChat = (post_id) => {
     });
 };
 
+const SweetBen = (sendBen, other_user_id, other_user_name) => {
+  sweet
+    .fire({
+      customClass: {
+        popup: "border",
+        confirmButton: "confirmButton",
+        cancelButton: "cancelButton",
+        denyButton: "denyButton",
+      },
+      width: "auto",
+      padding: "0 1rem 1rem",
+      title: (
+        <Grid>
+          <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
+            {other_user_name}을 퇴장시키겠어요?
+          </Text>
+        </Grid>
+      ),
+      text: "아래 확인 버튼을 누르면 퇴장돼요. 합넙 실행 시 취소가 불가해요",
+      showDenyButton: true,
+      denyButtonText: (
+        <Text padding="0 2rem" color={color.brand100}>
+          취소
+        </Text>
+      ),
+      denyButtonColor: color.brand20,
+      confirmButtonColor: color.brand100,
+      confirmButtonText: (
+        <Text padding="0 2rem" color={color.bg0}>
+          퇴장 시키기
+        </Text>
+      ),
+      focusConfirm: false,
+    })
+    .then((res) => {
+      if (res.isConfirmed) {
+        sendBen(other_user_id, other_user_name)
+      } else if (res.isDenied) {
+        return;
+      } else {
+        return;
+      }
+    });
+};
+
 const customAlert = {
   sweetConfirmReload,
   sweetNeedLogin,
@@ -514,6 +559,7 @@ const customAlert = {
   SweetAllowChat,
   SweetDenyChat,
   SweetOutChat,
+  SweetBen,
 };
 
 export { customAlert };

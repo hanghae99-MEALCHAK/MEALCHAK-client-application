@@ -132,7 +132,7 @@ const addPostAX = (post_info) => {
         latitude: latitude,
       })
       .then((res) => {
-        dispatch(chatActions.getChatListAX());
+        dispatch(chatActions.setChatListAX());
 
         customAlert.sweetConfirmReload(
           '작성 완료',

@@ -17,6 +17,7 @@ import theme from "../styles/theme";
 
 // clipboard
 import CopyToClipboard from "react-copy-to-clipboard";
+import { customAlert } from "../components/Sweet";
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
@@ -259,6 +260,9 @@ const MyPage = (props) => {
                     padding: "0.4rem 0.8rem",
                     borderRadius: "0.8rem",
                     cursor: "pointer",
+                  }}
+                  onClick={()=>{
+                    customAlert.sweetConfirmReload("링크 복사 완료", "공유링크가 복사되었습니다\n친구를 초대해보세요!", "")
                   }}
                 >
                   <Text

@@ -20,7 +20,6 @@ import logger from "../shared/Console";
 import { customAlert } from "../components/Sweet";
 import "../styles/side.css";
 
-
 // side bar
 import Sidebar from "react-sidebar";
 
@@ -31,9 +30,8 @@ const Chat = (props) => {
     setIsOpen(!isOpen);
   };
 
-
   // 소켓
-  const sock = new SockJS("http://52.78.204.238/chatting");
+  const sock = new SockJS("http://115.85.182.57/chatting");
   const ws = Stomp.over(sock);
 
   // 현재 방정보
@@ -42,7 +40,7 @@ const Chat = (props) => {
   const roomName = props.history.location.state.roomName;
   const room_id = props.history.location.state.room_id;
   const post_id = props.history.location.state.post_id;
-
+  const own_user_id = props.history.location.state.own_user_id;
 
   // 보낼 메세지 정보
   const sender_info = useSelector((state) => state.user.user);
@@ -55,15 +53,15 @@ const Chat = (props) => {
   const { border, color } = theme;
 
   React.useEffect(() => {
-    logger("open", isOpen)
-  }, [isOpen])
+    logger("open", isOpen);
+  }, [isOpen]);
 
   React.useEffect(() => {
     logger("chat props", props);
     logger("chat sender info", sender_profile);
     logger("chat sender info", sender_nick);
 
-    dispatch(chatActions.moveChatRoom(room_id, roomName, post_id));
+    dispatch(chatActions.moveChatRoom(room_id, roomName, post_id, own_user_id));
     dispatch(chatActions.getChatMessagesAX());
     dispatch(chatActions.getChatUserAX(room_id));
   }, []);
@@ -82,6 +80,7 @@ const Chat = (props) => {
   // 채팅방시작하기, 채팅방 클릭 시 room_id에 해당하는 방을 구독
   const wsConnectSubscribe = () => {
     try {
+      // ws.debug = null;
       ws.connect(
         {
           token: token,
@@ -96,7 +95,10 @@ const Chat = (props) => {
               // 실시간 채팅 시간 넣어주는 부분
               const now_time = moment().format("YYYY-MM-DD hh:mm:ss");
               dispatch(
-                chatActions.getMessages({ ...newMessage, createdAt: now_time })
+                chatActions.getMessages(
+                  { ...newMessage, createdAt: now_time },
+                  sender_id
+                )
               );
             },
             {
@@ -113,6 +115,7 @@ const Chat = (props) => {
   // 다른 방을 클릭하거나 뒤로가기 버튼 클릭시 연결해제 및 구독해제
   const wsDisConnectUnsubscribe = () => {
     try {
+      // ws.debug = null;
       ws.disconnect(
         () => {
           ws.unsubscribe("sub-0");
@@ -149,6 +152,8 @@ const Chat = (props) => {
         senderImg: sender_profile,
         senderId: sender_id,
         message: messageText,
+        // message : 해당 유저 id
+        // roomId : 방 번호
       };
       // 빈 텍스트일때 보내기 방지
       if (messageText === "") {
@@ -159,6 +164,8 @@ const Chat = (props) => {
       // dispatch(chatActions.loading());
       dispatch(chatActions.setTime());
       waitForConnection(ws, () => {
+        // ws.debug = null;
+
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
         logger("메세지보내기 상태", ws.ws.readyState);
 
@@ -168,6 +175,40 @@ const Chat = (props) => {
     } catch (e) {
       logger("message 소켓 함수 에러", e);
       logger("메세지보내기 상태", ws.ws.readyState);
+    }
+  };
+
+  const sendBen = (other_user_id, other_user_name) => {
+    try {
+      // 토큰없으면 다시 로그인 시키기
+      if (!token) {
+        customAlert.sweetNeedLogin("replace");
+      }
+      // send할 데이터
+      const data = {
+        type: "BAN",
+        roomId: room_id,
+        // 강퇴할 사람 user_id
+        message: other_user_id,
+      };
+
+      // 로딩
+      // dispatch(chatActions.loading());
+      waitForConnection(ws, () => {
+        // ws.debug = null;
+
+        ws.send("/pub/message", { token: token }, JSON.stringify(data));
+        logger("강퇴 메세지 상태", ws.ws.readyState);
+        customAlert.sweetConfirmReload(
+          "퇴장 시키기 완료",
+          `${other_user_name}님이 퇴장 되었습니다.`,
+          ""
+        );
+      });
+    } catch (e) {
+      customAlert.sweetConfirmReload("퇴장 에러", "퇴장 요청중 에러 발생", "");
+      logger("message 소켓 함수 에러", e);
+      logger("강퇴 메세지 상태", ws.ws.readyState);
     }
   };
 
@@ -194,7 +235,15 @@ const Chat = (props) => {
                 transitions={true}
                 touch={true}
                 pullRight={true}
-                sidebar={<SideContent roomName={roomName} _onClick={onClick} post_id={post_id} />}
+                sidebar={
+                  <SideContent
+                    own_user_id={own_user_id}
+                    roomName={roomName}
+                    _onClick={onClick}
+                    post_id={post_id}
+                    sendBen={sendBen}
+                  />
+                }
                 open={isOpen}
                 onSetOpen={setIsOpen}
                 sidebarClassName={isOpen ? "side-nav active" : "side-nav"}
@@ -229,7 +278,7 @@ const SideGrid = styled.div`
   height: 100vh;
   z-index: 101;
   text-align: right;
-  display: ${props => props.isOpen? "auto" : "none"};
+  display: ${(props) => (props.isOpen ? "auto" : "none")};
 `;
 
 export default Chat;
