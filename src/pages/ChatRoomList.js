@@ -28,7 +28,7 @@ const ChatRoomList = (props) => {
   // 채팅 대기 목록
   const await_list = useSelector((state) => state.chat.awaitList);
 
-  const enterRoom = (room_id, roomName, post_id) => {
+  const enterRoom = (room_id, roomName, post_id, own_user_id) => {
     // 채팅방 들어갔다가 뒤로가기 누르면 자동으로 방나가기
     // room_id 리덕스에 저장된 걸로 실제 채팅 페이지 이동했을 때 서버연결 시켜서 보여줌
 
@@ -36,10 +36,15 @@ const ChatRoomList = (props) => {
     // 동시에 구독
     // /chat/join/${room_id}
     dispatch(chatActions.clearMessage());
-    dispatch(chatActions.moveChatRoom(room_id, roomName, post_id));
+    dispatch(chatActions.moveChatRoom(room_id, roomName, post_id, own_user_id));
     history.replace({
       pathname: "/chatting",
-      state: { room_id: room_id, roomName: roomName, post_id: post_id },
+      state: {
+        room_id: room_id,
+        roomName: roomName,
+        post_id: post_id,
+        own_user_id: own_user_id,
+      },
     });
   };
 
@@ -94,7 +99,12 @@ const ChatRoomList = (props) => {
                 post_id={info.postId}
                 headCountChat={info.headCountChat}
                 _onClick={(e) => {
-                  enterRoom(info.room_id, info.roomName, info.postId);
+                  enterRoom(
+                    info.room_id,
+                    info.roomName,
+                    info.postId,
+                    info.own_user_id
+                  );
                 }}
               />
             );

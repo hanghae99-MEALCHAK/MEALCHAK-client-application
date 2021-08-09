@@ -12,10 +12,12 @@ import { customAlert } from "./Sweet";
 const SideContent = (props) => {
   const user_in_chat = useSelector((state) => state.chat.userInList);
   const my_id = useSelector((state) => state.user.user?.user_id);
+  const own_user_id = props.own_user_id;
 
   React.useEffect(() => {
     logger("사용자 목록", user_in_chat);
     logger("방이름", props.roomName);
+
   }, []);
 
   const { color, border, fontSize } = theme;
@@ -69,7 +71,13 @@ const SideContent = (props) => {
           })}
           {user_in_chat.map((user_info, idx) => {
             if (my_id !== user_info?.user_id) {
-              return <ChatUserItem key={idx} user_info={user_info} />;
+              if (my_id === own_user_id) {
+                return (
+                  <ChatUserItem key={idx} user_info={user_info} owner={true} sendBen={props.sendBen} />
+                );
+              } else {
+                return <ChatUserItem key={idx} user_info={user_info} />;
+              }
             }
           })}
         </Grid>
@@ -82,12 +90,12 @@ const SideContent = (props) => {
           height="auto"
           bg={color.bg0}
         >
-          <FiLogOut 
-          size="2.4rem" 
-          style={{ cursor: "pointer" }} 
-          onClick={() => {
-            customAlert.SweetOutChat(props.post_id);
-          }}
+          <FiLogOut
+            size="2.4rem"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              customAlert.SweetOutChat(props.post_id);
+            }}
           />
         </Grid>
       </Container>

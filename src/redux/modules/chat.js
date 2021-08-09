@@ -6,6 +6,7 @@ import moment from "moment";
 import { customAlert } from "../../components/Sweet";
 
 import logger from "../../shared/Console";
+import { useSelector } from "react-redux";
 // sweet alert2
 // import Swal from "sweetalert2";
 // import withReactContent from "sweetalert2-react-content";
@@ -52,14 +53,15 @@ const setChatList = createAction(SET_CHAT_LIST, (myChatList) => ({
 }));
 const moveChatRoom = createAction(
   MOVE_CHAT_ROOM,
-  (room_id, roomName, post_id) => ({
+  (room_id, roomName, post_id, own_user_id) => ({
     room_id,
     roomName,
     post_id,
+    own_user_id,
   })
 );
 const clearChat = createAction(CLEAR_CHAT, () => {});
-const getMessages = createAction(GET_MSG, (newMessage) => ({ newMessage }));
+const getMessages = createAction(GET_MSG, (newMessage, user_id) => ({ newMessage, user_id }));
 const setMessage = createAction(SET_MSG, (chatMassageArray) => ({
   chatMassageArray,
 }));
@@ -119,7 +121,7 @@ const setChatListAX = () => {
         res.data.forEach((c) => {
           let one_chat_info = {
             room_id: c.roomId,
-            ownUserId: c.ownUserId,
+            own_user_id: c.ownUserId,
             postId: c.postId,
             roomName: c.title,
             headCountChat: c.headCountChat,
@@ -346,6 +348,7 @@ export default handleActions(
         draft.currentChat.room_id = action.payload.room_id;
         draft.currentChat.roomName = action.payload.roomName;
         draft.currentChat.post_id = action.payload.post_id;
+        draft.currentChat.own_user_id = action.payload.own_user_id;
       }),
     // clearChat - 현재방 id, name 초기화
     [CLEAR_CHAT]: (state, action) =>
@@ -356,18 +359,31 @@ export default handleActions(
     // getMessages - 새로운 메세지 정보를 메세지 리스트에 추가
     [GET_MSG]: (state, action) =>
       produce(state, (draft) => {
+        const now_user = action.payload.user_id;
         const m = action.payload.newMessage;
-        const one_msg = {
-          type: m.type,
-          room_id: m.roomId,
-          sender: m.sender.username,
-          sender_id: m.sender.id,
-          sender_img: m.sender.profileImg,
-          message: m.message,
-          createdAt: m.createdAt,
-          msg_id: m.id,
-        };
-        draft.messages.push(one_msg);
+        if (m.type !== "BAN") {
+          const one_msg = {
+            type: m.type,
+            room_id: m.roomId,
+            sender: m.sender.username,
+            sender_id: m.sender.id,
+            sender_img: m.sender.profileImg,
+            message: m.message,
+            createdAt: m.createdAt,
+            msg_id: m.id,
+          };
+          draft.messages.push(one_msg);
+        } else {
+          if (parseInt(now_user) === parseInt(m.message)) {
+            customAlert.sweetConfirmReload(
+              "강퇴알림",
+              "현재 방에서 강퇴당하셨습니다. 채팅목록으로 돌아갑니다.",
+              "/chatlist"
+            );
+          } else {
+            return;
+          }
+        }
       }),
     // setMessage - 메세지 DB에서 조회할때 해당 방의 메세지 내역 불러옴
     [SET_MSG]: (state, action) =>
