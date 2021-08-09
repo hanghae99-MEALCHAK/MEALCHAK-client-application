@@ -7,9 +7,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 // 리덕스 기능 관련
-import { useDispatch } from "react-redux";
 import { history } from "../redux/configureStore";
-import { actionCreators as chatActions } from "../redux/modules/chat";
 
 // style
 import { Text, Button, Grid } from "../elements";
@@ -37,6 +35,60 @@ const sweetConfirmReload = (msg_title, msg_content, path) => {
             {msg_title}
           </Text>
           <Text size={fontSize.small} word_break="keep-all">{msg_content}</Text>
+        </Grid>
+      ),
+      confirmButtonColor: color.brand100,
+      confirmButtonText: (
+        <Text padding="0 2rem" color={color.bg0}>
+          확인
+        </Text>
+      ),
+      focusConfirm: false,
+    })
+    .then((res) => {
+      if (res.isConfirmed) {
+        // 주소 값이 없으면 리턴
+        if (path === "") {
+          return;
+        }
+        // 리로드 아니고 history 일때
+        if (path === "history") {
+          history.replace("/home");
+          return;
+        }
+        // 뒤로가기
+        if (path === "goBack") {
+          history.goBack();
+          return;
+        }
+        // 그 외 새로 리로드 될때
+        window.location.replace(path);
+      }
+    });
+};
+
+// 단순 확인 알럿
+// 최상위 제목으로 들어올값, 내용, 주소이동 필요 시 리로드될 주소를 파람값으로 받음
+// 리뷰 작성 페이지 전용 ( 줄바꿈 )
+const sweetReviewWrite = (msg_title, msg_name, msg_content, path) => {
+  return sweet
+    .fire({
+      customClass: {
+        popup: "border",
+        confirmButton: "confirmButton",
+      },
+      width: "auto",
+      padding: "0 1rem 1rem",
+      title: (
+        <Grid>
+          <Text size={fontSize.base} bold2="700" margin="0 auto 1rem">
+            {msg_title}
+          </Text>
+          <Text size={fontSize.small}>
+            {msg_name}
+            <br />
+            {msg_content}
+          </Text>
         </Grid>
       ),
       confirmButtonColor: color.brand100,
@@ -552,6 +604,7 @@ const SweetBen = (sendBen, other_user_id, other_user_name) => {
 
 const customAlert = {
   sweetConfirmReload,
+  sweetReviewWrite,
   sweetNeedLogin,
   sweetWA,
   sweetEditError,

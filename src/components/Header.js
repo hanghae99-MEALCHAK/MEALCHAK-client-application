@@ -14,7 +14,14 @@ import { HiOutlineMenu } from "react-icons/hi";
 const Header = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
 
-  const { color } = theme;
+  const loginCheck = (path) => {
+    if (is_login) {
+      history.push(`/${path}`);
+    } else {
+      customAlert.sweetNeedLogin();
+    }
+  };
+  const { color, fontSize } = theme;
 
   React.useEffect(() => {
     // 헤더 props로는 page별 상위컴포넌트에서 내려받는 history, shape이 있음
@@ -35,12 +42,12 @@ const Header = (props) => {
           {/* <Grid width="24px" margin="0 0 0 1.3rem" /> */}
           <Text
             margin="0 1rem 0 0"
-            size="1.6rem"
+            size={fontSize.small}
             bold2="700"
             cursor="t"
             _onClick={() => {
               if (!is_login) {
-                customAlert.sweetNeedLogin();
+                return customAlert.sweetNeedLogin();
               }
               history.replace('/address');
             }}

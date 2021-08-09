@@ -1,16 +1,16 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import { Grid, Text, Button } from "../elements";
-import { Post, Footer, Header, MainBanner } from "../components";
+import { Grid, Text, Button } from '../elements';
+import { Post, Footer, Header, MainBanner } from '../components';
 
-import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as userActions } from "../redux/modules/user";
-import { useDispatch, useSelector } from "react-redux";
-import { history } from "../redux/configureStore";
-import logger from "../shared/Console";
+import { actionCreators as postActions } from '../redux/modules/post';
+import { actionCreators as userActions } from '../redux/modules/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { history } from '../redux/configureStore';
+import logger from '../shared/Console';
 
-import theme from "../styles/theme";
+import theme from '../styles/theme';
 
 const Main = (props) => {
   const { color, border, btn_border, fontSize } = theme;
@@ -63,7 +63,7 @@ const Main = (props) => {
             border={btn_border.bg40}
             radius="1.2rem"
             _onClick={() => {
-              history.push("/search");
+              history.push('/search');
             }}
           >
             <Text
@@ -79,9 +79,9 @@ const Main = (props) => {
             </Text>
             <svg
               style={{
-                position: "absolute",
-                top: "6.5rem",
-                margin: "0 0 0 12rem",
+                position: 'absolute',
+                top: '6.5rem',
+                margin: '0 0 0 12rem',
               }}
               width="24"
               height="24"
@@ -131,7 +131,7 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.all ? "0.1rem solid black" : ""}
+            border_bottom={category.all ? '0.1rem solid black' : ''}
             _onClick={() => {
               setCategory({ ...{ category: false }, all: true });
             }}
@@ -145,7 +145,7 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.kr ? "0.1rem solid black" : ""}
+            border_bottom={category.kr ? '0.1rem solid black' : ''}
             _onClick={() => {
               setCategory({ ...{ category: false }, kr: true });
             }}
@@ -159,8 +159,9 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.cn ? "0.1rem solid black" : ""}
+            border_bottom={category.cn ? '0.1rem solid black' : ''}
             _onClick={() => {
+              // dispatch(postActions.getPostAX('한식'));
               setCategory({ ...{ category: false }, cn: true });
             }}
           >
@@ -173,8 +174,9 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.jp ? "0.1rem solid black" : ""}
+            border_bottom={category.jp ? '0.1rem solid black' : ''}
             _onClick={() => {
+              // dispatch(postActions.getPostAX('중식'));
               setCategory({ ...{ category: false }, jp: true });
             }}
           >
@@ -187,8 +189,9 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.west ? "0.1rem solid black" : ""}
+            border_bottom={category.west ? '0.1rem solid black' : ''}
             _onClick={() => {
+              // dispatch(postActions.getPostAX('일식'));
               setCategory({ ...{ category: false }, west: true });
             }}
           >
@@ -201,7 +204,7 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.cafe ? "0.1rem solid black" : ""}
+            border_bottom={category.cafe ? '0.1rem solid black' : ''}
             _onClick={() => {
               setCategory({ ...{ category: false }, cafe: true });
             }}
@@ -215,7 +218,7 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.etc ? "0.1rem solid black" : ""}
+            border_bottom={category.etc ? '0.1rem solid black' : ''}
             _onClick={() => {
               setCategory({ ...{ category: false }, etc: true });
             }}
@@ -239,60 +242,64 @@ const Main = (props) => {
             </Text>
           </Grid>
         </Grid>
-
-        {post_list?.length > 0 ? (
-          post_list.map((p, idx) => {
-            if (p.post_id === "") {
-              return (
-                <React.Fragment>
-                  <Grid height="100vh">
-                    <Grid is_flex_column height="20rem">
-                      <LogoImg src="/illust/emptyHome_3x.png"></LogoImg>
-                      <Text size={fontSize.base} color={color.bg80}>
-                        설정한 주소 근처에 올라온 글이 없어요
-                      </Text>
+        <Grid>
+          {post_list?.length > 0 ? (
+            post_list.map((p, idx) => {
+              if (p.post_id === "") {
+                return (
+                  <React.Fragment>
+                    <Grid>
+                      <Grid is_flex_column height="20rem">
+                        <LogoImg src="/illust/emptyHome_3x.png"></LogoImg>
+                        <Text size="1.6rem" color={color.bg80}>
+                          설정한 주소 근처에 올라온 글이 없어요
+                        </Text>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </React.Fragment>
-              );
-            }
-            if (category.all) {
-              return <Post {...p} key={p.post_id} />;
-            }
-            if (category.kr && p.category === "한식") {
-              return <Post {...p} key={p.post_id} />;
-            }
-            if (category.cn && p.category === "중식") {
-              return <Post {...p} key={p.post_id} />;
-            }
-            if (category.jp && p.category === "일식") {
-              return <Post {...p} key={p.post_id} />;
-            }
-            if (category.west && p.category === "양식") {
-              return <Post {...p} key={p.post_id} />;
-            }
-            if (category.cafe && p.category === "카페") {
-              return <Post {...p} key={p.post_id} />;
-            }
-            if (category.etc && p.category === "기타") {
-              return <Post {...p} key={p.post_id} />;
-            }
-            return null;
-          })
-        ) : (
-          <React.Fragment>
-            <Grid height="100vh">
-              <Grid is_flex_column height="20rem">
-                <LogoImg src="/illust/emptyHome_3x.png"></LogoImg>
-                <Text size={fontSize.base} color={color.bg80}>
-                  설정한 주소 근처에 올라온 글이 없어요!
-                </Text>
+                  </React.Fragment>
+                );
+              }
+              if (category.all) {
+                return <Post {...p} key={p.post_id} />;
+              }
+              if (category.kr && p.category === "한식") {
+                return <Post {...p} key={p.post_id} />;
+              }
+              if (category.cn && p.category === "중식") {
+                return <Post {...p} key={p.post_id} />;
+              }
+              if (category.jp && p.category === "일식") {
+                return <Post {...p} key={p.post_id} />;
+              }
+              if (category.west && p.category === "양식") {
+                return <Post {...p} key={p.post_id} />;
+              }
+              if (category.cafe && p.category === "카페") {
+                return <Post {...p} key={p.post_id} />;
+              }
+              if (category.etc && p.category === "기타") {
+                return <Post {...p} key={p.post_id} />;
+              }
+              return null;
+            })
+          ) : (
+            <React.Fragment>
+              <Grid>
+                <Grid is_flex_column height="20rem">
+                  <LogoImg src="/illust/emptyHome_3x.png"></LogoImg>
+                  <Text size={fontSize.base} color={color.bg80}>
+                    설정한 주소 근처에 올라온 글이 없어요!
+                  </Text>
+                </Grid>
               </Grid>
-            </Grid>
-          </React.Fragment>
-        )}
-        
-        <Grid height="6rem" />
+            </React.Fragment>
+          )}
+          {post_list.length > 1 ? (
+            <Grid height="6rem" />
+          ) : (
+            <Grid height="10.4rem" />
+          )}
+        </Grid>
       </Grid>
     </React.Fragment>
   );
@@ -302,16 +309,17 @@ Main.defaultProps = {};
 
 const Hr = styled.hr`
   width: 36rem;
+  height: 0.1rem;
   background-color: #f4f4f3;
-  border: 0.1rem solid #f4f4f3;
+  border: none;
   margin: 0;
 `;
 
 const LogoImg = styled.div`
-  margin: auto;
+  margin: 0 auto 1rem auto;
   background-image: url("${(props) => props.src}");
-  width: 184px;
-  height: 167px;
+  width: 18.4rem;
+  height: 16.7rem;
   background-size: cover;
   background-position: center;
 `;

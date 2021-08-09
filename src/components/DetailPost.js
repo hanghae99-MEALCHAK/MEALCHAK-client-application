@@ -1,18 +1,20 @@
-import React from "react";
-import styled from "styled-components";
-import { history } from "../redux/configureStore";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postAction } from "../redux/modules/post";
-import { actionCreators as chatActions } from "../redux/modules/chat";
+import React from 'react';
+import styled from 'styled-components';
+import { history } from '../redux/configureStore';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as postAction } from '../redux/modules/post';
+import { actionCreators as chatActions } from '../redux/modules/chat';
 
-import { Grid, Button, Text, Image } from "../elements";
+import { Grid, Button, Text, Image } from '../elements';
 
-import theme from "../styles/theme";
-import logger from "../shared/Console";
-import { customAlert } from "./Sweet";
+import theme from '../styles/theme';
+import logger from '../shared/Console';
+import { customAlert } from './Sweet';
+
+import moment from 'moment';
 
 const DetailPost = (props) => {
-  logger("상세포스트 프롭스", props.is_me);
+  logger('상세포스트 프롭스', props);
   const {
     address,
     category,
@@ -22,6 +24,7 @@ const DetailPost = (props) => {
     nowHeadCount,
     insert_dt,
     is_me,
+    orderDate,
     orderTime,
     post_id,
     shop,
@@ -31,6 +34,12 @@ const DetailPost = (props) => {
     username,
     room_id,
   } = props;
+
+  const month = orderDate.split('-')[1];
+  const day = orderDate.split('-')[2];
+  const today = moment().format('YYYY-MM-DD');
+  if (orderDate === today) {
+  }
 
   const { color, border, radius, fontSize } = theme;
   const dispatch = useDispatch();
@@ -51,11 +60,7 @@ const DetailPost = (props) => {
   }, [disabled ? disabled : null]);
 
   const deleteBtn = () => {
-    if (window.confirm("삭제하시겠습니까?")) {
-      dispatch(postAction.deletePostAX(post_id));
-    } else {
-      return;
-    }
+    dispatch(postAction.deletePostAX(post_id));
   };
 
   const requestJoin = () => {
@@ -179,10 +184,10 @@ const DetailPost = (props) => {
           </GridGap>
           <GridGap>
             <Text width="15rem" size="1.3rem" color={color.bg100}>
-              {props.shop}
+              {shop}
             </Text>
             <Text width="15rem" size="1.3rem" color={color.bg100}>
-              {orderTime}
+              {orderDate === today ? '오늘' : `${month}월${day}일`} {orderTime}
             </Text>
           </GridGap>
         </Grid>
@@ -233,7 +238,7 @@ const DetailPost = (props) => {
         >
           <Button
             shape="large"
-            color={disabled ? "#EBE9E8" : color.brand100}
+            color={disabled ? '#EBE9E8' : color.brand100}
             size={fontSize.small}
             disabled={disabled}
             _onClick={(e) => {
@@ -243,8 +248,8 @@ const DetailPost = (props) => {
               requestJoin();
             }}
           >
-            <Text bold size="1.6rem" color={disabled ? "#CECAC7" : color.bg0}>
-              {disabled ? "모집 마감됐어요" : "채팅 시작하기"}
+            <Text bold size="1.6rem" color={disabled ? '#CECAC7' : color.bg0}>
+              {disabled ? '모집 마감됐어요' : '채팅 시작하기'}
             </Text>
           </Button>
         </Grid>
@@ -259,7 +264,7 @@ const UserProfile = styled.div`
   width: 4.3rem;
   height: 3.8rem;
   border-radius: 2rem;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   background-size: cover;
   background-position: center;
   margin: 1rem 1rem 1rem 0;
