@@ -98,7 +98,7 @@ const kakaoLogin = (code) => {
   };
 };
 
-// 사용자 닉네임 변경 함수
+// 사용자 정보 변경 middleware
 const editUserProfileAX = (profile) => {
   return function (dispatch, getState, { history }) {
     let form = new FormData();
@@ -176,7 +176,6 @@ const editUserAddressAX = (address) => {
       .then((res) => {
         // 유저 정보의 주소 데이터 변경
         dispatch(editAddress(res.data.address));
-        window.alert("주소 설정이 완료되었습니다.");
         history.push("/home");
         // 유저주소를 변경 후 메인 페이지에서 거리에 따라 게시글 바뀌지 않는 현상 해결
         window.location.reload();
@@ -306,7 +305,7 @@ const getMyReviewAX = () => {
 };
 
 // 타 유저 프로필 - 리뷰 남기기
-const reviewWriteAX = (manner, review, user_id) => {
+const reviewWriteAX = (manner, review, user_id, nickname) => {
   return function (dispatch, getState, { history }) {
     if (token) {
       axiosModule
@@ -316,24 +315,13 @@ const reviewWriteAX = (manner, review, user_id) => {
         })
         .then((res) => {
           logger("내가 받은 리뷰 res", res);
-          // let reviews = [];
-
-          // if (res.data.length !== 0) {
-          //   res.data.forEach((p) => {
-          //     const my_review = {
-          //       user_profile: p.profileImg,
-          //       user_nickname: p.username,
-          //       my_manner: p.manner,
-          //       review: p.review,
-          //       insert_dt: p.createdAt,
-          //     };
-          //     reviews.push(my_review);
-          //   });
-          // }
-          // dispatch(setMyReview(reviews));
+          customAlert.sweetReviewWrite("성공적으로 리뷰를 보냈어요!", `${nickname} 님께`, "따뜻한 마음이 전송되었어요 :)", "goBack");
+          // history.replace("/userprofile");
+          // window.location.replace("/userprofile");
         })
         .catch((e) => {
           logger("내가 받은 리뷰 에러", e);
+          customAlert.sweetConfirmReload("이미 리뷰를 작성하셨습니다!", "이전 페이지로 돌아갑니다.", "goBack");
         });
     } else {
       dispatch(logOut());

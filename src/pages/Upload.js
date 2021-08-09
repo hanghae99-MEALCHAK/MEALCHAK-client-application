@@ -166,14 +166,14 @@ const Upload = React.memo((props) => {
             find_address={props.location.state?.address}
             onChange={(value) => setPostInfo({ ...post_info, ...value })}
           />
-          <Grid height="10rem" />
+          {/* <Grid height="10rem" /> */}
           <Grid
             height="auto"
             maxWidth="35.5rem"
             margin="0 auto"
             padding="2.8rem 2rem 2.7rem"
-            is_fixed="t"
-            fix_center
+            // is_fixed="t"
+            // fix_center
             bg={color.bg0}
           >
             {is_edit ? (

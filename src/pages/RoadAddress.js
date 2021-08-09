@@ -35,6 +35,9 @@ const RoadAddress = () => {
   logger("RoadAddress:34: ",address)
 
   React.useEffect(() => {
+    if(address === ""){
+      return null;
+    }
     dispatch(locateActions.getMyCoordinateAX(address));
   },[dispatch, address]);
 

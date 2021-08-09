@@ -17,17 +17,17 @@ const PostAddress = React.memo((props) => {
   // 도로명주소를 게시글에 보여줄 예정
   const handleComplete = (data) => {
     logger("RoadAddress:16: ", data);
-    let fullAddress = data.address;
-    let extraAddress = "";
+    // let fullAddress = data.address;
+    // let extraAddress = "";
     if (data.addressType === "R" && data.userSelectedType === "R") {
-      if (data.bname !== "") {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== "") {
-        extraAddress +=
-          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-      }
-      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+      // if (data.bname !== "") {
+      //   extraAddress += data.bname;
+      // }
+      // if (data.buildingName !== "") {
+      //   extraAddress +=
+      //     extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      // }
+      // fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
 
       setAddress(data.address);
     } else if (data.userSelectedType === "J") {
@@ -37,6 +37,7 @@ const PostAddress = React.memo((props) => {
   };
 
   React.useEffect(() => {
+    window.scrollTo(0, 0);
     if (address === "") return;
     dispatch(locateActions.getMyPostCoordAX(address));
     customAlert.sweetConfirmReload("설정 완료", "주소 설정이 완료되었습니다.", "");
@@ -47,7 +48,7 @@ const PostAddress = React.memo((props) => {
       <DaumPostCode
         onComplete={handleComplete}
         className="post-code"
-        style={{ height: "38rem" }}
+        style={{ height: "100vh" }}
       />
     </AddressGrid>
   );
