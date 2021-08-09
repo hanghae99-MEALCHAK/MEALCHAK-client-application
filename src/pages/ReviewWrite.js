@@ -8,6 +8,7 @@ import theme from "../styles/theme";
 import logger from "../shared/Console";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
+import { customAlert } from "../components/Sweet";
 
 import Select from "../components/ReactSelect";
 
@@ -20,8 +21,9 @@ const options = [
 ];
 
 const ReviewWrite = (props) => {
-  const location = useLocation();
   const dispatch = useDispatch();
+  const location = useLocation();
+
   const [manner, setManner] = React.useState("");
   const [review, setReview] = React.useState("");
   const [disabled, setDisabled] = React.useState(true);
@@ -35,11 +37,23 @@ const ReviewWrite = (props) => {
       setManner("GOOD");
       setDisabled(false);
     }
-    if (manner === "별로예요:(!") {
+    if (manner === "별로예요:(") {
       setManner("BAD");
       setDisabled(false);
     }
   };
+
+  const reviewWrite = () => {
+    dispatch(
+      userActions.reviewWriteAX(
+        manner,
+        review,
+        location.state?.user_id,
+        location.state?.nickname
+      )
+    );
+  };
+
   const changeDisabled = (e) => {
     setReview(e.target.value);
     setDisabled(false);
@@ -152,12 +166,7 @@ const ReviewWrite = (props) => {
           color={!disabled ? color.brand100 : color.bg40}
           size={fontSize.small}
           cursor="t"
-          _onClick={() => {
-            window.alert("리뷰를 작성하시겠습니까?");
-            dispatch(
-              userActions.reviewWriteAX(manner, review, location.state?.user_id)
-            );
-          }}
+          _onClick={reviewWrite}
           disabled={disabled}
         >
           <Text bold size="1.6rem" color={!disabled ? color.bg0 : color.bg60}>

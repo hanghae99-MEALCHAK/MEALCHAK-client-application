@@ -1,8 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { actionCreators as chatActions } from '../redux/modules/chat';
-import { useDispatch, useSelector } from 'react-redux';
-import { customAlert } from './Sweet';
+import React from "react";
+import styled from "styled-components";
+import { actionCreators as chatActions } from "../redux/modules/chat";
+
+import { useDispatch, useSelector } from "react-redux";
+import { customAlert } from "./Sweet";
 
 import { Grid, Image, Text, Button } from '../elements';
 import { history } from '../redux/configureStore';
@@ -66,13 +67,17 @@ const Post = (props) => {
             <UserProfile
               src={props.userImg}
               onClick={() => {
-                if (user_info.user_id === props.user_id) {
-                  return history.push('/mypage');
+                if (is_login) {
+                  if (user_info.user_id === props.user_id) {
+                    return history.push("/mypage");
+                  }
+                  history.push({
+                    pathname: "/userprofile",
+                    state: { ...props },
+                  });
+                }else{
+                  customAlert.sweetNeedLogin();
                 }
-                history.push({
-                  pathname: '/userprofile',
-                  state: { ...props },
-                });
               }}
             />
             <Grid>

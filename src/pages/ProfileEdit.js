@@ -18,11 +18,10 @@ import theme from "../styles/theme";
 import { customAlert } from "../components/Sweet";
 import { actionCreators } from "../redux/modules/image";
 
-
 const ProfileEdit = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
-  const user_info = useSelector((state) => state.user.user);
+  const user_info = useSelector((state) => state.user?.user);
   const preview = useSelector((state) => state.image?.preview);
 
   const { color, border, radius, fontSize } = theme;
@@ -36,16 +35,15 @@ const ProfileEdit = (props) => {
   const [disabled, setDisabled] = useState(true);
 
   const changeNick = (e) => {
-    if (!e.target.value) {
-      setProfile({ ...editProfile, nickname: user_info?.user_nickname });
-    }
     setProfile({ ...editProfile, nickname: e.target.value });
+    setDisabled(false);
   };
 
   const changeComment = (e) => {
     setProfile({ ...editProfile, comment: e.target.value });
     setDisabled(false);
   };
+
   const editUser = () => {
     if (window.confirm("프로필을 수정하시겠습니까?")) {
       logger("수정할 이름", editProfile.nickname);
@@ -57,7 +55,11 @@ const ProfileEdit = (props) => {
           image: editProfile.image,
         })
       );
-      customAlert.sweetConfirmReload("프로필이 수정되었습니다.", null, "/mypage")
+      customAlert.sweetConfirmReload(
+        "프로필이 수정되었습니다.",
+        null,
+        "/mypage"
+      );
     }
   };
 
@@ -65,7 +67,7 @@ const ProfileEdit = (props) => {
   const selectFile = (e) => {
     const reader = new FileReader();
     const file = fileInput.current.files[0];
-    setProfile({...editProfile, image: file});
+    setProfile({ ...editProfile, image: file });
     reader.readAsDataURL(file);
 
     reader.onloadend = () => {
@@ -75,14 +77,20 @@ const ProfileEdit = (props) => {
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
+    if (!editProfile.comment || editProfile.nickname) {
+      setProfile({ ...editProfile, nickname: user_info?.user_nickname });
+      setProfile({ ...editProfile, comment: user_info?.user_comment });
+    }
     dispatch(userAction.loginCheck());
   }, []);
 
   React.useEffect(() => {
-    if (editProfile.comment === "") {
+    if (!editProfile.comment || !editProfile.nickname) {
       setDisabled(true);
+    } else if (editProfile.comment || editProfile.nickname) {
+      setDisabled(false);
     }
-  }, [editProfile.comment ? editProfile.comment : null]);
+  }, [editProfile.comment, editProfile.nickname]);
 
   if (is_login) {
     return (

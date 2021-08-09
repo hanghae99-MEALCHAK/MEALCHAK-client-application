@@ -21,7 +21,7 @@ const UserProfile = (props) => {
   const location = useLocation();
   const is_login = useSelector((state) => state.user?.is_login);
   const other_user = useSelector((state) => state.user?.anotherUser);
-  const user_id = location.state.user_id;
+  const user_id = location.state?.user_id;
   const { color, border, fontSize, radius } = theme;
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -115,9 +115,9 @@ const UserProfile = (props) => {
                   history.push({
                     pathname: "/write",
                     state: {
-                      user_id: other_user.user_id,
-                      profile: other_user.user_profile,
-                      nickname: other_user.user_nickname,
+                      user_id: other_user?.user_id,
+                      profile: other_user?.user_profile,
+                      nickname: other_user?.user_nickname,
                     },
                   });
                 }}

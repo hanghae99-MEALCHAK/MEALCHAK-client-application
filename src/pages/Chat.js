@@ -32,7 +32,8 @@ const Chat = (props) => {
 
   // 소켓
   // const sock = new SockJS("http://52.78.204.238/chatting");
-  const sock = new SockJS('http://115.85.182.57/chatting');
+  const sock = new SockJS("http://115.85.182.57/chatting");
+
   const ws = Stomp.over(sock);
 
   // 현재 방정보
