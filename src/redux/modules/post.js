@@ -24,9 +24,8 @@ const EDIT_POST = 'EDIT_POST';
 const DELETE_POST = 'DELETE_POST';
 const SET_RANK = 'SET_RANK';
 
-const setPost = createAction(SET_POST, (post_list, paging) => ({
+const setPost = createAction(SET_POST, (post_list) => ({
   post_list,
-  paging,
 }));
 const addPost = createAction(ADD_POST, (post_item) => ({ post_item }));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
@@ -46,7 +45,7 @@ const getPostAX = () => {
     dispatch(userActions.loading(true));
 
     axiosModule
-      .get('/posts/around')
+      .get(`/posts/around`)
       .then((res) => {
         let post_list = [];
 
@@ -83,7 +82,7 @@ const getPostAX = () => {
           };
           post_list.push(post);
         }
-
+        console.log(post_list);
         dispatch(setPost(post_list));
         dispatch(userActions.loading(false));
       })

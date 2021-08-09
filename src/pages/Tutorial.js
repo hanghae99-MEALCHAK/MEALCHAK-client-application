@@ -1,16 +1,16 @@
-import React from "react";
-import styled from "styled-components";
-import { history } from "../redux/configureStore";
-import { useSelector } from "react-redux";
+import React from 'react';
+import styled from 'styled-components';
+import { history } from '../redux/configureStore';
+import { useSelector } from 'react-redux';
 // kakao login
-import { Kakao_auth_url } from "../shared/OAuth";
+import { Kakao_auth_url } from '../shared/OAuth';
 
 // style
-import { Button, Grid, Text } from "../elements";
-import theme from "../styles/theme";
+import { Button, Grid, Text } from '../elements';
+import theme from '../styles/theme';
 
-import { TutorialSwiper } from "../components";
-import { customAlert } from "../components/Sweet";
+import { TutorialSwiper } from '../components';
+import { customAlert } from '../components/Sweet';
 
 const Tutorial = (props) => {
   const { color, border, fontSize, radius } = theme;
@@ -27,9 +27,9 @@ const Tutorial = (props) => {
     // 로그인 한 사용자가 로딩 시간때문인지 일정시간이 지나야 아래 부분실행됨
     if (is_login) {
       customAlert.sweetConfirmReload(
-        "로그인 한 사용자입니다.",
-        "홈으로 돌아갑니다.",
-        "history"
+        '로그인 한 사용자입니다.',
+        '홈으로 돌아갑니다.',
+        'history'
       );
     }
   }, [is_login]);
@@ -56,7 +56,7 @@ const Tutorial = (props) => {
             <Grid height="6rem"></Grid>
             <Grid
               is_flex4="t"
-              justify_content="space-around"
+              justify_content="center"
               maxWidth="35.8rem"
               height="auto"
               margin="auto"
@@ -65,6 +65,7 @@ const Tutorial = (props) => {
               bottom="0rem"
               padding="1rem 0"
               bg={color.bg0}
+              gap="1.6rem"
             >
               <Grid width="40%">
                 <Button
@@ -73,7 +74,7 @@ const Tutorial = (props) => {
                   border="none"
                   radius={radius.button}
                   _onClick={() => {
-                    history.push("/home");
+                    history.push('/home');
                   }}
                   bg={color.brand20}
                 >
@@ -131,7 +132,7 @@ const Tutorial = (props) => {
 
 const LogoImg = styled.div`
   margin: auto;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   width: 240px;
   height: 80px;
   background-size: cover;

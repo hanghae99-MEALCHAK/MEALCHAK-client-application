@@ -1,16 +1,16 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import { Grid, Text, Button } from "../elements";
-import { Post, Footer, Header, MainBanner } from "../components";
+import { Grid, Text, Button } from '../elements';
+import { Post, Footer, Header, MainBanner } from '../components';
 
-import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as userActions } from "../redux/modules/user";
-import { useDispatch, useSelector } from "react-redux";
-import { history } from "../redux/configureStore";
-import logger from "../shared/Console";
+import { actionCreators as postActions } from '../redux/modules/post';
+import { actionCreators as userActions } from '../redux/modules/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { history } from '../redux/configureStore';
+import logger from '../shared/Console';
 
-import theme from "../styles/theme";
+import theme from '../styles/theme';
 
 const Main = (props) => {
   const { color, border, btn_border, fontSize } = theme;
@@ -63,7 +63,7 @@ const Main = (props) => {
             border={btn_border.bg40}
             radius="1.2rem"
             _onClick={() => {
-              history.push("/search");
+              history.push('/search');
             }}
           >
             <Text
@@ -79,9 +79,9 @@ const Main = (props) => {
             </Text>
             <svg
               style={{
-                position: "absolute",
-                top: "6.5rem",
-                margin: "0 0 0 12rem",
+                position: 'absolute',
+                top: '6.5rem',
+                margin: '0 0 0 12rem',
               }}
               width="24"
               height="24"
@@ -131,7 +131,7 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.all ? "0.1rem solid black" : ""}
+            border_bottom={category.all ? '0.1rem solid black' : ''}
             _onClick={() => {
               setCategory({ ...{ category: false }, all: true });
             }}
@@ -145,7 +145,7 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.kr ? "0.1rem solid black" : ""}
+            border_bottom={category.kr ? '0.1rem solid black' : ''}
             _onClick={() => {
               setCategory({ ...{ category: false }, kr: true });
             }}
@@ -159,8 +159,9 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.cn ? "0.1rem solid black" : ""}
+            border_bottom={category.cn ? '0.1rem solid black' : ''}
             _onClick={() => {
+              // dispatch(postActions.getPostAX('한식'));
               setCategory({ ...{ category: false }, cn: true });
             }}
           >
@@ -173,8 +174,9 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.jp ? "0.1rem solid black" : ""}
+            border_bottom={category.jp ? '0.1rem solid black' : ''}
             _onClick={() => {
+              // dispatch(postActions.getPostAX('중식'));
               setCategory({ ...{ category: false }, jp: true });
             }}
           >
@@ -187,8 +189,9 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.west ? "0.1rem solid black" : ""}
+            border_bottom={category.west ? '0.1rem solid black' : ''}
             _onClick={() => {
+              // dispatch(postActions.getPostAX('일식'));
               setCategory({ ...{ category: false }, west: true });
             }}
           >
@@ -201,7 +204,7 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.cafe ? "0.1rem solid black" : ""}
+            border_bottom={category.cafe ? '0.1rem solid black' : ''}
             _onClick={() => {
               setCategory({ ...{ category: false }, cafe: true });
             }}
@@ -215,7 +218,7 @@ const Main = (props) => {
             bold
             cursor="t"
             margin="0 0.9rem"
-            border_bottom={category.etc ? "0.1rem solid black" : ""}
+            border_bottom={category.etc ? '0.1rem solid black' : ''}
             _onClick={() => {
               setCategory({ ...{ category: false }, etc: true });
             }}
@@ -239,7 +242,6 @@ const Main = (props) => {
             </Text>
           </Grid>
         </Grid>
-
         <Grid>
           {post_list?.length > 0 ? (
             post_list.map((p, idx) => {
