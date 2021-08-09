@@ -240,59 +240,64 @@ const Main = (props) => {
           </Grid>
         </Grid>
 
-        {post_list?.length > 0 ? (
-          post_list.map((p, idx) => {
-            if (p.post_id === "") {
-              return (
-                <React.Fragment>
-                  <Grid height="100vh">
-                    <Grid is_flex_column height="20rem">
-                      <LogoImg src="/illust/emptyHome_3x.png"></LogoImg>
-                      <Text size={fontSize.base} color={color.bg80}>
-                        설정한 주소 근처에 올라온 글이 없어요
-                      </Text>
+        <Grid>
+          {post_list?.length > 0 ? (
+            post_list.map((p, idx) => {
+              if (p.post_id === "") {
+                return (
+                  <React.Fragment>
+                    <Grid>
+                      <Grid is_flex_column height="20rem">
+                        <LogoImg src="/illust/emptyHome_3x.png"></LogoImg>
+                        <Text size="1.6rem" color={color.bg80}>
+                          설정한 주소 근처에 올라온 글이 없어요
+                        </Text>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </React.Fragment>
-              );
-            }
-            if (category.all) {
-              return <Post {...p} key={p.post_id} />;
-            }
-            if (category.kr && p.category === "한식") {
-              return <Post {...p} key={p.post_id} />;
-            }
-            if (category.cn && p.category === "중식") {
-              return <Post {...p} key={p.post_id} />;
-            }
-            if (category.jp && p.category === "일식") {
-              return <Post {...p} key={p.post_id} />;
-            }
-            if (category.west && p.category === "양식") {
-              return <Post {...p} key={p.post_id} />;
-            }
-            if (category.cafe && p.category === "카페") {
-              return <Post {...p} key={p.post_id} />;
-            }
-            if (category.etc && p.category === "기타") {
-              return <Post {...p} key={p.post_id} />;
-            }
-            return null;
-          })
-        ) : (
-          <React.Fragment>
-            <Grid height="100vh">
-              <Grid is_flex_column height="20rem">
-                <LogoImg src="/illust/emptyHome_3x.png"></LogoImg>
-                <Text size={fontSize.base} color={color.bg80}>
-                  설정한 주소 근처에 올라온 글이 없어요!
-                </Text>
+                  </React.Fragment>
+                );
+              }
+              if (category.all) {
+                return <Post {...p} key={p.post_id} />;
+              }
+              if (category.kr && p.category === "한식") {
+                return <Post {...p} key={p.post_id} />;
+              }
+              if (category.cn && p.category === "중식") {
+                return <Post {...p} key={p.post_id} />;
+              }
+              if (category.jp && p.category === "일식") {
+                return <Post {...p} key={p.post_id} />;
+              }
+              if (category.west && p.category === "양식") {
+                return <Post {...p} key={p.post_id} />;
+              }
+              if (category.cafe && p.category === "카페") {
+                return <Post {...p} key={p.post_id} />;
+              }
+              if (category.etc && p.category === "기타") {
+                return <Post {...p} key={p.post_id} />;
+              }
+              return null;
+            })
+          ) : (
+            <React.Fragment>
+              <Grid>
+                <Grid is_flex_column height="20rem">
+                  <LogoImg src="/illust/emptyHome_3x.png"></LogoImg>
+                  <Text size={fontSize.base} color={color.bg80}>
+                    설정한 주소 근처에 올라온 글이 없어요!
+                  </Text>
+                </Grid>
               </Grid>
-            </Grid>
-          </React.Fragment>
-        )}
-        
-        <Grid height="6rem" />
+            </React.Fragment>
+          )}
+          {post_list.length > 1 ? (
+            <Grid height="6rem" />
+          ) : (
+            <Grid height="10.4rem" />
+          )}
+        </Grid>
       </Grid>
     </React.Fragment>
   );
@@ -302,16 +307,17 @@ Main.defaultProps = {};
 
 const Hr = styled.hr`
   width: 36rem;
+  height: 0.1rem;
   background-color: #f4f4f3;
-  border: 0.1rem solid #f4f4f3;
+  border: none;
   margin: 0;
 `;
 
 const LogoImg = styled.div`
-  margin: auto;
+  margin: 0 auto 1rem auto;
   background-image: url("${(props) => props.src}");
-  width: 184px;
-  height: 167px;
+  width: 18.4rem;
+  height: 16.7rem;
   background-size: cover;
   background-position: center;
 `;

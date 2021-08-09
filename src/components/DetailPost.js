@@ -51,11 +51,7 @@ const DetailPost = (props) => {
   }, [disabled ? disabled : null]);
 
   const deleteBtn = () => {
-    if (window.confirm("삭제하시겠습니까?")) {
-      dispatch(postAction.deletePostAX(post_id));
-    } else {
-      return;
-    }
+    dispatch(postAction.deletePostAX(post_id));
   };
 
   const requestJoin = () => {

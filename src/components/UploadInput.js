@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Grid, Text, Input } from "../elements";
+import { Grid, Text, Input, Button } from "../elements";
 import { useState } from "react";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
@@ -8,6 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import DropDown from "./DropDown";
 import moment from "moment";
 
+import "./style.css";
+import { useDetectOutsideClick } from "./useDetectOutsideClick";
+import PostAddress from "./PostAddress";
 import { actionCreators as locateActions } from "../redux/modules/loc";
 
 const UploadInput = React.memo((props) => {
@@ -47,8 +50,14 @@ const UploadInput = React.memo((props) => {
         }
   );
 
+  const dropdownRef = React.useRef(null);
+  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const onClick = () => {
+    window.scrollTo(0, 0);
+    setIsActive(!isActive);
+  };
   React.useEffect(() => {
-    if (!post_address && props?.find_address){
+    if (!post_address && props?.find_address) {
       dispatch(locateActions.getMyPostCoordAX(props.find_address));
       setPostInfo({ ...post_info, place: post_address });
       props?.onChange({ place: post_address });
@@ -77,8 +86,42 @@ const UploadInput = React.memo((props) => {
                 >
                   배달 받을 곳
                 </Text>
-                <DropDown />
+                <Button
+                  width="7rem"
+                  border="1px solid #C7C8CE"
+                  padding="0.3rem 0 0.3rem 0"
+                  margin="1.5rem 0 0 1rem"
+                  radius="1.2rem"
+                  color="white"
+                  size="1.3rem"
+                  bg="gray"
+                  _onClick={onClick}
+                  className="menu-trigger"
+                  cursor="t"
+                >
+                  주소 찾기
+                </Button>
+                {/* <DropDown /> */}
               </Grid>
+              <div className="container">
+                <div className="menu-container">
+                  <nav
+                    ref={dropdownRef}
+                    className={`menu ${isActive ? "active" : "inactive"}`}
+                    style={{
+                      minWidth: "36rem",
+                      backgroundColor: "transparent",
+                      cursor: "pointer",
+                      zIndex: "1",
+                      top: 0,
+                      // margin: "0 35rem 0 auto",
+                      position: "fixed",
+                    }}
+                  >
+                    <PostAddress close={onClick} />
+                  </nav>
+                </div>
+              </div>
               <Grid
                 radius="1.2rem"
                 border="1px solid #C7C8CE"

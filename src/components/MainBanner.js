@@ -29,14 +29,15 @@ const MainBanner = (props) => {
           pagination={{
             clickable: true,
           }}
-          autoplay={{ delay: 30000 }}
+          // autoplay={{ delay: 1000 }}
+          // autoplay={{ delay: 30000 }}
         >
           {rank_list.map((p, idx) => {
             return (
               <SwiperSlide key={idx}>
                 <Grid width="36rem" height="12.6rem" margin="0.5rem auto">
                   <MainBannerBtn src={p.imgUrl}>
-                    <Grid position="absolute" top="6.5rem" right="8.5rem">
+                    <Grid position="relative" top="6.5rem" right="9.5rem">
                       <Text
                         size="1.6rem"
                         text_align="center"

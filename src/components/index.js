@@ -17,6 +17,7 @@ import AllowList from "./AllowList";
 import MyOneReview from "./MyOneReview";
 import SideContent from "./SideContent";
 import ChatUserItem from "./ChatUserItem";
+import ScrollTop from "./ScrollTop";
 
 export {
   DetailPost,
@@ -38,4 +39,5 @@ export {
   MyOneReview,
   SideContent,
   ChatUserItem,
+  ScrollTop,
 };
