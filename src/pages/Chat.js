@@ -191,6 +191,7 @@ const Chat = (props) => {
       const data = {
         type: "BAN",
         roomId: room_id,
+        senderId: sender_id,
         // 강퇴할 사람 user_id
         message: other_user_id,
       };

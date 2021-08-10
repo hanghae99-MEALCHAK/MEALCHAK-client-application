@@ -5,20 +5,20 @@ import { actionCreators as chatActions } from "../redux/modules/chat";
 import { useDispatch, useSelector } from "react-redux";
 import { customAlert } from "./Sweet";
 
-import { Grid, Image, Text, Button } from '../elements';
-import { history } from '../redux/configureStore';
-import logger from '../shared/Console';
-import theme from '../styles/theme';
+import { Grid, Image, Text, Button } from "../elements";
+import { history } from "../redux/configureStore";
+import logger from "../shared/Console";
+import theme from "../styles/theme";
 
 const Post = (props) => {
   const { color, fontSize } = theme;
 
   // 연, 월
-  const ym = props?.insert_dt.split('-');
+  const ym = props?.insert_dt.split("-");
   // 일
-  const day = ym[2].split(' ');
+  const day = ym[2].split(" ");
   // 시, 분
-  const hm = day[1].split(':');
+  const hm = day[1].split(":");
 
   const is_login = useSelector((state) => state.user.is_login);
   const user_info = useSelector((state) => state.user.user);
@@ -63,37 +63,39 @@ const Post = (props) => {
         radius={fontSize.base}
       >
         <Grid is_float="left" margin="0.5rem 1.5rem 1.5rem 1.5rem">
-          <Grid is_flex>
-            <UserProfile
-              src={props.userImg}
-              onClick={() => {
-                if (is_login) {
-                  if (user_info.user_id === props.user_id) {
-                    return history.push("/mypage");
-                  }
-                  history.push({
-                    pathname: "/userprofile",
-                    state: { ...props },
-                  });
-                }else{
-                  customAlert.sweetNeedLogin();
+          <Grid
+            is_flex
+            cursor="t"
+            _onClick={() => {
+              if (is_login) {
+                if (user_info.user_id === props.user_id) {
+                  return history.push("/mypage");
                 }
-              }}
-            />
+                history.push({
+                  pathname: "/userprofile",
+                  state: { ...props },
+                });
+              } else {
+                customAlert.sweetNeedLogin();
+              }
+            }}
+          >
+            <UserProfile src={props.userImg} />
             <Grid>
               <Grid is_flex>
                 <Text size={fontSize.small} color={color.bg100} bold2="500">
                   {props.username}
                 </Text>
                 <Grid
-                  width={props.valid === false || disabled ? '5rem' : ''}
+                  width={props.valid === false || disabled ? "5rem" : ""}
                   minWidth="5.5rem"
                   maxWidth="9.1rem"
                   height="2.3rem"
-                  bg={color.bg20}
+                  bg="rgba(84, 189, 88, 0.1)"
                   radius="0.5rem"
                   padding="0.4rem 0.8rem"
                   margin="0 3.3rem 0 0"
+                  opacity="0.9"
                 >
                   <Text
                     size="1rem"
@@ -101,7 +103,7 @@ const Post = (props) => {
                     margin="0"
                     color={
                       props.valid === false || disabled
-                        ? '#9A9896'
+                        ? "#9A9896"
                         : color.success100
                     }
                     bold
@@ -119,8 +121,9 @@ const Post = (props) => {
           </Grid>
         </Grid>
         <Grid maxWidth="29rem" margin="0 1.5rem">
-          <Grid>
+          <Grid display="inline-block" margin="0">
             <Text
+              display="inline-block"
               size={fontSize.postBox}
               line_height="150%"
               color={color.bg100}
@@ -132,7 +135,7 @@ const Post = (props) => {
             <Text
               width="28.8rem"
               height="4rem"
-              margin="0 0 1rem 0"
+              margin="0"
               size={fontSize.small}
               line_height="150%"
               color={color.bg100}
@@ -153,7 +156,7 @@ const Post = (props) => {
                 bold2="400"
                 line_height="150%"
                 color={color.bg80}
-                margin="1rem 0"
+                margin="0.8rem 0.8rem 0.8rem 0"
               >
                 배달 받을 곳
               </Text>
@@ -164,7 +167,7 @@ const Post = (props) => {
                   bold2="500"
                   color={color.success100}
                   line_height="150%"
-                  margin="0 0 0 1rem"
+                  margin="0 0.1rem"
                 >
                   {distance > 999
                     ? `내 위치로부터 ${(distance / 1000).toFixed(2)}km`
@@ -179,7 +182,7 @@ const Post = (props) => {
               bold2="500"
               line_height="150%"
               color="#36373C"
-              margin="0 0 1rem 0"
+              margin="0 0 0.8rem 0"
               overflow="hidden"
               text_overflow="ellipsis"
               white_space="nowrap"
@@ -197,7 +200,7 @@ const Post = (props) => {
                 bold2="400"
                 line_height="150%"
                 color={color.bg80}
-                margin="1rem 0"
+                margin="0.8rem 0"
               >
                 배달 식당
               </Text>
@@ -207,7 +210,7 @@ const Post = (props) => {
                 bold2="500"
                 line_height="150%"
                 color="#36373C"
-                margin="0 0 1rem 0"
+                margin="0 0 1.6rem 0"
                 overflow="hidden"
                 text_overflow="ellipsis"
                 white_space="nowrap"
@@ -216,14 +219,14 @@ const Post = (props) => {
                 {props.shop}
               </Text>
             </Grid>
-            <Grid is_float="right">
-              <Grid text_align="left" padding="0 0 0 1rem">
+            <Grid>
+              <Grid text_align="left" padding="0.1rem 0 0.8rem 1rem">
                 <Text
                   size={fontSize.small}
                   bold2="400"
                   line_height="150%"
                   color={color.bg80}
-                  margin="1rem 0"
+                  margin="0.7rem 0"
                 >
                   주문 예정 시각
                 </Text>
@@ -233,7 +236,7 @@ const Post = (props) => {
                   bold2="500"
                   line_height="150%"
                   color="#36373C"
-                  margin="0 0 1rem 0"
+                  margin="0.8rem 0"
                 >
                   {props.orderTime}
                 </Text>
@@ -241,7 +244,7 @@ const Post = (props) => {
             </Grid>
           </Grid>
           {props.valid === false || disabled ? (
-            ''
+            ""
           ) : (
             <Grid is_flex maxWidth="29rem" margin="0 0 1.5rem 0">
               <Button
@@ -264,7 +267,7 @@ const Post = (props) => {
                 width="14rem"
                 height="4.4rem"
                 radius="1.2rem"
-                bg={disabled ? '#EBE9E8' : color.brand100}
+                bg={disabled ? "#EBE9E8" : color.brand100}
                 border="none"
                 size={fontSize.small}
                 bold={fontSize.bold}
@@ -280,9 +283,8 @@ const Post = (props) => {
                 <Text
                   bold
                   size={fontSize.small}
-                  color={disabled ? '#CECAC7' : color.bg0}
+                  color={disabled ? "#CECAC7" : color.bg0}
                 >
-                  {/* {disabled ? "모집 마감됐어요" : "채팅 시작하기"} */}
                   채팅 시작하기
                 </Text>
               </Button>
@@ -300,7 +302,7 @@ const UserProfile = styled.div`
   width: 4.3rem;
   height: 3.8rem;
   border-radius: 2rem;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   background-size: cover;
   background-position: center;
   margin: 1rem 1rem 1rem 0;
@@ -309,8 +311,9 @@ const UserProfile = styled.div`
 
 const Hr = styled.hr`
   width: 29rem;
+  height: 0.1rem;
   background-color: #f4f4f3;
-  border: 0.1rem solid #f4f4f3;
+  border: none;
   margin: 0;
 `;
 export default Post;

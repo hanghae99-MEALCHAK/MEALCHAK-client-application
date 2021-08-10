@@ -182,6 +182,7 @@ const Upload = React.memo((props) => {
                 height="5rem"
                 border="none"
                 radius={radius.button}
+                cursor="t"
                 _onClick={UploadEditBtn}
               >
                 <Text color={color.bg0} bold2="700" size={fontSize.base}>
@@ -194,6 +195,7 @@ const Upload = React.memo((props) => {
                 height="5rem"
                 border="none"
                 radius={radius.button}
+                cursor="t"
                 _onClick={uploadBtn}
               >
                 <Text color={color.bg0} bold2="700" size={fontSize.base}>
