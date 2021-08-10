@@ -76,7 +76,8 @@ const getPostAX = (category, sort="recent") => {
               headCount: p.headCount,
               orderTime: hour + ":" + minute,
               orderDate: p.orderTime.split(" ")[0],
-              address: p.address,
+              address: p.address.split("/")[0],
+              detail_address: p.address.split("/")[1],
               insert_dt: p.createdAt,
               username: p.username,
               user_id: p.userId,
@@ -113,7 +114,8 @@ const getOnePostDB = (postId) => {
           shop: p.restaurant,
           headCount: p.headCount,
           orderTime: p.orderTime,
-          address: p.address,
+          address: p.address.split("/")[0],
+          detail_address: p.address.split("/")[1],
           insert_dt: p.createdAt,
           username: p.username,
           user_id: p.userId,
@@ -140,7 +142,7 @@ const addPostAX = (post_info) => {
         headCount: post_info.headCount,
         category: post_info.foodCategory,
         // address: post_info.place,
-        address: address,
+        address: `${address}/${post_info.detail_place}`,
         orderTime: `${post_info.appointmentDate} ${post_info.appointmentTime}:00`,
         contents: post_info.contents,
         restaurant: post_info.restaurant,
@@ -183,7 +185,7 @@ const editPostAX = (post_id, post_info) => {
         title: post_info.title,
         headCount: post_info.headCount,
         category: post_info.foodCategory,
-        address: post_info.place,
+        address: `${post_info.place}/${post_info.detail_place}`,
         orderTime: `${post_info.appointmentDate} ${post_info.appointmentTime}:00`,
         contents: post_info.contents,
         restaurant: post_info.restaurant,
@@ -205,7 +207,8 @@ const editPostAX = (post_id, post_info) => {
           nowHeadCount: res.data.nowHeadCount,
           orderTime: hour + ":" + minute,
           orderDate: res.data.orderTime.split(" ")[0],
-          address: res.data.address,
+          address: res.data.address.split("/")[0],
+          detail_address: res.data.address.split("/")[1],
           user_id: res.data.userId,
           username: res.data.username,
           insert_dt: res.data.createdAt,
@@ -267,7 +270,7 @@ const deletePostAX = (post_id) => {
         confirmButtonColor: color.brand100,
         confirmButtonText: (
           <Grid width="9rem" is_flex2>
-            <Text padding="0 2rem" color={color.bg0}>
+            <Text padding="0" color={color.bg0}>
               삭제하기
             </Text>
           </Grid>

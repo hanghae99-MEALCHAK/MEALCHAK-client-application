@@ -13,7 +13,7 @@ const UploadContents = React.memo((props) => {
   }, []);
 
   const [post_info, setPostInfo] = useState(
-    props.post_info !== {}
+    props.post_info.title !== {}
       ? {
           title: props.post_info.title,
           contents: props.post_info.contents,

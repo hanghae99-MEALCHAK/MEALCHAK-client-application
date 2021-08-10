@@ -5,8 +5,16 @@ import { useState } from "react";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
 import { useDispatch, useSelector } from "react-redux";
-import DropDown from "./DropDown";
+
+// 날짜
 import moment from "moment";
+import DatePicker from "react-datepicker";
+import TimePicker from "react-time-picker";
+import { ko } from "date-fns/esm/locale";
+import "react-datepicker/dist/react-datepicker.css";
+
+// select
+import { HeadSelect, CTGSelect } from "./ReactSelect";
 
 import "./style.css";
 import { useDetectOutsideClick } from "./useDetectOutsideClick";
@@ -14,11 +22,31 @@ import PostAddress from "./PostAddress";
 import { actionCreators as locateActions } from "../redux/modules/loc";
 
 const UploadInput = React.memo((props) => {
-  const { color, fontSize } = theme;
+  const { color, fontSize, radius, border } = theme;
+
+  // select options
+  const head_options = [
+    { value: "2", label: "2명" },
+    { value: "3", label: "3명" },
+    { value: "4", label: "4명" },
+  ];
+
+  const food_options = [
+    { value: "한식", label: "한식" },
+    { value: "중식", label: "중식" },
+    { value: "일식", label: "일식" },
+    { value: "양식", label: "양식" },
+    { value: "카페", label: "카페" },
+    { value: "기타", label: "기타" },
+  ];
+
 
   const dispatch = useDispatch();
 
-  const today = moment().format("YYYY-MM-DD");
+  const today = moment().toDate();
+  const modi_time = `${props.post_info.appointmentDate} ${props.post_info.appointmentTime}`;
+  // const today = moment().format("YYYY-MM-DD");
+
   const now_time = moment().format("HH:mm");
   const post_address = useSelector((state) => state.loc.post_address?.address);
   const coords = useSelector((state) => state.loc.post_address);
@@ -30,19 +58,21 @@ const UploadInput = React.memo((props) => {
     props.post_info.place
       ? {
           place: props.post_info.place,
+          detail_place: props.post_info.detail_place,
           restaurant: props.post_info.restaurant,
           headCount: props.post_info.headCount,
-          appointmentTime: props.post_info.appointmentTime,
-          appointmentDate: props.post_info.appointmentDate,
+          appointmentTime: moment(modi_time).toDate(),
+          appointmentDate: moment(modi_time).toDate(),
           foodCategory: props.post_info.foodCategory,
           longitude: props.post_info.longitude,
           latitude: props.post_info.latitude,
         }
       : {
           place: "",
+          detail_place: "",
           restaurant: "",
           headCount: "",
-          appointmentTime: now_time,
+          appointmentTime: today,
           appointmentDate: today,
           foodCategory: "",
           longitude: longitude,
@@ -86,9 +116,9 @@ const UploadInput = React.memo((props) => {
                 >
                   배달 받을 곳
                 </Text>
-                <Button
+                {/* <Button
                   width="7rem"
-                  border="1px solid #C7C8CE"
+                  border={border.bg40}
                   padding="0.3rem 0 0.3rem 0"
                   margin="1.5rem 0 0 1rem"
                   radius="1.2rem"
@@ -100,7 +130,7 @@ const UploadInput = React.memo((props) => {
                   cursor="t"
                 >
                   주소 찾기
-                </Button>
+                </Button> */}
                 {/* <DropDown /> */}
               </Grid>
               <div className="container">
@@ -123,18 +153,49 @@ const UploadInput = React.memo((props) => {
                 </div>
               </div>
               <Grid
+                height="5rem"
                 radius="1.2rem"
-                border="1px solid #C7C8CE"
-                padding="1.5rem 1.3rem"
+                border={border.bg40}
+                padding="1.4rem 1.6rem"
+                bg={color.bg20}
+                margin="0 0 0.8rem"
               >
-                <Text color={color.bg60} size={fontSize.base}>
+                <Text color={color.bg80} size={fontSize.base}>
                   {post_address
                     ? post_address
                     : props?.find_address
                     ? props.find_address
-                    : "배달 받을 곳을 선택해주세요"}
+                    : "주소를 찾으면 자동으로 입력돼요."}
                 </Text>
               </Grid>
+              <Input
+                border={border.bg40}
+                padding="1.5rem 1.3rem"
+                size={fontSize.base}
+                color={color.bg60}
+                placeholder="상세 주소 입력란"
+                value={post_info.detail_place}
+                _onChange={(e) => {
+                  setPostInfo({ ...post_info, detail_place: e.target.value });
+                  props.onChange({ detail_place: e.target.value });
+                }}
+              ></Input>
+              <Button
+                height="5rem"
+                border={border.bg40}
+                padding="0.3rem 0 0.3rem 0"
+                margin="0.8rem 0 0"
+                radius={radius.button}
+                size="1.3rem"
+                bg={color.bg0}
+                _onClick={onClick}
+                className="menu-trigger"
+                cursor="t"
+              >
+                <Text color={color.brand100} size={fontSize.base} bold2="700">
+                  주소 찾기
+                </Text>
+              </Button>
             </FocusWithin>
           </Grid>
           <Grid>
@@ -145,10 +206,10 @@ const UploadInput = React.memo((props) => {
                 bold="700"
                 size={fontSize.base}
               >
-                배달 예정 음식점
+                배달 예정 식당
               </Text>
               <Input
-                border="1px solid #C7C8CE"
+                border={border.bg40}
                 padding="1.5rem 1.3rem"
                 size={fontSize.base}
                 color={color.bg60}
@@ -162,7 +223,7 @@ const UploadInput = React.memo((props) => {
             </FocusWithin>
           </Grid>
 
-          <FocusWithinSelect>
+          {/* <FocusWithinSelect> */}
             <Text
               padding="2.4rem 0 0.8rem"
               color="#888E95"
@@ -172,12 +233,19 @@ const UploadInput = React.memo((props) => {
               모집 인원 수
             </Text>
             <Grid
-              border="1px solid #C7C8CE"
-              padding="0 1.3rem"
+              border={border.bg40}
               radius="1.2rem"
               height="auto"
             >
-              <Select
+              <HeadSelect
+                options={head_options}
+                value={post_info.headCount}
+                setPostInfo={setPostInfo}
+                post_info={post_info}
+                onChange={props.onChange}
+                headCount={post_info.headCount}
+              />
+              {/* <Select
                 value={`${post_info.headCount}`}
                 onChange={(e) => {
                   setPostInfo({
@@ -193,44 +261,16 @@ const UploadInput = React.memo((props) => {
                 <option value="2">2명</option>
                 <option value="3">3명</option>
                 <option value="4">4명</option>
-              </Select>
+              </Select> */}
             </Grid>
-          </FocusWithinSelect>
-          <Text color="red" size={fontSize.tiny} padding="0.5rem 1rem 0">
-            5인 이상 집합금지로 인원에 제한이 있습니다.
-          </Text>
+          {/* </FocusWithinSelect> */}
+          <Grid text_align="right">
+            <Text color="red" size={fontSize.tiny} padding="0.8rem 1rem 0">
+              5인 이상 집합금지로 인원에 제한이 있습니다.
+            </Text>
+          </Grid>
 
-          <Grid is_flex4="t" justify_content="space-between">
-            <Grid width="56%" margin="0">
-              <FocusWithin>
-                <Text
-                  padding="2.4rem 0 0.8rem"
-                  color="#888E95"
-                  bold="700"
-                  size={fontSize.base}
-                >
-                  모집 예정 날짜
-                </Text>
-                <Input
-                  type="date"
-                  border="1px solid #C7C8CE"
-                  padding="1.5rem 1rem"
-                  size="1.4rem"
-                  color={color.bg60}
-                  value={post_info.appointmentDate}
-                  _onChange={(e) => {
-                    setPostInfo({
-                      ...post_info,
-                      appointmentDate: e.target.value,
-                    });
-                    logger("약속 날짜", e.target.value);
-                    logger("오늘", today);
-
-                    props.onChange({ appointmentDate: e.target.value });
-                  }}
-                ></Input>
-              </FocusWithin>
-            </Grid>
+          <Grid width="100%" margin="0">
             <FocusWithin>
               <Text
                 padding="2.4rem 0 0.8rem"
@@ -238,28 +278,63 @@ const UploadInput = React.memo((props) => {
                 bold="700"
                 size={fontSize.base}
               >
-                모집 예정 시간
+                배달 주문 예정 시간
               </Text>
-              <Input
-                type="time"
-                border="1px solid #C7C8CE"
-                padding="1.5rem 1.3rem"
-                size="1.4rem"
-                color={color.bg60}
-                value={post_info.appointmentTime}
-                _onChange={(e) => {
-                  setPostInfo({
-                    ...post_info,
-                    appointmentTime: e.target.value,
-                  });
-                  props.onChange({ appointmentTime: e.target.value });
-                }}
-              ></Input>
+
+              <Grid
+                is_flex4="t"
+                flex_direction="row"
+                justify_content="space-between"
+              >
+                <SDatePicker
+                  theme={theme}
+                  minDate={new Date()}
+                  locale={ko}
+                  dateFormat="yyyy년 MM월 dd일"
+                  selected={post_info.appointmentDate}
+                  onChange={(date) => {
+                    setPostInfo({
+                      ...post_info,
+                      appointmentDate: date,
+                    });
+                    logger("현재시간", moment(date).format("YYYY-MM-DD"));
+
+                    props.onChange({
+                      appointmentDate: moment(date).format("YYYY-MM-DD"),
+                    });
+                  }}
+                  withPortal={true}
+                  closeOnScroll={true}
+                />
+
+                <TDatePicker
+                  timeCaption="Time"
+                  dateFormat="p"
+                  timeIntervals={15}
+                  showTimeSelectOnly
+                  showTimeSelect
+                  theme={theme}
+                  locale={ko}
+                  timeFormat="HH:mm"
+                  selected={post_info.appointmentTime}
+                  onChange={(date) => {
+                    setPostInfo({
+                      ...post_info,
+                      appointmentTime: date,
+                    });
+                    logger("현재시간", moment(date).format("HH:mm"));
+                    props.onChange({
+                      appointmentTime: moment(date).format("HH:mm"),
+                    });
+                  }}
+                  withPortal={true}
+                  closeOnScroll={true}
+                />
+              </Grid>
             </FocusWithin>
           </Grid>
 
           <Grid margin="0 auto 1rem">
-            <FocusWithinSelect>
               <Text
                 padding="2.4rem 0 0.8rem"
                 color="#888E95"
@@ -269,12 +344,19 @@ const UploadInput = React.memo((props) => {
                 음식 카테고리
               </Text>
               <Grid
-                border="1px solid #C7C8CE"
-                padding="0 1.3rem"
+                border={border.bg40}
                 radius="1.2rem"
                 height="auto"
               >
-                <Select
+                <CTGSelect
+                options={food_options}
+                value={post_info.foodCategory}
+                setPostInfo={setPostInfo}
+                post_info={post_info}
+                onChange={props.onChange}
+                foodCategory={post_info.foodCategory}
+              />
+                {/* <Select
                   value={post_info.foodCategory}
                   onChange={(e) => {
                     setPostInfo({
@@ -293,9 +375,8 @@ const UploadInput = React.memo((props) => {
                   <option value="양식">양식</option>
                   <option value="카페">카페</option>
                   <option value="기타">기타</option>
-                </Select>
+                </Select> */}
               </Grid>
-            </FocusWithinSelect>
           </Grid>
         </Container>
       </Grid>
@@ -339,4 +420,76 @@ const FocusWithinSelect = styled.div`
   }
 `;
 
+const SDatePicker = styled(DatePicker)`
+  width: auto;
+  height: 5rem;
+  padding: 1.4rem 1.6rem;
+  font-size: 1.4rem;
+  text-align: left;
+  border: ${(props) => props.theme.border.bg40};
+  border-radius: ${(props) => props.theme.radius.button};
+  cursor: pointer;
+
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: url("https://image.flaticon.com/icons/png/512/32/32195.png")
+    no-repeat 92% 50% #fff;
+  background-size: 1rem;
+`;
+
+const TDatePicker = styled(DatePicker)`
+  width: 12rem;
+  height: 5rem;
+  padding: 1.4rem 1.6rem;
+  font-size: 1.4rem;
+  text-align: left;
+  border: ${(props) => props.theme.border.bg40};
+  border-radius: ${(props) => props.theme.radius.button};
+  cursor: pointer;
+
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: url("https://image.flaticon.com/icons/png/512/992/992700.png")
+    no-repeat 88% 50% #fff;
+  background-size: 1.5rem;
+`;
+
+const STimePicker = styled(TimePicker)`
+  width: fit-content;
+  height: 5rem;
+  padding: 1.4rem 1.6rem;
+  font-size: 1.4rem;
+  text-align: left;
+  border: ${(props) => props.theme.border.bg40};
+  border-radius: ${(props) => props.theme.radius.button};
+  cursor: pointer;
+
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+
+  & div {
+    border: none;
+    display: flex;
+  }
+
+  & .react-time-picker__wrapper {
+    align-items: center;
+  }
+
+  & .react-time-picker__inputGroup {
+    height: 2rem;
+  }
+
+  & .react-time-picker__clock {
+    background-color: none;
+  }
+
+  & .react-time-picker__button {
+    height: fit-content;
+    padding: 0 0 0 1rem;
+  }
+`;
 export default UploadInput;
