@@ -6,10 +6,9 @@ import { customAlert } from './Sweet';
 
 import { useSelector } from 'react-redux';
 
-import { Grid, Text } from "../elements";
-import theme from "../styles/theme";
-import { HiOutlineMenu } from "react-icons/hi";
-
+import { Grid, Text } from '../elements';
+import theme from '../styles/theme';
+import { HiOutlineMenu } from 'react-icons/hi';
 
 const Header = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
@@ -184,10 +183,10 @@ const Header = (props) => {
           <Grid width="24px" margin="0 0 0 1.3rem" />
           <svg
             style={{
-              fontSize: "1.9rem",
-              position: "absolute",
-              marginLeft: "1.2rem",
-              cursor: "pointer",
+              fontSize: '1.9rem',
+              position: 'absolute',
+              marginLeft: '1.2rem',
+              cursor: 'pointer',
               zIndex: 1,
             }}
             width="2.4rem"
@@ -224,9 +223,9 @@ const Header = (props) => {
             size="2.4rem"
             color={color.bg100}
             style={{
-              margin: "0rem 1.2rem 0 0",
-              cursor: "pointer",
-              zIndex: "1",
+              margin: '0rem 1.2rem 0 0',
+              cursor: 'pointer',
+              zIndex: '1',
               // opacity: isOpen ? 0 : 1,
             }}
             onClick={props._onClick}
@@ -313,7 +312,7 @@ const Header = (props) => {
             xmlns="http://www.w3.org/2000/svg"
             cursor="pointer"
             onClick={() => {
-              history.replace('/home');
+              history.goBack();
             }}
             style={{ margin: '0 0 0 1rem' }}
           >

@@ -4,9 +4,9 @@ const theme = {
   color: {
     bg100: '#36373C',
     bg80: '#9A9896',
-    bg60: '#C7C8CE',
-    bg40: '#E1E6E8',
-    bg20: '#F1F2F4',
+    bg60: '#CECAC7',
+    bg40: '#EBE9E8',
+    bg20: '#F4F4F3',
     bg0: '#FFFFFF',
     brand100: '#FF9425',
     brand80: '#FFAF5C',

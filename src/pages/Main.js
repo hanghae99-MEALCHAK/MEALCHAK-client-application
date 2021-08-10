@@ -12,6 +12,13 @@ import logger from '../shared/Console';
 
 import theme from '../styles/theme';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Pagination, Navigation } from 'swiper';
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
+import '../shared/Swiper.scss';
+
 const Main = (props) => {
   const { color, border, btn_border, fontSize } = theme;
 
@@ -124,107 +131,125 @@ const Main = (props) => {
           align_items="center"
           padding="2rem 0"
         >
-          <Text
-            width="3rem"
-            height="2.4rem"
-            size={fontSize.base}
-            bold
-            cursor="t"
-            margin="0 0.9rem"
-            border_bottom={category.all ? '0.1rem solid black' : ''}
-            _onClick={() => {
-              setCategory({ ...{ category: false }, all: true });
-            }}
+          <Swiper
+            className="category"
+            slidesPerView={'auto'}
+            autoplay={{ delay: 1000 }}
           >
-            전체
-          </Text>
-          <Text
-            width="3rem"
-            height="2.4rem"
-            size="1.6rem"
-            bold
-            cursor="t"
-            margin="0 0.9rem"
-            border_bottom={category.kr ? '0.1rem solid black' : ''}
-            _onClick={() => {
-              setCategory({ ...{ category: false }, kr: true });
-            }}
-          >
-            한식
-          </Text>
-          <Text
-            width="3rem"
-            height="2.4rem"
-            size="1.6rem"
-            bold
-            cursor="t"
-            margin="0 0.9rem"
-            border_bottom={category.cn ? '0.1rem solid black' : ''}
-            _onClick={() => {
-              // dispatch(postActions.getPostAX('한식'));
-              setCategory({ ...{ category: false }, cn: true });
-            }}
-          >
-            중식
-          </Text>
-          <Text
-            width="3rem"
-            height="2.4rem"
-            size="1.6rem"
-            bold
-            cursor="t"
-            margin="0 0.9rem"
-            border_bottom={category.jp ? '0.1rem solid black' : ''}
-            _onClick={() => {
-              // dispatch(postActions.getPostAX('중식'));
-              setCategory({ ...{ category: false }, jp: true });
-            }}
-          >
-            일식
-          </Text>
-          <Text
-            width="3rem"
-            height="2.4rem"
-            size="1.6rem"
-            bold
-            cursor="t"
-            margin="0 0.9rem"
-            border_bottom={category.west ? '0.1rem solid black' : ''}
-            _onClick={() => {
-              // dispatch(postActions.getPostAX('일식'));
-              setCategory({ ...{ category: false }, west: true });
-            }}
-          >
-            양식
-          </Text>
-          <Text
-            width="3rem"
-            height="2.4rem"
-            size="1.6rem"
-            bold
-            cursor="t"
-            margin="0 0.9rem"
-            border_bottom={category.cafe ? '0.1rem solid black' : ''}
-            _onClick={() => {
-              setCategory({ ...{ category: false }, cafe: true });
-            }}
-          >
-            카페
-          </Text>
-          <Text
-            width="3rem"
-            height="2.4rem"
-            size="1.6rem"
-            bold
-            cursor="t"
-            margin="0 0.9rem"
-            border_bottom={category.etc ? '0.1rem solid black' : ''}
-            _onClick={() => {
-              setCategory({ ...{ category: false }, etc: true });
-            }}
-          >
-            기타
-          </Text>
+            <SwiperSlide>
+              <Text
+                width="3rem"
+                height="2.4rem"
+                size={fontSize.base}
+                bold
+                cursor="t"
+                margin="0 0.9rem"
+                border_bottom={category.all ? '0.1rem solid black' : ''}
+                _onClick={() => {
+                  setCategory({ ...{ category: false }, all: true });
+                }}
+              >
+                전체
+              </Text>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Text
+                width="3rem"
+                height="2.4rem"
+                size="1.6rem"
+                bold
+                cursor="t"
+                margin="0 0.9rem"
+                border_bottom={category.kr ? '0.1rem solid black' : ''}
+                _onClick={() => {
+                  setCategory({ ...{ category: false }, kr: true });
+                }}
+              >
+                한식
+              </Text>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Text
+                width="3rem"
+                height="2.4rem"
+                size="1.6rem"
+                bold
+                cursor="t"
+                margin="0 0.9rem"
+                border_bottom={category.cn ? '0.1rem solid black' : 'none'}
+                _onClick={() => {
+                  setCategory({ ...{ category: false }, cn: true });
+                }}
+              >
+                중식
+              </Text>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Text
+                width="3rem"
+                height="2.4rem"
+                size="1.6rem"
+                bold
+                cursor="t"
+                margin="0 0.9rem"
+                border_bottom={category.jp ? '0.1rem solid black' : ''}
+                _onClick={() => {
+                  setCategory({ ...{ category: false }, jp: true });
+                }}
+              >
+                일식
+              </Text>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Text
+                width="3rem"
+                height="2.4rem"
+                size="1.6rem"
+                bold
+                cursor="t"
+                margin="0 0.9rem"
+                border_bottom={category.west ? '0.1rem solid black' : ''}
+                _onClick={() => {
+                  // dispatch(postActions.getPostAX('일식'));
+                  setCategory({ ...{ category: false }, west: true });
+                }}
+              >
+                양식
+              </Text>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Text
+                width="3rem"
+                height="2.4rem"
+                size="1.6rem"
+                bold
+                cursor="t"
+                margin="0 0.9rem"
+                border_bottom={category.cafe ? '0.1rem solid black' : ''}
+                _onClick={() => {
+                  setCategory({ ...{ category: false }, cafe: true });
+                }}
+              >
+                카페
+              </Text>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Text
+                width="3rem"
+                height="2.4rem"
+                size="1.6rem"
+                bold
+                cursor="t"
+                margin="0 0.9rem"
+                border_bottom={category.etc ? '0.1rem solid black' : ''}
+                _onClick={() => {
+                  setCategory({ ...{ category: false }, etc: true });
+                }}
+              >
+                기타
+              </Text>
+            </SwiperSlide>
+          </Swiper>
         </Grid>
         <Hr />
         <Grid is_flex2 maxWidth="32rem" margin="1rem auto">
@@ -245,7 +270,7 @@ const Main = (props) => {
         <Grid>
           {post_list?.length > 0 ? (
             post_list.map((p, idx) => {
-              if (p.post_id === "") {
+              if (p.post_id === '') {
                 return (
                   <React.Fragment>
                     <Grid>
@@ -262,22 +287,22 @@ const Main = (props) => {
               if (category.all) {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.kr && p.category === "한식") {
+              if (category.kr && p.category === '한식') {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.cn && p.category === "중식") {
+              if (category.cn && p.category === '중식') {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.jp && p.category === "일식") {
+              if (category.jp && p.category === '일식') {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.west && p.category === "양식") {
+              if (category.west && p.category === '양식') {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.cafe && p.category === "카페") {
+              if (category.cafe && p.category === '카페') {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.etc && p.category === "기타") {
+              if (category.etc && p.category === '기타') {
                 return <Post {...p} key={p.post_id} />;
               }
               return null;
@@ -317,7 +342,7 @@ const Hr = styled.hr`
 
 const LogoImg = styled.div`
   margin: 0 auto 1rem auto;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   width: 18.4rem;
   height: 16.7rem;
   background-size: cover;

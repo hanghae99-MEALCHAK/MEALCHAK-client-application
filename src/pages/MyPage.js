@@ -1,23 +1,23 @@
-import React from "react";
-import styled from "styled-components";
-import { useState } from "react";
-import logger from "../shared/Console";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postAction } from "../redux/modules/post";
-import { actionCreators as userAction } from "../redux/modules/user";
-import { Kakao_auth_url } from "../shared/OAuth";
-import Spinner from "../shared/Spinner";
-import { history } from "../redux/configureStore";
-import { useLocation } from "react-router";
+import React from 'react';
+import styled from 'styled-components';
+import { useState } from 'react';
+import logger from '../shared/Console';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as postAction } from '../redux/modules/post';
+import { actionCreators as userAction } from '../redux/modules/user';
+import { Kakao_auth_url } from '../shared/OAuth';
+import Spinner from '../shared/Spinner';
+import { history } from '../redux/configureStore';
+import { useLocation } from 'react-router';
 
 // style
-import { Button, Grid, Input, Text } from "../elements";
-import { Header, Footer } from "../components";
-import theme from "../styles/theme";
+import { Button, Grid, Input, Text } from '../elements';
+import { Header, Footer } from '../components';
+import theme from '../styles/theme';
 
 // clipboard
-import CopyToClipboard from "react-copy-to-clipboard";
-import { customAlert } from "../components/Sweet";
+import CopyToClipboard from 'react-copy-to-clipboard';
+import { customAlert } from '../components/Sweet';
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const MyPage = (props) => {
   React.useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(userAction.loginCheck());
-    logger("Mypage props: ", props);
+    logger('Mypage props: ', props);
   }, []);
 
   const [copied, setCopied] = React.useState(false);
@@ -55,12 +55,11 @@ const MyPage = (props) => {
         >
           <Grid shape="container">
             <Header {...props} shape="마이페이지" />
-            <Grid borderBottom={border.boldLine} />
 
             <Grid margin="3.6rem auto 2rem">
               <Profile user_profile={user_info.user_profile} />
             </Grid>
-            <Grid margin="0 auto">
+            <Grid margin="0 auto 0.5rem">
               <Text
                 width="auto"
                 size={fontSize.large}
@@ -75,17 +74,17 @@ const MyPage = (props) => {
               >
                 {user_info.user_nickname}
               </Text>
-              <Grid width="auto" text_align="center">
+              <Grid width="auto" text_align="center" margin="0.5rem 0 0 0">
                 <Text size={fontSize.small} color="#9A9896" line_height="150%">
                   {user_info?.user_comment
                     ? user_info?.user_comment
-                    : "프로필 수정에서 한 줄 소개를 입력해주세요."}
+                    : '프로필 수정에서 한 줄 소개를 입력해주세요.'}
                 </Text>
               </Grid>
             </Grid>
             <Grid
               bg={color.bg0}
-              margin="1rem auto 1rem"
+              margin="1rem auto 2.5rem"
               padding="0.5rem"
               justify_content="center"
             >
@@ -119,11 +118,11 @@ const MyPage = (props) => {
               borderBottom={border.bg20}
               cursor="t"
               _onClick={() => {
-                history.push("/mypost");
+                history.push('/mypost');
               }}
             >
               <svg
-                style={{ marginRight: "1.2rem" }}
+                style={{ marginRight: '1.2rem' }}
                 width="30"
                 height="30"
                 viewBox="0 0 30 30"
@@ -154,11 +153,11 @@ const MyPage = (props) => {
               borderBottom={border.bg20}
               cursor="t"
               _onClick={() => {
-                history.push("/myreview");
+                history.push('/myreview');
               }}
             >
               <svg
-                style={{ marginRight: "1.2rem" }}
+                style={{ marginRight: '1.2rem' }}
                 width="30"
                 height="30"
                 viewBox="0 0 30 30"
@@ -215,7 +214,7 @@ const MyPage = (props) => {
             >
               <Grid is_flex4="t" width="60%">
                 <svg
-                  style={{ marginRight: "1.2rem" }}
+                  style={{ marginRight: '1.2rem' }}
                   width="30"
                   height="30"
                   viewBox="0 0 30 30"
@@ -253,16 +252,20 @@ const MyPage = (props) => {
               <CopyToClipboard text="http://surgo.kr/" onCopy={copy}>
                 <button
                   style={{
-                    height: "auto",
-                    width: "11.7rem",
-                    border: "none",
+                    height: 'auto',
+                    width: '11.7rem',
+                    border: 'none',
                     backgroundColor: color.brand20,
-                    padding: "0.4rem 0.8rem",
-                    borderRadius: "0.8rem",
-                    cursor: "pointer",
+                    padding: '0.4rem 0.8rem',
+                    borderRadius: '0.8rem',
+                    cursor: 'pointer',
                   }}
-                  onClick={()=>{
-                    customAlert.sweetConfirmReload("링크 복사 완료", "공유링크가 복사되었습니다\n친구를 초대해보세요!", "")
+                  onClick={() => {
+                    customAlert.sweetConfirmReload(
+                      '링크 복사 완료',
+                      '공유링크가 복사되었습니다\n친구를 초대해보세요!',
+                      ''
+                    );
                   }}
                 >
                   <Text
@@ -282,11 +285,11 @@ const MyPage = (props) => {
                 margin="0 0 5.5rem"
                 cursor="t"
                 _onClick={() => {
-                  history.push("/settings");
+                  history.push('/settings');
                 }}
               >
                 <svg
-                  style={{ marginRight: "1.2rem" }}
+                  style={{ marginRight: '1.2rem' }}
                   width="30"
                   height="30"
                   viewBox="0 0 30 30"

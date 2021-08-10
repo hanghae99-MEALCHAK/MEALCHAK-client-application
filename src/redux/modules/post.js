@@ -8,25 +8,30 @@ import { customAlert } from '../../components/Sweet';
 import { actionCreators as locateActions } from './loc';
 import { useLocation } from 'react-router';
 
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-import { Text, Grid } from "../../elements";
-import theme from "../../styles/theme";
-import "../../components/sweet.css";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { Text, Grid } from '../../elements';
+import theme from '../../styles/theme';
+import '../../components/sweet.css';
 
 const { color, fontSize } = theme;
 const sweet = withReactContent(Swal);
 
 const SET_POST = 'SET_POST';
-const GET_DETAIL_POST = 'GET_DETAIL_POST';
+const GET_DETAIL_POST_USER_LIST = 'GET_DETAIL_POST_USER_LIST';
 const ADD_POST = 'ADD_POST';
 const EDIT_POST = 'EDIT_POST';
 const DELETE_POST = 'DELETE_POST';
 const SET_RANK = 'SET_RANK';
+const CLEAR_POST = 'CLEAR_POST';
 
 const setPost = createAction(SET_POST, (post_list) => ({
   post_list,
 }));
+const getDetailPostUserList = createAction(
+  GET_DETAIL_POST_USER_LIST,
+  (user_list) => ({ user_list })
+);
 const addPost = createAction(ADD_POST, (post_item) => ({ post_item }));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
@@ -34,15 +39,18 @@ const editPost = createAction(EDIT_POST, (post_id, post) => ({
 }));
 const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
 const setRank = createAction(SET_RANK, (rank_list) => ({ rank_list }));
+const clearPost = createAction(CLEAR_POST, () => ({}));
 
 const initialState = {
   list: [],
   rank: [],
+  chat_user_list: [],
 };
 
 const getPostAX = () => {
   return function (dispatch, getState, { history }) {
     dispatch(userActions.loading(true));
+    dispatch(clearPost());
 
     axiosModule
       .get(`/posts/around`)
@@ -82,7 +90,7 @@ const getPostAX = () => {
           };
           post_list.push(post);
         }
-        console.log(post_list);
+
         dispatch(setPost(post_list));
         dispatch(userActions.loading(false));
       })
@@ -92,30 +100,25 @@ const getPostAX = () => {
   };
 };
 
-const getOnePostDB = (postId) => {
+const getDetailPostUserListAX = (postId) => {
   return function (dispatch, getState, { history }) {
     axiosModule
       .get(`/posts/${postId}`)
       .then((res) => {
-        let p = res.data;
-        let post = {
-          post_id: p.id,
-          title: p.title,
-          contents: p.contents,
-          category: p.category,
-          shop: p.restaurant,
-          headCount: p.headCount,
-          orderTime: p.orderTime,
-          address: p.address,
-          insert_dt: p.createdAt,
-          username: p.username,
-          user_id: p.userId,
-          userImg: p.userImg,
-        };
-        dispatch(setPost([post]));
+        let user_list = [];
+
+        res.data.userList.forEach((p) => {
+          let user = {
+            user_id: p.id,
+            userName: p.username,
+            userImg: p.profileImg,
+          };
+          user_list.push(user);
+        });
+        dispatch(getDetailPostUserList(user_list));
       })
       .catch((err) => {
-        logger('post모듈 - getOnePostDB : ', err);
+        logger('getDetailPostUserListAX 에러: ', err);
       });
   };
 };
@@ -227,72 +230,72 @@ const editPostAX = (post_id, post_info) => {
 const deletePostAX = (post_id) => {
   return function (dispatch, getState, { history }) {
     sweet
-    .fire({
-      customClass: {
-        popup: "border",
-        confirmButton: "confirmButton",
-        cancelButton: "cancelButton",
-        denyButton: "denyButton",
-      },
-      width: "auto",
-      padding: "0 1rem 1rem",
-      title: (
-        <Grid>
-          <Text size={fontSize.base} bold2="700" margin="0 auto 1rem">
-            정말 삭제하시겠어요?
-          </Text>
-          <Text size={fontSize.small}>
-            게시글과 연결된 채팅방도
-            <br />
-            함께 삭제됩니다 :(
-          </Text>
-        </Grid>
-      ),
-      showDenyButton: true,
-      denyButtonText: (
-        <Grid width="9rem" is_flex2>
-          <Text padding="0 2rem" color={color.brand100}>
-            취소
-          </Text>
-        </Grid>
-      ),
-      denyButtonColor: color.brand20,
-      confirmButtonColor: color.brand100,
-      confirmButtonText: (
-        <Grid width="9rem" is_flex2>
-          <Text padding="0 2rem" color={color.bg0}>
-            삭제하기
-          </Text>
-        </Grid>
-      ),
-      focusConfirm: false,
-    })
-    .then((res) => {
-      if (res.isConfirmed) {
-        axiosModule
-          .delete(`/posts/${post_id}`)
-          .then(() => {
-            dispatch(deletePost(post_id));
-            customAlert.sweetConfirmReload(
-              "삭제가 완료 됐어요",
-              "선택하신 게시글이 삭제되었어요.",
-              "/home",
-            );
-          })
-          .catch((e) => {
-            logger("삭제 에러", e);
-            customAlert.sweetConfirmReload(
-              "삭제 오류",
-              "게시글 삭제 요청 중 에러가 발생했습니다.",
-              "/home"
-            );
-          });
-      } else if (res.isDenied) {
-        return;
-      } else {
-        return;
-      }
-    });
+      .fire({
+        customClass: {
+          popup: 'border',
+          confirmButton: 'confirmButton',
+          cancelButton: 'cancelButton',
+          denyButton: 'denyButton',
+        },
+        width: 'auto',
+        padding: '0 1rem 1rem',
+        title: (
+          <Grid>
+            <Text size={fontSize.base} bold2="700" margin="0 auto 1rem">
+              정말 삭제하시겠어요?
+            </Text>
+            <Text size={fontSize.small}>
+              게시글과 연결된 채팅방도
+              <br />
+              함께 삭제됩니다 :(
+            </Text>
+          </Grid>
+        ),
+        showDenyButton: true,
+        denyButtonText: (
+          <Grid width="9rem" is_flex2>
+            <Text padding="0 2rem" color={color.brand100}>
+              취소
+            </Text>
+          </Grid>
+        ),
+        denyButtonColor: color.brand20,
+        confirmButtonColor: color.brand100,
+        confirmButtonText: (
+          <Grid width="9rem" is_flex2>
+            <Text padding="0 2rem" color={color.bg0}>
+              삭제하기
+            </Text>
+          </Grid>
+        ),
+        focusConfirm: false,
+      })
+      .then((res) => {
+        if (res.isConfirmed) {
+          axiosModule
+            .delete(`/posts/${post_id}`)
+            .then(() => {
+              dispatch(deletePost(post_id));
+              customAlert.sweetConfirmReload(
+                '삭제가 완료 됐어요',
+                '선택하신 게시글이 삭제되었어요.',
+                '/home'
+              );
+            })
+            .catch((e) => {
+              logger('삭제 에러', e);
+              customAlert.sweetConfirmReload(
+                '삭제 오류',
+                '게시글 삭제 요청 중 에러가 발생했습니다.',
+                '/home'
+              );
+            });
+        } else if (res.isDenied) {
+          return;
+        } else {
+          return;
+        }
+      });
     // axiosModule
     //   .delete(`/posts/${post_id}`)
     //   .then(() => {
@@ -346,18 +349,9 @@ export default handleActions(
         // }, []);
       }),
 
-    [GET_DETAIL_POST]: (state, action) =>
+    [GET_DETAIL_POST_USER_LIST]: (state, action) =>
       produce(state, (draft) => {
-        draft.detail_post.push(...action.payload.post_id);
-
-        draft.list = draft.list.reduce((acc, cur) => {
-          if (acc.findIndex((a) => a.id === cur.id) === -1) {
-            return [...acc, cur];
-          } else {
-            acc[acc.findIndex((a) => a.id === cur.id)] = cur;
-            return acc;
-          }
-        }, []);
+        draft.chat_user_list = action.payload.user_list;
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -383,6 +377,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.rank = action.payload.rank_list;
       }),
+    [CLEAR_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list = [];
+      }),
   },
   initialState
 );
@@ -390,7 +388,7 @@ export default handleActions(
 const actionCreators = {
   setPost,
   getPostAX,
-  getOnePostDB,
+  getDetailPostUserListAX,
   addPostAX,
   editPostAX,
   deletePostAX,

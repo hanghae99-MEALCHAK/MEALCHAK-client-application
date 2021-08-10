@@ -64,7 +64,6 @@ const Tutorial = (props) => {
               fix_center
               bottom="0rem"
               padding="1rem 0"
-              bg={color.bg0}
               gap="1.6rem"
             >
               <Grid width="40%">

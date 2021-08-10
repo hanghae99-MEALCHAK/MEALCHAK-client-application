@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import { actionCreators as chatActions } from "../redux/modules/chat";
+import React from 'react';
+import styled from 'styled-components';
+import { actionCreators as postActions } from '../redux/modules/post';
 
-import { useDispatch, useSelector } from "react-redux";
-import { customAlert } from "./Sweet";
+import { useDispatch, useSelector } from 'react-redux';
+import { customAlert } from './Sweet';
 
-import { Grid, Image, Text, Button } from '../elements';
+import { Grid, Text, Button } from '../elements';
 import { history } from '../redux/configureStore';
 import logger from '../shared/Console';
 import theme from '../styles/theme';
@@ -69,13 +69,13 @@ const Post = (props) => {
               onClick={() => {
                 if (is_login) {
                   if (user_info.user_id === props.user_id) {
-                    return history.push("/mypage");
+                    return history.push('/mypage');
                   }
                   history.push({
-                    pathname: "/userprofile",
+                    pathname: '/userprofile',
                     state: { ...props },
                   });
-                }else{
+                } else {
                   customAlert.sweetNeedLogin();
                 }
               }}
@@ -256,6 +256,7 @@ const Post = (props) => {
                 cursor="pointer"
                 _onClick={() => {
                   history.push(`/post/${props.post_id}`);
+                  dispatch(postActions.getDetailPostUserListAX(props.post_id));
                 }}
               >
                 자세히 보기
