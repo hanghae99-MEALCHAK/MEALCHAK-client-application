@@ -52,6 +52,8 @@ const Grid = (props) => {
     gap,
     src,
     fix_center,
+    display,
+    opacity,
   } = props;
 
   const styles = {
@@ -100,6 +102,8 @@ const Grid = (props) => {
     absolute: absolute,
     gap: gap,
     src: src,
+    display: display,
+    opacity: opacity,
   };
 
   if (shape === "container") {
@@ -176,6 +180,8 @@ Grid.defaultProps = {
   absolute: "",
   gap: "",
   src: "",
+  display: "",
+  opacity: "",
 };
 
 const GridBox = styled.div`
@@ -189,7 +195,8 @@ const GridBox = styled.div`
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
   ${(props) => (props.center ? `text-align: ${props.center};` : "")}
-  ${(props) => (props.is_fixed ? `position: fixed; bottom: 0; z-index: 1;` : "")}
+  ${(props) =>
+    props.is_fixed ? `position: fixed; bottom: 0; z-index: 1;` : ""}
   ${(props) => (props.is_fixed_top ? `position: fixed; top: 0;` : "")}
 
   ${(props) => (props.bottom ? `bottom: ${props.bottom};` : "")}
@@ -244,8 +251,10 @@ const GridBox = styled.div`
     props.justify_content ? `justify-content: ${props.justify_content};` : ""}
   ${(props) => (props.absolute ? `position: ${props.absolute};` : "")}
   ${(props) => (props.gap ? `gap: ${props.gap};` : "")}
-  ${(props) => (props.fix_center ? `left: 50%; transform: translateX(-50%);` : "")}
-
+  ${(props) =>
+    props.fix_center ? `left: 50%; transform: translateX(-50%);` : ""}
+  ${(props) => (props.display ? `display: ${props.display};` : "")}
+  ${(props) => (props.opacity ? `opacity: ${props.opacity};` : "")}
 
   @media (min-width: 501px) {
     ${(props) =>
