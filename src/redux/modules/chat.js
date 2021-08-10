@@ -377,6 +377,7 @@ export default handleActions(
           };
           draft.messages.push(one_msg);
         } else {
+          // 강퇴 당한 사람의 경우 퇴장 알럿 표시
           if (parseInt(now_user) === parseInt(m.message)) {
             customAlert.sweetConfirmReload(
               '강퇴알림',
@@ -384,7 +385,13 @@ export default handleActions(
               '/chatlist'
             );
           } else {
-            return;
+            // 그 외 사용자들은 리스트에서 강퇴 유저 삭제시킴
+            let idx = draft.userInList.findIndex(
+              (u) => parseInt(u.user_id) === parseInt(m.message)
+            );
+            if (idx !== -1) {
+              draft.userInList.splice(idx, 1);
+            }
           }
         }
       }),

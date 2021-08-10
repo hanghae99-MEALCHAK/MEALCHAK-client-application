@@ -14,6 +14,7 @@ import { Button, Grid, Text } from "../elements";
 import { UploadInput, UploadContents, Header } from "../components";
 import theme from "../styles/theme";
 import { customAlert } from "../components/Sweet";
+import Spinner from "../shared/Spinner";
 
 const Upload = React.memo((props) => {
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ const Upload = React.memo((props) => {
     headCount: _post?.headCount,
     foodCategory: _post?.category,
     place: _post?.address,
+    detail_place: _post?.detail_address,
     appointmentTime: _post?.orderTime,
     appointmentDate: _post?.orderDate,
     contents: _post?.contents,
@@ -64,6 +66,7 @@ const Upload = React.memo((props) => {
   const [post_info, setPostInfo] = useState(_post ? { ...past_post } : {});
 
   const today = moment().format("YYYY-MM-DD");
+  const now_time = moment().format("HH:mm");
 
   const uploadBtn = () => {
     // 모집글 작성 시 상위, 하위 컴포넌트들에서 올바르지 않은 value있을때 처리하는 과정
@@ -82,6 +85,13 @@ const Upload = React.memo((props) => {
       );
       return;
     }
+    if (!post_info?.detail_place || post_info?.detail_place === "") {
+      customAlert.sweetConfirmReload(
+        "빈칸이 있습니다.", "안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 상세주소를 입력해주세요.",
+        ""
+      );
+      return;
+    }
     if (!post_info.restaurant || post_info.restaurant === "") {
       customAlert.sweetConfirmReload("빈칸이 있습니다.", "배달 예정인 식당을 입력해주세요.", "");
       return;
@@ -90,16 +100,28 @@ const Upload = React.memo((props) => {
       customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집원의 인원 수를 입력해주세요.", "");
       return;
     }
-    if (!post_info.appointmentTime || post_info.appointmentTime === "") {
-      customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집원을 만날 시간을 입력해주세요.", "");
-      return;
+
+    // 모집 날짜, 시간의 경우 디폴트 값으로 현재 시간, 날짜 넣음
+    post_info.appointmentDate = post_info.appointmentDate ?? today;
+    post_info.appointmentTime = post_info.appointmentTime ?? now_time;
+
+    // 시간의 경우 날짜가 내일 이후면 어떤 시간도 상관없지만 오늘일 경우 현재시간 이전일 수 없어서 조건 줌
+    if (post_info.appointmentDate === today){
+      const select_time = parseInt(post_info.appointmentTime.split(":").join(""));
+      const time_now = parseInt(now_time.split(":").join(""));
+
+      // 선택시간이 과거인 경우
+      if (time_now > select_time){
+        return customAlert.sweetConfirmReload("모집 예정시간을 확인해주세요", "현재시간보다 과거로 설정되었습니다.", "");
+      }
     }
+
     if (!post_info.foodCategory || post_info.foodCategory === "") {
       customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집을 희망하는 식품의 카테고리를 입력해주세요.", "");
       return;
     }
 
-    post_info.appointmentDate = post_info.appointmentDate ?? today;
+    logger("post 업로드 상태", post_info)
 
     dispatch(postAction.addPostAX(post_info));
   };
@@ -123,6 +145,13 @@ const Upload = React.memo((props) => {
       );
       return;
     }
+    if (!post_info?.detail_place || post_info?.detail_place === "") {
+      customAlert.sweetConfirmReload(
+        "빈칸이 있습니다.", "안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 상세주소를 입력해주세요.",
+        ""
+      );
+      return;
+    }
     if (!post_info.restaurant || post_info.restaurant === "") {
       customAlert.sweetConfirmReload("빈칸이 있습니다.", "배달 예정인 식당을 입력해주세요.", "");
       return;
@@ -131,9 +160,16 @@ const Upload = React.memo((props) => {
       customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집원의 인원 수를 입력해주세요.", "");
       return;
     }
-    if (!post_info.appointmentTime || post_info.appointmentTime === "") {
-      customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집원을 만날 시간을 입력해주세요.", "");
-      return;
+
+    // 시간의 경우 날짜가 내일 이후면 어떤 시간도 상관없지만 오늘일 경우 현재시간 이전일 수 없어서 조건 줌
+    if (post_info.appointmentDate === today){
+      const select_time = parseInt(post_info.appointmentTime.split(":").join(""));
+      const time_now = parseInt(now_time.split(":").join(""));
+
+      // 선택시간이 과거인 경우
+      if (time_now > select_time){
+        return customAlert.sweetConfirmReload("모집 예정시간을 확인해주세요", "현재시간보다 과거로 설정되었습니다.", "");
+      }
     }
     if (!post_info.foodCategory || post_info.foodCategory === "") {
       customAlert.sweetConfirmReload("빈칸이 있습니다.", "모집을 희망하는 식품의 카테고리를 입력해주세요.", "");
@@ -169,11 +205,9 @@ const Upload = React.memo((props) => {
           {/* <Grid height="10rem" /> */}
           <Grid
             height="auto"
-            maxWidth="35.5rem"
+            maxWidth="36rem"
             margin="0 auto"
             padding="2.8rem 2rem 2.7rem"
-            // is_fixed="t"
-            // fix_center
             bg={color.bg0}
           >
             {is_edit ? (
@@ -182,6 +216,7 @@ const Upload = React.memo((props) => {
                 height="5rem"
                 border="none"
                 radius={radius.button}
+                cursor="t"
                 _onClick={UploadEditBtn}
               >
                 <Text color={color.bg0} bold2="700" size={fontSize.base}>
@@ -194,6 +229,7 @@ const Upload = React.memo((props) => {
                 height="5rem"
                 border="none"
                 radius={radius.button}
+                cursor="t"
                 _onClick={uploadBtn}
               >
                 <Text color={color.bg0} bold2="700" size={fontSize.base}>
@@ -206,56 +242,7 @@ const Upload = React.memo((props) => {
       </Grid>
     );
   } else {
-    return (
-      <Grid
-        // height="100vh"
-        maxWidth="36rem"
-        border={border.line1}
-        margin="0 auto"
-      >
-        <Grid shape="container">
-          <Text>로그인 이후 이용가능한 서비스입니다.</Text>
-          <Grid
-            height="auto"
-            maxWidth="35.5rem"
-            margin="0 auto"
-            padding="2.8rem 2rem 2.7rem"
-            is_fixed="t"
-            bg={color.bg0}
-          >
-            <Button
-              shape="large"
-              color="#FEE500"
-              _onClick={() => {
-                window.location.href = `${Kakao_auth_url}`;
-              }}
-            >
-              <Grid is_flex4="t" height="4.4rem">
-                <svg
-                  style={{ position: "absolute", marginLeft: "1.9rem" }}
-                  width="18"
-                  height="17"
-                  viewBox="0 0 18 17"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    opacity="0.9"
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M9 0C4.029 0 0 3.13 0 6.989C0.063509 8.21942 0.463823 9.40875 1.15723 10.4272C1.85063 11.4456 2.81048 12.254 3.93201 12.764L2.93201 16.431C2.914 16.5032 2.91832 16.5792 2.9444 16.6489C2.97048 16.7187 3.01708 16.7788 3.07806 16.8215C3.13905 16.8642 3.21157 16.8874 3.28601 16.888C3.36045 16.8886 3.4333 16.8667 3.495 16.825L7.87201 13.925C8.24201 13.961 8.61702 13.982 8.99902 13.982C13.969 13.982 17.999 10.853 17.999 6.993C17.999 3.133 13.969 0.0039978 8.99902 0.0039978"
-                    fill="black"
-                  />
-                </svg>
-                <Text margin="auto" size={fontSize.base} bold2="700">
-                  카카오 로그인
-                </Text>
-              </Grid>
-            </Button>
-          </Grid>
-        </Grid>
-      </Grid>
-    );
+    return <Spinner />;
   }
 });
 

@@ -45,22 +45,16 @@ const ProfileEdit = (props) => {
   };
 
   const editUser = () => {
-    if (window.confirm('프로필을 수정하시겠습니까?')) {
-      logger('수정할 이름', editProfile.nickname);
-      logger('수정할 이름', editProfile.comment);
-      dispatch(
-        userAction.editUserProfileAX({
-          username: editProfile.nickname,
-          comment: editProfile.comment,
-          image: editProfile.image,
-        })
-      );
-      customAlert.sweetConfirmReload(
-        '프로필이 수정되었습니다.',
-        null,
-        '/mypage'
-      );
-    }
+    logger("수정할 이름", editProfile.nickname);
+    logger("수정할 이름", editProfile.comment);
+    dispatch(
+      userAction.editUserProfileAX({
+        username: editProfile.nickname,
+        comment: editProfile.comment,
+        image: editProfile.image,
+      })
+    );
+    customAlert.sweetConfirmReload("프로필이 수정되었습니다.", null, "/mypage");
   };
 
   // 선택한 파일 정보

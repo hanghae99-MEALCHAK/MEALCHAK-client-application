@@ -1,17 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { Grid, Text } from '../elements';
-import theme from '../styles/theme';
+import { Grid, Text } from "../elements";
+import theme from "../styles/theme";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Pagination, Autoplay } from 'swiper';
-import 'swiper/swiper.scss';
-import 'swiper/components/navigation/navigation.scss';
-import 'swiper/components/pagination/pagination.scss';
-import '../shared/Swiper.scss';
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Pagination, Autoplay } from "swiper";
+import "swiper/swiper.scss";
+import "swiper/components/navigation/navigation.scss";
+import "swiper/components/pagination/pagination.scss";
+import "../shared/Swiper.scss";
 
-import logger from '../shared/Console';
+import logger from "../shared/Console";
 
 SwiperCore.use([Pagination, Autoplay]);
 
@@ -29,7 +29,7 @@ const MainBanner = (props) => {
           pagination={{
             clickable: true,
           }}
-          // autoplay={{ delay: 1000 }}
+          autoplay={{ delay: 3000 }}
           // autoplay={{ delay: 30000 }}
         >
           {rank_list.map((p, idx) => {
@@ -37,7 +37,7 @@ const MainBanner = (props) => {
               <SwiperSlide key={idx}>
                 <Grid width="36rem" height="12.6rem" margin="0.5rem auto">
                   <MainBannerBtn src={p.imgUrl}>
-                    <Grid position="relative" top="6.5rem" right="9.5rem">
+                    <Grid position="relative" top="6.1rem" right="9.1rem">
                       <Text
                         size="1.6rem"
                         text_align="center"
@@ -54,6 +54,7 @@ const MainBanner = (props) => {
             );
           })}
         </Swiper>
+        <Grid height="1.2rem"/>
       </div>
     </React.Fragment>
   );
@@ -67,7 +68,7 @@ const MainBannerBtn = styled.div`
   margin: 1rem auto;
   border-radius: 1rem;
   /* background-image: url('https://cdn.pixabay.com/photo/2016/06/06/18/29/meat-skewer-1440105__340.jpg'); */
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   background-size: cover;
   filter: drop-shadow(0px 0px 0.5rem rgba(0, 0, 0, 0.2));
 `;

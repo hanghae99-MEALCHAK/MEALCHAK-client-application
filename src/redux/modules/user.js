@@ -118,7 +118,6 @@ const editUserProfileAX = (profile) => {
         dispatch(editProfile(profile));
         dispatch(imageActions.setPreview(null));
         logger("profile 수정 모듈", res);
-        window.location.replace("/mypage");
       })
       .catch((e) => {
         logger("profile 수정 모듈 e", e);

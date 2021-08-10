@@ -1,10 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Grid, Text, Image } from "../elements";
+import logger from "../shared/Console";
 import { ChatUserItem } from ".";
+
+// style
+import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
 import { FiLogOut } from "react-icons/fi";
-import logger from "../shared/Console";
 import styled from "styled-components";
 import { IoClose } from "react-icons/io5";
 import { customAlert } from "./Sweet";
@@ -57,19 +59,19 @@ const SideContent = (props) => {
                   color: color.brand100,
                 }}
               >
-                {user_in_chat.length}
+                {user_in_chat?.length}
               </span>
             </Text>
           </Grid>
 
-          {user_in_chat.map((user_info, idx) => {
+          {user_in_chat?.map((user_info, idx) => {
             if (my_id === user_info?.user_id) {
               return (
                 <ChatUserItem key={idx} user_info={user_info} shape="is_me" />
               );
             }
           })}
-          {user_in_chat.map((user_info, idx) => {
+          {user_in_chat?.map((user_info, idx) => {
             if (my_id !== user_info?.user_id) {
               if (my_id === own_user_id) {
                 return (
