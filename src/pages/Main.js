@@ -12,12 +12,12 @@ import logger from "../shared/Console";
 
 import theme from "../styles/theme";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Pagination, Navigation } from 'swiper';
-import 'swiper/swiper.scss';
-import 'swiper/components/navigation/navigation.scss';
-import 'swiper/components/pagination/pagination.scss';
-import '../shared/Swiper.scss';
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Pagination, Navigation } from "swiper";
+import "swiper/swiper.scss";
+import "swiper/components/navigation/navigation.scss";
+import "swiper/components/pagination/pagination.scss";
+import "../shared/Swiper.scss";
 
 const Main = (props) => {
   const { color, border, btn_border, fontSize } = theme;
@@ -138,129 +138,11 @@ const Main = (props) => {
           align_items="center"
           padding="2rem 0 1.6rem 0"
         >
-// <<<<<<< feature/gw
-//           <Swiper
-//             className="category"
-//             slidesPerView={'auto'}
-//             autoplay={{ delay: 1000 }}
-// =======
-//           <Text
-//             width="3rem"
-//             height="2.4rem"
-//             size={fontSize.base}
-//             bold
-//             cursor="t"
-//             margin="-0.7rem 0.9rem 0"
-//             border_bottom={category.all ? "0.1rem solid black" : ""}
-//             _onClick={(e) => {
-//               dispatch(postActions.getPostAX(e.target.innerText));
-//               setCategory({ ...{ category: false }, all: true });
-//               setCtg(e.target.innerText);
-//             }}
-//           >
-//             전체
-//           </Text>
-//           <Text
-//             width="3rem"
-//             height="2.4rem"
-//             size="1.6rem"
-//             bold
-//             cursor="t"
-//             margin="-0.7rem 0.9rem 0"
-//             border_bottom={category.kr ? "0.1rem solid black" : ""}
-//             _onClick={(e) => {
-//               dispatch(postActions.getPostAX(e.target.innerText));
-//               setCategory({ ...{ category: false }, kr: true });
-//               setCtg(e.target.innerText);
-//               setSort({ ...{ sort: false }, recent: true });
-//             }}
-//           >
-//             한식
-//           </Text>
-//           <Text
-//             width="3rem"
-//             height="2.4rem"
-//             size="1.6rem"
-//             bold
-//             cursor="t"
-//             margin="-0.7rem 0.9rem 0"
-//             border_bottom={category.cn ? "0.1rem solid black" : ""}
-//             _onClick={(e) => {
-//               dispatch(postActions.getPostAX(e.target.innerText));
-//               setCategory({ ...{ category: false }, cn: true });
-//               setCtg(e.target.innerText);
-//               setSort({ ...{ sort: false }, recent: true });
-//             }}
-//           >
-//             중식
-//           </Text>
-//           <Text
-//             width="3rem"
-//             height="2.4rem"
-//             size="1.6rem"
-//             bold
-//             cursor="t"
-//             margin="-0.7rem 0.9rem 0"
-//             border_bottom={category.jp ? "0.1rem solid black" : ""}
-//             _onClick={(e) => {
-//               dispatch(postActions.getPostAX(e.target.innerText));
-//               setCategory({ ...{ category: false }, jp: true });
-//               setCtg(e.target.innerText);
-//               setSort({ ...{ sort: false }, recent: true });
-//             }}
-//           >
-//             일식
-//           </Text>
-//           <Text
-//             width="3rem"
-//             height="2.4rem"
-//             size="1.6rem"
-//             bold
-//             cursor="t"
-//             margin="-0.7rem 0.9rem 0"
-//             border_bottom={category?.west ? "0.1rem solid black" : ""}
-//             _onClick={(e) => {
-//               dispatch(postActions.getPostAX(e.target.innerText));
-//               setCategory({ ...{ category: false }, west: true });
-//               setCtg(e.target.innerText);
-//               setSort({ ...{ sort: false }, recent: true });
-//             }}
-//           >
-//             양식
-//           </Text>
-//           <Text
-//             width="3rem"
-//             height="2.4rem"
-//             size="1.6rem"
-//             bold
-//             cursor="t"
-//             margin="-0.7rem 0.9rem 0"
-//             border_bottom={category.cafe ? "0.1rem solid black" : ""}
-//             _onClick={(e) => {
-//               dispatch(postActions.getPostAX(e.target.innerText));
-//               setCategory({ ...{ category: false }, cafe: true });
-//               setCtg(e.target.innerText);
-//               setSort({ ...{ sort: false }, recent: true });
-//             }}
-//           >
-//             카페
-//           </Text>
-//           <Text
-//             width="3rem"
-//             height="2.4rem"
-//             size="1.6rem"
-//             bold
-//             cursor="t"
-//             margin="-0.7rem 0.9rem 0"
-//             border_bottom={category.etc ? "0.1rem solid black" : ""}
-//             _onClick={(e) => {
-//               dispatch(postActions.getPostAX(e.target.innerText));
-//               setCategory({ ...{ category: false }, etc: true });
-//               setCtg(e.target.innerText);
-//               setSort({ ...{ sort: false }, recent: true });
-//             }}
-// >>>>>>> develop
-//           >
+          <Swiper
+            className="category"
+            slidesPerView="6"
+            // autoplay={{ delay: 1000 }}
+          >
             <SwiperSlide>
               <Text
                 width="3rem"
@@ -268,10 +150,13 @@ const Main = (props) => {
                 size={fontSize.base}
                 bold
                 cursor="t"
-                margin="0 0.9rem"
-                border_bottom={category.all ? '0.1rem solid black' : ''}
-                _onClick={() => {
+                // margin="-0.7rem 0.9rem 0"
+                margin="-0.4rem 0.9rem 0"
+                border_bottom={category.all ? "0.1rem solid black" : ""}
+                _onClick={(e) => {
+                  dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, all: true });
+                  setCtg(e.target.innerText);
                 }}
               >
                 전체
@@ -284,10 +169,13 @@ const Main = (props) => {
                 size="1.6rem"
                 bold
                 cursor="t"
-                margin="0 0.9rem"
-                border_bottom={category.kr ? '0.1rem solid black' : ''}
-                _onClick={() => {
+                margin="-0.7rem 0.9rem 0"
+                border_bottom={category.kr ? "0.1rem solid black" : ""}
+                _onClick={(e) => {
+                  dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, kr: true });
+                  setCtg(e.target.innerText);
+                  setSort({ ...{ sort: false }, recent: true });
                 }}
               >
                 한식
@@ -300,10 +188,13 @@ const Main = (props) => {
                 size="1.6rem"
                 bold
                 cursor="t"
-                margin="0 0.9rem"
-                border_bottom={category.cn ? '0.1rem solid black' : 'none'}
-                _onClick={() => {
+                margin="-0.7rem 0.9rem 0"
+                border_bottom={category.cn ? "0.1rem solid black" : ""}
+                _onClick={(e) => {
+                  dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, cn: true });
+                  setCtg(e.target.innerText);
+                  setSort({ ...{ sort: false }, recent: true });
                 }}
               >
                 중식
@@ -316,10 +207,13 @@ const Main = (props) => {
                 size="1.6rem"
                 bold
                 cursor="t"
-                margin="0 0.9rem"
-                border_bottom={category.jp ? '0.1rem solid black' : ''}
-                _onClick={() => {
+                margin="-0.7rem 0.9rem 0"
+                border_bottom={category.jp ? "0.1rem solid black" : ""}
+                _onClick={(e) => {
+                  dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, jp: true });
+                  setCtg(e.target.innerText);
+                  setSort({ ...{ sort: false }, recent: true });
                 }}
               >
                 일식
@@ -332,11 +226,13 @@ const Main = (props) => {
                 size="1.6rem"
                 bold
                 cursor="t"
-                margin="0 0.9rem"
-                border_bottom={category.west ? '0.1rem solid black' : ''}
-                _onClick={() => {
-                  // dispatch(postActions.getPostAX('일식'));
+                margin="-0.7rem 0.9rem 0"
+                border_bottom={category?.west ? "0.1rem solid black" : ""}
+                _onClick={(e) => {
+                  dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, west: true });
+                  setCtg(e.target.innerText);
+                  setSort({ ...{ sort: false }, recent: true });
                 }}
               >
                 양식
@@ -349,10 +245,13 @@ const Main = (props) => {
                 size="1.6rem"
                 bold
                 cursor="t"
-                margin="0 0.9rem"
-                border_bottom={category.cafe ? '0.1rem solid black' : ''}
-                _onClick={() => {
+                margin="-0.7rem 0.9rem 0"
+                border_bottom={category.cafe ? "0.1rem solid black" : ""}
+                _onClick={(e) => {
+                  dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, cafe: true });
+                  setCtg(e.target.innerText);
+                  setSort({ ...{ sort: false }, recent: true });
                 }}
               >
                 카페
@@ -365,10 +264,13 @@ const Main = (props) => {
                 size="1.6rem"
                 bold
                 cursor="t"
-                margin="0 0.9rem"
-                border_bottom={category.etc ? '0.1rem solid black' : ''}
-                _onClick={() => {
+                margin="-0.7rem 0.9rem 0"
+                border_bottom={category.etc ? "0.1rem solid black" : ""}
+                _onClick={(e) => {
+                  dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, etc: true });
+                  setCtg(e.target.innerText);
+                  setSort({ ...{ sort: false }, recent: true });
                 }}
               >
                 기타
@@ -417,22 +319,22 @@ const Main = (props) => {
               if (category.all) {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.kr && p.category === '한식') {
+              if (category.kr && p.category === "한식") {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.cn && p.category === '중식') {
+              if (category.cn && p.category === "중식") {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.jp && p.category === '일식') {
+              if (category.jp && p.category === "일식") {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.west && p.category === '양식') {
+              if (category.west && p.category === "양식") {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.cafe && p.category === '카페') {
+              if (category.cafe && p.category === "카페") {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.etc && p.category === '기타') {
+              if (category.etc && p.category === "기타") {
                 return <Post {...p} key={p.post_id} />;
               }
               return null;
@@ -472,7 +374,7 @@ const Hr = styled.hr`
 
 const LogoImg = styled.div`
   margin: 0 auto 1rem auto;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   width: 18.4rem;
   height: 16.7rem;
   background-size: cover;
