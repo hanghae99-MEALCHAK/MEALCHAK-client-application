@@ -33,6 +33,7 @@ const Footer = (props) => {
         height="auto"
         maxWidth="36rem"
         margin="0 auto 0 -0.1rem"
+        // padding="0.5rem 0"
         padding="0.5rem 0"
         is_fixed="t"
         bg={color.bg0}
@@ -48,7 +49,7 @@ const Footer = (props) => {
             }}
           >
             <svg
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", margin: "0 0 0.2rem 0" }}
               width="30"
               height="30"
               viewBox="0 0 30 30"
@@ -69,7 +70,16 @@ const Footer = (props) => {
               cursor="t"
               color={path === "/home" ? color.brand100 : color.bg80}
             >
-              홈
+              <span
+                style={{
+                  position: "absolute",
+                  top: "2.5rem",
+                  left: "4.05rem",
+                  margin: "0",
+                }}
+              >
+                홈
+              </span>
             </Text>
           </Grid>
 
@@ -81,7 +91,7 @@ const Footer = (props) => {
             }}
           >
             <svg
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", margin: "0 0 0.2rem 0" }}
               width="30"
               height="30"
               viewBox="0 0 30 30"
@@ -115,7 +125,7 @@ const Footer = (props) => {
             }}
           >
             <svg
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", margin: "0 0 0.2rem 0" }}
               width="30"
               height="30"
               viewBox="0 0 30 30"
@@ -178,7 +188,7 @@ const Footer = (props) => {
             }}
           >
             <svg
-              style={{ cursor: "pointer", margin: "0 0 -0.5rem 0" }}
+              style={{ cursor: "pointer", margin: "0 0 -0.3rem 0" }}
               margin="auto"
               width="36"
               height="36"

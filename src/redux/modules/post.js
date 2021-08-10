@@ -13,11 +13,13 @@ import withReactContent from "sweetalert2-react-content";
 import { Text, Grid } from "../../elements";
 import theme from "../../styles/theme";
 import "../../components/sweet.css";
+import { KingBedRounded } from "@material-ui/icons";
 
 const { color, fontSize } = theme;
 const sweet = withReactContent(Swal);
 
 const SET_POST = "SET_POST";
+const CLEAR_POST = "CLEAR_POST";
 const GET_DETAIL_POST = "GET_DETAIL_POST";
 const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
@@ -27,6 +29,7 @@ const SET_RANK = "SET_RANK";
 const setPost = createAction(SET_POST, (post_list) => ({
   post_list,
 }));
+const clearPost = createAction(CLEAR_POST, () => ({}));
 const addPost = createAction(ADD_POST, (post_item) => ({ post_item }));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
@@ -38,15 +41,23 @@ const setRank = createAction(SET_RANK, (rank_list) => ({ rank_list }));
 const initialState = {
   list: [],
   rank: [],
+  is_true: [
+    { category: "한식", is_true: false },
+    { category: "중식", is_true: false },
+    { category: "일식", is_true: false },
+    { category: "양식", is_true: false },
+    { category: "카페", is_true: false },
+    { category: "기타", is_true: false },
+  ],
 };
 
-const getPostAX = () => {
+const getPostAX = (category, sort="recent") => {
   return function (dispatch, getState, { history }) {
-    dispatch(userActions.loading(true));
-
+    // dispatch(userActions.loading(true));
     axiosModule
-      .get(`/posts/around`)
+      .get(`/posts/around?category=${category}&sort=${sort}`)
       .then((res) => {
+        dispatch(clearPost());
         let post_list = [];
 
         logger("post:35: ", res);
@@ -78,14 +89,10 @@ const getPostAX = () => {
             post_list.push(post);
           });
         } else {
-          let post = {
-            post_id: "",
-          };
-          post_list.push(post);
+          // response가 비어있을 때
         }
-        console.log(post_list);
         dispatch(setPost(post_list));
-        dispatch(userActions.loading(false));
+        // dispatch(userActions.loading(false));
       })
       .catch((err) => {
         logger("ErrorMessage: ", err);
@@ -296,19 +303,6 @@ const deletePostAX = (post_id) => {
           return;
         }
       });
-    // axiosModule
-    //   .delete(`/posts/${post_id}`)
-    //   .then(() => {
-    //     dispatch(deletePost(post_id));
-    //     customAlert.sweetConfirmReload(
-    //       '삭제가 완료 됐어요',
-    //       '선택하신 게시글이 삭제되었어요.',
-    //       '/mypage'
-    //     );
-    //   })
-    //   .catch((e) => {
-    //     logger('삭제 에러', e);
-    //   });
   };
 };
 
@@ -348,7 +342,10 @@ export default handleActions(
         //   }
         // }, []);
       }),
-
+    [CLEAR_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list = [];
+      }),
     [GET_DETAIL_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.detail_post.push(...action.payload.post_id);
