@@ -47,8 +47,13 @@ const Search = (props) => {
             검색
           </Header>
         </Grid>
-        <Grid is_flex4="t" height="4.4rem" margin="0 auto 0.8rem" bg="#ffffff">
-          <Grid width="34rem" margin="auto">
+        <Grid
+          is_flex4="t"
+          height="4.4rem"
+          margin="1.6rem auto 1.8rem auto"
+          bg="#ffffff"
+        >
+          <Grid width="32rem" margin="auto">
             <Input
               padding="1.4rem 1.6rem"
               border="0.1rem solid #EBE9E8"
@@ -65,7 +70,7 @@ const Search = (props) => {
             <svg
               style={{
                 marginTop: '0.5rem',
-                marginLeft: '28.7rem',
+                marginLeft: '28rem',
                 fontSize: '1.9rem',
                 position: 'absolute',
                 cursor: 'pointer',
@@ -100,7 +105,7 @@ const Search = (props) => {
           <svg
             style={{
               marginTop: '0.5rem',
-              marginLeft: '31.5rem',
+              marginLeft: '30.5rem',
               fontSize: '1.9rem',
               position: 'absolute',
               cursor: 'pointer',

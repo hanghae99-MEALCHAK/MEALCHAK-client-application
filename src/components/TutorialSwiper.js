@@ -11,8 +11,6 @@ import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import '../shared/Swiper.scss';
 
-import logger from '../shared/Console';
-
 SwiperCore.use([Pagination, Navigation]);
 
 const TutorialSwiper = (props) => {

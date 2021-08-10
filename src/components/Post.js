@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import { actionCreators as chatActions } from "../redux/modules/chat";
+import React from 'react';
+import styled from 'styled-components';
+import { actionCreators as postActions } from '../redux/modules/post';
 
-import { useDispatch, useSelector } from "react-redux";
-import { customAlert } from "./Sweet";
+import { useDispatch, useSelector } from 'react-redux';
+import { customAlert } from './Sweet';
 
 import { Grid, Image, Text, Button } from "../elements";
 import { history } from "../redux/configureStore";
@@ -259,6 +259,7 @@ const Post = (props) => {
                 cursor="pointer"
                 _onClick={() => {
                   history.push(`/post/${props.post_id}`);
+                  dispatch(postActions.getDetailPostUserListAX(props.post_id));
                 }}
               >
                 자세히 보기

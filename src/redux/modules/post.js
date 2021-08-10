@@ -18,18 +18,21 @@ import { KingBedRounded } from "@material-ui/icons";
 const { color, fontSize } = theme;
 const sweet = withReactContent(Swal);
 
-const SET_POST = "SET_POST";
-const CLEAR_POST = "CLEAR_POST";
-const GET_DETAIL_POST = "GET_DETAIL_POST";
-const ADD_POST = "ADD_POST";
-const EDIT_POST = "EDIT_POST";
-const DELETE_POST = "DELETE_POST";
-const SET_RANK = "SET_RANK";
+const SET_POST = 'SET_POST';
+const GET_DETAIL_POST_USER_LIST = 'GET_DETAIL_POST_USER_LIST';
+const ADD_POST = 'ADD_POST';
+const EDIT_POST = 'EDIT_POST';
+const DELETE_POST = 'DELETE_POST';
+const SET_RANK = 'SET_RANK';
+const CLEAR_POST = 'CLEAR_POST';
 
 const setPost = createAction(SET_POST, (post_list) => ({
   post_list,
 }));
-const clearPost = createAction(CLEAR_POST, () => ({}));
+const getDetailPostUserList = createAction(
+  GET_DETAIL_POST_USER_LIST,
+  (user_list) => ({ user_list })
+);
 const addPost = createAction(ADD_POST, (post_item) => ({ post_item }));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
@@ -37,23 +40,18 @@ const editPost = createAction(EDIT_POST, (post_id, post) => ({
 }));
 const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
 const setRank = createAction(SET_RANK, (rank_list) => ({ rank_list }));
+const clearPost = createAction(CLEAR_POST, () => ({}));
 
 const initialState = {
   list: [],
   rank: [],
-  is_true: [
-    { category: "한식", is_true: false },
-    { category: "중식", is_true: false },
-    { category: "일식", is_true: false },
-    { category: "양식", is_true: false },
-    { category: "카페", is_true: false },
-    { category: "기타", is_true: false },
-  ],
+  chat_user_list: [],
 };
 
 const getPostAX = (category, sort="recent") => {
   return function (dispatch, getState, { history }) {
-    // dispatch(userActions.loading(true));
+//     dispatch(userActions.loading(true));
+    dispatch(clearPost());
     axiosModule
       .get(`/posts/around?category=${category}&sort=${sort}`)
       .then((res) => {
@@ -100,31 +98,25 @@ const getPostAX = (category, sort="recent") => {
   };
 };
 
-const getOnePostDB = (postId) => {
+const getDetailPostUserListAX = (postId) => {
   return function (dispatch, getState, { history }) {
     axiosModule
       .get(`/posts/${postId}`)
       .then((res) => {
-        let p = res.data;
-        let post = {
-          post_id: p.id,
-          title: p.title,
-          contents: p.contents,
-          category: p.category,
-          shop: p.restaurant,
-          headCount: p.headCount,
-          orderTime: p.orderTime,
-          address: p.address.split("/")[0],
-          detail_address: p.address.split("/")[1],
-          insert_dt: p.createdAt,
-          username: p.username,
-          user_id: p.userId,
-          userImg: p.userImg,
-        };
-        dispatch(setPost([post]));
+        let user_list = [];
+
+        res.data.userList.forEach((p) => {
+          let user = {
+            user_id: p.id,
+            userName: p.username,
+            userImg: p.profileImg,
+          };
+          user_list.push(user);
+        });
+        dispatch(getDetailPostUserList(user_list));
       })
       .catch((err) => {
-        logger("post모듈 - getOnePostDB : ", err);
+        logger('getDetailPostUserListAX 에러: ', err);
       });
   };
 };
@@ -342,22 +334,10 @@ export default handleActions(
         //   }
         // }, []);
       }),
-    [CLEAR_POST]: (state, action) =>
-      produce(state, (draft) => {
-        draft.list = [];
-      }),
-    [GET_DETAIL_POST]: (state, action) =>
-      produce(state, (draft) => {
-        draft.detail_post.push(...action.payload.post_id);
 
-        draft.list = draft.list.reduce((acc, cur) => {
-          if (acc.findIndex((a) => a.id === cur.id) === -1) {
-            return [...acc, cur];
-          } else {
-            acc[acc.findIndex((a) => a.id === cur.id)] = cur;
-            return acc;
-          }
-        }, []);
+    [GET_DETAIL_POST_USER_LIST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.chat_user_list = action.payload.user_list;
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -383,6 +363,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.rank = action.payload.rank_list;
       }),
+    [CLEAR_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list = [];
+      }),
   },
   initialState
 );
@@ -390,7 +374,7 @@ export default handleActions(
 const actionCreators = {
   setPost,
   getPostAX,
-  getOnePostDB,
+  getDetailPostUserListAX,
   addPostAX,
   editPostAX,
   deletePostAX,
