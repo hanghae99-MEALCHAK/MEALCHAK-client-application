@@ -1,12 +1,12 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
-import axiosModule from '../axios_module';
-import logger from '../../shared/Console';
-import { actionCreators as userActions } from './user';
-import { actionCreators as chatActions } from './chat';
-import { customAlert } from '../../components/Sweet';
-import { actionCreators as locateActions } from './loc';
-import { useLocation } from 'react-router';
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import axiosModule from "../axios_module";
+import logger from "../../shared/Console";
+import { actionCreators as userActions } from "./user";
+import { actionCreators as chatActions } from "./chat";
+import { customAlert } from "../../components/Sweet";
+import { actionCreators as locateActions } from "./loc";
+import { useLocation } from "react-router";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -17,12 +17,12 @@ import "../../components/sweet.css";
 const { color, fontSize } = theme;
 const sweet = withReactContent(Swal);
 
-const SET_POST = 'SET_POST';
-const GET_DETAIL_POST = 'GET_DETAIL_POST';
-const ADD_POST = 'ADD_POST';
-const EDIT_POST = 'EDIT_POST';
-const DELETE_POST = 'DELETE_POST';
-const SET_RANK = 'SET_RANK';
+const SET_POST = "SET_POST";
+const GET_DETAIL_POST = "GET_DETAIL_POST";
+const ADD_POST = "ADD_POST";
+const EDIT_POST = "EDIT_POST";
+const DELETE_POST = "DELETE_POST";
+const SET_RANK = "SET_RANK";
 
 const setPost = createAction(SET_POST, (post_list) => ({
   post_list,
@@ -49,12 +49,12 @@ const getPostAX = () => {
       .then((res) => {
         let post_list = [];
 
-        logger('post:35: ', res);
+        logger("post:35: ", res);
 
         if (res.data.length !== 0) {
           res.data.forEach((p) => {
-            let hour = p.orderTime.split(' ')[1].split(':')[0];
-            let minute = p.orderTime.split(' ')[1].split(':')[1];
+            let hour = p.orderTime.split(" ")[1].split(":")[0];
+            let minute = p.orderTime.split(" ")[1].split(":")[1];
 
             let post = {
               post_id: p.postId,
@@ -63,9 +63,10 @@ const getPostAX = () => {
               category: p.category,
               shop: p.restaurant,
               headCount: p.headCount,
-              orderTime: hour + ':' + minute,
-              orderDate: p.orderTime.split(' ')[0],
-              address: p.address,
+              orderTime: hour + ":" + minute,
+              orderDate: p.orderTime.split(" ")[0],
+              address: p.address.split("/")[0],
+              detail_address: p.address.split("/")[1],
               insert_dt: p.createdAt,
               username: p.username,
               user_id: p.userId,
@@ -78,7 +79,7 @@ const getPostAX = () => {
           });
         } else {
           let post = {
-            post_id: '',
+            post_id: "",
           };
           post_list.push(post);
         }
@@ -87,7 +88,7 @@ const getPostAX = () => {
         dispatch(userActions.loading(false));
       })
       .catch((err) => {
-        logger('ErrorMessage: ', err);
+        logger("ErrorMessage: ", err);
       });
   };
 };
@@ -106,7 +107,8 @@ const getOnePostDB = (postId) => {
           shop: p.restaurant,
           headCount: p.headCount,
           orderTime: p.orderTime,
-          address: p.address,
+          address: p.address.split("/")[0],
+          detail_address: p.address.split("/")[1],
           insert_dt: p.createdAt,
           username: p.username,
           user_id: p.userId,
@@ -115,7 +117,7 @@ const getOnePostDB = (postId) => {
         dispatch(setPost([post]));
       })
       .catch((err) => {
-        logger('post모듈 - getOnePostDB : ', err);
+        logger("post모듈 - getOnePostDB : ", err);
       });
   };
 };
@@ -125,15 +127,15 @@ const addPostAX = (post_info) => {
     const address = getState().loc.post_address.address;
     const longitude = getState().loc.post_address.longitude;
     const latitude = getState().loc.post_address.latitude;
-    logger('post모듈 addPostAX - 1', post_info.appointmentDate);
+    logger("post모듈 addPostAX - 1", post_info.appointmentDate);
 
     axiosModule
-      .post('/posts', {
+      .post("/posts", {
         title: post_info.title,
         headCount: post_info.headCount,
         category: post_info.foodCategory,
         // address: post_info.place,
-        address: address,
+        address: `${address}/${post_info.detail_place}`,
         orderTime: `${post_info.appointmentDate} ${post_info.appointmentTime}:00`,
         contents: post_info.contents,
         restaurant: post_info.restaurant,
@@ -144,23 +146,23 @@ const addPostAX = (post_info) => {
         dispatch(chatActions.setChatListAX());
 
         customAlert.sweetConfirmReload(
-          '작성 완료',
-          '모집글 작성이 완료되었습니다.',
-          '/home'
+          "작성 완료",
+          "모집글 작성이 완료되었습니다.",
+          "/home"
         );
 
         // dispatch(locateActions.setAddressNull());
       })
       .catch((e) => {
-        logger('모집글 작성 모듈 에러', e);
+        logger("모집글 작성 모듈 에러", e);
         if (
           window.confirm(
-            '모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?'
+            "모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?"
           )
         ) {
-          history.replace('/home');
+          history.replace("/home");
         } else {
-          history.push('/upload');
+          history.push("/upload");
         }
       });
   };
@@ -176,7 +178,7 @@ const editPostAX = (post_id, post_info) => {
         title: post_info.title,
         headCount: post_info.headCount,
         category: post_info.foodCategory,
-        address: post_info.place,
+        address: `${post_info.place}/${post_info.detail_place}`,
         orderTime: `${post_info.appointmentDate} ${post_info.appointmentTime}:00`,
         contents: post_info.contents,
         restaurant: post_info.restaurant,
@@ -184,9 +186,9 @@ const editPostAX = (post_id, post_info) => {
         latitude: latitude,
       })
       .then((res) => {
-        logger('수정 후 res', res);
-        let hour = res.data.orderTime.split(' ')[1].split(':')[0];
-        let minute = res.data.orderTime.split(' ')[1].split(':')[1];
+        logger("수정 후 res", res);
+        let hour = res.data.orderTime.split(" ")[1].split(":")[0];
+        let minute = res.data.orderTime.split(" ")[1].split(":")[1];
 
         let post = {
           post_id: res.data.postId,
@@ -196,9 +198,10 @@ const editPostAX = (post_id, post_info) => {
           shop: res.data.restaurant,
           headCount: res.data.headCount,
           nowHeadCount: res.data.nowHeadCount,
-          orderTime: hour + ':' + minute,
-          orderDate: res.data.orderTime.split(' ')[0],
-          address: res.data.address,
+          orderTime: hour + ":" + minute,
+          orderDate: res.data.orderTime.split(" ")[0],
+          address: res.data.address.split("/")[0],
+          detail_address: res.data.address.split("/")[1],
           user_id: res.data.userId,
           username: res.data.username,
           insert_dt: res.data.createdAt,
@@ -206,19 +209,19 @@ const editPostAX = (post_id, post_info) => {
           room_id: res.data.roomId,
         };
 
-        logger('수정 포스트 내용', post);
+        logger("수정 포스트 내용", post);
 
         dispatch(editPost(post_id, post));
 
         customAlert.sweetConfirmReload(
-          '수정 완료',
-          '모집글 수정이 완료되었습니다.',
+          "수정 완료",
+          "모집글 수정이 완료되었습니다.",
           `/post/${post_id}`
         );
         // customAlert.sweetConfirmReload("수정 완료", '모집글 수정이 완료되었습니다.', `/home`);
       })
       .catch((e) => {
-        logger('모집글 수정 모듈 에러', e);
+        logger("모집글 수정 모듈 에러", e);
         customAlert.sweetEditError(`/post/${post_id}`);
       });
   };
@@ -227,72 +230,72 @@ const editPostAX = (post_id, post_info) => {
 const deletePostAX = (post_id) => {
   return function (dispatch, getState, { history }) {
     sweet
-    .fire({
-      customClass: {
-        popup: "border",
-        confirmButton: "confirmButton",
-        cancelButton: "cancelButton",
-        denyButton: "denyButton",
-      },
-      width: "auto",
-      padding: "0 1rem 1rem",
-      title: (
-        <Grid>
-          <Text size={fontSize.base} bold2="700" margin="0 auto 1rem">
-            정말 삭제하시겠어요?
-          </Text>
-          <Text size={fontSize.small}>
-            게시글과 연결된 채팅방도
-            <br />
-            함께 삭제됩니다 :(
-          </Text>
-        </Grid>
-      ),
-      showDenyButton: true,
-      denyButtonText: (
-        <Grid width="9rem" is_flex2>
-          <Text padding="0 2rem" color={color.brand100}>
-            취소
-          </Text>
-        </Grid>
-      ),
-      denyButtonColor: color.brand20,
-      confirmButtonColor: color.brand100,
-      confirmButtonText: (
-        <Grid width="9rem" is_flex2>
-          <Text padding="0 2rem" color={color.bg0}>
-            삭제하기
-          </Text>
-        </Grid>
-      ),
-      focusConfirm: false,
-    })
-    .then((res) => {
-      if (res.isConfirmed) {
-        axiosModule
-          .delete(`/posts/${post_id}`)
-          .then(() => {
-            dispatch(deletePost(post_id));
-            customAlert.sweetConfirmReload(
-              "삭제가 완료 됐어요",
-              "선택하신 게시글이 삭제되었어요.",
-              "/home",
-            );
-          })
-          .catch((e) => {
-            logger("삭제 에러", e);
-            customAlert.sweetConfirmReload(
-              "삭제 오류",
-              "게시글 삭제 요청 중 에러가 발생했습니다.",
-              "/home"
-            );
-          });
-      } else if (res.isDenied) {
-        return;
-      } else {
-        return;
-      }
-    });
+      .fire({
+        customClass: {
+          popup: "border",
+          confirmButton: "confirmButton",
+          cancelButton: "cancelButton",
+          denyButton: "denyButton",
+        },
+        width: "auto",
+        padding: "0 1rem 1rem",
+        title: (
+          <Grid>
+            <Text size={fontSize.base} bold2="700" margin="0 auto 1rem">
+              정말 삭제하시겠어요?
+            </Text>
+            <Text size={fontSize.small}>
+              게시글과 연결된 채팅방도
+              <br />
+              함께 삭제됩니다 :(
+            </Text>
+          </Grid>
+        ),
+        showDenyButton: true,
+        denyButtonText: (
+          <Grid width="9rem" is_flex2>
+            <Text padding="0 2rem" color={color.brand100}>
+              취소
+            </Text>
+          </Grid>
+        ),
+        denyButtonColor: color.brand20,
+        confirmButtonColor: color.brand100,
+        confirmButtonText: (
+          <Grid width="9rem" is_flex2>
+            <Text padding="0" color={color.bg0}>
+              삭제하기
+            </Text>
+          </Grid>
+        ),
+        focusConfirm: false,
+      })
+      .then((res) => {
+        if (res.isConfirmed) {
+          axiosModule
+            .delete(`/posts/${post_id}`)
+            .then(() => {
+              dispatch(deletePost(post_id));
+              customAlert.sweetConfirmReload(
+                "삭제가 완료 됐어요",
+                "선택하신 게시글이 삭제되었어요.",
+                "/home"
+              );
+            })
+            .catch((e) => {
+              logger("삭제 에러", e);
+              customAlert.sweetConfirmReload(
+                "삭제 오류",
+                "게시글 삭제 요청 중 에러가 발생했습니다.",
+                "/home"
+              );
+            });
+        } else if (res.isDenied) {
+          return;
+        } else {
+          return;
+        }
+      });
     // axiosModule
     //   .delete(`/posts/${post_id}`)
     //   .then(() => {
@@ -312,7 +315,7 @@ const deletePostAX = (post_id) => {
 const getRankDB = () => {
   return function (dispatch, getState, { history }) {
     axiosModule
-      .get('/menu')
+      .get("/menu")
       .then((res) => {
         let rank_list = [];
         res.data.forEach((p) => {
@@ -325,7 +328,7 @@ const getRankDB = () => {
         dispatch(setRank(rank_list));
       })
       .catch((err) => {
-        logger('post모듈 - getRankDB: ', err);
+        logger("post모듈 - getRankDB: ", err);
       });
   };
 };
