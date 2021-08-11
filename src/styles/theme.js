@@ -14,6 +14,7 @@ const theme = {
     brand40: '#FFE1C2',
     brand20: '#FFF0E1',
     success100: '#54BD58',
+    error100: '#F35959',
   },
 
   // 글쓰기용 border

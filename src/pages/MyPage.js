@@ -381,9 +381,8 @@ const MyPage = (props) => {
               <CopyToClipboard text="http://surgo.kr/" onCopy={copy}>
                 <button
                   style={{
-                    height: "auto",
-                    width: "11.7rem",
-                    border: "none",
+                    height: 'auto',
+                    border: 'none',
                     backgroundColor: color.brand20,
                     padding: "0.4rem 0.8rem",
                     borderRadius: "0.8rem",

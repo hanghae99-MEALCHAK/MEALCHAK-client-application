@@ -1,11 +1,18 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { actionCreators as chatActions } from "../redux/modules/chat";
+
 import theme from "../styles/theme";
-import { Grid, Text } from "../elements";
+import { Button, Grid, Text } from "../elements";
 import logger from "../shared/Console";
 
 const AwaitList = (props) => {
+  const dispatch = useDispatch();
+
   const { color, border, fontSize } = theme;
   const { roomName } = props;
+  const { join_id } = props;
+
 
   React.useEffect(() => {
     logger("참여대기 리스트", props);
@@ -53,6 +60,11 @@ const AwaitList = (props) => {
               승인 대기 중
             </Text>
           </Grid>
+          <Button
+          _onClick={() => {
+            dispatch(chatActions.awaitChatOut(join_id))
+          }}
+          >신청 취소</Button>
         </Grid>
       </Grid>
     </React.Fragment>

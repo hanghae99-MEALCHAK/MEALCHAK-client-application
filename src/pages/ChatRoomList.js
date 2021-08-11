@@ -1,7 +1,8 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as chatActions } from '../redux/modules/chat';
-import { history } from '../redux/configureStore';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as chatActions } from "../redux/modules/chat";
+import { actionCreators as userAction } from "../redux/modules/user";
+import { history } from "../redux/configureStore";
 
 // style
 import { Header, Footer, ChatListItem, AwaitList } from '../components';
@@ -13,9 +14,15 @@ import logger from '../shared/Console';
 
 const ChatRoomList = (props) => {
   const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.user.is_login);
+
   React.useEffect(() => {
-    dispatch(chatActions.setChatListAX());
-    dispatch(chatActions.awaitChatListAX());
+    if (is_login) {
+      dispatch(chatActions.setChatListAX());
+      dispatch(chatActions.awaitChatListAX());
+    }
+      dispatch(userAction.loginCheck());
+    
   }, []);
 
   // 현재 room_id 필요
@@ -28,7 +35,7 @@ const ChatRoomList = (props) => {
   // 채팅 대기 목록
   const await_list = useSelector((state) => state.chat.awaitList);
 
-  const enterRoom = (room_id, roomName, post_id, own_user_id) => {
+  const enterRoom = (room_id, roomName, post_id, own_user_id, order_time) => {
     // 채팅방 들어갔다가 뒤로가기 누르면 자동으로 방나가기
     // room_id 리덕스에 저장된 걸로 실제 채팅 페이지 이동했을 때 서버연결 시켜서 보여줌
 
@@ -36,7 +43,15 @@ const ChatRoomList = (props) => {
     // 동시에 구독
     // /chat/join/${room_id}
     dispatch(chatActions.clearMessage());
-    dispatch(chatActions.moveChatRoom(room_id, roomName, post_id, own_user_id));
+    dispatch(
+      chatActions.moveChatRoom(
+        room_id,
+        roomName,
+        post_id,
+        own_user_id,
+        order_time
+      )
+    );
     history.replace({
       pathname: '/chatting',
       state: {
@@ -44,6 +59,7 @@ const ChatRoomList = (props) => {
         roomName: roomName,
         post_id: post_id,
         own_user_id: own_user_id,
+        order_time: order_time,
       },
     });
   };
@@ -95,6 +111,7 @@ const ChatRoomList = (props) => {
             return (
               <ChatListItem
                 key={idx}
+                live_chat={info.live_chat}
                 room_id={info.room_id}
                 roomName={info.roomName}
                 post_id={info.postId}
@@ -104,7 +121,8 @@ const ChatRoomList = (props) => {
                     info.room_id,
                     info.roomName,
                     info.postId,
-                    info.own_user_id
+                    info.own_user_id,
+                    info.order_time
                   );
                 }}
               />
@@ -112,7 +130,13 @@ const ChatRoomList = (props) => {
           })}
 
           {await_list.map((info, idx) => {
-            return <AwaitList key={idx} roomName={info.title} />;
+            return (
+              <AwaitList
+                key={idx}
+                roomName={info.title}
+                join_id={info.join_id}
+              />
+            );
           })}
 
           {await_list.length === 0 && chat_list.length === 0 && (

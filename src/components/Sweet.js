@@ -25,7 +25,7 @@ const sweetConfirmReload = (msg_title, msg_content, path) => {
     .fire({
       customClass: {
         popup: "border",
-        confirmButton: "confirmButton",
+        confirmButton: "confirm",
       },
       width: "auto",
       padding: "0 1rem 1rem",
@@ -65,8 +65,18 @@ const sweetConfirmReload = (msg_title, msg_content, path) => {
           history.goBack();
           return;
         }
+        // 업로드에서 수정
+        if (path === "/profile") {
+          return history.push(path);
+        }
         // 그 외 새로 리로드 될때
         window.location.replace(path);
+      }
+      else {
+        if(path === "/profile"){
+          return history.push(path);
+        }
+        return;
       }
     });
 };
@@ -137,6 +147,7 @@ const sweetNeedLogin = (way) => {
         confirmButton: "confirmButton",
         cancelButton: "cancelButton",
         denyButton: "denyButton",
+        actions: "meal-action-class",
       },
       width: "auto",
       padding: "0 1rem 1rem",
@@ -161,7 +172,7 @@ const sweetNeedLogin = (way) => {
       ),
       confirmButtonColor: color.brand100,
       confirmButtonText: (
-        <Grid width="15rem" is_flex2>
+        <Grid is_flex2>
           <Text padding="0" color={color.bg0}>
             확인
           </Text>
@@ -177,6 +188,7 @@ const sweetNeedLogin = (way) => {
         }
         history.push("/");
       }
+      history.replace("/")
     });
 };
 
@@ -189,6 +201,7 @@ const sweetWA = () => {
         confirmButton: "confirmButton",
         cancelButton: "cancelButton",
         denyButton: "denyButton",
+        actions: "meal-action-class",
       },
       width: "auto",
       padding: "0 1rem 1rem",
@@ -227,6 +240,117 @@ const sweetWA = () => {
     });
 };
 
+// 성별, 연령 없을때
+const sweetAddCheck = () => {
+  return sweet
+    .fire({
+      customClass: {
+        popup: "border",
+        confirmButton: "confirmButton",
+        cancelButton: "cancelButton",
+        denyButton: "denyButton",
+        actions: "meal-action-class",
+      },
+      width: "auto",
+      padding: "0 0 1rem",
+      title: (
+        <Grid>
+          <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
+            아직 성별/연령 체크가 안되었어요!
+          </Text>
+          <Text size={fontSize.small}>
+            아직 사용자님에 대해 모르는 게 많아요!
+          </Text>
+          <Text size={fontSize.small}>
+            마이페이지에서 성별과 연령을 체크해주세요 :)
+          </Text>
+        </Grid>
+      ),
+      showCancelButton: true,
+      cancelButtonColor: color.brand20,
+      cancelButtonText: (
+        <Grid width="9rem" is_flex2>
+          <Text padding="0" color={color.brand100}>
+            나중에하기
+          </Text>
+        </Grid>
+      ),
+      confirmButtonColor: color.brand100,
+      confirmButtonText: (
+        <Grid width="9rem" is_flex2>
+          <Text padding="0" color={color.bg0}>
+            수정하기
+          </Text>
+        </Grid>
+      ),
+      focusConfirm: false,
+      reverseButtons: true,
+    })
+    .then((res) => {
+      if (res.isConfirmed) {
+        history.replace("/profile");
+      } else {
+        return;
+      }
+    });
+};
+
+
+// 성별, 연령 없을때
+const sweetUploadCheck = () => {
+  return sweet
+    .fire({
+      customClass: {
+        popup: "border",
+        confirmButton: "confirmButton",
+        cancelButton: "cancelButton",
+        denyButton: "denyButton",
+        actions: "meal-action-class",
+      },
+      width: "auto",
+      padding: "0 0 1rem",
+      title: (
+        <Grid>
+          <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
+            성별/연령이 필요한 기능입니다.
+          </Text>
+          <Text size={fontSize.small}>
+            프로필 수정페이지로 이동합니다.
+          </Text>
+          <Text size={fontSize.small}>
+            수정페이지에서 성별과 연령을 체크해주세요 :)
+          </Text>
+        </Grid>
+      ),
+      showCancelButton: true,
+      cancelButtonColor: color.brand20,
+      cancelButtonText: (
+        <Grid width="9rem" is_flex2>
+          <Text padding="0" color={color.brand100}>
+            나중에하기
+          </Text>
+        </Grid>
+      ),
+      confirmButtonColor: color.brand100,
+      confirmButtonText: (
+        <Grid width="9rem" is_flex2>
+          <Text padding="0" color={color.bg0}>
+            확인
+          </Text>
+        </Grid>
+      ),
+      focusConfirm: false,
+      reverseButtons: true,
+    })
+    .then((res) => {
+      if (res.isConfirmed) {
+        history.replace("/profile");
+      } else {
+        return;
+      }
+    });
+};
+
 // 작성 에러시 홈으로 간다고 하면 홈으로 보내고
 // 홈으로 안가면 이전 디테일 페이지로 보내줌
 const sweetEditError = (path) => {
@@ -237,6 +361,7 @@ const sweetEditError = (path) => {
         confirmButton: "confirmButton",
         cancelButton: "cancelButton",
         denyButton: "denyButton",
+        actions: "meal-action-class",
       },
       width: "auto",
       padding: "0 1rem 1rem",
@@ -292,6 +417,7 @@ const SweetChatRequest = (user_id, post_user_id, post_id) => {
           confirmButton: "confirmButton",
           cancelButton: "cancelButton",
           denyButton: "denyButton",
+          actions: "meal-action-class",
         },
         width: "auto",
         padding: "0 1rem 1rem",
@@ -319,7 +445,7 @@ const SweetChatRequest = (user_id, post_user_id, post_id) => {
           </Grid>
         ),
         focusConfirm: false,
-      reverseButtons: true,
+        reverseButtons: true,
       })
       .then((res) => {
         if (res.isConfirmed) {
@@ -338,6 +464,7 @@ const SweetChatRequest = (user_id, post_user_id, post_id) => {
           confirmButton: "confirmButton",
           cancelButton: "cancelButton",
           denyButton: "denyButton",
+          actions: "meal-action-class",
         },
         width: "auto",
         padding: "0 1rem 1rem",
@@ -367,7 +494,7 @@ const SweetChatRequest = (user_id, post_user_id, post_id) => {
           </Grid>
         ),
         focusConfirm: false,
-      reverseButtons: true,
+        reverseButtons: true,
       })
       .then((res) => {
         if (res.isConfirmed) {
@@ -409,6 +536,7 @@ const SweetAllowChat = (join_id) => {
         confirmButton: "confirmButton",
         cancelButton: "cancelButton",
         denyButton: "denyButton",
+        actions: "meal-action-class",
       },
       width: "auto",
       padding: "0 1rem 1rem",
@@ -476,6 +604,7 @@ const SweetDenyChat = (join_id) => {
         confirmButton: "confirmButton",
         cancelButton: "cancelButton",
         denyButton: "denyButton",
+        actions: "meal-action-class",
       },
       width: "auto",
       padding: "0 1rem 1rem",
@@ -543,6 +672,7 @@ const SweetOutChat = (post_id) => {
         confirmButton: "confirmButton",
         cancelButton: "cancelButton",
         denyButton: "denyButton",
+        actions: "meal-action-class",
       },
       width: "auto",
       padding: "0 1rem 1rem",
@@ -580,8 +710,8 @@ const SweetOutChat = (post_id) => {
           .delete(`/chat/quit/${post_id}`)
           .then((res) => {
             sweetConfirmReload(
-              "수락 완료",
-              "수락이 완료되었습니다.",
+              "나가기 완료",
+              "채팅방 나가기가 완료되었습니다.",
               "/chatlist"
             );
           })
@@ -609,6 +739,7 @@ const SweetBen = (sendBen, other_user_id, other_user_name) => {
         confirmButton: "confirmButton",
         cancelButton: "cancelButton",
         denyButton: "denyButton",
+        actions: "meal-action-class",
       },
       width: "auto",
       padding: "0 1rem 1rem",
@@ -651,6 +782,74 @@ const SweetBen = (sendBen, other_user_id, other_user_name) => {
     });
 };
 
+const SweetBreak = (sendBreak, post_id) => {
+  sweet
+    .fire({
+      customClass: {
+        popup: "border",
+        confirmButton: "confirmButton",
+        cancelButton: "cancelButton",
+        denyButton: "denyButton",
+        actions: "meal-action-class",
+      },
+      width: "auto",
+      padding: "0 1rem 1rem",
+      title: (
+        <Grid>
+          <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
+            채팅방 나가기
+          </Text>
+        </Grid>
+      ),
+      text: "방장이 나가면 게시글 및 채팅방이 사라집니다.",
+      showDenyButton: true,
+      denyButtonText: (
+        <Grid width="9rem" is_flex2>
+          <Text padding="0" color={color.brand100}>
+            취소
+          </Text>
+        </Grid>
+      ),
+      denyButtonColor: color.brand20,
+      confirmButtonColor: color.brand100,
+      confirmButtonText: (
+        <Grid width="9rem" is_flex2>
+          <Text padding="0" color={color.bg0}>
+            나가기
+          </Text>
+        </Grid>
+      ),
+      focusConfirm: false,
+      reverseButtons: true,
+    })
+    .then((res) => {
+      if (res.isConfirmed) {
+        axiosModule
+          .delete(`/chat/quit/${post_id}`)
+          .then((res) => {
+            sweetConfirmReload(
+              "나가기 완료",
+              "채팅방 나가기가 완료되었습니다.",
+              "/chatlist"
+            );
+            sendBreak();
+          })
+          .catch((e) => {
+            logger("채팅방 나가기 요청 에러", e);
+            sweetConfirmReload(
+              "나가기 요청 에러",
+              "채팅방 나가기 요청 중 에러가 발생했습니다",
+              ""
+            );
+          });
+      } else if (res.isDenied) {
+        return;
+      } else {
+        return;
+      }
+    });
+};
+
 const customAlert = {
   sweetConfirmReload,
   sweetReviewWrite,
@@ -662,6 +861,8 @@ const customAlert = {
   SweetDenyChat,
   SweetOutChat,
   SweetBen,
+  SweetBreak,
+  sweetAddCheck,
 };
 
 export { customAlert };

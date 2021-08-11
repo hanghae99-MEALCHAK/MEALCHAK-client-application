@@ -40,6 +40,9 @@ import logger from './Console';
 
 function App() {
   const dispatch = useDispatch();
+
+  const path = document.location.href.split("/")[3]
+
   const user_info = useSelector((state) => state.user.user);
   const is_loading = useSelector((state) => state.user.is_loading);
   const is_login = useSelector((state) => state.user.is_login);
@@ -47,12 +50,13 @@ function App() {
   // token 정보 있을때 user redux에 저장
   React.useEffect(() => {
     if (token) {
-      dispatch(userAction.loginCheck());
+      dispatch(userAction.loginCheck(`/${path}`));
       logger('app.js user 정보', user_info);
     }
     logger('app.js token 정보', token);
     logger('is_loading', is_loading);
-    logger('로그인', is_login);
+    logger('path', path);
+
   }, []);
 
   if (is_loading) {

@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userAction } from "../redux/modules/user";
 import { actionCreators as imageActions } from "../redux/modules/image";
 
+// select
+import { GenderSelect, AgeSelect } from "../components/ReactSelect";
+
 // style
 import { Button, Grid, Input, Text } from "../elements";
 import { customAlert } from "../components/Sweet";
@@ -14,18 +17,33 @@ import logger from "../shared/Console";
 import theme from "../styles/theme";
 
 const ProfileEdit = (props) => {
+  const { color, border, radius, fontSize, btn_border } = theme;
   const dispatch = useDispatch();
+
   const is_login = useSelector((state) => state.user.is_login);
   const user_info = useSelector((state) => state.user?.user);
   const preview = useSelector((state) => state.image?.preview);
 
-  const { color, border, radius, fontSize, btn_border } = theme;
+  const gender_options = [
+    { value: "female", label: "여성" },
+    { value: "male", label: "남성" },
+  ];
+
+  const age_options = [
+    { value: "10~19", label: "10대" },
+    { value: "20~29", label: "20대" },
+    { value: "30~39", label: "30대" },
+    { value: "40~49", label: "40대" },
+    { value: "50~59", label: "50대" },
+  ];
 
   const [disabled, setDisabled] = useState(true);
   const [editProfile, setProfile] = useState({
     nickname: user_info?.user_nickname,
     comment: user_info?.user_comment ? user_info?.user_comment : "",
     image: user_info?.user_profile,
+    gender: user_info?.user_gender ? user_info?.user_gender : "",
+    age: user_info?.user_age ? user_info?.user_age : "",
   });
 
   const changeNick = (e) => {
@@ -38,17 +56,14 @@ const ProfileEdit = (props) => {
     setDisabled(false);
   };
 
+  // 사용자 추가 정보 따로 axios 요청이있는지?
   const editUser = () => {
-    logger('수정할 이름', editProfile.nickname);
-    logger('수정할 이름', editProfile.comment);
-    dispatch(
-      userAction.editUserProfileAX({
-        username: editProfile.nickname,
-        comment: editProfile.comment,
-        image: editProfile.image,
-      })
-    );
-    customAlert.sweetConfirmReload('프로필이 수정되었습니다.', null, '/mypage');
+    logger("수정할 이름", editProfile.nickname);
+    logger("수정할 이름", editProfile.comment);
+    logger("수정 내용", editProfile);
+ 
+    dispatch(userAction.editUserProfileAX({ ...editProfile }));
+    customAlert.sweetConfirmReload("프로필이 수정되었습니다.", null, "/mypage");
   };
 
   // 선택한 파일 정보
@@ -70,7 +85,7 @@ const ProfileEdit = (props) => {
       setProfile({ ...editProfile, nickname: user_info?.user_nickname });
       setProfile({ ...editProfile, comment: user_info?.user_comment });
     }
-    dispatch(userAction.loginCheck());
+    dispatch(userAction.loginCheck("/profile"));
   }, []);
 
   React.useEffect(() => {
@@ -148,7 +163,7 @@ const ProfileEdit = (props) => {
                 border={btn_border.bg40}
                 padding="1.5rem 1.3rem"
                 size={fontSize.base}
-                color={color.bg60}
+                color={color.bg80}
                 length={10}
                 placeholder={user_info?.user_nickname}
                 value={editProfile?.nickname}
@@ -161,7 +176,8 @@ const ProfileEdit = (props) => {
               width="32rem"
               minWidth="32rem"
               height="8.2rem"
-              margin="0 auto"
+              shape="container"
+              align_items="center"
             >
               <Text
                 width="32rem"
@@ -174,20 +190,89 @@ const ProfileEdit = (props) => {
               >
                 소개글
               </Text>
+              <TextArea
+                onChange={changeComment}
+                value={editProfile?.comment}
+                placeholder="어느 지역에서 주로 시켜먹나요?&#13;&#10;제일 좋아하는 음식은 무엇인가요?&#13;&#10;나를 잘 나타낼 수 있는 문구로 소개해보세요!"
+              ></TextArea>
             </Grid>
-            <TextArea placeholder="어느 지역에서 주로 시켜먹나요? 제일 좋아하는 음식은 무엇인가요? 나를 잘 나타낼 수 있는 문구로 소개해보세요!"></TextArea>
           </FocusWithin>
           <Text
             width="28.8rem"
             height="2.2rem"
-            margin="0.9rem auto 0 2rem"
+            margin="0.4rem auto 0 2rem"
             color="#9A9896"
             size={fontSize.small}
             line_height="150%"
           >
-            20글자까지 입력할 수 있어요.
+            20글자 이상 입력해주세요.
           </Text>
         </Grid>
+
+        <Grid margin="0 auto 1rem" shape="container" align_items="center">
+          <Text
+            width="32rem"
+            margin="2.4rem 0 0 0"
+            height="2.4rem"
+            bold2="500"
+            size={fontSize.base}
+            color={color.bg100}
+            line_height="150%"
+          >
+            성별
+          </Text>
+
+          <Grid
+            width="32rem"
+            minWidth="32rem"
+            border={border.bg40}
+            radius="1.2rem"
+            height="auto"
+          >
+            <GenderSelect
+              options={gender_options}
+              value={editProfile.gender}
+              setProfile={setProfile}
+              setDisabled={setDisabled}
+              editProfile={editProfile}
+              onChange={props.onChange}
+              gender={editProfile.gender}
+            />
+          </Grid>
+        </Grid>
+
+        <Grid margin="0 auto 1rem" shape="container" align_items="center">
+          <Text
+            width="32rem"
+            margin="2.4rem 0 0 0"
+            height="2.4rem"
+            bold2="500"
+            size={fontSize.base}
+            color={color.bg100}
+            line_height="150%"
+          >
+            연령
+          </Text>
+
+          <Grid
+            width="32rem"
+            minWidth="32rem"
+            border={border.bg40}
+            radius="1.2rem"
+            height="auto"
+          >
+            <AgeSelect
+              options={age_options}
+              value={editProfile.age}
+              setProfile={setProfile}
+              setDisabled={setDisabled}
+              editProfile={editProfile}
+              onChange={props.onChange}
+              age={editProfile.age}
+            />
+          </Grid>
+        </Grid>
+
         <Grid
           height="auto"
           maxWidth="35.5rem"
@@ -251,7 +336,7 @@ const ProfileCover = styled.div`
 
 const TextArea = styled.textarea`
   width: 32rem;
-  min-height: 16.8rem;
+  height: 16.8rem;
   color: ${theme.color.bg100};
   font-size: ${theme.fontSize.base};
   font-weight: 400;
@@ -260,8 +345,9 @@ const TextArea = styled.textarea`
   background-color: ${theme.color.bg0};
   border: ${theme.btn_border.bg40};
   border-radius: ${theme.radius.button};
-  padding: 1.4rem 1.6rem;
-  textarea::placeholder {
+  padding: 1.4rem 1.4rem;
+  resize: none;
+  &::placeholder {
     color: ${theme.color.bg80};
     font-size: ${theme.fontSize.base};
     font-weight: 400;
@@ -281,6 +367,7 @@ const FocusWithin = styled.div`
   &:focus-within textarea {
     border: 1px solid #ff9425;
     outline: none;
+    resize: none;
   }
 `;
 

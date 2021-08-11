@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../redux/configureStore';
 import moment from 'moment';
 
-import { actionCreators as postAction } from '../redux/modules/post';
-import { actionCreators as locateActions } from '../redux/modules/loc';
-import { Kakao_auth_url } from '../shared/OAuth';
-import logger from '../shared/Console';
+import { actionCreators as postAction } from "../redux/modules/post";
+import { actionCreators as userAction } from "../redux/modules/user";
+import { Kakao_auth_url } from "../shared/OAuth";
+import logger from "../shared/Console";
 
 // style
 import { Button, Grid, Text } from '../elements';
@@ -48,6 +48,11 @@ const Upload = React.memo((props) => {
     }
     logger('post 수정 전 내용', _post);
     logger('post 수정 전 내용', is_edit);
+  }, []);
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+    dispatch(userAction.loginCheck("/upload"));
   }, []);
 
   // upload 될 내용
