@@ -1,14 +1,14 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as chatActions } from "../redux/modules/chat";
-import { history } from "../redux/configureStore";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as chatActions } from '../redux/modules/chat';
+import { history } from '../redux/configureStore';
 
 // style
-import styled from "styled-components";
-import { Header, Footer, AllowList } from "../components";
-import { Button, Grid, Image, Text } from "../elements";
-import theme from "../styles/theme";
-import logger from "../shared/Console";
+import styled from 'styled-components';
+import { Header, Footer, AllowList } from '../components';
+import { Button, Grid, Image, Text } from '../elements';
+import theme from '../styles/theme';
+import logger from '../shared/Console';
 
 const AllowChat = (props) => {
   const dispatch = useDispatch();
@@ -34,6 +34,7 @@ const AllowChat = (props) => {
       >
         <Grid shape="container">
           <Header {...props} shape="채팅리스트" />
+          <Grid height="4.4rem" />
 
           <Grid is_flex4="t" text_align="center" borderBottom={border.line1}>
             <Grid
@@ -41,11 +42,16 @@ const AllowChat = (props) => {
               padding="0 2rem"
               margin="auto"
               _onClick={() => {
-                history.push("/chatlist");
+                history.push('/chatlist');
               }}
               cursor="pointer"
             >
-              <Text size={fontSize.base} margin="0 0 0.8rem" color={color.bg60} bold2="700">
+              <Text
+                size={fontSize.base}
+                margin="0 0 0.8rem"
+                color={color.bg60}
+                bold2="700"
+              >
                 참여중인 채팅방
               </Text>
             </Grid>
@@ -55,7 +61,7 @@ const AllowChat = (props) => {
               padding="0 2rem"
               margin="auto"
               _onClick={() => {
-                history.push("/allowchat");
+                history.push('/allowchat');
               }}
               cursor="pointer"
             >
@@ -99,7 +105,7 @@ const EmptyText = styled.p`
   position: relative;
   text-align: center;
   top: 15rem;
-  font-size: ${props => props.theme.fontSize.base};
-  color: ${props => props.theme.color.bg80};
+  font-size: ${(props) => props.theme.fontSize.base};
+  color: ${(props) => props.theme.color.bg80};
 `;
 export default AllowChat;

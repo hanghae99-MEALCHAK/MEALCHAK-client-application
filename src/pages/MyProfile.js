@@ -1,16 +1,16 @@
-import React from "react";
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router";
-import { actionCreators as userAction } from "../redux/modules/user";
+import React from 'react';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
+import { actionCreators as userAction } from '../redux/modules/user';
 
 // style
-import { Button, Grid, Text } from "../elements";
-import { Header } from "../components";
-import theme from "../styles/theme";
-import { MyOneReview } from "../components";
-import Spinner from "../shared/Spinner";
-import logger from "../shared/Console";
+import { Button, Grid, Text } from '../elements';
+import { Header } from '../components';
+import theme from '../styles/theme';
+import { MyOneReview } from '../components';
+import Spinner from '../shared/Spinner';
+import logger from '../shared/Console';
 
 const MyProfile = (props) => {
   const dispatch = useDispatch();
@@ -24,8 +24,8 @@ const MyProfile = (props) => {
     window.scrollTo(0, 0);
     dispatch(userAction.loginCheck());
     dispatch(userAction.findUserProfileAX(user_id));
-    logger("props from MyPage : ", location.state);
-    logger("MyProfile another_user_info: ", other_user);
+    logger('props from MyPage : ', location.state);
+    logger('MyProfile another_user_info: ', other_user);
   }, []);
 
   if (is_login) {
@@ -39,6 +39,7 @@ const MyProfile = (props) => {
         >
           <Grid shape="container">
             <Header {...props} shape="프로필" />
+            <Grid height="4.4rem" />
 
             <Grid margin="1.6rem auto 2rem">
               <Profile user_profile={other_user?.user_profile}></Profile>
@@ -60,7 +61,7 @@ const MyProfile = (props) => {
               </Text>
               <Grid width="auto" text_align="center">
                 <Text size={fontSize.small} color="#9A9896" line_height="150%">
-                  {other_user?.user_comment ? other_user?.user_comment : ""}
+                  {other_user?.user_comment ? other_user?.user_comment : ''}
                 </Text>
               </Grid>
             </Grid>
@@ -299,7 +300,7 @@ const Profile = styled.div`
 
 const MyReviewImg = styled.div`
   margin: 4.7rem auto 0 auto;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   width: 20rem;
   height: 11.7rem;
   background-size: cover;
