@@ -21,7 +21,7 @@ const ProfileEdit = (props) => {
   const dispatch = useDispatch();
 
   const is_login = useSelector((state) => state.user.is_login);
-  const user_info = useSelector((state) => state.user?.user);
+  const user_info = useSelector((state) => state.user.user);
   const preview = useSelector((state) => state.image?.preview);
 
   const gender_options = [
@@ -42,8 +42,8 @@ const ProfileEdit = (props) => {
     nickname: user_info?.user_nickname,
     comment: user_info?.user_comment ? user_info?.user_comment : "",
     image: user_info?.user_profile,
-    gender: user_info?.user_gender ? user_info?.user_gender : "",
-    age: user_info?.user_age ? user_info?.user_age : "",
+    gender: user_info?.user_gender ? user_info?.user_gender : null,
+    age: user_info?.user_age ? user_info?.user_age : null,
   });
 
   const changeNick = (e) => {
@@ -61,9 +61,44 @@ const ProfileEdit = (props) => {
     logger("수정할 이름", editProfile.nickname);
     logger("수정할 이름", editProfile.comment);
     logger("수정 내용", editProfile);
- 
-    dispatch(userAction.editUserProfileAX({ ...editProfile }));
-    customAlert.sweetConfirmReload("프로필이 수정되었습니다.", null, "/mypage");
+
+    if (!user_info?.user_age && !user_info?.user_gender) {
+      if (editProfile.gender && editProfile.age) {
+        customAlert.sweetUserInfo(editProfile.age, editProfile.gender).then((res) => {
+          if(res){
+            dispatch(userAction.editUserProfileAX({ ...editProfile }));
+            customAlert.sweetConfirmReload(
+              "프로필이 수정되었습니다.",
+              null,
+              "/mypage")
+          }
+          else {
+            return;
+          }
+        })
+        
+        // dispatch(userAction.editUserProfileAX({ ...editProfile }));
+        // customAlert.sweetConfirmReload(
+        //   "프로필이 수정되었습니다.",
+        //   null,
+        //   "/mypage"
+        // );
+      } else {
+        customAlert.sweetConfirmReload("성별/ 연령", "필수항목입니다.", "");
+      }
+    } else {
+      // 프로필 age, gender 둘다 이미 있는 사람
+      if (editProfile.gender && editProfile.age) {
+        dispatch(userAction.editUserProfileAX({ ...editProfile }));
+        customAlert.sweetConfirmReload(
+          "프로필이 수정되었습니다.",
+          null,
+          "/mypage"
+        );
+      } else {
+        customAlert.sweetConfirmReload("성별/ 연령", "필수항목입니다.", "");
+      }
+    }
   };
 
   // 선택한 파일 정보
@@ -81,20 +116,31 @@ const ProfileEdit = (props) => {
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
-    if (!editProfile.comment || editProfile.nickname) {
-      setProfile({ ...editProfile, nickname: user_info?.user_nickname });
-      setProfile({ ...editProfile, comment: user_info?.user_comment });
-    }
     dispatch(userAction.loginCheck("/profile"));
   }, []);
 
   React.useEffect(() => {
     if (!editProfile.comment || !editProfile.nickname) {
       setDisabled(true);
+    } else if (!editProfile.age || !editProfile.gender) {
+      if (user_info?.user_age && user_info?.user_gender) {
+        setProfile({
+          ...editProfile,
+          gender: user_info?.user_gender,
+          age: user_info?.user_age,
+        });
+      } else {
+        setDisabled(true);
+      }
     } else if (editProfile.comment || editProfile.nickname) {
       setDisabled(false);
     }
-  }, [editProfile.comment, editProfile.nickname]);
+  }, [
+    editProfile.comment,
+    editProfile.nickname,
+    editProfile.age,
+    editProfile.gender,
+  ]);
 
   if (is_login) {
     return (
@@ -193,7 +239,7 @@ const ProfileEdit = (props) => {
               <TextArea
                 onChange={changeComment}
                 value={editProfile?.comment}
-                placeholder="어느 지역에서 주로 시켜먹나요?&#13;&#10;제일 좋아하는 음식은 무엇인가요?&#13;&#10;나를 잘 나타낼 수 있는 문구로 소개해보세요!"
+                placeholder="어느 지역에서 주로 시켜먹나요?&#13;&#10;제일 좋아하는 음식은 무엇인가요?&#13;&#10;나를 나타낼 수 있는 문구로 소개해보세요!"
               ></TextArea>
             </Grid>
           </FocusWithin>
@@ -345,7 +391,7 @@ const TextArea = styled.textarea`
   background-color: ${theme.color.bg0};
   border: ${theme.btn_border.bg40};
   border-radius: ${theme.radius.button};
-  padding: 1.4rem 1.4rem;
+  padding: 1.6rem;
   resize: none;
   &::placeholder {
     color: ${theme.color.bg80};
