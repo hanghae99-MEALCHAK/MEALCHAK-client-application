@@ -1,25 +1,27 @@
 // 마이페이지 - 내가 쓴 글
-import React from "react";
-import styled from "styled-components";
-import logger from "../shared/Console";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as userActions } from "../redux/modules/user";
-import Spinner from "../shared/Spinner";
-import { history } from "../redux/configureStore";
-import { Post } from "../components";
+import React from 'react';
+import styled from 'styled-components';
+import logger from '../shared/Console';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as postActions } from '../redux/modules/post';
+import { actionCreators as userActions } from '../redux/modules/user';
+import Spinner from '../shared/Spinner';
+import { history } from '../redux/configureStore';
+import { Post, DetailPost } from '../components';
 
 // style
-import { Button, Grid, Input, Text } from "../elements";
-import { Header } from "../components";
-import theme from "../styles/theme";
+import { Button, Grid, Input, Text } from '../elements';
+import { Header } from '../components';
+import theme from '../styles/theme';
 
 const MyPost = (props) => {
+  // logger('MyPost11111111111 : ', props);
   const dispatch = useDispatch();
 
   const is_login = useSelector((state) => state.user.is_login);
   const my_post = useSelector((state) => state.user?.myPost);
   const user_info = useSelector((state) => state.user.user);
+  // logger('MyPost222222222 : ', my_post);
 
   const { color, border, fontSize } = theme;
 
@@ -42,10 +44,21 @@ const MyPost = (props) => {
       >
         <Grid shape="container">
           <Header {...props} shape="내가쓴글" />
+          <Grid height="4.4rem" />
           <Grid height="1.6rem" />
-          {my_post?.length !== 0 ? (
+          {/* {my_post?.length !== 0 ? (
             my_post.map((p, idx) => {
               return <Post {...p} is_profile key={idx} />;
+            })
+          ) : (
+            <Grid width="36rem" margin="18rem auto 0 auto">
+              <MyReviewImg src="illust/emptyMeal_3x.png"></MyReviewImg>
+              <MyReviewText>아직 내가 쓴 글이 없어요.</MyReviewText>
+            </Grid>
+          )} */}
+          {my_post?.length !== 0 ? (
+            my_post.map((p, idx) => {
+              return <DetailPost {...p} is_profile key={idx} />;
             })
           ) : (
             <Grid width="36rem" margin="18rem auto 0 auto">
@@ -65,7 +78,7 @@ MyPost.defaultProps = {};
 
 const MyReviewImg = styled.div`
   margin: auto;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   width: 20rem;
   height: 11.7rem;
   background-size: cover;

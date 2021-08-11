@@ -84,7 +84,14 @@ const Header = (props) => {
   if (props.shape === "글쓰기") {
     return (
       <React.Fragment>
-        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+        <Grid
+          maxWidth="35.8rem"
+          is_fixed_top="t"
+          is_flex4="t"
+          height="4.4rem"
+          margin="0 auto"
+          bg="#ffffff"
+        >
           <span
             className="material-icons-outlined"
             style={{
@@ -99,7 +106,7 @@ const Header = (props) => {
           >
             close
           </span>
-          <Text margin="auto" size="1.6rem" bold2="700">
+          <Text margin="auto" size="1.6rem" bold>
             {props.children}
           </Text>
         </Grid>
@@ -111,7 +118,14 @@ const Header = (props) => {
   if (props.shape === "상세페이지") {
     return (
       <React.Fragment>
-        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+        <Grid
+          maxWidth="35.8rem"
+          is_fixed_top="t"
+          is_flex4="t"
+          height="4.4rem"
+          margin="0 auto"
+          bg="#ffffff"
+        >
           <svg
             style={{
               position: "absolute",
@@ -159,7 +173,14 @@ const Header = (props) => {
   if (props.shape === "채팅리스트") {
     return (
       <React.Fragment>
-        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+        <Grid
+          maxWidth="35.8rem"
+          is_fixed_top="t"
+          is_flex4="t"
+          height="4.4rem"
+          margin="0 auto"
+          bg="#ffffff"
+        >
           <Text margin="auto" size="1.6rem" bold2="700">
             채팅
           </Text>
@@ -240,7 +261,14 @@ const Header = (props) => {
   if (props.shape === "마이페이지") {
     return (
       <React.Fragment>
-        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+        <Grid
+          maxWidth="35.8rem"
+          is_fixed_top="t"
+          is_flex4="t"
+          height="4.4rem"
+          margin="0 auto"
+          bg="#ffffff"
+        >
           <Grid width="7rem" margin="0 0 0 1.3rem" />
           <Text margin="auto" size="1.6rem" bold2="700">
             마이페이지
@@ -270,7 +298,14 @@ const Header = (props) => {
   if (props.shape === "프로필수정") {
     return (
       <React.Fragment>
-        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+        <Grid
+          maxWidth="35.8rem"
+          is_fixed_top="t"
+          is_flex4="t"
+          height="4.4rem"
+          margin="0 auto"
+          bg="#ffffff"
+        >
           <svg
             width="24"
             height="24"
@@ -304,7 +339,14 @@ const Header = (props) => {
   if (props.shape === "프로필") {
     return (
       <React.Fragment>
-        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+        <Grid
+          maxWidth="35.8rem"
+          is_fixed_top="t"
+          is_flex4="t"
+          height="4.4rem"
+          margin="0 auto"
+          bg="#ffffff"
+        >
           <svg
             width="24"
             height="24"
@@ -338,7 +380,14 @@ const Header = (props) => {
   if (props.shape === "설정") {
     return (
       <React.Fragment>
-        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+        <Grid
+          maxWidth="35.8rem"
+          is_fixed_top="t"
+          is_flex4="t"
+          height="4.4rem"
+          margin="0 auto"
+          bg="#ffffff"
+        >
           <svg
             width="24"
             height="24"
@@ -372,7 +421,14 @@ const Header = (props) => {
   if (props.shape === "내가쓴글") {
     return (
       <React.Fragment>
-        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+        <Grid
+          maxWidth="35.8rem"
+          is_fixed_top="t"
+          is_flex4="t"
+          height="4.4rem"
+          margin="0 auto"
+          bg="#ffffff"
+        >
           <svg
             width="24"
             height="24"
@@ -406,7 +462,14 @@ const Header = (props) => {
   if (props.shape === "내가받은리뷰") {
     return (
       <React.Fragment>
-        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+        <Grid
+          maxWidth="35.8rem"
+          is_fixed_top="t"
+          is_flex4="t"
+          height="4.4rem"
+          margin="0 auto"
+          bg="#ffffff"
+        >
           <svg
             width="24"
             height="24"
@@ -439,7 +502,14 @@ const Header = (props) => {
   if (props.shape === "검색") {
     return (
       <React.Fragment>
-        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+        <Grid
+          maxWidth="35.8rem"
+          is_fixed_top="t"
+          is_flex4="t"
+          height="4.4rem"
+          margin="0 auto"
+          bg="#ffffff"
+        >
           <svg
             style={{
               fontSize: "1.9rem",
@@ -477,7 +547,14 @@ const Header = (props) => {
   if (props.shape === "주소입력") {
     return (
       <React.Fragment>
-        <Grid is_flex4="t" height="4.4rem" margin="0 auto" bg="#ffffff">
+        <Grid
+          maxWidth="35.8rem"
+          is_fixed_top="t"
+          is_flex4="t"
+          height="4.4rem"
+          margin="0 auto"
+          bg="#ffffff"
+        >
           <span
             className="material-icons-outlined"
             style={{
@@ -495,7 +572,7 @@ const Header = (props) => {
           >
             close
           </span>
-          <Text margin="auto" size="1.6rem" bold2="700">
+          <Text margin="auto" size="1.6rem" bold>
             {props.children}
           </Text>
         </Grid>

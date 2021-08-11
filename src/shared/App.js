@@ -27,6 +27,7 @@ import {
   Settings,
   MyPost,
   MyReview,
+  MyProfile,
   UserProfile,
   AllowChat,
 } from '../pages';
@@ -78,19 +79,19 @@ function App() {
           <Route path="/user/kakao/callback" exact component={LoginRedirect} />
           <Route path="/upload" exact component={Upload} />
           <Route path="/upload/:id" exact component={Upload} />
-          <Route path="/search" component={Search}></Route>
-          <Route path="/mypage" component={MyPage}></Route>
-          <Route path="/userprofile" component={UserProfile}></Route>
-          <Route path="/profile" component={ProfileEdit}></Route>
-          <Route path="/mypost" component={MyPost}></Route>
+          <Route path="/search" component={Search}/>
+          <Route path="/mypage" component={MyPage}/>
+          <Route path="/mypost" component={MyPost}/>
+          <Route path="/myprofile" component={MyProfile}/>
+          <Route path="/userprofile" component={UserProfile}/>
+          <Route path="/profile" component={ProfileEdit}/>
           <Route path="/myreview" component={MyReview}/>
-          <Route path="/settings" component={Settings}></Route>
-          <Route path="/chatlist" component={ChatRoomList}></Route>
-          <Route path="/chatting" component={Chat}></Route>
-          <Route path="/allowchat" component={AllowChat}></Route>
-
+          <Route path="/settings" component={Settings}/>
+          <Route path="/chatlist" component={ChatRoomList}/>
+          <Route path="/chatting" component={Chat}/>
+          <Route path="/allowchat" component={AllowChat}/>
           {/* <Route path="*" component={NotFound}></Route> */}
-          <Route path="/write" component={ReviewWrite}></Route>
+          <Route path="/write" component={ReviewWrite}/>
         </ConnectedRouter>
       </Grid>
     </React.Fragment>

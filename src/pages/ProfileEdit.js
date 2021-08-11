@@ -107,6 +107,7 @@ const ProfileEdit = (props) => {
       >
         <Grid shape="container">
           <Header {...props} shape="프로필수정" />
+          <Grid height="4.4rem" />
 
           <Grid margin="3.6rem auto 2rem">
             <Profile

@@ -1,32 +1,37 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import { Grid, Text, Button } from "../elements";
-import { Post, Footer, Header, MainBanner } from "../components";
+import { Grid, Text, Button } from '../elements';
+import { Post, Footer, Header, MainBanner } from '../components';
 
-import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as userActions } from "../redux/modules/user";
-import { useDispatch, useSelector } from "react-redux";
-import { history } from "../redux/configureStore";
-import logger from "../shared/Console";
+import { actionCreators as postActions } from '../redux/modules/post';
+import { actionCreators as userActions } from '../redux/modules/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { history } from '../redux/configureStore';
+import logger from '../shared/Console';
 
-import theme from "../styles/theme";
+import theme from '../styles/theme';
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination, Navigation } from "swiper";
-import "swiper/swiper.scss";
-import "swiper/components/navigation/navigation.scss";
-import "swiper/components/pagination/pagination.scss";
-import "../shared/Swiper.scss";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Pagination, Navigation } from 'swiper';
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
+import '../shared/Swiper.scss';
 
 const Main = (props) => {
   const { color, border, btn_border, fontSize } = theme;
 
   const dispatch = useDispatch();
-  const post_list = useSelector((state) => state.post?.list);
   const user = useSelector((state) => state.user.user);
+  const post_list = useSelector((state) => state.post?.list);
   const rank_list = useSelector((state) => state.post?.rank);
 
+  const [ctg, setCtg] = React.useState("");
+  const [sort, setSort] = React.useState({
+    recent: true,
+    nearBy: false,
+  });
   const [category, setCategory] = React.useState({
     all: true,
     kr: false,
@@ -41,17 +46,15 @@ const Main = (props) => {
     recent: true,
     nearBy: false,
   });
-  const [ctg, setCtg] = React.useState("");
-
+  const [ctg, setCtg] = React.useState('');
   React.useEffect(() => {
     if (post_list.length === 0) {
-      dispatch(postActions.getPostAX("전체"));
-      setCtg("전체");
+      dispatch(postActions.getPostAX('전체'));
+      setCtg('전체');
     }
     dispatch(postActions.getRankDB());
   }, []);
 
-  console.log(category);
   return (
     <React.Fragment>
       <Grid
@@ -77,7 +80,7 @@ const Main = (props) => {
             border={btn_border.bg40}
             radius="1.2rem"
             _onClick={() => {
-              history.push("/search");
+              history.push('/search');
             }}
           >
             <Text
@@ -93,9 +96,9 @@ const Main = (props) => {
             </Text>
             <svg
               style={{
-                position: "absolute",
-                top: "6.5rem",
-                margin: "0 0 0 12rem",
+                position: 'absolute',
+                top: '6.5rem',
+                margin: '0 0 0 12rem',
               }}
               width="24"
               height="24"
@@ -126,12 +129,20 @@ const Main = (props) => {
               #오늘의 인기 메뉴
             </Text>
           </Grid>
-          <MainBanner {...rank_list}></MainBanner>
+          <MainBanner
+            {...rank_list}
+            category={category}
+            getCategory={(value) =>
+              setCategory({ ...{ category: false }, ...value })
+            }
+            getCtg={(value) => setCtg(value)}
+            getSort={() => setSort({ ...{ sort: false }, recent: true })}
+          />
           <Grid height="0.8rem" bg="#f4f4f3" />
         </Grid>
         <Grid
           maxWidth="33.3rem"
-          height="3.2rem"
+          height="4.5rem"
           margin="0 auto"
           flex
           flex_direction="row"
@@ -145,14 +156,15 @@ const Main = (props) => {
           >
             <SwiperSlide>
               <Text
+                id="findText"
                 width="3rem"
                 height="2.4rem"
                 size={fontSize.base}
                 bold
                 cursor="t"
-                // margin="-0.7rem 0.9rem 0"
                 margin="-0.4rem 0.9rem 0"
-                border_bottom={category.all ? "0.1rem solid black" : ""}
+                padding="1.6rem 0 2.8rem 0"
+                border_bottom={category.all ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, all: true });
@@ -169,8 +181,9 @@ const Main = (props) => {
                 size="1.6rem"
                 bold
                 cursor="t"
-                margin="-0.7rem 0.9rem 0"
-                border_bottom={category.kr ? "0.1rem solid black" : ""}
+                margin="-0.4rem 0.9rem 0"
+                padding="1.6rem 0 2.8rem 0"
+                border_bottom={category.kr ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, kr: true });
@@ -188,8 +201,9 @@ const Main = (props) => {
                 size="1.6rem"
                 bold
                 cursor="t"
-                margin="-0.7rem 0.9rem 0"
-                border_bottom={category.cn ? "0.1rem solid black" : ""}
+                margin="-0.4rem 0.9rem 0"
+                padding="1.6rem 0 2.8rem 0"
+                border_bottom={category.cn ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, cn: true });
@@ -207,8 +221,9 @@ const Main = (props) => {
                 size="1.6rem"
                 bold
                 cursor="t"
-                margin="-0.7rem 0.9rem 0"
-                border_bottom={category.jp ? "0.1rem solid black" : ""}
+                margin="-0.4rem 0.9rem 0"
+                padding="1.6rem 0 2.8rem 0"
+                border_bottom={category.jp ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, jp: true });
@@ -226,8 +241,9 @@ const Main = (props) => {
                 size="1.6rem"
                 bold
                 cursor="t"
-                margin="-0.7rem 0.9rem 0"
-                border_bottom={category?.west ? "0.1rem solid black" : ""}
+                margin="-0.4rem 0.9rem 0"
+                padding="1.6rem 0 2.8rem 0"
+                border_bottom={category?.west ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, west: true });
@@ -245,8 +261,9 @@ const Main = (props) => {
                 size="1.6rem"
                 bold
                 cursor="t"
-                margin="-0.7rem 0.9rem 0"
-                border_bottom={category.cafe ? "0.1rem solid black" : ""}
+                margin="-0.4rem 0.9rem 0"
+                padding="1.6rem 0 2.8rem 0"
+                border_bottom={category.cafe ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, cafe: true });
@@ -264,8 +281,9 @@ const Main = (props) => {
                 size="1.6rem"
                 bold
                 cursor="t"
-                margin="-0.7rem 0.9rem 0"
-                border_bottom={category.etc ? "0.1rem solid black" : ""}
+                margin="-0.4rem 0.9rem 0"
+                padding="1.6rem 0 2.8rem 0"
+                border_bottom={category.etc ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, etc: true });
@@ -288,9 +306,10 @@ const Main = (props) => {
           <Grid flex justify_content="flex-end">
             <Text
               size="1.3rem"
-              color={sort.recent ? "#ff9425" : "#cecac7"}
+              color={sort?.recent ? "#ff9425" : "#cecac7"}
               bold
               cursor="t"
+              // getPostAX(category, sort="recent") - 기본 정렬(sort)값이 recent(마감임박순)
               _onClick={() => {
                 setSort({ ...{ sort: false }, recent: true });
                 dispatch(postActions.getPostAX(ctg));
@@ -300,13 +319,13 @@ const Main = (props) => {
             </Text>
             <Text
               size="1.3rem"
-              color={sort.nearBy ? "#ff9425" : "#cecac7"}
+              color={sort?.nearBy ? "#ff9425" : "#cecac7"}
               bold
               margin="0 0 0 1rem"
               cursor="t"
               _onClick={() => {
                 setSort({ ...{ sort: false }, nearBy: true });
-                dispatch(postActions.getPostAX(ctg, "nearBy"));
+                dispatch(postActions.getPostAX(ctg, 'nearBy'));
               }}
             >
               거리순
@@ -319,22 +338,22 @@ const Main = (props) => {
               if (category.all) {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.kr && p.category === "한식") {
+              if (category.kr && p.category === '한식') {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.cn && p.category === "중식") {
+              if (category.cn && p.category === '중식') {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.jp && p.category === "일식") {
+              if (category.jp && p.category === '일식') {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.west && p.category === "양식") {
+              if (category.west && p.category === '양식') {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.cafe && p.category === "카페") {
+              if (category.cafe && p.category === '카페') {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.etc && p.category === "기타") {
+              if (category.etc && p.category === '기타') {
                 return <Post {...p} key={p.post_id} />;
               }
               return null;
@@ -374,7 +393,7 @@ const Hr = styled.hr`
 
 const LogoImg = styled.div`
   margin: 0 auto 1rem auto;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   width: 18.4rem;
   height: 16.7rem;
   background-size: cover;

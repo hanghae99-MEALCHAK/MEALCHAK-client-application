@@ -1,23 +1,23 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useState } from 'react';
-import logger from '../shared/Console';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as postAction } from '../redux/modules/post';
-import { actionCreators as userAction } from '../redux/modules/user';
-import { Kakao_auth_url } from '../shared/OAuth';
-import Spinner from '../shared/Spinner';
-import { history } from '../redux/configureStore';
-import { useLocation } from 'react-router';
+import React from "react";
+import styled from "styled-components";
+import { useState } from "react";
+import logger from "../shared/Console";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as postAction } from "../redux/modules/post";
+import { actionCreators as userAction } from "../redux/modules/user";
+import { Kakao_auth_url } from "../shared/OAuth";
+import Spinner from "../shared/Spinner";
+import { history } from "../redux/configureStore";
+import { useLocation } from "react-router";
 
 // style
-import { Button, Grid, Input, Text } from '../elements';
-import { Header, Footer } from '../components';
-import theme from '../styles/theme';
+import { Button, Grid, Input, Text } from "../elements";
+import { Header, Footer } from "../components";
+import theme from "../styles/theme";
 
 // clipboard
-import CopyToClipboard from 'react-copy-to-clipboard';
-import { customAlert } from '../components/Sweet';
+import CopyToClipboard from "react-copy-to-clipboard";
+import { customAlert } from "../components/Sweet";
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
@@ -27,12 +27,12 @@ const MyPage = (props) => {
 
   const location = useLocation();
 
-  const { color, border, fontSize } = theme;
+  const { color, border, fontSize, radius } = theme;
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(userAction.loginCheck());
-    logger('Mypage props: ', props);
+    logger("Mypage props: ", props);
   }, []);
 
   const [copied, setCopied] = React.useState(false);
@@ -55,6 +55,7 @@ const MyPage = (props) => {
         >
           <Grid shape="container">
             <Header {...props} shape="마이페이지" />
+            <Grid height="4.4rem" />
 
             <Grid margin="3.6rem auto 2rem">
               <Profile user_profile={user_info.user_profile} />
@@ -78,36 +79,164 @@ const MyPage = (props) => {
                 <Text size={fontSize.small} color="#9A9896" line_height="150%">
                   {user_info?.user_comment
                     ? user_info?.user_comment
-                    : '프로필 수정에서 한 줄 소개를 입력해주세요.'}
+                    : "프로필 수정에서 한 줄 소개를 입력해주세요."}
                 </Text>
               </Grid>
             </Grid>
             <Grid
-              bg={color.bg0}
-              margin="1rem auto 2.5rem"
-              padding="0.5rem"
-              justify_content="center"
+              is_flex
+              width="32rem"
+              height="7.9rem"
+              margin="1.5rem auto 2rem auto"
             >
-              <Text
-                height="6.8rem"
-                bold
-                text_align="center"
-                size="4.5rem"
-                line_height="150%"
-                color={color.brand100}
+              <Grid
+                is_flex_column
+                width="10.1rem"
+                height="7.9rem"
+                bg={color.bg0}
+                border={border.bg40}
+                margin="0rem auto 0.5rem"
+                padding="0rem 0.5rem 0.5rem 0.5rem"
+                justify_content="center"
+                radius={radius.button}
               >
-                {user_info?.user_manner.toFixed(1)}
-              </Text>
-              <Text
-                height="2rem"
-                size="1.3rem"
-                line_height="150%"
-                text_align="center"
-                color={color.bg80}
-                padding="0"
+                <Text
+                  width="3.1rem"
+                  height="3.2rem"
+                  size={fontSize.display4}
+                  bold
+                  text_align="center"
+                  line_height="150%"
+                  color={color.brand100}
+                >
+                  {user_info?.user_manner.toFixed(1)}
+                </Text>
+                <Text
+                  width="4rem"
+                  height="1.5rem"
+                  size={fontSize.tiny}
+                  bold2="500"
+                  line_height="150%"
+                  text_align="center"
+                  color={color.bg80}
+                  padding="0"
+                >
+                  매너 점수
+                </Text>
+              </Grid>
+              <Grid
+                is_flex_column
+                width="10.1rem"
+                height="7.9rem"
+                bg={color.bg0}
+                border={border.bg40}
+                margin="0rem auto 0.5rem"
+                padding="0rem 0.5rem 0.5rem 0.5rem"
+                justify_content="center"
+                radius={radius.button}
               >
-                매너 점수
-              </Text>
+                <Text
+                  width="3.1rem"
+                  height="2.7rem"
+                  size={fontSize.display4}
+                  bold
+                  text_align="center"
+                  line_height="150%"
+                  margin="0.4rem 0 0 0"
+                  color={color.brand100}
+                >
+                  {user_info.user_gender ? (
+                    user_info.user_gender === "남성" ? (
+                      "남성"
+                    ) : (
+                      <svg
+                        width="2.4rem"
+                        height="2.4rem"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle
+                          cx="12"
+                          cy="8.3999"
+                          r="4.8"
+                          stroke="#FF9425"
+                          strokeWidth="2.4"
+                        />
+                        <line
+                          x1="11.9998"
+                          y1="14.4"
+                          x2="11.9998"
+                          y2="20.4"
+                          stroke="#FF9425"
+                          strokeWidth="2.4"
+                          strokeLinecap="round"
+                        />
+                        <line
+                          x1="15.5998"
+                          y1="16.8001"
+                          x2="8.3998"
+                          y2="16.8001"
+                          stroke="#FF9425"
+                          strokeWidth="2.4"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    )
+                  ) : (
+                    "미입력"
+                  )}
+                </Text>
+                <Text
+                  width="4rem"
+                  height="1.5rem"
+                  size={fontSize.tiny}
+                  bold2="500"
+                  line_height="150%"
+                  text_align="center"
+                  color={color.bg80}
+                  padding="0"
+                >
+                  성별
+                </Text>
+              </Grid>
+              <Grid
+                is_flex_column
+                width="10.1rem"
+                height="7.9rem"
+                bg={color.bg0}
+                border={border.bg40}
+                margin="0rem auto 0.5rem"
+                padding="0rem 0.5rem 0.5rem 0.5rem"
+                justify_content="center"
+                radius={radius.button}
+              >
+                <Text
+                  width="3.4rem"
+                  height="2.4rem"
+                  size={fontSize.base}
+                  bold
+                  text_align="center"
+                  line_height="150%"
+                  color={color.brand100}
+                  padding="0 0 2.6rem 0"
+                  margin="0.5rem 0 0 0"
+                >
+                  20대
+                </Text>
+                <Text
+                  width="4rem"
+                  height="1.5rem"
+                  size={fontSize.tiny}
+                  bold2="500"
+                  line_height="150%"
+                  text_align="center"
+                  color={color.bg80}
+                  padding="0"
+                >
+                  연령
+                </Text>
+              </Grid>
             </Grid>
 
             <Grid borderBottom={border.boldLine} />
@@ -118,11 +247,11 @@ const MyPage = (props) => {
               borderBottom={border.bg20}
               cursor="t"
               _onClick={() => {
-                history.push('/mypost');
+                history.push("/mypost");
               }}
             >
               <svg
-                style={{ marginRight: '1.2rem' }}
+                style={{ marginRight: "1.2rem" }}
                 width="30"
                 height="30"
                 viewBox="0 0 30 30"
@@ -153,11 +282,11 @@ const MyPage = (props) => {
               borderBottom={border.bg20}
               cursor="t"
               _onClick={() => {
-                history.push('/myreview');
+                history.push("/myreview");
               }}
             >
               <svg
-                style={{ marginRight: '1.2rem' }}
+                style={{ marginRight: "1.2rem" }}
                 width="30"
                 height="30"
                 viewBox="0 0 30 30"
@@ -214,7 +343,7 @@ const MyPage = (props) => {
             >
               <Grid is_flex4="t" width="60%">
                 <svg
-                  style={{ marginRight: '1.2rem' }}
+                  style={{ marginRight: "1.2rem" }}
                   width="30"
                   height="30"
                   viewBox="0 0 30 30"
@@ -255,15 +384,15 @@ const MyPage = (props) => {
                     height: 'auto',
                     border: 'none',
                     backgroundColor: color.brand20,
-                    padding: '0.4rem 0.8rem',
-                    borderRadius: '0.8rem',
-                    cursor: 'pointer',
+                    padding: "0.4rem 0.8rem",
+                    borderRadius: "0.8rem",
+                    cursor: "pointer",
                   }}
                   onClick={() => {
                     customAlert.sweetConfirmReload(
-                      '링크 복사 완료',
-                      '공유링크가 복사되었습니다\n친구를 초대해보세요!',
-                      ''
+                      "링크 복사 완료",
+                      "공유링크가 복사되었습니다\n친구를 초대해보세요!",
+                      ""
                     );
                   }}
                 >
@@ -284,11 +413,11 @@ const MyPage = (props) => {
                 margin="0 0 5.5rem"
                 cursor="t"
                 _onClick={() => {
-                  history.push('/settings');
+                  history.push("/settings");
                 }}
               >
                 <svg
-                  style={{ marginRight: '1.2rem' }}
+                  style={{ marginRight: "1.2rem" }}
                   width="30"
                   height="30"
                   viewBox="0 0 30 30"

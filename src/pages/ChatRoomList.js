@@ -5,12 +5,12 @@ import { actionCreators as userAction } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
 
 // style
-import { Header, Footer, ChatListItem, AwaitList } from "../components";
-import { Button, Grid, Input, Text } from "../elements";
-import theme from "../styles/theme";
-import styled from "styled-components";
+import { Header, Footer, ChatListItem, AwaitList } from '../components';
+import { Button, Grid, Input, Text } from '../elements';
+import theme from '../styles/theme';
+import styled from 'styled-components';
 
-import logger from "../shared/Console";
+import logger from '../shared/Console';
 
 const ChatRoomList = (props) => {
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ const ChatRoomList = (props) => {
       )
     );
     history.replace({
-      pathname: "/chatting",
+      pathname: '/chatting',
       state: {
         room_id: room_id,
         roomName: roomName,
@@ -75,6 +75,7 @@ const ChatRoomList = (props) => {
       >
         <Grid shape="container">
           <Header {...props} shape="채팅리스트" />
+          <Grid height="4.4rem" />
 
           <Grid is_flex4="t" text_align="center" borderBottom={border.line1}>
             <Grid
@@ -83,7 +84,7 @@ const ChatRoomList = (props) => {
               padding="0 2rem"
               margin="auto"
               _onClick={() => {
-                history.push("/chatlist");
+                history.push('/chatlist');
               }}
               cursor="pointer"
             >
@@ -98,7 +99,7 @@ const ChatRoomList = (props) => {
                 margin="0 0 0.8rem"
                 color={color.bg60}
                 _onClick={() => {
-                  history.push("/allowchat");
+                  history.push('/allowchat');
                 }}
                 cursor="pointer"
               >

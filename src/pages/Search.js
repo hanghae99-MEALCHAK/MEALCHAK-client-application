@@ -46,6 +46,7 @@ const Search = (props) => {
           <Header {...props} shape="검색">
             검색
           </Header>
+          <Grid height="4.4rem" />
         </Grid>
         <Grid
           is_flex4="t"
@@ -57,7 +58,7 @@ const Search = (props) => {
             <Input
               padding="1.4rem 1.6rem"
               border="0.1rem solid #EBE9E8"
-              placeholder="어떤 음식을 배달시킬까?"
+              placeholder="제목+내용으로 검색 돼요."
               size="1.6rem"
               value={food}
               _onChange={onChange}

@@ -1,42 +1,32 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useState } from 'react';
-import logger from '../shared/Console';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as postAction } from '../redux/modules/post';
-import { actionCreators as userAction } from '../redux/modules/user';
-import { Kakao_auth_url } from '../shared/OAuth';
-import Spinner from '../shared/Spinner';
-import { history } from '../redux/configureStore';
-import { useLocation } from 'react-router';
-import { MyOneReview } from '../components';
+import React from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router";
+import { actionCreators as userAction } from "../redux/modules/user";
 
 // style
-import { Button, Grid, Input, Text } from '../elements';
-import { Header, Footer } from '../components';
-import theme from '../styles/theme';
+import { Button, Grid, Text } from "../elements";
+import { Header } from "../components";
+import theme from "../styles/theme";
+import { MyOneReview } from "../components";
+import Spinner from "../shared/Spinner";
+import logger from "../shared/Console";
 
-const UserProfile = (props) => {
+const MyProfile = (props) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const is_login = useSelector((state) => state.user?.is_login);
   const other_user = useSelector((state) => state.user?.anotherUser);
   const user_id = location.state?.user_id;
   const { color, border, fontSize, radius } = theme;
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(userAction.loginCheck());
     dispatch(userAction.findUserProfileAX(user_id));
-    logger('Mypage props: ', location.state);
-    logger('another_user_info: ', other_user);
+    logger("props from MyPage : ", location.state);
+    logger("MyProfile another_user_info: ", other_user);
   }, []);
-
-  // React.useEffect(() => {
-  //   dispatch(userAction.loginCheck());
-  // }, [
-  //   user_info ? user_info?.user_nickname : null,
-  //   user_info ? user_info?.user_comment : null,
-  // ]);
 
   if (is_login) {
     return (
@@ -49,7 +39,6 @@ const UserProfile = (props) => {
         >
           <Grid shape="container">
             <Header {...props} shape="프로필" />
-            <Grid height="4.4rem" />
 
             <Grid margin="1.6rem auto 2rem">
               <Profile user_profile={other_user?.user_profile}></Profile>
@@ -71,7 +60,7 @@ const UserProfile = (props) => {
               </Text>
               <Grid width="auto" text_align="center">
                 <Text size={fontSize.small} color="#9A9896" line_height="150%">
-                  {other_user?.user_comment ? other_user?.user_comment : ''}
+                  {other_user?.user_comment ? other_user?.user_comment : ""}
                 </Text>
               </Grid>
             </Grid>
@@ -258,17 +247,6 @@ const UserProfile = (props) => {
                 border="0.1rem solid #EBE9E8"
                 bg={color.bg0}
                 margin="0 0 6.4rem 0"
-                cursor="t"
-                _onClick={() => {
-                  history.push({
-                    pathname: '/write',
-                    state: {
-                      user_id: other_user?.user_id,
-                      profile: other_user?.user_profile,
-                      nickname: other_user?.user_nickname,
-                    },
-                  });
-                }}
               >
                 <Text
                   width="30.4rem"
@@ -277,9 +255,9 @@ const UserProfile = (props) => {
                   size={fontSize.base}
                   line_height="150%"
                   text_align="center"
-                  color={color.brand100}
+                  color={color.bg60}
                 >
-                  리뷰 남기기
+                  나에겐 리뷰를 남길 수 없어요
                 </Text>
               </Button>
             </Grid>
@@ -304,7 +282,7 @@ const UserProfile = (props) => {
   }
 };
 
-UserProfile.defaultProps = {};
+MyProfile.defaultProps = {};
 
 const Profile = styled.div`
   margin: auto;
@@ -321,7 +299,7 @@ const Profile = styled.div`
 
 const MyReviewImg = styled.div`
   margin: 4.7rem auto 0 auto;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   width: 20rem;
   height: 11.7rem;
   background-size: cover;
@@ -337,4 +315,4 @@ const MyReviewText = styled.div`
   font-weight: 400;
   color: #9a9896;
 `;
-export default UserProfile;
+export default MyProfile;

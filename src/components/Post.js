@@ -1,24 +1,24 @@
-import React from 'react';
-import styled from 'styled-components';
-import { actionCreators as postActions } from '../redux/modules/post';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { customAlert } from './Sweet';
-
-import { Grid, Image, Text, Button } from "../elements";
+import React from "react";
+import styled from "styled-components";
+import { actionCreators as postActions } from "../redux/modules/post";
+import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
-import logger from "../shared/Console";
+
+// style
+import { Grid, Image, Text, Button } from "../elements";
+import { customAlert } from "./Sweet";
 import theme from "../styles/theme";
+import logger from "../shared/Console";
 
 const Post = (props) => {
   const { color, fontSize } = theme;
 
   // 연, 월
-  const ym = props?.insert_dt.split("-");
+  const ym = props?.insert_dt.split('-');
   // 일
-  const day = ym[2].split(" ");
+  const day = ym[2].split(' ');
   // 시, 분
-  const hm = day[1].split(":");
+  const hm = day[1].split(':');
 
   const is_login = useSelector((state) => state.user.is_login);
   const user_info = useSelector((state) => state.user.user);
@@ -63,31 +63,33 @@ const Post = (props) => {
         radius={fontSize.base}
       >
         <Grid is_float="left" margin="0.5rem 1.5rem 1.5rem 1.5rem">
-          <Grid
-            is_flex
-            cursor="t"
-            _onClick={() => {
-              if (is_login) {
-                if (user_info.user_id === props.user_id) {
-                  return history.push("/mypage");
+          <Grid is_flex>
+            <UserProfile
+              src={props.userImg}
+              onClick={() => {
+                if (is_login) {
+                  if (user_info.user_id === props.user_id) {
+                    return history.push({
+                      pathname: "/myprofile",
+                      state: { ...props },
+                    });
+                  }
+                  history.push({
+                    pathname: "/userprofile",
+                    state: { ...props },
+                  });
+                } else {
+                  customAlert.sweetNeedLogin();
                 }
-                history.push({
-                  pathname: "/userprofile",
-                  state: { ...props },
-                });
-              } else {
-                customAlert.sweetNeedLogin();
-              }
-            }}
-          >
-            <UserProfile src={props.userImg} />
+              }}
+            />
             <Grid>
               <Grid is_flex>
                 <Text size={fontSize.small} color={color.bg100} bold2="500">
                   {props.username}
                 </Text>
                 <Grid
-                  width={props.valid === false || disabled ? "5rem" : ""}
+                  width={props.valid === false || disabled ? '5rem' : ''}
                   minWidth="5.5rem"
                   maxWidth="9.1rem"
                   height="2.3rem"
@@ -103,7 +105,7 @@ const Post = (props) => {
                     margin="0"
                     color={
                       props.valid === false || disabled
-                        ? "#9A9896"
+                        ? '#9A9896'
                         : color.success100
                     }
                     bold
@@ -244,7 +246,7 @@ const Post = (props) => {
             </Grid>
           </Grid>
           {props.valid === false || disabled ? (
-            ""
+            ''
           ) : (
             <Grid is_flex maxWidth="29rem" margin="0 0 1.5rem 0">
               <Button
@@ -268,7 +270,7 @@ const Post = (props) => {
                 width="14rem"
                 height="4.4rem"
                 radius="1.2rem"
-                bg={disabled ? "#EBE9E8" : color.brand100}
+                bg={disabled ? '#EBE9E8' : color.brand100}
                 border="none"
                 size={fontSize.small}
                 bold={fontSize.bold}
@@ -284,7 +286,7 @@ const Post = (props) => {
                 <Text
                   bold
                   size={fontSize.small}
-                  color={disabled ? "#CECAC7" : color.bg0}
+                  color={disabled ? '#CECAC7' : color.bg0}
                 >
                   채팅 시작하기
                 </Text>
@@ -303,7 +305,7 @@ const UserProfile = styled.div`
   width: 4.3rem;
   height: 3.8rem;
   border-radius: 2rem;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   background-size: cover;
   background-position: center;
   margin: 1rem 1rem 1rem 0;
