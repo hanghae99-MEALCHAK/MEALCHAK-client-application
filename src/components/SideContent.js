@@ -73,7 +73,8 @@ const SideContent = (props) => {
           <Grid
             borderBottom={border.line2}
             padding="1.6rem 2rem"
-            display="inline-table"
+            // display="inline-table"
+            display="table"
             flex_direction="column"
           >
             <Text size={fontSize.base} bold2="700">
