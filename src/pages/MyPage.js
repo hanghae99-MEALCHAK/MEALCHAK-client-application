@@ -136,18 +136,64 @@ const MyPage = (props) => {
                 radius={radius.button}
               >
                 <Text
-                  width="3.1rem"
-                  height="2.7rem"
-                  size={fontSize.display4}
+                  width={!user_info.user_gender ? "4.5rem" : "3.1rem"}
+                  height={!user_info.user_gender ? "2.4rem" : "2.7rem"}
+                  size={
+                    !user_info.user_gender ? fontSize.base : fontSize.display4
+                  }
                   bold
                   text_align="center"
                   line_height="150%"
-                  margin="0.4rem 0 0 0"
+                  margin={
+                    !user_info.user_gender ? "0.5rem 0 0 0" : "0.1rem 0 0 0"
+                  }
+                  padding={!user_info.user_gender ? "0 0 2.6rem 0" : ""}
                   color={color.brand100}
                 >
                   {user_info.user_gender ? (
-                    user_info.user_gender === "남성" ? (
-                      "남성"
+                    user_info.user_gender === "male" ? (
+                      <svg
+                        width="2.4rem"
+                        height="2.4rem"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle
+                          cx="8"
+                          cy="12"
+                          r="4"
+                          stroke="#FF9425"
+                          strokeWidth="2"
+                        />
+                        <line
+                          x1="16"
+                          y1="4"
+                          x2="16"
+                          y2="9"
+                          stroke="#FF9425"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                        <line
+                          x1="16"
+                          y1="4"
+                          x2="11"
+                          y2="4"
+                          stroke="#FF9425"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                        <line
+                          x1="15.6569"
+                          y1="4.41421"
+                          x2="11.4142"
+                          y2="8.65685"
+                          stroke="#FF9425"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                      </svg>
                     ) : (
                       <svg
                         width="2.4rem"
@@ -222,7 +268,17 @@ const MyPage = (props) => {
                   padding="0 0 2.6rem 0"
                   margin="0.5rem 0 0 0"
                 >
-                  20대
+                  {user_info.user_age?.includes("1")
+                    ? "10대"
+                    : user_info.user_age?.includes("2")
+                    ? "20대"
+                    : user_info.user_age?.includes("3")
+                    ? "30대"
+                    : user_info.user_age?.includes("4")
+                    ? "40대"
+                    : user_info.user_age?.includes("5")
+                    ? "50대"
+                    : "미입력"}
                 </Text>
                 <Text
                   width="4rem"
@@ -381,8 +437,8 @@ const MyPage = (props) => {
               <CopyToClipboard text="http://surgo.kr/" onCopy={copy}>
                 <button
                   style={{
-                    height: 'auto',
-                    border: 'none',
+                    height: "auto",
+                    border: "none",
                     backgroundColor: color.brand20,
                     padding: "0.4rem 0.8rem",
                     borderRadius: "0.8rem",

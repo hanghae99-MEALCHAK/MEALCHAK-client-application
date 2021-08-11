@@ -219,6 +219,8 @@ const findUserProfileAX = (user_id) => {
             user_comment: res.data.comment,
             user_manner: res.data.mannerScore,
             user_review: res.data.reviews,
+            user_age: res.data.age,
+            user_gender: res.data.gender,
           };
           dispatch(
             setAnotherUser({
