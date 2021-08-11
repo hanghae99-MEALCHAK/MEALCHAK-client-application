@@ -42,6 +42,7 @@ const theme = {
     display1: '4.5rem',
     display2: '3.4rem',
     display3: '2.4rem',
+    display4: '2.1rem',
     large: '1.9rem',
     base: '1.6rem',
     small: '1.3rem',

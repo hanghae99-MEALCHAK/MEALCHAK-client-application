@@ -1,22 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useState } from 'react';
-import logger from '../shared/Console';
-import { useDispatch, useSelector } from 'react-redux';
-import { history } from '../redux/configureStore';
-import { actionCreators as postAction } from '../redux/modules/post';
-import { actionCreators as userAction } from '../redux/modules/user';
-import { actionCreators as imageActions } from '../redux/modules/image';
-
-import { Kakao_auth_url } from '../shared/OAuth';
-import Spinner from '../shared/Spinner';
+import React from "react";
+import styled from "styled-components";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as userAction } from "../redux/modules/user";
+import { actionCreators as imageActions } from "../redux/modules/image";
 
 // style
-import { Button, Grid, Input, Text, Image } from '../elements';
-import { Header, Footer } from '../components';
-import theme from '../styles/theme';
-import { customAlert } from '../components/Sweet';
-import { actionCreators } from '../redux/modules/image';
+import { Button, Grid, Input, Text } from "../elements";
+import { customAlert } from "../components/Sweet";
+import { Header } from "../components";
+import Spinner from "../shared/Spinner";
+import logger from "../shared/Console";
+import theme from "../styles/theme";
 
 const ProfileEdit = (props) => {
   const dispatch = useDispatch();
@@ -24,15 +19,14 @@ const ProfileEdit = (props) => {
   const user_info = useSelector((state) => state.user?.user);
   const preview = useSelector((state) => state.image?.preview);
 
-  const { color, border, radius, fontSize } = theme;
+  const { color, border, radius, fontSize, btn_border } = theme;
 
+  const [disabled, setDisabled] = useState(true);
   const [editProfile, setProfile] = useState({
     nickname: user_info?.user_nickname,
-    comment: user_info?.user_comment ? user_info?.user_comment : '',
+    comment: user_info?.user_comment ? user_info?.user_comment : "",
     image: user_info?.user_profile,
   });
-  const fileInput = React.useRef();
-  const [disabled, setDisabled] = useState(true);
 
   const changeNick = (e) => {
     setProfile({ ...editProfile, nickname: e.target.value });
@@ -58,6 +52,7 @@ const ProfileEdit = (props) => {
   };
 
   // 선택한 파일 정보
+  const fileInput = React.useRef();
   const selectFile = (e) => {
     const reader = new FileReader();
     const file = fileInput.current.files[0];
@@ -109,16 +104,16 @@ const ProfileEdit = (props) => {
               id="input-file"
               ref={fileInput}
               onChange={selectFile}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
             />
-            <label htmlFor="input-file" value={editProfile.image || ''}>
+            <label htmlFor="input-file" value={editProfile.image || ""}>
               <svg
                 width="30"
                 height="30"
                 viewBox="0 0 30 30"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                style={{ margin: '3.5rem 0 0 3.8rem' }}
+                style={{ margin: "3.5rem 0 0 3.8rem" }}
               >
                 <path
                   d="M5 12.5558C5 11.4204 5.9204 10.5 7.05576 10.5V10.5C7.83809 10.5 8.55262 10.056 8.89902 9.35449L9.81482 7.5C9.99871 7.12761 10.0907 6.94142 10.2076 6.78792C10.5048 6.39791 10.9348 6.13064 11.4161 6.03689C11.6055 6 11.8132 6 12.2285 6H17.7715C18.1868 6 18.3945 6 18.5839 6.03689C19.0652 6.13064 19.4952 6.39791 19.7924 6.78792C19.9093 6.94142 20.0013 7.12761 20.1852 7.5L21.101 9.35449C21.4474 10.056 22.1619 10.5 22.9442 10.5V10.5C24.0796 10.5 25 11.4204 25 12.5558V18.2143C25 20.8349 25 22.1452 24.2369 22.999C24.1621 23.0827 24.0827 23.1621 23.999 23.2369C23.1452 24 21.8349 24 19.2143 24H10.7857C8.16513 24 6.85484 24 6.00096 23.2369C5.91728 23.1621 5.83786 23.0827 5.76307 22.999C5 22.1452 5 20.8349 5 18.2143V12.5558Z"
@@ -149,7 +144,7 @@ const ProfileEdit = (props) => {
               </Text>
               <Input
                 type="text"
-                border="1px solid #C7C8CE"
+                border={btn_border.bg40}
                 padding="1.5rem 1.3rem"
                 size={fontSize.base}
                 color={color.bg60}
@@ -176,19 +171,10 @@ const ProfileEdit = (props) => {
                 color={color.bg100}
                 line_height="150%"
               >
-                한 줄 소개
+                소개글
               </Text>
-              <Input
-                border="1px solid #C7C8CE"
-                padding="1.5rem 1.3rem"
-                size={fontSize.base}
-                color={color.bg60}
-                length={20}
-                placeholder="한 줄 소개를 입력해주세요"
-                value={editProfile?.comment}
-                _onChange={changeComment}
-              />
             </Grid>
+            <TextArea placeholder="어느 지역에서 주로 시켜먹나요? 제일 좋아하는 음식은 무엇인가요? 나를 잘 나타낼 수 있는 문구로 소개해보세요!"></TextArea>
           </FocusWithin>
           <Text
             width="28.8rem"
@@ -206,7 +192,6 @@ const ProfileEdit = (props) => {
           maxWidth="35.5rem"
           margin="0 auto 0 0.1rem"
           padding="2.8rem 2rem 2.7rem"
-          is_fixed="t"
         >
           <Button
             bg={disabled ? color.bg40 : color.brand100}
@@ -263,6 +248,27 @@ const ProfileCover = styled.div`
   border: none;
 `;
 
+const TextArea = styled.textarea`
+  width: 32rem;
+  min-height: 16.8rem;
+  color: ${theme.color.bg100};
+  font-size: ${theme.fontSize.base};
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: -0.01rem;
+  background-color: ${theme.color.bg0};
+  border: ${theme.btn_border.bg40};
+  border-radius: ${theme.radius.button};
+  padding: 1.4rem 1.6rem;
+  textarea::placeholder {
+    color: ${theme.color.bg80};
+    font-size: ${theme.fontSize.base};
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: -0.01rem;
+  }
+`;
+
 const FocusWithin = styled.div`
   &:focus-within p {
     color: #ff9425;
@@ -271,5 +277,10 @@ const FocusWithin = styled.div`
     border: 1px solid #ff9425;
     outline: none;
   }
+  &:focus-within textarea {
+    border: 1px solid #ff9425;
+    outline: none;
+  }
 `;
+
 export default ProfileEdit;

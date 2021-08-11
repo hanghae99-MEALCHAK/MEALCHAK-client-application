@@ -141,6 +141,8 @@ const loginCheck = () => {
             user_address: res.data.address,
             user_comment: res.data.comment,
             user_manner: res.data.mannerScore,
+            user_age: res.data.age,
+            user_gender: res.data.gender
           };
           dispatch(
             setUser({
