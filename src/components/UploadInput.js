@@ -265,7 +265,7 @@ const UploadInput = React.memo((props) => {
             </Text>
           </Grid>
 
-          <Grid width="100%" margin="0">
+          <Grid width="31.8rem" margin="0">
             <FocusWithin>
               <Text
                 padding="2.4rem 0 0.8rem"
@@ -277,6 +277,7 @@ const UploadInput = React.memo((props) => {
               </Text>
 
               <Grid
+                width="31.8rem"
                 is_flex4="t"
                 flex_direction="row"
                 justify_content="space-between"
@@ -299,7 +300,12 @@ const UploadInput = React.memo((props) => {
                     });
                   }}
                   withPortal={true}
-                  closeOnScroll={true}
+                  popperModifiers={{
+                    preventOverflow: {
+                      enable: true,
+                    },
+                  }}
+                  popperPlacement="auto"
                 />
 
                 <TDatePicker
@@ -323,7 +329,12 @@ const UploadInput = React.memo((props) => {
                     });
                   }}
                   withPortal={true}
-                  closeOnScroll={true}
+                  popperModifiers={{
+                    preventOverflow: {
+                      enable: true,
+                    },
+                  }}
+                  popperPlacement="auto"
                 />
               </Grid>
             </FocusWithin>
