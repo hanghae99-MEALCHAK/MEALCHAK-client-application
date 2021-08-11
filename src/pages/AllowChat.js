@@ -34,7 +34,7 @@ const AllowChat = (props) => {
       >
         <Grid shape="container">
           <Header {...props} shape="채팅리스트" />
-
+          <Grid height="4.4rem" />
           <Grid is_flex4="t" text_align="center" borderBottom={border.line1}>
             <Grid
               width="auto"

@@ -42,11 +42,6 @@ const Main = (props) => {
     etc: false,
   });
 
-  const [sort, setSort] = React.useState({
-    recent: true,
-    nearBy: false,
-  });
-  const [ctg, setCtg] = React.useState('');
   React.useEffect(() => {
     if (post_list.length === 0) {
       dispatch(postActions.getPostAX('전체'));

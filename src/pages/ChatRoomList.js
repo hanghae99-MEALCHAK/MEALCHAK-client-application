@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 import { actionCreators as userAction } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
+import { token } from "../shared/OAuth";
 
 // style
 import { Header, Footer, ChatListItem, AwaitList } from '../components';
@@ -14,14 +15,13 @@ import logger from '../shared/Console';
 
 const ChatRoomList = (props) => {
   const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.user.is_login);
 
   React.useEffect(() => {
-    if (is_login) {
+    dispatch(userAction.loginCheck());
+    if (token) {
       dispatch(chatActions.setChatListAX());
       dispatch(chatActions.awaitChatListAX());
     }
-      dispatch(userAction.loginCheck());
     
   }, []);
 

@@ -69,12 +69,17 @@ const sweetConfirmReload = (msg_title, msg_content, path) => {
         if (path === "/profile") {
           return history.push(path);
         }
+        if (path === "/break") {
+          return history.push("/chatlist");
+        }
         // 그 외 새로 리로드 될때
         window.location.replace(path);
-      }
-      else {
-        if(path === "/profile"){
+      } else {
+        if (path === "/profile") {
           return history.push(path);
+        }
+        if (path === "/break") {
+          return history.push("/chatlist");
         }
         return;
       }
@@ -137,6 +142,56 @@ const sweetReviewWrite = (msg_title, msg_name, msg_content, path) => {
     });
 };
 
+// 확인, 취소 필요한 알럿
+const sweetPromise = (title, message1, message2, confirmText) => {
+  return sweet
+    .fire({
+      customClass: {
+        popup: "border",
+        confirmButton: "confirmButton",
+        cancelButton: "cancelButton",
+        denyButton: "denyButton",
+        actions: "meal-action-class",
+      },
+      width: "auto",
+      padding: "0 1rem 1rem",
+      title: (
+        <Grid>
+          <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
+            {title}
+          </Text>
+          <Text size={fontSize.small}>
+            {message1} <br />
+            {message2}
+          </Text>
+        </Grid>
+      ),
+      showCancelButton: true,
+      cancelButtonColor: color.brand20,
+      cancelButtonText: (
+        <Text padding="0" color={color.brand100}>
+          취소
+        </Text>
+      ),
+      confirmButtonColor: color.brand100,
+      confirmButtonText: (
+        <Grid is_flex2>
+          <Text padding="0" color={color.bg0}>
+            {confirmText}
+          </Text>
+        </Grid>
+      ),
+      focusConfirm: false,
+      reverseButtons: true,
+    })
+    .then((res) => {
+      if (res.isConfirmed) {
+        return true;
+      }
+      return false;
+    });
+};
+
 // 로그인 체크 시 사용
 // 체크 후 주소 이동 방식에 따라 달라서 파람값으로 replace 인지 받음
 const sweetNeedLogin = (way) => {
@@ -188,7 +243,7 @@ const sweetNeedLogin = (way) => {
         }
         history.push("/");
       }
-      history.replace("/")
+      history.replace("/");
     });
 };
 
@@ -295,9 +350,33 @@ const sweetAddCheck = () => {
     });
 };
 
-
 // 성별, 연령 없을때
-const sweetUploadCheck = () => {
+const sweetUserInfo = (age, gender) => {
+  let age_label = null;
+  if (age === "10~19") {
+    age_label = "10대";
+  }
+  if (age === "20~29") {
+    age_label = "20대";
+  }
+  if (age === "30~39") {
+    age_label = "30대";
+  }
+  if (age === "40~49") {
+    age_label = "40대";
+  }
+  if (age === "50~59") {
+    age_label = "50대";
+  }
+
+  let gender_label = null;
+  if (gender === "female") {
+    gender_label = "여성";
+  }
+  if (gender === "male") {
+    gender_label = "남성";
+  }
+
   return sweet
     .fire({
       customClass: {
@@ -312,14 +391,16 @@ const sweetUploadCheck = () => {
       title: (
         <Grid>
           <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
-            성별/연령이 필요한 기능입니다.
+            꼼꼼하게 확인해주세요!
           </Text>
           <Text size={fontSize.small}>
-            프로필 수정페이지로 이동합니다.
+            성별/연령은 한번 선택시 수정이 어려워요 :( <br />
+            다시 한 번 확인하고 저장을 눌러주세요!
           </Text>
-          <Text size={fontSize.small}>
-            수정페이지에서 성별과 연령을 체크해주세요 :)
-          </Text>
+          <Grid margin="1.6rem auto">
+            <Text size={fontSize.base}>성별: {gender_label}</Text>
+            <Text size={fontSize.base}>연령: {age_label}</Text>
+          </Grid>
         </Grid>
       ),
       showCancelButton: true,
@@ -327,7 +408,7 @@ const sweetUploadCheck = () => {
       cancelButtonText: (
         <Grid width="9rem" is_flex2>
           <Text padding="0" color={color.brand100}>
-            나중에하기
+            다시입력하기
           </Text>
         </Grid>
       ),
@@ -335,7 +416,7 @@ const sweetUploadCheck = () => {
       confirmButtonText: (
         <Grid width="9rem" is_flex2>
           <Text padding="0" color={color.bg0}>
-            확인
+            저장하기
           </Text>
         </Grid>
       ),
@@ -344,9 +425,9 @@ const sweetUploadCheck = () => {
     })
     .then((res) => {
       if (res.isConfirmed) {
-        history.replace("/profile");
+        return true;
       } else {
-        return;
+        return false;
       }
     });
 };
@@ -863,6 +944,8 @@ const customAlert = {
   SweetBen,
   SweetBreak,
   sweetAddCheck,
+  sweetUserInfo,
+  sweetPromise,
 };
 
 export { customAlert };

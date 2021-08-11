@@ -16,8 +16,8 @@ const AllowList = (props) => {
     <React.Fragment>
       <Grid padding="1.6rem 2rem" borderBottom={border.line2}>
         <Grid shape="container" borderBottom={border.bg20}>
-          <Grid is_flex4="t" width="70%" margin="0 0 1.9rem">
-            <Grid is_flex4="t" margin="0 1rem 0 0">
+          <Grid is_flex4="t" width="100%" margin="0 0 1.9rem">
+            <Grid is_flex4="t" margin="0 1rem 0 0" width="auto">
               <Image src={user_img} size="5"></Image>
             </Grid>
 

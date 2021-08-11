@@ -13,24 +13,24 @@ const ChatListItem = (props) => {
 
   if (!live_chat) {
     return (
-        // 방장이 채팅방 나갔을 경우 다른 사용자에게 보이는 채팅 리스트
-        <React.Fragment>
-          <Grid
+      // 방장이 채팅방 나갔을 경우 다른 사용자에게 보이는 채팅 리스트
+      <React.Fragment>
+        <Grid
           justify_content="space-between"
           is_flex4="t"
           padding="1.9rem 2rem"
           borderBottom={border.bg20}
         >
-          <Grid is_flex4="t" width="70%">
+          <Grid is_flex4="t" width="70%" >
             <Grid width="5rem" is_flex4="t" margin="0 1rem 0 0">
               <svg
-                width="50"
-                height="50"
+                width="5rem"
+                height="5rem"
                 viewBox="0 0 50 50"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <rect width="50" height="50" rx="12" fill="#FFAF5C" />
+                <rect width="50" height="50" rx="12" fill="#EBE9E8" />
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
@@ -42,9 +42,9 @@ const ChatListItem = (props) => {
 
             <Grid maxWidth="18rem">
               <Text
-                text_decoration="line-through"
                 white_space="nowrap"
-                color={color.bg100}
+                color={color.bg80}
+                bold2="500"
                 size={fontSize.base}
                 overflow="hidden"
                 text_overflow="ellipsis"
@@ -52,7 +52,10 @@ const ChatListItem = (props) => {
                 {roomName}
               </Text>
               <Text color={color.error100} size={fontSize.small}>
-                방장에 의해 사라진 채팅방입니다.
+                방장이 삭제한 채팅방입니다.
+              </Text>
+              <Text color={color.error100} size={fontSize.small}>
+                [자정 시에 자동 삭제 예정]
               </Text>
             </Grid>
           </Grid>
@@ -80,7 +83,7 @@ const ChatListItem = (props) => {
   } else {
     return (
       // 그 외
-      
+
       <React.Fragment>
         <Grid
           justify_content="space-between"
@@ -93,8 +96,8 @@ const ChatListItem = (props) => {
           <Grid is_flex4="t" width="70%">
             <Grid width="5rem" is_flex4="t" margin="0 1rem 0 0">
               <svg
-                width="50"
-                height="50"
+                width="5.0rem"
+                height="5.0rem"
                 viewBox="0 0 50 50"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -125,10 +128,10 @@ const ChatListItem = (props) => {
             </Grid>
           </Grid>
 
-          <Grid is_flex4="t" width="2.4rem">
+          <Grid is_flex4="t" width="auto">
             <svg
-              width="24"
-              height="24"
+              width="2.4rem"
+              height="2.4rem"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

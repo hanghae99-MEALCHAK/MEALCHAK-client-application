@@ -5,6 +5,7 @@ import theme from "../styles/theme";
 import { IoChevronDown } from "react-icons/io5";
 
 import { useSelector } from "react-redux";
+import logger from "../shared/Console";
 
 const { color, fontSize, radius } = theme;
 
@@ -189,7 +190,6 @@ export const GenderSelect = (props) => {
               ...props.editProfile,
               gender: e.value,
             });
-            props.setDisabled(false);
           }}
           styles={customStyles2}
           theme={customTheme2}
@@ -217,6 +217,7 @@ export const AgeSelect = (props) => {
     if(user_info.user_age === "50~59"){
       return "50대"
     }
+    return;
   }
   return (
     <React.Fragment>
@@ -233,11 +234,11 @@ export const AgeSelect = (props) => {
             user_info.user_age ? `${age()}` : "연령대를 선택해주세요."
           }
           onChange={(e) => {
+            logger("연령 이벤트", e.value)
             props.setProfile({
               ...props.editProfile,
               age: e.value,
             });
-            props.setDisabled(false);
           }}
           styles={customStyles2}
           theme={customTheme2}

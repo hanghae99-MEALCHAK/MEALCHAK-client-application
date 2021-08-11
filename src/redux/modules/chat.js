@@ -174,7 +174,6 @@ const getChatMessagesAX = () => {
   };
 };
 
-
 // 채팅 수락, 거절 요청
 const chatAllowAX = (joinId, boolean) => {
   return function (dispatch, getState, { history }) {
@@ -243,7 +242,7 @@ const awaitChatListAX = () => {
     axiosModule
       .get("/posts/join/request/await")
       .then((res) => {
-        logger("대기 목록", res)
+        logger("대기 목록", res);
         let await_list = [];
         res.data.forEach((l) => {
           let one_list = {
@@ -288,7 +287,7 @@ const awaitChatOut = (join_id) => {
         );
       });
   };
-}
+};
 
 // 채팅방 안에 들어와있는 사용자 정보
 const getChatUserAX = (roomId) => {
@@ -362,18 +361,20 @@ export default handleActions(
               draft.userInList.splice(idx, 1);
             }
           }
-        } 
-        
-        // 방장이 채팅방을 나간 경우 모든 사용자를 채팅방에서 내보낸다.
-        if(m.type === "BREAK") {
-          customAlert.sweetConfirmReload(
-            "채팅방 삭제 알림",
-            "현재 채팅방이 방장에 의해 삭제되었습니다. 채팅목록으로 돌아갑니다.",
-            "/chatlist"
-          );
         }
-        
-        else {
+
+        // 방장이 채팅방을 나간 경우 모든 사용자를 채팅방에서 내보낸다.
+        if (m.type === "BREAK") {
+          if (m.sender_id === now_user) {
+            window.location.replace("/chatlist");
+          } else {
+            customAlert.sweetConfirmReload(
+              "채팅방 삭제 알림",
+              `${m.message}`,
+              "/break"
+            );
+          }
+        } else {
           const one_msg = {
             type: m.type,
             room_id: m.roomId,
@@ -386,7 +387,7 @@ export default handleActions(
           };
           draft.messages.push(one_msg);
         }
-        
+
         // if (m.type !== "BAN") {
         //   const one_msg = {
         //     type: m.type,
