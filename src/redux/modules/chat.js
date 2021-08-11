@@ -364,14 +364,14 @@ export default handleActions(
         }
 
         // 방장이 채팅방을 나간 경우 모든 사용자를 채팅방에서 내보낸다.
-        if (m.type === 'BREAK') {
+        if (m.type === "BREAK") {
           if (m.sender_id === now_user) {
-            window.location.replace('/chatlist');
+            window.location.replace("/chatlist");
           } else {
             customAlert.sweetConfirmReload(
-              '채팅방 삭제 알림',
+              "채팅방 삭제 알림",
               `${m.message}`,
-              '/chatlist'
+              "/break"
             );
           }
         } else {
@@ -387,37 +387,6 @@ export default handleActions(
           };
           draft.messages.push(one_msg);
         }
-
-        // if (m.type !== "BAN") {
-        //   const one_msg = {
-        //     type: m.type,
-        //     room_id: m.roomId,
-        //     sender: m.sender.username,
-        //     sender_id: m.sender.id,
-        //     sender_img: m.sender.profileImg,
-        //     message: m.message,
-        //     createdAt: m.createdAt,
-        //     msg_id: m.id,
-        //   };
-        //   draft.messages.push(one_msg);
-        // } else {
-        //   // 강퇴 당한 사람의 경우 퇴장 알럿 표시
-        //   if (parseInt(now_user) === parseInt(m.message)) {
-        //     customAlert.sweetConfirmReload(
-        //       "강퇴알림",
-        //       "현재 방에서 강퇴당하셨습니다. 채팅목록으로 돌아갑니다.",
-        //       "/chatlist"
-        //     );
-        //   } else {
-        //     // 그 외 사용자들은 리스트에서 강퇴 유저 삭제시킴
-        //     let idx = draft.userInList.findIndex(
-        //       (u) => parseInt(u.user_id) === parseInt(m.message)
-        //     );
-        //     if (idx !== -1) {
-        //       draft.userInList.splice(idx, 1);
-        //     }
-        //   }
-        // }
       }),
     // setMessage - 메세지 DB에서 조회할때 해당 방의 메세지 내역 불러옴
     [SET_MSG]: (state, action) =>

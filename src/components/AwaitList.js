@@ -2,9 +2,12 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 
+import { IoIosCloseCircle } from "react-icons/io";
+
 import theme from "../styles/theme";
 import { Button, Grid, Text } from "../elements";
 import logger from "../shared/Console";
+import { customAlert } from "./Sweet";
 
 const AwaitList = (props) => {
   const dispatch = useDispatch();
@@ -12,7 +15,6 @@ const AwaitList = (props) => {
   const { color, border, fontSize } = theme;
   const { roomName } = props;
   const { join_id } = props;
-
 
   React.useEffect(() => {
     logger("참여대기 리스트", props);
@@ -30,13 +32,13 @@ const AwaitList = (props) => {
         <Grid is_flex4="t" width="70%">
           <Grid width="5rem" is_flex4="t" margin="0 1rem 0 0">
             <svg
-              width="50"
-              height="50"
+              width="5rem"
+              height="5rem"
               viewBox="0 0 50 50"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <rect width="50" height="50" rx="12" fill="#EBE9E8" />
+              <rect width="50" height="50" rx="12" fill="#FFE1C2" />
               <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -60,12 +62,31 @@ const AwaitList = (props) => {
               승인 대기 중
             </Text>
           </Grid>
-          <Button
+          {/* <Button
           _onClick={() => {
             dispatch(chatActions.awaitChatOut(join_id))
           }}
-          >신청 취소</Button>
+          >신청 취소</Button> */}
         </Grid>
+        <IoIosCloseCircle
+          size="2.4rem"
+          color={color.bg60}
+          onClick={() => {
+            customAlert
+              .sweetPromise(
+                "승인 요청을 취소하시겠어요?",
+                "참여중인 채팅방 목록에서",
+                "요청중인 채팅방이 삭제됩니다.",
+                "삭제하기"
+              )
+              .then((res) => {
+                if (res) {
+                  dispatch(chatActions.awaitChatOut(join_id));
+                }
+                return;
+              });
+          }}
+        />
       </Grid>
     </React.Fragment>
   );

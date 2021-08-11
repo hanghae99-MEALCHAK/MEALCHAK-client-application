@@ -15,7 +15,6 @@ import logger from '../shared/Console';
 
 const ChatRoomList = (props) => {
   const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.user.is_login);
 
   React.useEffect(() => {
     dispatch(userAction.loginCheck());

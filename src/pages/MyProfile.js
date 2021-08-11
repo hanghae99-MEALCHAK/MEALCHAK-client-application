@@ -145,48 +145,102 @@ const MyProfile = (props) => {
                 radius={radius.button}
               >
                 <Text
-                  width="3.1rem"
-                  height="2.7rem"
-                  size={fontSize.display4}
+                  width={!other_user?.user_gender ? "4.5rem" : "3.1rem"}
+                  height={!other_user?.user_gender ? "2.4rem" : "2.7rem"}
+                  size={
+                    !other_user?.user_gender ? fontSize.base : fontSize.display4
+                  }
                   bold
                   text_align="center"
                   line_height="150%"
-                  margin="0.4rem 0 0 0"
+                  margin={
+                    !other_user?.user_gender ? "0.5rem 0 0 0" : "0.1rem 0 0 0"
+                  }
+                  padding={!other_user?.user_gender ? "0 0 2.6rem 0" : ""}
                   color={color.brand100}
                 >
-                  <svg
-                    width="2.4rem"
-                    height="2.4rem"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      cx="12"
-                      cy="8.3999"
-                      r="4.8"
-                      stroke="#FF9425"
-                      strokeWidth="2.4"
-                    />
-                    <line
-                      x1="11.9998"
-                      y1="14.4"
-                      x2="11.9998"
-                      y2="20.4"
-                      stroke="#FF9425"
-                      strokeWidth="2.4"
-                      strokeLinecap="round"
-                    />
-                    <line
-                      x1="15.5998"
-                      y1="16.8001"
-                      x2="8.3998"
-                      y2="16.8001"
-                      stroke="#FF9425"
-                      strokeWidth="2.4"
-                      strokeLinecap="round"
-                    />
-                  </svg>
+                  {other_user?.user_gender ? (
+                    other_user?.user_gender === "male" ? (
+                      <svg
+                        width="2.4rem"
+                        height="2.4rem"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle
+                          cx="8"
+                          cy="12"
+                          r="4"
+                          stroke="#FF9425"
+                          strokeWidth="2"
+                        />
+                        <line
+                          x1="16"
+                          y1="4"
+                          x2="16"
+                          y2="9"
+                          stroke="#FF9425"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                        <line
+                          x1="16"
+                          y1="4"
+                          x2="11"
+                          y2="4"
+                          stroke="#FF9425"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                        <line
+                          x1="15.6569"
+                          y1="4.41421"
+                          x2="11.4142"
+                          y2="8.65685"
+                          stroke="#FF9425"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        width="2.4rem"
+                        height="2.4rem"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle
+                          cx="12"
+                          cy="8.3999"
+                          r="4.8"
+                          stroke="#FF9425"
+                          strokeWidth="2.4"
+                        />
+                        <line
+                          x1="11.9998"
+                          y1="14.4"
+                          x2="11.9998"
+                          y2="20.4"
+                          stroke="#FF9425"
+                          strokeWidth="2.4"
+                          strokeLinecap="round"
+                        />
+                        <line
+                          x1="15.5998"
+                          y1="16.8001"
+                          x2="8.3998"
+                          y2="16.8001"
+                          stroke="#FF9425"
+                          strokeWidth="2.4"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    )
+                  ) : (
+                    "미입력"
+                  )}
                 </Text>
                 <Text
                   width="4rem"
@@ -223,7 +277,17 @@ const MyProfile = (props) => {
                   padding="0 0 2.6rem 0"
                   margin="0.5rem 0 0 0"
                 >
-                  20대
+                  {other_user.user_age?.includes("1")
+                    ? "10대"
+                    : other_user.user_age?.includes("2")
+                    ? "20대"
+                    : other_user.user_age?.includes("3")
+                    ? "30대"
+                    : other_user.user_age?.includes("4")
+                    ? "40대"
+                    : other_user.user_age?.includes("5")
+                    ? "50대"
+                    : "미입력"}
                 </Text>
                 <Text
                   width="4rem"

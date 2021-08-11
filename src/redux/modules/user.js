@@ -111,6 +111,7 @@ const editUserProfileAX = (profile) => {
     axiosModule
       .put('/userInfo/update', form)
       .then((res) => {
+        logger("profile 수정 모듈", res);
         let _profile = res.data;
         let profile = {
           username: _profile.username,
@@ -155,14 +156,11 @@ const loginCheck = (path) => {
           );
           if (path === '/profile') {
             return;
-          } else {
-            if (!(res.data.age || res.data.gender)) {
-              if (path === '/upload') {
-                return customAlert.sweetConfirmReload(
-                  '성별/연령이 필요한 기능입니다.',
-                  '수정페이지로 이동합니다. 성별과 연령을 체크해주세요 :)',
-                  '/profile'
-                );
+          } 
+          else {
+            if (!res.data.age || !res.data.gender) {
+              if(path === "/upload"){
+                return customAlert.sweetConfirmReload("성별/연령이 필요한 기능입니다.", "수정페이지로 이동합니다. 성별과 연령을 체크해주세요 :)", "/profile")
               }
               customAlert.sweetAddCheck();
             }
@@ -221,6 +219,8 @@ const findUserProfileAX = (user_id) => {
             user_comment: res.data.comment,
             user_manner: res.data.mannerScore,
             user_review: res.data.reviews,
+            user_age: res.data.age,
+            user_gender: res.data.gender,
           };
           dispatch(
             setAnotherUser({
@@ -405,6 +405,9 @@ export default handleActions(
         draft.user.user_nickname = action.payload.profile.username;
         draft.user.user_comment = action.payload.profile.comment;
         draft.user.user_profile = action.payload.profile.profileImg;
+        draft.user.user_age = action.payload.profile.user_age;
+        draft.user.user_gender = action.payload.profile.user_gender;
+
       }),
     [EDIT_ADDRESS]: (state, action) =>
       produce(state, (draft) => {
