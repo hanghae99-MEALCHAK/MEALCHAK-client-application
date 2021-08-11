@@ -1,20 +1,20 @@
-import React from "react";
-import styled from "styled-components";
-import { useState } from "react";
-import logger from "../shared/Console";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postAction } from "../redux/modules/post";
-import { actionCreators as userAction } from "../redux/modules/user";
-import { Kakao_auth_url } from "../shared/OAuth";
-import Spinner from "../shared/Spinner";
-import { history } from "../redux/configureStore";
-import { useLocation } from "react-router";
-import { MyOneReview } from "../components";
+import React from 'react';
+import styled from 'styled-components';
+import { useState } from 'react';
+import logger from '../shared/Console';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as postAction } from '../redux/modules/post';
+import { actionCreators as userAction } from '../redux/modules/user';
+import { Kakao_auth_url } from '../shared/OAuth';
+import Spinner from '../shared/Spinner';
+import { history } from '../redux/configureStore';
+import { useLocation } from 'react-router';
+import { MyOneReview } from '../components';
 
 // style
-import { Button, Grid, Input, Text } from "../elements";
-import { Header, Footer } from "../components";
-import theme from "../styles/theme";
+import { Button, Grid, Input, Text } from '../elements';
+import { Header, Footer } from '../components';
+import theme from '../styles/theme';
 
 const UserProfile = (props) => {
   const dispatch = useDispatch();
@@ -27,8 +27,8 @@ const UserProfile = (props) => {
     window.scrollTo(0, 0);
     dispatch(userAction.loginCheck());
     dispatch(userAction.findUserProfileAX(user_id));
-    logger("Mypage props: ", location.state);
-    logger("another_user_info: ", other_user);
+    logger('Mypage props: ', location.state);
+    logger('another_user_info: ', other_user);
   }, []);
 
   // React.useEffect(() => {
@@ -49,6 +49,7 @@ const UserProfile = (props) => {
         >
           <Grid shape="container">
             <Header {...props} shape="프로필" />
+            <Grid height="4.4rem" />
 
             <Grid margin="1.6rem auto 2rem">
               <Profile user_profile={other_user?.user_profile}></Profile>
@@ -70,7 +71,7 @@ const UserProfile = (props) => {
               </Text>
               <Grid width="auto" text_align="center">
                 <Text size={fontSize.small} color="#9A9896" line_height="150%">
-                  {other_user?.user_comment ? other_user?.user_comment : ""}
+                  {other_user?.user_comment ? other_user?.user_comment : ''}
                 </Text>
               </Grid>
             </Grid>
@@ -260,7 +261,7 @@ const UserProfile = (props) => {
                 cursor="t"
                 _onClick={() => {
                   history.push({
-                    pathname: "/write",
+                    pathname: '/write',
                     state: {
                       user_id: other_user?.user_id,
                       profile: other_user?.user_profile,
@@ -320,7 +321,7 @@ const Profile = styled.div`
 
 const MyReviewImg = styled.div`
   margin: 4.7rem auto 0 auto;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   width: 20rem;
   height: 11.7rem;
   background-size: cover;

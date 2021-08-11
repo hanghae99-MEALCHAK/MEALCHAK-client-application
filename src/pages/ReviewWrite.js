@@ -1,44 +1,44 @@
-import React from "react";
-import styled from "styled-components";
-import { actionCreators as userActions } from "../redux/modules/user";
+import React from 'react';
+import styled from 'styled-components';
+import { actionCreators as userActions } from '../redux/modules/user';
 
-import { Grid, Button, Text, Input } from "../elements";
-import { Header } from "../components";
-import theme from "../styles/theme";
-import logger from "../shared/Console";
-import { useDispatch } from "react-redux";
-import { useLocation } from "react-router";
-import { customAlert } from "../components/Sweet";
+import { Grid, Button, Text, Input } from '../elements';
+import { Header } from '../components';
+import theme from '../styles/theme';
+import logger from '../shared/Console';
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router';
+import { customAlert } from '../components/Sweet';
 
-import Select from "../components/ReactSelect";
+import Select from '../components/ReactSelect';
 
 const { color, border, fontSize } = theme;
 // select options
 const options = [
-  { value: "chocolate", label: "최고예요!" },
-  { value: "strawberry", label: "좋아요~" },
-  { value: "vanilla", label: "별로예요:(" },
+  { value: 'chocolate', label: '최고예요!' },
+  { value: 'strawberry', label: '좋아요~' },
+  { value: 'vanilla', label: '별로예요:(' },
 ];
 
 const ReviewWrite = (props) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const [manner, setManner] = React.useState("");
-  const [review, setReview] = React.useState("");
+  const [manner, setManner] = React.useState('');
+  const [review, setReview] = React.useState('');
   const [disabled, setDisabled] = React.useState(true);
 
   const changeManner = (manner) => {
-    if (manner === "최고예요!") {
-      setManner("BEST");
+    if (manner === '최고예요!') {
+      setManner('BEST');
       setDisabled(false);
     }
-    if (manner === "좋아요~") {
-      setManner("GOOD");
+    if (manner === '좋아요~') {
+      setManner('GOOD');
       setDisabled(false);
     }
-    if (manner === "별로예요:(") {
-      setManner("BAD");
+    if (manner === '별로예요:(') {
+      setManner('BAD');
       setDisabled(false);
     }
   };
@@ -60,12 +60,12 @@ const ReviewWrite = (props) => {
   };
 
   React.useEffect(() => {
-    logger("ReviewWrite props: ", props);
-    logger("ReviewWrite location-state: ", location.state);
+    logger('ReviewWrite props: ', props);
+    logger('ReviewWrite location-state: ', location.state);
   }, []);
 
   React.useEffect(() => {
-    if (manner === "" && review === "") {
+    if (manner === '' && review === '') {
       setDisabled(true);
     } else if (manner && review) {
       setDisabled(false);
@@ -83,6 +83,7 @@ const ReviewWrite = (props) => {
         <Header {...props} shape="검색">
           리뷰 남기기
         </Header>
+        <Grid height="4.4rem" />
 
         <Grid margin="2rem auto 1rem">
           <Profile user_profile={location.state.profile}></Profile>
@@ -105,7 +106,7 @@ const ReviewWrite = (props) => {
             width="auto"
             margin="2rem 0 1rem 0"
             size={fontSize.base}
-            color={manner.label ? color.bg100 : color.bg80}
+            color={manner ? color.bg100 : color.bg80}
             bold2="500"
             line_height="150%"
           >
@@ -158,7 +159,7 @@ const ReviewWrite = (props) => {
         height="auto"
         margin="1rem auto 0 auto"
         padding="1.5rem 2rem"
-        is_fixed="t"
+        // is_fixed="t"
         borderTop="0.1rem solid #EBE9E8"
       >
         <Button

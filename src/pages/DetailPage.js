@@ -28,7 +28,7 @@ const DetailPage = (props) => {
     if (post) {
       return;
     }
-    dispatch(postActions.getPostAX());
+    dispatch(postActions.getPostAX('전체'));
     dispatch(postActions.getDetailPostUserListAX(parseInt(id)));
   }, []);
 
@@ -44,6 +44,7 @@ const DetailPage = (props) => {
           <Header {...props} shape="상세페이지">
             {post?.title}
           </Header>
+          <Grid height="4.4rem" />
         </Grid>
 
         {post && (

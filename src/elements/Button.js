@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Button = (props) => {
   const {
@@ -43,7 +43,7 @@ const Button = (props) => {
     borderBottom: borderBottom,
   };
 
-  if (shape === "large") {
+  if (shape === 'large') {
     return (
       <React.Fragment>
         <LargeButton
@@ -58,7 +58,7 @@ const Button = (props) => {
     );
   }
 
-  if (shape === "smallLight") {
+  if (shape === 'smallLight') {
     return (
       <React.Fragment>
         <SmallLightButton {...styles} onClick={_onClick} onClose={_onClose}>
@@ -68,7 +68,7 @@ const Button = (props) => {
     );
   }
 
-  if (shape === "smallDark") {
+  if (shape === 'smallDark') {
     return (
       <React.Fragment>
         <SmallDarkButton {...styles} onClick={_onClick} onClose={_onClose}>
@@ -104,35 +104,35 @@ const Button = (props) => {
 };
 
 Button.defaultProps = {
-  shape: "",
+  shape: '',
   children: null,
   _onClick: () => {},
   _onChange: () => {},
   _onClose: () => {},
   disabled: false,
   margin: false,
-  width: "100%",
-  height: "100%",
-  size: "",
+  width: '100%',
+  height: '100%',
+  size: '',
   padding: false,
-  bg: "",
-  color: "",
-  radius: "",
+  bg: '',
+  color: '',
+  radius: '',
   shadow: false,
-  cursor: "",
-  border: "",
-  ctg: "",
-  bold: "",
-  borderBottom: "",
+  cursor: '',
+  border: '',
+  ctg: '',
+  bold: '',
+  borderBottom: '',
   is_float: false,
 };
 
 const FloatButton = styled.button`
   width: 320px;
   height: 50px;
-  ${(props) => (props.size ? `font-size: ${props.size};` : "")}
-  ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
-  ${(props) => (props.color ? `color: ${props.color};` : "")}
+  ${(props) => (props.size ? `font-size: ${props.size};` : '')}
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
+  ${(props) => (props.color ? `color: ${props.color};` : '')}
   box-sizing: border-box;
   position: fixed;
   bottom: 0.8rem;
@@ -149,34 +149,34 @@ const FloatButton = styled.button`
 const ElButton = styled.button`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  ${(props) => (props.size ? `font-size: ${props.size};` : "")}
-  ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
-  ${(props) => (props.color ? `color: ${props.color};` : "")}
+  ${(props) => (props.size ? `font-size: ${props.size};` : '')}
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
+  ${(props) => (props.color ? `color: ${props.color};` : '')}
   box-sizing: border-box;
-  ${(props) => (props.radius ? `border-radius: ${props.radius};` : "")}
-  ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
+  ${(props) => (props.radius ? `border-radius: ${props.radius};` : '')}
+  ${(props) => (props.padding ? `padding: ${props.padding};` : '')}
+  ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
   ${(props) =>
-    props.shadow ? `box-shadow: 0.5rem 0.5rem 0.5rem #dcdde1;` : ""}
-  ${(props) => (props.cursor ? `cursor: pointer;` : "")};
-  ${(props) => (props.border ? `border: ${props.border};` : "")}
-  ${(props) => (props.bold ? `font-weight: ${props.bold};` : "")}
+    props.shadow ? `box-shadow: 0.5rem 0.5rem 0.5rem #dcdde1;` : ''}
+  ${(props) => (props.cursor ? `cursor: pointer;` : '')};
+  ${(props) => (props.border ? `border: ${props.border};` : '')}
+  ${(props) => (props.bold ? `font-weight: ${props.bold};` : '')}
   ${(props) =>
-    props.borderBottom ? `border-bottom: ${props.borderBottom};` : ""}
+    props.borderBottom ? `border-bottom: ${props.borderBottom};` : ''}
   ${(props) =>
     props.ctg
       ? `&:hover {
       background-color: white;
       border: 0.1rem solid #78e08f;
     }`
-      : ""}
+      : ''}
   :active {
     opacity: 0.7;
   }
 `;
 
 const LargeButton = styled.button`
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
+  ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
   width: 100%;
   height: 5rem;
   background: ${(props) =>
@@ -185,7 +185,7 @@ const LargeButton = styled.button`
   border: none;
   outline: none;
   border-radius: 12px;
-  ${(props) => (props.cursor ? `cursor: pointer;` : "")};
+  ${(props) => (props.cursor ? `cursor: pointer;` : '')};
 `;
 
 const SmallLightButton = styled.button`
@@ -200,7 +200,7 @@ const SmallLightButton = styled.button`
 `;
 
 const SmallDarkButton = styled.button`
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "0.8rem")}
+  ${(props) => (props.margin ? `margin: ${props.margin};` : '0.8rem')}
   width: 13rem;
   height: 5rem;
   background: ${(props) =>

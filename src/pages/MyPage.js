@@ -55,6 +55,7 @@ const MyPage = (props) => {
         >
           <Grid shape="container">
             <Header {...props} shape="마이페이지" />
+            <Grid height="4.4rem" />
 
             <Grid margin="3.6rem auto 2rem">
               <Profile user_profile={user_info.user_profile} />

@@ -39,8 +39,8 @@ const ProfileEdit = (props) => {
   };
 
   const editUser = () => {
-    logger("수정할 이름", editProfile.nickname);
-    logger("수정할 이름", editProfile.comment);
+    logger('수정할 이름', editProfile.nickname);
+    logger('수정할 이름', editProfile.comment);
     dispatch(
       userAction.editUserProfileAX({
         username: editProfile.nickname,
@@ -48,7 +48,7 @@ const ProfileEdit = (props) => {
         image: editProfile.image,
       })
     );
-    customAlert.sweetConfirmReload("프로필이 수정되었습니다.", null, "/mypage");
+    customAlert.sweetConfirmReload('프로필이 수정되었습니다.', null, '/mypage');
   };
 
   // 선택한 파일 정보
@@ -92,6 +92,7 @@ const ProfileEdit = (props) => {
       >
         <Grid shape="container">
           <Header {...props} shape="프로필수정" />
+          <Grid height="4.4rem" />
 
           <Grid margin="3.6rem auto 2rem">
             <Profile

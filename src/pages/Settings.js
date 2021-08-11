@@ -1,15 +1,15 @@
-import React from "react";
-import styled from "styled-components";
-import { useState } from "react";
-import logger from "../shared/Console";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as userActions } from "../redux/modules/user";
-import { Kakao_auth_url } from "../shared/OAuth";
-import Spinner from "../shared/Spinner";
-import { Grid, Text } from "../elements";
-import theme from "../styles/theme";
-import { Header } from "../components";
+import React from 'react';
+import styled from 'styled-components';
+import { useState } from 'react';
+import logger from '../shared/Console';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as postActions } from '../redux/modules/post';
+import { actionCreators as userActions } from '../redux/modules/user';
+import { Kakao_auth_url } from '../shared/OAuth';
+import Spinner from '../shared/Spinner';
+import { Grid, Text } from '../elements';
+import theme from '../styles/theme';
+import { Header } from '../components';
 
 const Settings = (props) => {
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ const Settings = (props) => {
     >
       <Grid shape="container">
         <Header {...props} shape="설정" />
+        <Grid height="4.4rem" />
         <Grid
           is_flex4="t"
           padding="1.9rem 2rem"
@@ -33,7 +34,7 @@ const Settings = (props) => {
           }}
         >
           <svg
-            style={{ marginRight: "1.2rem" }}
+            style={{ marginRight: '1.2rem' }}
             width="30"
             height="30"
             viewBox="0 0 30 30"
@@ -72,11 +73,11 @@ const Settings = (props) => {
           borderBottom={border.bg20}
           cursor="t"
           _onClick={() => {
-              window.alert("구현되지 않은 기능입니다.");
+            window.alert('구현되지 않은 기능입니다.');
           }}
         >
           <svg
-            style={{ marginRight: "1.2rem" }}
+            style={{ marginRight: '1.2rem' }}
             width="30"
             height="30"
             viewBox="0 0 30 30"

@@ -33,14 +33,21 @@ const DetailPost = (props) => {
     user_id,
     username,
     room_id,
+    valid,
     chat_user_list,
   } = props;
 
+  // 연, 월
+  const ym = props?.insert_dt.split('-');
+  // 일
+  const d = ym[2].split(' ');
+  // 시, 분
+  const hm = d[1].split(':');
+
+  // 오늘 표시
   const month = orderDate.split('-')[1];
   const day = orderDate.split('-')[2];
   const today = moment().format('YYYY-MM-DD');
-  if (orderDate === today) {
-  }
 
   const { color, radius, fontSize } = theme;
   const dispatch = useDispatch();
@@ -53,6 +60,9 @@ const DetailPost = (props) => {
   }, []);
 
   React.useEffect(() => {
+    if (valid === false) {
+      return setDisabled(true);
+    }
     if (props.headCount === props.nowHeadCount) {
       return setDisabled(true);
     } else if (props.headCount > props.nowHeadCount) {
@@ -91,6 +101,7 @@ const DetailPost = (props) => {
                   {username}
                 </Text>
                 <Grid
+                  width={valid === false ? '5.5rem' : ''}
                   maxWidth="9.1rem"
                   height="2.3rem"
                   bg={color.bg20}
@@ -100,15 +111,21 @@ const DetailPost = (props) => {
                   <Text
                     size="1rem"
                     text_align="center"
-                    color={color.success100}
+                    color={
+                      props.valid === false || disabled
+                        ? color.bg80
+                        : color.success100
+                    }
                     bold
                   >
-                    모집 인원 {nowHeadCount}/{headCount}명
+                    {valid === false || disabled
+                      ? `모집마감`
+                      : `모집 인원 ${nowHeadCount}/${headCount}명`}
                   </Text>
                 </Grid>
               </Grid>
               <Text size="1rem" color={color.bg80} bold2="400">
-                {insert_dt}
+                {ym[0]}년 {ym[1]}월 {d[0]}일 {hm[0]}:{hm[1]}
               </Text>
             </Grid>
           </Grid>
@@ -142,18 +159,20 @@ const DetailPost = (props) => {
             >
               배달 받을 곳
             </Text>
-            <Text
-              height="1.5rem"
-              size="1rem"
-              bold2="500"
-              color={color.success100}
-              line_height="150%"
-              margin="0 0 0 1rem"
-            >
-              {distance > 999
-                ? `내 위치로부터 ${(distance / 1000).toFixed(2) * 1000}km`
-                : `내 위치로부터 ${distance * 1000}m`}
-            </Text>
+            {!props.is_profile && (
+              <Text
+                height="1.5rem"
+                size="1rem"
+                bold2="500"
+                color={color.success100}
+                line_height="150%"
+                margin="0 0 0 1rem"
+              >
+                {distance > 999
+                  ? `내 위치로부터 ${(distance / 1000).toFixed(2) * 1000}km`
+                  : `내 위치로부터 ${distance * 1000}m`}
+              </Text>
+            )}
           </Grid>
           <Text
             line_height="150%"
@@ -180,7 +199,7 @@ const DetailPost = (props) => {
               size="1.3rem"
               color={color.bg80}
             >
-              주문 예정 시각
+              예상 만남 시간
             </Text>
           </GridGap>
           <GridGap>
@@ -191,134 +210,257 @@ const DetailPost = (props) => {
               {orderDate === today ? '오늘' : `${month}월${day}일`} {orderTime}
             </Text>
           </GridGap>
+
+          {props.is_profile && (
+            <>
+              {props.valid === false ? (
+                <Grid maxWidth="30rem" margin="1.6rem 0 0 0">
+                  <Button
+                    shape="large"
+                    radius="1.2rem"
+                    bg="#FFF0E1"
+                    border="none"
+                    color={color.brand100}
+                    size={fontSize.small}
+                    bold={fontSize.bold}
+                    cursor="t"
+                    _onClick={deleteBtn}
+                  >
+                    삭제하기
+                  </Button>
+                </Grid>
+              ) : (
+                <>
+                  <Grid
+                    is_flex
+                    maxWidth="29rem"
+                    margin="1.6rem 0 0 0"
+                    gap="1rem"
+                  >
+                    <Button
+                      width="14rem"
+                      height="4.4rem"
+                      radius="1.2rem"
+                      bg="#FFF0E1"
+                      border="none"
+                      color={color.brand100}
+                      size={fontSize.small}
+                      bold={fontSize.bold}
+                      cursor="t"
+                      _onClick={() => {
+                        history.replace({
+                          pathname: `/upload/${post_id}`,
+                          state: { ...props },
+                        });
+                      }}
+                    >
+                      수정하기
+                    </Button>
+                    <Button
+                      width="14rem"
+                      height="4.4rem"
+                      radius="1.2rem"
+                      bg="#FF9425"
+                      border="none"
+                      color={color.bg0}
+                      size={fontSize.small}
+                      bold={fontSize.bold}
+                      cursor="t"
+                      _onClick={deleteBtn}
+                    >
+                      삭제하기
+                    </Button>
+                  </Grid>
+                </>
+              )}
+            </>
+          )}
+
+          {/* {props.is_profile && (
+            <Grid
+              text_align="center"
+              is_flex
+              maxWidth="30rem"
+              margin="0 3.4rem 1rem"
+            >
+              {valid === false ? (
+                <Button></Button>
+              ) : (
+                <>
+                  <Button
+                    width="14rem"
+                    height="4.4rem"
+                    radius="1.2rem"
+                    bg="#FFF0E1"
+                    border="none"
+                    color={color.brand100}
+                    size={fontSize.small}
+                    bold={fontSize.bold}
+                    cursor="t"
+                    _onClick={() => {
+                      history.replace({
+                        pathname: `/upload/${post_id}`,
+                        state: { ...props },
+                      });
+                    }}
+                  >
+                    수정하기
+                  </Button>
+                  <Button
+                    width="14rem"
+                    height="4.4rem"
+                    radius="1.2rem"
+                    bg="#FF9425"
+                    border="none"
+                    color={color.bg0}
+                    size={fontSize.small}
+                    bold={fontSize.bold}
+                    cursor="t"
+                    _onClick={deleteBtn}
+                  >
+                    삭제하기
+                  </Button>
+                </>
+              )}
+            </Grid>
+          )} */}
         </Grid>
       </Grid>
 
-      <Grid
-        width="30rem"
-        margin="1.6rem auto"
-        padding="1.6rem"
-        is_border="0.1rem solid #EBE9E8"
-        radius={radius.postBox}
-      >
-        <Text color={color.bg80} size={fontSize.small}>
-          참여 중인 사용자
-        </Text>
-        {chat_user_list.map((p, idx) => {
-          return (
-            <Grid is_flex4 margin="0.4rem 0" key={idx}>
-              <Image
-                shape="circle"
-                src={p.userImg}
-                size="3"
-                margin="0 0.8rem 0 0"
-                cursor
-                _onClick={() => {
-                  history.push({
-                    pathname: '/userprofile',
-                    state: { ...user_info },
-                  });
-                }}
-              ></Image>
-              <Text size={fontSize.small}>{p.userName}</Text>
-              {user_id === p.user_id ? (
-                <Text
-                  width="2.7rem"
-                  height="1.5rem"
-                  margin="0 0 0 0.4rem"
-                  size={fontSize.tiny}
-                  bg={color.brand20}
-                  color={color.brand100}
-                  radius="0.4rem"
-                  bold2="700"
-                  text_align="center"
-                >
-                  방장
-                </Text>
-              ) : (
-                <></>
-              )}
-            </Grid>
-          );
-        })}
-      </Grid>
-
-      <Grid
-        maxWidth="30rem"
-        margin="auto"
-        height="auto"
-        is_fixed="t"
-        bottom="1rem"
-      >
-        {props.is_me ? (
+      {!props.is_profile && (
+        <>
           <Grid
-            text_align="center"
-            is_flex
-            width="29rem"
-            margin="0 3.4rem 1rem"
+            width="30rem"
+            margin="1.6rem auto"
+            padding="1.6rem"
+            is_border="0.1rem solid #EBE9E8"
+            radius={radius.postBox}
           >
-            <Button
-              width="14rem"
-              height="4.4rem"
-              radius="1.2rem"
-              bg="#FFF0E1"
-              border="none"
-              color={color.brand100}
-              size={fontSize.small}
-              bold={fontSize.bold}
-              cursor="t"
-              _onClick={() => {
-                history.replace({
-                  pathname: `/upload/${post_id}`,
-                  state: { ...props },
-                });
-              }}
-            >
-              수정하기
-            </Button>
-            <Button
-              width="14rem"
-              height="4.4rem"
-              radius="1.2rem"
-              bg="#FF9425"
-              border="none"
-              color={color.bg0}
-              size={fontSize.small}
-              bold={fontSize.bold}
-              cursor="t"
-              _onClick={deleteBtn}
-            >
-              삭제하기
-            </Button>
+            <Text color={color.bg80} size={fontSize.small}>
+              참여 중인 사용자
+            </Text>
+            {chat_user_list.map((p, idx) => {
+              return (
+                <Grid key={idx} is_flex4 margin="0.4rem 0">
+                  <Image
+                    shape="circle"
+                    src={p.user_img}
+                    size="3"
+                    margin="0 0.8rem 0 0"
+                    cursor={user_info.user_id !== p.user_id ? 't' : ''}
+                    _onClick={() => {
+                      if (user_info.user_id !== p.user_id) {
+                        history.push({
+                          pathname: '/userprofile',
+                          state: { ...p },
+                        });
+                      }
+                    }}
+                  ></Image>
+                  <Text size={fontSize.small}>{p.user_name}</Text>
+                  {user_id === p.user_id ? (
+                    <Text
+                      width="2.7rem"
+                      height="1.5rem"
+                      margin="0 0 0 0.4rem"
+                      size={fontSize.tiny}
+                      bg={color.brand20}
+                      color={color.brand100}
+                      radius="0.4rem"
+                      bold2="700"
+                      text_align="center"
+                    >
+                      방장
+                    </Text>
+                  ) : (
+                    <></>
+                  )}
+                </Grid>
+              );
+            })}
           </Grid>
-        ) : (
           <Grid
             maxWidth="30rem"
-            height="5rem"
-            margin="0 3rem 1rem 3rem"
-            absolute="absolute"
-            bottom="0"
+            margin="auto"
+            height="auto"
+            is_fixed="t"
+            bottom="1rem"
           >
-            <Button
-              shape="large"
-              color={disabled ? '#EBE9E8' : color.brand100}
-              size={fontSize.small}
-              disabled={disabled}
-              _onClick={(e) => {
-                if (props.headCount === props.nowHeadCount) {
-                  return setDisabled(true);
-                }
-                requestJoin();
-              }}
-            >
-              <Text bold size="1.6rem" color={disabled ? '#CECAC7' : color.bg0}>
-                {disabled ? '모집 마감됐어요' : '채팅 시작하기'}
-              </Text>
-            </Button>
+            {props.is_me ? (
+              <Grid
+                text_align="center"
+                is_flex
+                maxWidth="30rem"
+                margin="0 3.4rem 1rem"
+              >
+                <Button
+                  width="14rem"
+                  height="4.4rem"
+                  radius="1.2rem"
+                  bg="#FFF0E1"
+                  border="none"
+                  color={color.brand100}
+                  size={fontSize.small}
+                  bold={fontSize.bold}
+                  cursor="t"
+                  _onClick={() => {
+                    history.replace({
+                      pathname: `/upload/${post_id}`,
+                      state: { ...props },
+                    });
+                  }}
+                >
+                  수정하기
+                </Button>
+                <Button
+                  width="14rem"
+                  height="4.4rem"
+                  radius="1.2rem"
+                  bg="#FF9425"
+                  border="none"
+                  color={color.bg0}
+                  size={fontSize.small}
+                  bold={fontSize.bold}
+                  cursor="t"
+                  _onClick={deleteBtn}
+                >
+                  삭제하기
+                </Button>
+              </Grid>
+            ) : (
+              <Grid
+                maxWidth="30rem"
+                height="5rem"
+                margin="0 3rem 1rem 3rem"
+                absolute="absolute"
+                bottom="0"
+              >
+                <Button
+                  shape="large"
+                  color={disabled ? '#EBE9E8' : color.brand100}
+                  size={fontSize.small}
+                  disabled={disabled}
+                  _onClick={(e) => {
+                    if (props.headCount === props.nowHeadCount) {
+                      return setDisabled(true);
+                    }
+                    requestJoin();
+                  }}
+                >
+                  <Text
+                    bold
+                    size="1.6rem"
+                    color={disabled ? '#CECAC7' : color.bg0}
+                  >
+                    {disabled ? '모집 마감됐어요' : '채팅 시작하기'}
+                  </Text>
+                </Button>
+              </Grid>
+            )}
           </Grid>
-        )}
-      </Grid>
-      <Grid height="7rem" />
+          <Grid height="7rem" />
+        </>
+      )}
     </React.Fragment>
   );
 };
@@ -326,8 +468,8 @@ const DetailPost = (props) => {
 DetailPost.defaultProps = {};
 
 const UserProfile = styled.div`
-  width: 4.3rem;
-  height: 3.8rem;
+  width: 4.925rem;
+  height: 4rem;
   border-radius: 2rem;
   background-image: url('${(props) => props.src}');
   background-size: cover;
