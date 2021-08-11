@@ -8,8 +8,8 @@ const axiosModule = axios.create({
     'Content-Type': 'application/json',
   },
   baseURL: "http://115.85.182.57",
-  // baseURL: "http://52.78.204.238",
   // baseURL: 'http://52.78.204.238:8080',
+  // baseURL: "http://52.78.204.238",
 });
 
 axiosModule.interceptors.request.use((config) => {
