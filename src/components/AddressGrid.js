@@ -13,7 +13,7 @@ const AddressGrid = (props) => {
   return (
     <React.Fragment>
       <Grid
-        minHeight={props.is_home ? "100vh" : ""}
+        minHeight={props.is_home ? '100vh' : ''}
         minWidth={props.is_post ? '36rem' : '36rem'}
         maxWidth={props.is_post ? '32rem' : '36rem'}
         width={props.is_home ? '36rem' : ''}
@@ -30,6 +30,7 @@ const AddressGrid = (props) => {
               주소 입력
             </Header>
           )}
+          <Grid height="4.4rem" />
         </Grid>
         {props.children}
       </Grid>
