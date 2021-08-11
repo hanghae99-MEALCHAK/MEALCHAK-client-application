@@ -106,7 +106,7 @@ const Header = (props) => {
           >
             close
           </span>
-          <Text margin="auto" size="1.6rem" bold2="700">
+          <Text margin="auto" size="1.6rem" bold>
             {props.children}
           </Text>
         </Grid>
@@ -571,7 +571,7 @@ const Header = (props) => {
           >
             close
           </span>
-          <Text margin="auto" size="1.6rem" bold2="700">
+          <Text margin="auto" size="1.6rem" bold>
             {props.children}
           </Text>
         </Grid>

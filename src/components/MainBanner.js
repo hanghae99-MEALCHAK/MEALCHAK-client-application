@@ -11,13 +11,20 @@ import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
 import "../shared/Swiper.scss";
 
+import { actionCreators as postActions } from "../redux/modules/post";
+import { useDispatch, useSelector } from "react-redux";
 import logger from "../shared/Console";
 
 SwiperCore.use([Pagination, Autoplay]);
 
 const MainBanner = (props) => {
   const { color } = theme;
+
+  const dispatch = useDispatch();
+  const post_list = useSelector((state) => state.post?.list);
   const rank_list = Object.values(props);
+
+  logger("MainBanner props : ", props);
 
   return (
     <React.Fragment>
@@ -35,7 +42,55 @@ const MainBanner = (props) => {
           {rank_list.map((p, idx) => {
             return (
               <SwiperSlide key={idx}>
-                <Grid width="36rem" height="12.6rem" margin="0.5rem auto">
+                <Grid
+                  width="36rem"
+                  height="12.6rem"
+                  margin="0.5rem auto"
+                  cursor="t"
+                  _onClick={() => {
+                    if (post_list?.length !== 0) {
+                      document
+                        .querySelector("body")
+                        .scrollTo({ top: 410, left: 0, behavior: "smooth" });
+                    }
+                    if (p.category === "한식") {
+                      dispatch(postActions.getPostAX(p.category));
+                      props?.getCategory({ kr: true });
+                      props?.getCtg(p.category);
+                      props?.getSort();
+                    }
+                    if (p.category === "중식") {
+                      dispatch(postActions.getPostAX(p.category));
+                      props?.getCategory({ cn: true });
+                      props?.getCtg(p.category);
+                      props?.getSort();
+                    }
+                    if (p.category === "일식") {
+                      dispatch(postActions.getPostAX(p.category));
+                      props?.getCategory({ jp: true });
+                      props?.getCtg(p.category);
+                      props?.getSort();
+                    }
+                    if (p.category === "양식") {
+                      dispatch(postActions.getPostAX(p.category));
+                      props?.getCategory({ west: true });
+                      props?.getCtg(p.category);
+                      props?.getSort();
+                    }
+                    if (p.category === "카페") {
+                      dispatch(postActions.getPostAX(p.category));
+                      props?.getCategory({ cafe: true });
+                      props?.getCtg(p.category);
+                      props?.getSort();
+                    }
+                    if (p.category === "기타") {
+                      dispatch(postActions.getPostAX(p.category));
+                      props?.getCategory({ etc: true });
+                      props?.getCtg(p.category);
+                      props?.getSort();
+                    }
+                  }}
+                >
                   <MainBannerBtn src={p.imgUrl}>
                     <Grid position="relative" top="6.1rem" right="9.1rem">
                       <Text
@@ -54,7 +109,7 @@ const MainBanner = (props) => {
             );
           })}
         </Swiper>
-        <Grid height="1.2rem"/>
+        <Grid height="1.2rem" />
       </div>
     </React.Fragment>
   );

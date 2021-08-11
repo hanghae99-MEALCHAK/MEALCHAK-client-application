@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 import { Grid, Text } from "../elements";
 import theme from "../styles/theme";
+import logger from "../shared/Console";
 
 const MyOneReview = (props) => {
   const { color, fontSize } = theme;
@@ -15,6 +16,7 @@ const MyOneReview = (props) => {
   // 시, 분
   const hm = day[1].split(":");
 
+  logger("MyOneReview props: ", props);
   return (
     <React.Fragment>
       <Grid
@@ -25,7 +27,7 @@ const MyOneReview = (props) => {
         <Profile user_profile={props.other_user? props.profileImg : props.user_profile} />
         <Grid minWidth="3.6rem" height="2rem" padding="0 0 0 5rem">
           <Text size={fontSize.small} line_height="150%" color={color.bg100}>
-            {props.other_user? props.username: props.user_nickname}
+            {props.other_user? props.username : props.user_nickname}
           </Text>
         </Grid>
         <Grid

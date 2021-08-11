@@ -1,14 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
-import { actionCreators as postActions } from '../redux/modules/post';
+import React from "react";
+import styled from "styled-components";
+import { actionCreators as postActions } from "../redux/modules/post";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
 
-import { useDispatch, useSelector } from 'react-redux';
-import { customAlert } from './Sweet';
-
-import { Grid, Image, Text, Button } from '../elements';
-import { history } from '../redux/configureStore';
-import logger from '../shared/Console';
-import theme from '../styles/theme';
+// style
+import { Grid, Image, Text, Button } from "../elements";
+import { customAlert } from "./Sweet";
+import theme from "../styles/theme";
+import logger from "../shared/Console";
 
 const Post = (props) => {
   const { color, fontSize } = theme;
@@ -63,24 +63,26 @@ const Post = (props) => {
         radius={fontSize.base}
       >
         <Grid is_float="left" margin="0.5rem 1.5rem 1.5rem 1.5rem">
-          <Grid
-            is_flex
-            cursor="t"
-            _onClick={() => {
-              if (is_login) {
-                if (user_info.user_id === props.user_id) {
-                  return history.push('/mypage');
+          <Grid is_flex>
+            <UserProfile
+              src={props.userImg}
+              onClick={() => {
+                if (is_login) {
+                  if (user_info.user_id === props.user_id) {
+                    return history.push({
+                      pathname: "/myprofile",
+                      state: { ...props },
+                    });
+                  }
+                  history.push({
+                    pathname: "/userprofile",
+                    state: { ...props },
+                  });
+                } else {
+                  customAlert.sweetNeedLogin();
                 }
-                history.push({
-                  pathname: '/userprofile',
-                  state: { ...props },
-                });
-              } else {
-                customAlert.sweetNeedLogin();
-              }
-            }}
-          >
-            <UserProfile src={props.userImg} />
+              }}
+            />
             <Grid>
               <Grid is_flex>
                 <Text size={fontSize.small} color={color.bg100} bold2="500">
