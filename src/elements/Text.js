@@ -10,6 +10,7 @@ const Text = (props) => {
     children,
     margin,
     width,
+    minWidth,
     height,
     padding,
     _onClick,
@@ -39,6 +40,7 @@ const Text = (props) => {
     size: size,
     margin,
     width,
+    minWidth,
     height,
     padding: padding,
     _onClick: _onClick,
@@ -77,6 +79,7 @@ Text.defaultProps = {
   size: '1.4rem',
   margin: false,
   width: '',
+  minWidth: '',
   height: '',
   padding: false,
   _onClick: () => {},
@@ -105,6 +108,7 @@ const P = styled.p`
   ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
   ${(props) => (props.padding ? `padding: ${props.padding};` : '')}
   ${(props) => (props.width ? `width: ${props.width};` : '')}
+  ${(props) => (props.minWidth ? `min-width: ${props.minWidth};` : '')}
   ${(props) => (props.height ? `height: ${props.height};` : '')}
   ${(props) => (props.cursor ? `cursor: pointer;` : '')};
   ${(props) => (props.is_float ? `float: ${props.is_float};` : '')}
