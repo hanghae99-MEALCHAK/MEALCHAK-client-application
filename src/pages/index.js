@@ -13,6 +13,7 @@ import ProfileEdit from "./ProfileEdit";
 import Settings from "./Settings";
 import MyPost from "./MyPost";
 import MyReview from "./MyReview";
+import MyProfile from "./MyProfile";
 import UserProfile from "./UserProfile";
 import AllowChat from "./AllowChat";
 
@@ -32,6 +33,7 @@ export {
   Settings,
   MyPost,
   MyReview,
+  MyProfile,
   UserProfile,
   AllowChat,
 };

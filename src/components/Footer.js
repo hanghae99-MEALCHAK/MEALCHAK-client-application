@@ -30,10 +30,9 @@ const Footer = (props) => {
   return (
     <React.Fragment>
       <Grid
-        height="auto"
+        height="5.2rem"
         maxWidth="36rem"
         margin="0 auto 0 -0.1rem"
-        // padding="0.5rem 0"
         padding="0.5rem 0"
         is_fixed="t"
         bg={color.bg0}
@@ -49,16 +48,16 @@ const Footer = (props) => {
             }}
           >
             <svg
-              style={{ cursor: "pointer", margin: "0 0 0.2rem 0" }}
-              width="30"
-              height="30"
-              viewBox="0 0 30 30"
+              style={{ cursor: "pointer", margin: "0.2rem 0 0 0" }}
+              width="22"
+              height="24"
+              viewBox="0 0 20 22"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M6 24V11.8357C6 11.5098 6.15881 11.2043 6.42557 11.0171L14.4256 5.40311C14.7703 5.16118 15.2297 5.16118 15.5744 5.40311L23.5744 11.0171C23.8412 11.2043 24 11.5098 24 11.8357V24C24 24.5523 23.5523 25 23 25H19C18.4477 25 18 24.5523 18 24V19.1128C18 18.5605 17.5523 18.1128 17 18.1128H13C12.4477 18.1128 12 18.5605 12 19.1128V24C12 24.5523 11.5523 25 11 25H7C6.44772 25 6 24.5523 6 24Z"
-                stroke={path === "/home" ? color.brand100 : color.bg80}
+                d="M1 20V7.8357C1 7.5098 1.15881 7.20435 1.42557 7.01714L9.42557 1.40311C9.77032 1.16118 10.2297 1.16118 10.5744 1.40311L18.5744 7.01714C18.8412 7.20435 19 7.5098 19 7.8357V20C19 20.5523 18.5523 21 18 21H14C13.4477 21 13 20.5523 13 20V15.1128C13 14.5605 12.5523 14.1128 12 14.1128H8C7.44772 14.1128 7 14.5605 7 15.1128V20C7 20.5523 6.55228 21 6 21H2C1.44772 21 1 20.5523 1 20Z"
+                stroke={path === "/home" ? color.brand100 : color.bg60}
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -73,7 +72,7 @@ const Footer = (props) => {
               <span
                 style={{
                   position: "absolute",
-                  top: "2.5rem",
+                  top: "3.2rem",
                   left: "4.05rem",
                   margin: "0",
                 }}
@@ -91,32 +90,86 @@ const Footer = (props) => {
             }}
           >
             <svg
-              style={{ cursor: "pointer", margin: "0 0 0.2rem 0" }}
-              width="30"
-              height="30"
-              viewBox="0 0 30 30"
+              style={{ cursor: "pointer" }}
+              width="34"
+              height="34"
+              viewBox="0 0 34 34"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M18.7279 6.27208L7.97371 17.0263L8.12132 21.1213L12.2163 21.2689L22.9706 10.5147L18.7279 6.27208Z"
-                stroke={path === "/upload" ? color.brand100 : color.bg80}
-                strokeWidth="2"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M6 25H24"
-                stroke={path === "/upload" ? color.brand100 : color.bg80}
+                d="M10.8467 24.3353C10.5903 23.3785 10.0253 22.533 9.23943 21.9299C8.45353 21.3269 7.49061 21 6.5 21C5.5094 21 4.54647 21.3269 3.76057 21.9299C2.97468 22.533 2.40972 23.3785 2.15333 24.3353"
+                stroke="#CECAC7"
                 strokeWidth="2"
                 strokeLinecap="round"
-                strokeLinejoin="round"
+              />
+              <circle
+                cx="6.5"
+                cy="14.5"
+                r="3.5"
+                stroke="#CECAC7"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <path
+                d="M31.8467 24.3353C31.5903 23.3785 31.0253 22.533 30.2394 21.9299C29.4535 21.3269 28.4906 21 27.5 21C26.5094 21 25.5465 21.3269 24.7606 21.9299C23.9747 22.533 23.4097 23.3785 23.1533 24.3353"
+                stroke="#CECAC7"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <circle
+                cx="27.5"
+                cy="14.5"
+                r="3.5"
+                stroke="#CECAC7"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <path
+                d="M22.6977 24.4413C22.3635 23.1939 21.627 22.0916 20.6024 21.3054C19.5779 20.5193 18.3225 20.0931 17.0311 20.0931C15.7397 20.0931 14.4843 20.5193 13.4598 21.3054C12.4352 22.0916 11.6987 23.1939 11.3644 24.4413"
+                stroke="white"
+                strokeWidth="4.6012"
+                strokeLinecap="round"
+              />
+              <ellipse
+                cx="17.0705"
+                cy="12.4869"
+                rx="4.60787"
+                ry="4.48693"
+                stroke="white"
+                strokeWidth="4.6012"
+                strokeLinecap="round"
+              />
+              <path
+                d="M22.7956 24.0765C22.4537 22.907 21.7004 21.8736 20.6526 21.1366C19.6047 20.3995 18.3208 20 17 20C15.6792 20 14.3953 20.3995 13.3474 21.1366C12.2996 21.8736 11.5463 22.907 11.2044 24.0765"
+                stroke="#CECAC7"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <ellipse
+                cx="16.9626"
+                cy="12.5"
+                rx="4.5"
+                ry="4.5"
+                stroke="#CECAC7"
+                strokeWidth="2"
+                strokeLinecap="round"
               />
             </svg>
+
             <Text text_align="center" size="1rem" color={color.bg80} cursor="t">
-              글쓰기
+              <span
+                style={{
+                  position: "absolute",
+                  top: "3.2rem",
+                  left: "11.1rem",
+                  margin: "0",
+                }}
+              >
+                모임 만들기
+              </span>
             </Text>
           </Grid>
-
           <Grid
             text_align="center"
             maxWidth="9rem"
@@ -137,7 +190,7 @@ const Footer = (props) => {
                 stroke={
                   path === "/chatlist" || path === "/allowchat"
                     ? color.brand100
-                    : color.bg80
+                    : color.bg60
                 }
                 strokeWidth="2"
                 strokeLinecap="round"
@@ -148,7 +201,7 @@ const Footer = (props) => {
                 stroke={
                   path === "/chatlist" || path === "/allowchat"
                     ? color.brand100
-                    : color.bg80
+                    : color.bg60
                 }
                 strokeWidth="2"
                 strokeLinecap="round"
@@ -159,7 +212,7 @@ const Footer = (props) => {
                 stroke={
                   path === "/chatlist" || path === "/allowchat"
                     ? color.brand100
-                    : color.bg80
+                    : color.bg60
                 }
                 strokeWidth="2"
                 strokeLinecap="round"
@@ -176,7 +229,16 @@ const Footer = (props) => {
               }
               cursor="t"
             >
-              채팅
+              <span
+                style={{
+                  position: "absolute",
+                  top: "3.2rem",
+                  left: "21.6rem",
+                  margin: "0",
+                }}
+              >
+                채팅
+              </span>
             </Text>
           </Grid>
 
@@ -199,7 +261,7 @@ const Footer = (props) => {
               <g clipPath="url(#clip0)">
                 <path
                   d="M22.7274 25.1883C22.2716 23.6998 21.2672 22.3846 19.8701 21.4465C18.4729 20.5085 16.7611 20 15 20C13.2389 20 11.5271 20.5085 10.1299 21.4465C8.73276 22.3846 7.72839 23.6998 7.27259 25.1883"
-                  stroke={path === "/mypage" ? color.brand100 : color.bg80}
+                  stroke={path === "/mypage" ? color.brand100 : color.bg60}
                   strokeWidth="2"
                   strokeLinecap="round"
                 />
@@ -207,7 +269,7 @@ const Footer = (props) => {
                   cx="15"
                   cy="11"
                   r="5"
-                  stroke={path === "/mypage" ? color.brand100 : color.bg80}
+                  stroke={path === "/mypage" ? color.brand100 : color.bg60}
                   strokeWidth="2"
                   strokeLinecap="round"
                 />
@@ -224,7 +286,16 @@ const Footer = (props) => {
               color={path === "/mypage" ? color.brand100 : color.bg80}
               cursor="t"
             >
-              마이페이지
+              <span
+                style={{
+                  position: "absolute",
+                  top: "3.2rem",
+                  left: "29rem",
+                  margin: "0",
+                }}
+              >
+                마이페이지
+              </span>
             </Text>
           </Grid>
         </Div>

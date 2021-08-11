@@ -40,7 +40,6 @@ const UploadInput = React.memo((props) => {
     { value: "기타", label: "기타" },
   ];
 
-
   const dispatch = useDispatch();
 
   const today = moment().toDate();
@@ -224,28 +223,24 @@ const UploadInput = React.memo((props) => {
           </Grid>
 
           {/* <FocusWithinSelect> */}
-            <Text
-              padding="2.4rem 0 0.8rem"
-              color="#888E95"
-              bold="700"
-              size={fontSize.base}
-            >
-              모집 인원 수
-            </Text>
-            <Grid
-              border={border.bg40}
-              radius="1.2rem"
-              height="auto"
-            >
-              <HeadSelect
-                options={head_options}
-                value={post_info.headCount}
-                setPostInfo={setPostInfo}
-                post_info={post_info}
-                onChange={props.onChange}
-                headCount={post_info.headCount}
-              />
-              {/* <Select
+          <Text
+            padding="2.4rem 0 0.8rem"
+            color="#888E95"
+            bold="700"
+            size={fontSize.base}
+          >
+            모집 인원 수
+          </Text>
+          <Grid border={border.bg40} radius="1.2rem" height="auto">
+            <HeadSelect
+              options={head_options}
+              value={post_info.headCount}
+              setPostInfo={setPostInfo}
+              post_info={post_info}
+              onChange={props.onChange}
+              headCount={post_info.headCount}
+            />
+            {/* <Select
                 value={`${post_info.headCount}`}
                 onChange={(e) => {
                   setPostInfo({
@@ -262,7 +257,7 @@ const UploadInput = React.memo((props) => {
                 <option value="3">3명</option>
                 <option value="4">4명</option>
               </Select> */}
-            </Grid>
+          </Grid>
           {/* </FocusWithinSelect> */}
           <Grid text_align="right">
             <Text color="red" size={fontSize.tiny} padding="0.8rem 1rem 0">
@@ -335,20 +330,16 @@ const UploadInput = React.memo((props) => {
           </Grid>
 
           <Grid margin="0 auto 1rem">
-              <Text
-                padding="2.4rem 0 0.8rem"
-                color="#888E95"
-                bold="700"
-                size={fontSize.base}
-              >
-                음식 카테고리
-              </Text>
-              <Grid
-                border={border.bg40}
-                radius="1.2rem"
-                height="auto"
-              >
-                <CTGSelect
+            <Text
+              padding="2.4rem 0 0.8rem"
+              color="#888E95"
+              bold="700"
+              size={fontSize.base}
+            >
+              음식 카테고리
+            </Text>
+            <Grid border={border.bg40} radius="1.2rem" height="auto">
+              <CTGSelect
                 options={food_options}
                 value={post_info.foodCategory}
                 setPostInfo={setPostInfo}
@@ -356,7 +347,7 @@ const UploadInput = React.memo((props) => {
                 onChange={props.onChange}
                 foodCategory={post_info.foodCategory}
               />
-                {/* <Select
+              {/* <Select
                   value={post_info.foodCategory}
                   onChange={(e) => {
                     setPostInfo({
@@ -376,7 +367,7 @@ const UploadInput = React.memo((props) => {
                   <option value="카페">카페</option>
                   <option value="기타">기타</option>
                 </Select> */}
-              </Grid>
+            </Grid>
           </Grid>
         </Container>
       </Grid>
