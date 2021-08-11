@@ -17,6 +17,7 @@ const DetailPost = (props) => {
   logger('상세포스트 프롭스', props);
   const {
     address,
+    detail_address,
     category,
     contents,
     distance,
@@ -37,24 +38,44 @@ const DetailPost = (props) => {
     chat_user_list,
   } = props;
 
-  // 연, 월
-  const ym = props?.insert_dt.split('-');
-  // 일
-  const d = ym[2].split(' ');
-  // 시, 분
-  const hm = d[1].split(':');
-
-  // 오늘 표시
-  const month = orderDate.split('-')[1];
-  const day = orderDate.split('-')[2];
-  const today = moment().format('YYYY-MM-DD');
-
   const { color, radius, fontSize } = theme;
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const user_info = useSelector((state) => state.user.user);
 
   const [disabled, setDisabled] = React.useState(false);
+
+  // 연, 월
+  const ym = props?.insert_dt.split('-');
+  // 일
+  const day = ym[2].split(' ');
+  // 시, 분
+  const hm = day[1].split(':');
+
+  // 오늘 표시
+  const today = moment().format('YYYY-MM-DD');
+  const tomorrow = moment().add(1, 'd').format('YYYY-MM-DD');
+  const is_today = today === orderDate ? true : false;
+  const is_tomorrow = tomorrow === orderDate ? true : false;
+
+  // 날짜에 따라서 오늘 내일 변겨 함수
+  const date_time = () => {
+    if (is_today) {
+      return `오늘 ${hm[0]}:${hm[1]}`;
+    }
+    if (is_tomorrow) {
+      return `내일 ${hm[0]}:${hm[1]}`;
+    }
+    if (
+      parseInt(today.split('-').join('')) >
+      parseInt(insert_dt.split(' ')[0].split('-').join(''))
+    ) {
+      return false;
+    } else {
+      return `${ym[1]}월 ${day[0]}일 ${hm[0]}:${hm[1]}`;
+    }
+  };
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -125,7 +146,7 @@ const DetailPost = (props) => {
                 </Grid>
               </Grid>
               <Text size="1rem" color={color.bg80} bold2="400">
-                {ym[0]}년 {ym[1]}월 {d[0]}일 {hm[0]}:{hm[1]}
+                {ym[0]}년 {ym[1]}월 {day[0]}일 {hm[0]}:{hm[1]}
               </Text>
             </Grid>
           </Grid>
@@ -181,7 +202,7 @@ const DetailPost = (props) => {
             bold2="500"
             color={color.bg100}
           >
-            {address}
+            {address} {detail_address}
           </Text>
           <GreyLine />
           <GridGap>
@@ -207,7 +228,7 @@ const DetailPost = (props) => {
               {shop}
             </Text>
             <Text width="15rem" size="1.3rem" color={color.bg100}>
-              {orderDate === today ? '오늘' : `${month}월${day}일`} {orderTime}
+              {date_time()}
             </Text>
           </GridGap>
 
@@ -216,7 +237,7 @@ const DetailPost = (props) => {
               {props.valid === false ? (
                 <Grid maxWidth="30rem" margin="1.6rem 0 0 0">
                   <Button
-                    shape="large"
+                    height="4.4rem"
                     radius="1.2rem"
                     bg="#FFF0E1"
                     border="none"
@@ -241,9 +262,23 @@ const DetailPost = (props) => {
                       width="14rem"
                       height="4.4rem"
                       radius="1.2rem"
-                      bg="#FFF0E1"
+                      bg={color.brand20}
                       border="none"
                       color={color.brand100}
+                      size={fontSize.small}
+                      bold={fontSize.bold}
+                      cursor="t"
+                      _onClick={deleteBtn}
+                    >
+                      삭제하기
+                    </Button>
+                    <Button
+                      width="14rem"
+                      height="4.4rem"
+                      radius="1.2rem"
+                      bg={color.brand100}
+                      border="none"
+                      color={color.bg0}
                       size={fontSize.small}
                       bold={fontSize.bold}
                       cursor="t"
@@ -256,74 +291,11 @@ const DetailPost = (props) => {
                     >
                       수정하기
                     </Button>
-                    <Button
-                      width="14rem"
-                      height="4.4rem"
-                      radius="1.2rem"
-                      bg="#FF9425"
-                      border="none"
-                      color={color.bg0}
-                      size={fontSize.small}
-                      bold={fontSize.bold}
-                      cursor="t"
-                      _onClick={deleteBtn}
-                    >
-                      삭제하기
-                    </Button>
                   </Grid>
                 </>
               )}
             </>
           )}
-
-          {/* {props.is_profile && (
-            <Grid
-              text_align="center"
-              is_flex
-              maxWidth="30rem"
-              margin="0 3.4rem 1rem"
-            >
-              {valid === false ? (
-                <Button></Button>
-              ) : (
-                <>
-                  <Button
-                    width="14rem"
-                    height="4.4rem"
-                    radius="1.2rem"
-                    bg="#FFF0E1"
-                    border="none"
-                    color={color.brand100}
-                    size={fontSize.small}
-                    bold={fontSize.bold}
-                    cursor="t"
-                    _onClick={() => {
-                      history.replace({
-                        pathname: `/upload/${post_id}`,
-                        state: { ...props },
-                      });
-                    }}
-                  >
-                    수정하기
-                  </Button>
-                  <Button
-                    width="14rem"
-                    height="4.4rem"
-                    radius="1.2rem"
-                    bg="#FF9425"
-                    border="none"
-                    color={color.bg0}
-                    size={fontSize.small}
-                    bold={fontSize.bold}
-                    cursor="t"
-                    _onClick={deleteBtn}
-                  >
-                    삭제하기
-                  </Button>
-                </>
-              )}
-            </Grid>
-          )} */}
         </Grid>
       </Grid>
 
@@ -381,25 +353,34 @@ const DetailPost = (props) => {
           </Grid>
           <Grid
             maxWidth="30rem"
-            margin="auto"
+            margin="0 auto"
             height="auto"
-            is_fixed="t"
-            bottom="1rem"
+            // is_fixed="t"
+            // bottom="1rem"
           >
             {props.is_me ? (
-              <Grid
-                text_align="center"
-                is_flex
-                maxWidth="30rem"
-                margin="0 3.4rem 1rem"
-              >
+              <Grid text_align="center" is_flex3 maxWidth="30rem" gap="0.8rem">
                 <Button
-                  width="14rem"
-                  height="4.4rem"
+                  width="15.2rem"
+                  height="4.6rem"
                   radius="1.2rem"
                   bg="#FFF0E1"
                   border="none"
                   color={color.brand100}
+                  size={fontSize.small}
+                  bold={fontSize.bold}
+                  cursor="t"
+                  _onClick={deleteBtn}
+                >
+                  삭제하기
+                </Button>
+                <Button
+                  width="15.2rem"
+                  height="4.6rem"
+                  radius="1.2rem"
+                  bg="#FF9425"
+                  border="none"
+                  color={color.bg0}
                   size={fontSize.small}
                   bold={fontSize.bold}
                   cursor="t"
@@ -412,29 +393,9 @@ const DetailPost = (props) => {
                 >
                   수정하기
                 </Button>
-                <Button
-                  width="14rem"
-                  height="4.4rem"
-                  radius="1.2rem"
-                  bg="#FF9425"
-                  border="none"
-                  color={color.bg0}
-                  size={fontSize.small}
-                  bold={fontSize.bold}
-                  cursor="t"
-                  _onClick={deleteBtn}
-                >
-                  삭제하기
-                </Button>
               </Grid>
             ) : (
-              <Grid
-                maxWidth="30rem"
-                height="5rem"
-                margin="0 3rem 1rem 3rem"
-                absolute="absolute"
-                bottom="0"
-              >
+              <Grid maxWidth="30rem" height="5rem">
                 <Button
                   shape="large"
                   color={disabled ? '#EBE9E8' : color.brand100}
@@ -458,7 +419,7 @@ const DetailPost = (props) => {
               </Grid>
             )}
           </Grid>
-          <Grid height="7rem" />
+          <Grid height="1.6rem" />
         </>
       )}
     </React.Fragment>

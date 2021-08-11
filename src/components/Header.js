@@ -1,14 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-import logger from "../shared/Console";
-import { history } from "../redux/configureStore";
-import { customAlert } from "./Sweet";
+import React from 'react';
+import styled from 'styled-components';
+import logger from '../shared/Console';
+import { history } from '../redux/configureStore';
+import { customAlert } from './Sweet';
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-import { Grid, Text } from "../elements";
-import theme from "../styles/theme";
-import { HiOutlineMenu } from "react-icons/hi";
+import { Grid, Text } from '../elements';
+import theme from '../styles/theme';
+import { HiOutlineMenu } from 'react-icons/hi';
 
 const Header = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
@@ -24,12 +24,12 @@ const Header = (props) => {
 
   React.useEffect(() => {
     // 헤더 props로는 page별 상위컴포넌트에서 내려받는 history, shape이 있음
-    logger("헤더 props", props);
+    logger('헤더 props', props);
   }, []);
 
   // shape 홈일때, 지도 api 추가 되면
   // 상위 컴포넌트에서 children 으로 주소 보여줄 수 있을 것 같음
-  if (props.shape === "홈") {
+  if (props.shape === '홈') {
     return (
       <React.Fragment>
         <Grid
@@ -48,13 +48,13 @@ const Header = (props) => {
               if (!is_login) {
                 return customAlert.sweetNeedLogin();
               }
-              history.replace("/address");
+              history.replace('/address');
             }}
           >
-            {is_login ? props.children : "여기를 클릭해서 주소를 설정하세요!"}
+            {is_login ? props.children : '여기를 클릭해서 주소를 설정하세요!'}
           </Text>
           <svg
-            style={{ cursor: "pointer" }}
+            style={{ cursor: 'pointer' }}
             width="20"
             height="20"
             viewBox="0 0 20 20"
@@ -64,7 +64,7 @@ const Header = (props) => {
               if (!is_login) {
                 customAlert.sweetNeedLogin();
               }
-              history.replace("/address");
+              history.replace('/address');
             }}
           >
             <path
@@ -81,7 +81,7 @@ const Header = (props) => {
   }
 
   // 모집글 업로드페이지일때
-  if (props.shape === "글쓰기") {
+  if (props.shape === '글쓰기') {
     return (
       <React.Fragment>
         <Grid
@@ -95,13 +95,13 @@ const Header = (props) => {
           <span
             className="material-icons-outlined"
             style={{
-              fontSize: "1.9rem",
-              position: "absolute",
-              marginLeft: "1.2rem",
-              cursor: "pointer",
+              fontSize: '1.9rem',
+              position: 'absolute',
+              marginLeft: '1.2rem',
+              cursor: 'pointer',
             }}
             onClick={() => {
-              history.replace("/home");
+              history.replace('/home');
             }}
           >
             close
@@ -115,7 +115,7 @@ const Header = (props) => {
   }
 
   // 상세페이지일때,
-  if (props.shape === "상세페이지") {
+  if (props.shape === '상세페이지') {
     return (
       <React.Fragment>
         <Grid
@@ -128,9 +128,9 @@ const Header = (props) => {
         >
           <svg
             style={{
-              position: "absolute",
-              marginLeft: "1.6rem",
-              cursor: "pointer",
+              position: 'absolute',
+              marginLeft: '1.6rem',
+              cursor: 'pointer',
             }}
             width="24"
             height="24"
@@ -170,7 +170,7 @@ const Header = (props) => {
   }
 
   // 나의 채팅 리스트,
-  if (props.shape === "채팅리스트") {
+  if (props.shape === '채팅리스트') {
     return (
       <React.Fragment>
         <Grid
@@ -190,7 +190,7 @@ const Header = (props) => {
   }
 
   // 채팅방,
-  if (props.shape === "채팅방") {
+  if (props.shape === '채팅방') {
     return (
       <React.Fragment>
         <Grid
@@ -205,10 +205,10 @@ const Header = (props) => {
           <Grid width="24px" margin="0 0 0 1.3rem" />
           <svg
             style={{
-              fontSize: "1.9rem",
-              position: "absolute",
-              marginLeft: "1.2rem",
-              cursor: "pointer",
+              fontSize: '1.9rem',
+              position: 'absolute',
+              marginLeft: '1.2rem',
+              cursor: 'pointer',
               zIndex: 1,
             }}
             width="2.4rem"
@@ -217,7 +217,7 @@ const Header = (props) => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             onClick={() => {
-              history.replace("/chatlist");
+              history.replace('/chatlist');
             }}
           >
             <path
@@ -245,9 +245,9 @@ const Header = (props) => {
             size="2.4rem"
             color={color.bg100}
             style={{
-              margin: "0rem 1.2rem 0 0",
-              cursor: "pointer",
-              zIndex: "1",
+              margin: '0rem 1.2rem 0 0',
+              cursor: 'pointer',
+              zIndex: '1',
               // opacity: isOpen ? 0 : 1,
             }}
             onClick={props._onClick}
@@ -258,7 +258,7 @@ const Header = (props) => {
   }
 
   // 마이페이지,
-  if (props.shape === "마이페이지") {
+  if (props.shape === '마이페이지') {
     return (
       <React.Fragment>
         <Grid
@@ -284,7 +284,7 @@ const Header = (props) => {
             margin="0 2rem 0 0"
             cursor="t"
             _onClick={() => {
-              history.push("/profile");
+              history.push('/profile');
             }}
           >
             프로필 수정
@@ -295,12 +295,12 @@ const Header = (props) => {
   }
 
   // 마이페이지 - 프로필 수정,
-  if (props.shape === "프로필수정") {
+  if (props.shape === '프로필수정') {
     return (
       <React.Fragment>
         <Grid
           maxWidth="35.8rem"
-          is_fixed_top="t"
+          is_header="t"
           is_flex4="t"
           height="4.4rem"
           margin="0 auto"
@@ -314,9 +314,9 @@ const Header = (props) => {
             xmlns="http://www.w3.org/2000/svg"
             cursor="pointer"
             onClick={() => {
-              history.replace("/mypage");
+              history.replace('/mypage');
             }}
-            style={{ margin: "0 0 0 1rem" }}
+            style={{ margin: '0 0 0 1rem' }}
           >
             <path
               d="M15 5L7 12L15 19"
@@ -336,7 +336,7 @@ const Header = (props) => {
   }
 
   // 타 유저가 보는 내 프로필
-  if (props.shape === "프로필") {
+  if (props.shape === '프로필') {
     return (
       <React.Fragment>
         <Grid
@@ -357,7 +357,7 @@ const Header = (props) => {
             onClick={() => {
               history.goBack();
             }}
-            style={{ margin: "0 0 0 1rem" }}
+            style={{ margin: '0 0 0 1rem' }}
           >
             <path
               d="M15 5L7 12L15 19"
@@ -377,7 +377,7 @@ const Header = (props) => {
   }
 
   // 마이페이지 - 앱 설정 - 로그아웃, 탈퇴 페이지
-  if (props.shape === "설정") {
+  if (props.shape === '설정') {
     return (
       <React.Fragment>
         <Grid
@@ -396,9 +396,9 @@ const Header = (props) => {
             xmlns="http://www.w3.org/2000/svg"
             cursor="pointer"
             onClick={() => {
-              history.replace("/mypage");
+              history.replace('/mypage');
             }}
-            style={{ margin: "0 0 0 1rem" }}
+            style={{ margin: '0 0 0 1rem' }}
           >
             <path
               d="M15 5L7 12L15 19"
@@ -418,7 +418,7 @@ const Header = (props) => {
   }
 
   // 마이페이지 - 내가 쓴 글
-  if (props.shape === "내가쓴글") {
+  if (props.shape === '내가쓴글') {
     return (
       <React.Fragment>
         <Grid
@@ -437,9 +437,9 @@ const Header = (props) => {
             xmlns="http://www.w3.org/2000/svg"
             cursor="pointer"
             onClick={() => {
-              history.replace("/mypage");
+              history.replace('/mypage');
             }}
-            style={{ margin: "0 0 0 1rem" }}
+            style={{ margin: '0 0 0 1rem' }}
           >
             <path
               d="M15 5L7 12L15 19"
@@ -459,7 +459,7 @@ const Header = (props) => {
   }
 
   // 마이페이지 - 내가 받은 리뷰
-  if (props.shape === "내가받은리뷰") {
+  if (props.shape === '내가받은리뷰') {
     return (
       <React.Fragment>
         <Grid
@@ -478,9 +478,9 @@ const Header = (props) => {
             xmlns="http://www.w3.org/2000/svg"
             cursor="pointer"
             onClick={() => {
-              history.replace("/mypage");
+              history.replace('/mypage');
             }}
-            style={{ margin: "0 0 0 1rem" }}
+            style={{ margin: '0 0 0 1rem' }}
           >
             <path
               d="M15 5L7 12L15 19"
@@ -499,7 +499,7 @@ const Header = (props) => {
     );
   }
   // 검색페이지일때
-  if (props.shape === "검색") {
+  if (props.shape === '검색') {
     return (
       <React.Fragment>
         <Grid
@@ -512,10 +512,10 @@ const Header = (props) => {
         >
           <svg
             style={{
-              fontSize: "1.9rem",
-              position: "absolute",
-              marginLeft: "1.2rem",
-              cursor: "pointer",
+              fontSize: '1.9rem',
+              position: 'absolute',
+              marginLeft: '1.2rem',
+              cursor: 'pointer',
             }}
             width="24"
             height="24"
@@ -523,7 +523,7 @@ const Header = (props) => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             onClick={() => {
-              history.push("/home");
+              history.push('/home');
               // history.goBack();
             }}
           >
@@ -544,7 +544,7 @@ const Header = (props) => {
   }
 
   // 주소 입력페이지일때
-  if (props.shape === "주소입력") {
+  if (props.shape === '주소입력') {
     return (
       <React.Fragment>
         <Grid
@@ -558,14 +558,14 @@ const Header = (props) => {
           <span
             className="material-icons-outlined"
             style={{
-              fontSize: "1.9rem",
-              position: "absolute",
-              marginLeft: "1.2rem",
-              cursor: "pointer",
+              fontSize: '1.9rem',
+              position: 'absolute',
+              marginLeft: '1.2rem',
+              cursor: 'pointer',
             }}
             onClick={() => {
               if (props?.is_home) {
-                return history.replace("/home");
+                return history.replace('/home');
               }
               props?.close();
             }}
@@ -585,9 +585,9 @@ const Header = (props) => {
         <span
           className="material-icons-outlined"
           style={{
-            fontSize: "1.9rem",
-            position: "absolute",
-            marginLeft: "1.2rem",
+            fontSize: '1.9rem',
+            position: 'absolute',
+            marginLeft: '1.2rem',
           }}
         >
           close
@@ -601,7 +601,7 @@ const Header = (props) => {
 };
 
 Header.defaultProps = {
-  shape: "홈",
+  shape: '홈',
   children: null,
   _onClick: () => {},
 };
