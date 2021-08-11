@@ -29,6 +29,7 @@ const Text = (props) => {
     bg,
     radius,
     word_break,
+    text_decoration,
   } = props;
 
   const styles = {
@@ -57,6 +58,7 @@ const Text = (props) => {
     bg: bg,
     radius: radius,
     word_break: word_break,
+    text_decoration: text_decoration,
   };
 
   return (
@@ -67,6 +69,7 @@ const Text = (props) => {
 };
 
 Text.defaultProps = {
+  text_decoration: "",
   children: null,
   bold: false,
   bold2: false,
@@ -124,6 +127,8 @@ const P = styled.p`
   ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
   ${(props) => (props.radius ? `border-radius: ${props.radius};` : '')}
   ${(props) => (props.word_break ? `word-break: ${props.word_break};` : '')}
+  ${(props) => (props.text_decoration ? `text-decoration: ${props.text_decoration};` : '')}
+
 
 `;
 

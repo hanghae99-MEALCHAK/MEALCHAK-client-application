@@ -22,6 +22,7 @@ const Input = (props) => {
     color,
     radius,
     width,
+    flex,
   } = props;
 
   if (multiLine) {
@@ -45,7 +46,7 @@ const Input = (props) => {
 
   return (
     <React.Fragment>
-      <Grid>
+      <Grid display={`${flex}`}>
         {is_submit ? (
           <ElInput
             type={type}
@@ -105,6 +106,7 @@ Input.defaultProps = {
   length: 50,
   color: '#888E95',
   is_submit: false,
+  flex: false,
   onSubmit: () => {},
   _onChange: () => {},
   _onClick: () => {},

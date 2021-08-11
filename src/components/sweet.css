@@ -4,22 +4,53 @@ button {
   height: 4.4rem;
 }
 
+.swal2-title{
+  padding: 0.8rem 0 0 !important;
+}
+
 .border {
   border-radius: 1.2rem !important;
-  max-width: 26.4rem;
+  width: 26.4rem !important;
+  padding: 0.8rem !important;
 }
 
 .confirmButton {
+  align-items: center;
   width: auto !important;
+  border-radius: 1.2rem !important;
+}
+
+.confirm {
+  align-items: center;
+  width: 100% !important;
   border-radius: 1.2rem !important;
 }
 
 .cancelButton {
-  width: auto !important;
+  width: 100% !important;
   border-radius: 1.2rem !important;
 }
 
 .denyButton {
-  width: auto !important;
+  width: 100% !important;
   border-radius: 1.2rem !important;
+}
+
+.gaOeuF {
+  margin: auto;
+}
+
+.gcETRM{
+  margin: auto;
+}
+
+.meal-action-class {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 0.8rem;
+}
+
+html.swal2-shown,
+body.swal2-shown {
+  padding-right: 0 !important;
 }

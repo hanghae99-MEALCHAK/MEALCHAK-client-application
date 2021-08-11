@@ -102,9 +102,11 @@ const kakaoLogin = (code) => {
 const editUserProfileAX = (profile) => {
   return function (dispatch, getState, { history }) {
     let form = new FormData();
-    form.append("username", profile.username);
+    form.append("username", profile.nickname);
     form.append("comment", profile.comment);
     form.append("file", profile.image);
+    form.append("gender", profile.gender);
+    form.append("age", profile.age);
 
     axiosModule
       .put("/userInfo/update", form)
@@ -114,6 +116,8 @@ const editUserProfileAX = (profile) => {
           username: _profile.username,
           comment: _profile.comment,
           profileImg: _profile.profileImg,
+          user_age: _profile.age,
+          user_gender: _profile.gender,
         };
         dispatch(editProfile(profile));
         dispatch(imageActions.setPreview(null));
@@ -127,7 +131,7 @@ const editUserProfileAX = (profile) => {
 
 // 로그인 확인
 // 페이지가 새로고침 되는 상황마다 user check 후 리덕스에 정보 저장
-const loginCheck = () => {
+const loginCheck = (path) => {
   return function (dispatch, getState, { history }) {
     if (token) {
       axiosModule
@@ -141,12 +145,26 @@ const loginCheck = () => {
             user_address: res.data.address,
             user_comment: res.data.comment,
             user_manner: res.data.mannerScore,
+            user_age: res.data.age,
+            user_gender: res.data.gender,
           };
           dispatch(
             setUser({
               ...user_info,
             })
           );
+          if (path === "/profile") {
+            return;
+          } 
+          
+          else {
+            if (!(res.data.age || res.data.gender)) {
+              if(path === "/upload"){
+                return customAlert.sweetConfirmReload("성별/연령이 필요한 기능입니다.", "수정페이지로 이동합니다. 성별과 연령을 체크해주세요 :)", "/profile")
+              }
+              customAlert.sweetAddCheck();
+            }
+          }
         })
         .then(() => {
           // is_login은 안되었는데 토큰 남아있는경우 토큰 지우고 싶은데 방법을 모르겠음
@@ -157,9 +175,10 @@ const loginCheck = () => {
         })
         .catch((e) => {
           logger("로그인 체크 에러", e);
+          dispatch(logOut());
         });
     } else {
-      dispatch(logOut());
+      customAlert.sweetNeedLogin("replace");
     }
   };
 };
@@ -314,13 +333,22 @@ const reviewWriteAX = (manner, review, user_id, nickname) => {
         })
         .then((res) => {
           logger("내가 받은 리뷰 res", res);
-          customAlert.sweetReviewWrite("성공적으로 리뷰를 보냈어요!", `${nickname} 님께`, "따뜻한 마음이 전송되었어요 :)", "goBack");
+          customAlert.sweetReviewWrite(
+            "성공적으로 리뷰를 보냈어요!",
+            `${nickname} 님께`,
+            "따뜻한 마음이 전송되었어요 :)",
+            "goBack"
+          );
           // history.replace("/userprofile");
           // window.location.replace("/userprofile");
         })
         .catch((e) => {
           logger("내가 받은 리뷰 에러", e);
-          customAlert.sweetConfirmReload("이미 리뷰를 작성하셨습니다!", "이전 페이지로 돌아갑니다.", "goBack");
+          customAlert.sweetConfirmReload(
+            "이미 리뷰를 작성하셨습니다!",
+            "이전 페이지로 돌아갑니다.",
+            "goBack"
+          );
         });
     } else {
       dispatch(logOut());
@@ -362,7 +390,7 @@ export default handleActions(
         customAlert.sweetConfirmReload(
           "로그아웃 되었습니다.",
           "또 만나요!",
-          "/home"
+          "/"
         );
       }),
     [LOADING]: (state, action) =>

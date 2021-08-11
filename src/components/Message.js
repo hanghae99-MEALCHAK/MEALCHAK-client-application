@@ -56,22 +56,21 @@ const Message = (props) => {
     );
   }
 
-  // 지금은 닉네임으로 하지만 나중에 서버에서 메세지 작성자 user 정보주면 그걸로하기
+  // 메세지 작성자 user id, 현재 사용자 id 비교
   if (user_info?.user_id === parseInt(messagesInfo.sender_id)) {
-  // if (user_info?.user_nickname === messagesInfo?.sender) {
     return (
       <Grid margin="0 auto 1.6rem" text_align="left">
         <Grid is_flex4="t" justify_content="space-between">
           <Grid />
           <Grid
             is_flex4="t"
-            maxWidth="15rem"
+            maxWidth="28rem"
             flex_direction="row-reverse"
             align_items="flex-end"
           >
             <Grid
               bg={color.brand40}
-              width="auto"
+              width="max-content"
               padding="0.8rem"
               radius="1.2rem 0 1.2rem 1.2rem"
             >

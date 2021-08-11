@@ -19,14 +19,36 @@ const ChatUserItem = (props) => {
   if (shape === "is_me") {
     return (
       <Grid is_flex4="t" padding="0.8rem 0 0.8rem 2rem">
-        <Image src={user_info.user_img}></Image>
+        <Image 
+        cursor="pointer"
+        _onClick={() => {
+          return history.push("/mypage")
+        }}
+        src={user_info.user_img}></Image>
         <Text padding="0 0.5rem" bold2="700" size={fontSize.base}>
           나 ({user_info.user_name})
         </Text>
+        {user_info.user_id === props.own_user_id && (
+          <Text
+            padding="0.1rem"
+            width="2.7rem"
+            height="1.5rem"
+            margin="0 0 0 0.4rem"
+            size={fontSize.tiny}
+            bg={color.brand20}
+            color={color.brand100}
+            radius="0.4rem"
+            bold2="700"
+            text_align="center"
+          >
+            방장
+          </Text>
+        )}
       </Grid>
     );
   }
 
+  // 내가 방장 일때 다른 사람 뷰
   if (owner) {
     return (
       <Grid is_flex4="t" padding="0.8rem 2rem">
@@ -77,6 +99,22 @@ const ChatUserItem = (props) => {
       <Text padding="0 0.5rem" size={fontSize.base}>
         {user_info.user_name}
       </Text>
+      {user_info.user_id === props.own_user_id && (
+        <Text
+          padding="0.1rem"
+          width="2.7rem"
+          height="1.5rem"
+          margin="0 0 0 0.4rem"
+          size={fontSize.tiny}
+          bg={color.brand20}
+          color={color.brand100}
+          radius="0.4rem"
+          bold2="700"
+          text_align="center"
+        >
+          방장
+        </Text>
+      )}
     </Grid>
   );
 };

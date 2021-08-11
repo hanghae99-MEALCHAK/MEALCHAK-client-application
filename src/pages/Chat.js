@@ -44,6 +44,8 @@ const Chat = (props) => {
   const room_id = props.history.location.state.room_id;
   const post_id = props.history.location.state.post_id;
   const own_user_id = props.history.location.state.own_user_id;
+  const order_time = props.history.location.state.order_time;
+
 
   // 채팅 참여 중인 사용자 정보
   const user_in_chat = useSelector((state) => state.chat.userInList);
@@ -58,9 +60,9 @@ const Chat = (props) => {
   React.useEffect(() => {
     logger("chat props", props);
     logger("chat sender info", sender_profile);
-    logger("chat sender info", sender_nick);
+    logger("chat user_in_chat", user_in_chat);
 
-    dispatch(chatActions.moveChatRoom(room_id, roomName, post_id, own_user_id));
+    dispatch(chatActions.moveChatRoom(room_id, roomName, post_id, own_user_id, order_time));
     dispatch(chatActions.getChatMessagesAX());
     dispatch(chatActions.getChatUserAX(room_id));
   }, []);
@@ -214,6 +216,38 @@ const Chat = (props) => {
     }
   };
 
+  // 방장 방폭 함수
+  const sendBreak = () => {
+    try {
+      // 토큰없으면 다시 로그인 시키기
+      if (!token) {
+        customAlert.sweetNeedLogin("replace");
+      }
+      // send할 데이터
+      const data = {
+        type: "BREAK",
+        roomId: room_id,
+        senderId: sender_id,
+        // 강퇴할 사람 user_id
+        message: "방장이 방을 폭파시켰습니다. 안녕히가세요 :)",
+      };
+
+      // 로딩
+      // dispatch(chatActions.loading());
+      waitForConnection(ws, () => {
+        // ws.debug = null;
+
+        ws.send("/pub/message", { token: token }, JSON.stringify(data));
+        logger("강퇴 메세지 상태", ws.ws.readyState);
+        
+      });
+    } catch (e) {
+      customAlert.sweetConfirmReload("방폭 에러", "방폭 요청중 에러 발생", "");
+      logger("message 소켓 함수 에러", e);
+      logger("방폭 메세지 상태", ws.ws.readyState);
+    }
+  };
+
   if (!room_id) {
     return (
       // alert("잘못된 접근입니다")
@@ -240,10 +274,12 @@ const Chat = (props) => {
                 sidebar={
                   <SideContent
                     own_user_id={own_user_id}
+                    order_time={order_time}
                     roomName={roomName}
                     _onClick={onClick}
                     post_id={post_id}
                     sendBen={sendBen}
+                    sendBreak={sendBreak}
                   />
                 }
                 open={isOpen}

@@ -253,7 +253,6 @@ const MyPage = (props) => {
                 <button
                   style={{
                     height: 'auto',
-                    width: '11.7rem',
                     border: 'none',
                     backgroundColor: color.brand20,
                     padding: '0.4rem 0.8rem',

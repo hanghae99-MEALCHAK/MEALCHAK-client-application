@@ -3,6 +3,9 @@ import Select, { components } from "react-select";
 
 import theme from "../styles/theme";
 import { IoChevronDown } from "react-icons/io5";
+
+import { useSelector } from "react-redux";
+
 const { color, fontSize, radius } = theme;
 
 const styles = {
@@ -10,7 +13,7 @@ const styles = {
   app: {
     fontSize: fontSize.base,
     // fontSize: fontSize.small,
-    fontWeight: '400',
+    fontWeight: "400",
   },
 };
 
@@ -18,23 +21,23 @@ const customStyles = {
   // select 부분
   control: (provided, state) => ({
     ...provided,
-    padding: '0.5rem',
+    padding: "0.5rem",
   }),
   // options 부분
   option: (provided, state) => ({
     ...provided,
     color: state.isFocused ? color.brand100 : color.bg100,
     backgroundColor: state.isFocused ? color.brand20 : color.bg0,
-    borderRadius: '1rem',
-    height: '100%',
-    padding: '1rem',
+    borderRadius: "1rem",
+    height: "100%",
+    padding: "1rem",
   }),
 };
 
 const customTheme = (theme) => {
   return {
     ...theme,
-    borderRadius: '1rem',
+    borderRadius: "1rem",
     colors: {
       ...theme.colors,
       primary25: color.brand20,
@@ -112,7 +115,11 @@ export const HeadSelect = (props) => {
             DropdownIndicator,
           }}
           options={props.options}
-          placeholder={props.headCount? `${props.headCount}명`: "모집할 인원 수를 선택해주세요."}
+          placeholder={
+            props.headCount
+              ? `${props.headCount}명`
+              : "모집할 인원 수를 선택해주세요."
+          }
           onChange={(e) => {
             props.setPostInfo({
               ...props.post_info,
@@ -133,19 +140,104 @@ export const CTGSelect = (props) => {
     <React.Fragment>
       <div style={styles.app}>
         <Select
-        menuPlacement="top"
+          menuPlacement="top"
           components={{
             IndicatorSeparator: () => null,
             DropdownIndicator,
           }}
           options={props.options}
-          placeholder={props.foodCategory? `${props.foodCategory}`: "음식 카테고리를 선택해주세요."}
+          placeholder={
+            props.foodCategory
+              ? `${props.foodCategory}`
+              : "음식 카테고리를 선택해주세요."
+          }
           onChange={(e) => {
             props.setPostInfo({
               ...props.post_info,
               foodCategory: e.value,
             });
             props.onChange({ foodCategory: e.value });
+          }}
+          styles={customStyles2}
+          theme={customTheme2}
+        />
+      </div>
+    </React.Fragment>
+  );
+};
+
+export const GenderSelect = (props) => {
+  const user_info = useSelector((state) => state.user.user);
+  const gender = user_info.user_gender === "female"? "여성" : "남성";
+  return (
+    <React.Fragment>
+      <div style={styles.app}>
+        <Select
+          isDisabled={user_info.user_gender ? true : false}
+          components={{
+            IndicatorSeparator: () => null,
+            DropdownIndicator,
+          }}
+          options={props.options}
+          placeholder={
+            user_info.user_gender
+              ? `${gender}`
+              : "성별을 선택해주세요"
+          }
+          onChange={(e) => {
+            props.setProfile({
+              ...props.editProfile,
+              gender: e.value,
+            });
+            props.setDisabled(false);
+          }}
+          styles={customStyles2}
+          theme={customTheme2}
+        />
+      </div>
+    </React.Fragment>
+  );
+};
+
+export const AgeSelect = (props) => {
+  const user_info = useSelector((state) => state.user.user);
+  const age = () => {
+    if(user_info.user_age === "10~19"){
+      return "10대"
+    }
+    if(user_info.user_age === "20~29"){
+      return "20대"
+    }
+    if(user_info.user_age === "30~39"){
+      return "30대"
+    }
+    if(user_info.user_age === "40~49"){
+      return "40대"
+    }
+    if(user_info.user_age === "50~59"){
+      return "50대"
+    }
+  }
+  return (
+    <React.Fragment>
+      <div style={styles.app}>
+        <Select
+          isDisabled={user_info.user_age ? true : false}
+          menuPlacement="top"
+          components={{
+            IndicatorSeparator: () => null,
+            DropdownIndicator,
+          }}
+          options={props.options}
+          placeholder={
+            user_info.user_age ? `${age()}` : "연령대를 선택해주세요."
+          }
+          onChange={(e) => {
+            props.setProfile({
+              ...props.editProfile,
+              age: e.value,
+            });
+            props.setDisabled(false);
           }}
           styles={customStyles2}
           theme={customTheme2}
