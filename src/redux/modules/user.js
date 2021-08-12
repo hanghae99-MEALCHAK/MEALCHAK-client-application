@@ -83,7 +83,7 @@ const kakaoLogin = (code) => {
 
         customAlert.sweetConfirmReload(
           '로그인 성공',
-          `${user_nickname}님 환영합니다.`,
+          null,
           '/home'
         );
       })
@@ -91,7 +91,7 @@ const kakaoLogin = (code) => {
         logger('user 모듈 74 - 소셜로그인 에러', err);
         customAlert.sweetConfirmReload(
           '로그인 오류',
-          '로그인에 실패하였습니다.',
+          ['로그인에 실패하였습니다.'],
           '/'
         ); // 로그인 실패하면 로그인화면으로 돌려보냄
       });
@@ -160,7 +160,11 @@ const loginCheck = (path) => {
           else {
             if (!res.data.age || !res.data.gender) {
               if(path === "/upload"){
-                return customAlert.sweetConfirmReload("성별/연령이 필요한 기능입니다.", "수정페이지로 이동합니다. 성별과 연령을 체크해주세요 :)", "/profile")
+                return customAlert.sweetConfirmReload(
+                  "성별/연령 정보가 필요해요!", 
+                  ["해당 서비스를 사용하려면",
+                  "성별과 연령 정보가 있어야해요."],
+                  "/profile")
               }
               customAlert.sweetAddCheck();
             }
@@ -349,7 +353,7 @@ const reviewWriteAX = (manner, review, user_id, nickname) => {
           logger('내가 받은 리뷰 에러', e);
           customAlert.sweetConfirmReload(
             '이미 리뷰를 작성하셨습니다!',
-            '이전 페이지로 돌아갑니다.',
+            ['이전 페이지로 돌아갑니다.'],
             'goBack'
           );
         });
@@ -392,7 +396,7 @@ export default handleActions(
 
         customAlert.sweetConfirmReload(
           '로그아웃 되었습니다.',
-          '또 만나요!',
+          ['또 만나요!'],
           '/'
         );
       }),

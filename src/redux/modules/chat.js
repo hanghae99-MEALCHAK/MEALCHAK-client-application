@@ -105,7 +105,7 @@ const setChatListAX = () => {
         if (res.data.length === 0) {
           customAlert.sweetConfirmReload(
             '개설된 채팅방 목록이 없습니다.',
-            '채팅을 시작해보세요',
+            ['채팅을 시작해보세요'],
             ''
           );
           return;
@@ -128,7 +128,7 @@ const setChatListAX = () => {
       .catch((e) => {
         customAlert.sweetConfirmReload(
           '채팅방 목록조회에 실패했습니다.',
-          '메인페이지로 돌아갑니다.',
+          ['메인페이지로 돌아갑니다.'],
           'history'
         );
         logger('나의 채팅방 목록 조회 에러', e);
@@ -166,7 +166,7 @@ const getChatMessagesAX = () => {
       .catch((e) => {
         customAlert.sweetConfirmReload(
           '불러오기 실패',
-          '채팅방 메세지 불러오기에 실패했습니다.',
+          ['채팅방 메세지 불러오기에 실패했습니다.'],
           ''
         );
         logger('채팅 메세지 불러오기 실패', e);
@@ -184,13 +184,13 @@ const chatAllowAX = (joinId, boolean) => {
         if (boolean === true) {
           customAlert.sweetConfirmReload(
             '수락 완료',
-            '수락이 완료되었습니다.',
+            ['수락이 완료되었습니다.'],
             ''
           );
         } else {
           customAlert.sweetConfirmReload(
             '거절 완료',
-            '수락 거절이 완료되었습니다.',
+            ['수락 거절이 완료되었습니다.'],
             ''
           );
         }
@@ -226,7 +226,7 @@ const requestChatListAX = () => {
         logger('방장 승인 대기 목록 에러', e);
         customAlert.sweetConfirmReload(
           '목록 조회 실패',
-          '승인 대기 목록 조회에 실패했습니다.',
+          ['승인 대기 목록 조회에 실패했습니다.'],
           '/chatlist'
         );
       });
@@ -259,7 +259,7 @@ const awaitChatListAX = () => {
         logger('신청자 승인 요청 목록 에러', e);
         customAlert.sweetConfirmReload(
           '목록 조회 실패',
-          '승인 대기 목록 조회에 실패했습니다.',
+          ['승인 대기 목록 조회에 실패했습니다.'],
           '/home'
         );
       });
@@ -272,8 +272,8 @@ const awaitChatOut = (join_id) => {
       .delete(`/posts/join/request/${join_id}`)
       .then((res) => {
         customAlert.sweetConfirmReload(
-          '대기가 취소되었습니다.',
-          '대기 취소 완료',
+          '승인 요청 취소 완료',
+          ['승인 요청이 성공적으로 취소 됐어요.'],
           '/chatlist'
         );
       })
@@ -282,7 +282,7 @@ const awaitChatOut = (join_id) => {
         logger('대기 취소 에러', e);
         customAlert.sweetConfirmReload(
           '대기 승인 취소 실패',
-          '대기 승인 취소에 실패했습니다.',
+          ['대기 승인 취소에 실패했습니다.'],
           ''
         );
       });
@@ -310,7 +310,7 @@ const getChatUserAX = (roomId) => {
         logger('채팅 참여 유저 목록확인 에러', e);
         customAlert.sweetConfirmReload(
           '사용자 조회 실패',
-          '채팅에 참여중인 사용자를 조회하는 것에 실패했습니다.',
+          ['채팅에 참여중인 사용자를 조회하는 것에 실패했습니다.'],
           'goBack'
         );
       });
@@ -349,7 +349,7 @@ export default handleActions(
           if (parseInt(now_user) === parseInt(m.message)) {
             customAlert.sweetConfirmReload(
               '강퇴알림',
-              '현재 방에서 강퇴당하셨습니다. 채팅목록으로 돌아갑니다.',
+              ['현재 방에서 강퇴당하셨습니다.', '채팅목록으로 돌아갑니다.'],
               '/chatlist'
             );
           } else {
@@ -370,7 +370,7 @@ export default handleActions(
           } else {
             customAlert.sweetConfirmReload(
               "채팅방 삭제 알림",
-              `${m.message}`,
+              [`${m.message}`],
               "/break"
             );
           }

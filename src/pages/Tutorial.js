@@ -28,7 +28,7 @@ const Tutorial = (props) => {
     if (is_login) {
       customAlert.sweetConfirmReload(
         '로그인 한 사용자입니다.',
-        '홈으로 돌아갑니다.',
+        ['홈으로 돌아갑니다.'],
         'history'
       );
     }
@@ -53,7 +53,7 @@ const Tutorial = (props) => {
             <Grid margin="2rem auto">
               <TutorialSwiper></TutorialSwiper>
             </Grid>
-            <Grid height="6rem"></Grid>
+            {/* <Grid height="6rem"></Grid> */}
             <Grid
               is_flex4="t"
               justify_content="center"

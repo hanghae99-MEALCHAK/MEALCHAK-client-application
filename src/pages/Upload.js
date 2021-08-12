@@ -79,7 +79,7 @@ const Upload = React.memo((props) => {
     if (!post_info.title || post_info.title === '') {
       customAlert.sweetConfirmReload(
         '빈칸이 있습니다.',
-        '모집글의 제목을 입력해주세요.',
+        ['모집글의 제목을 입력해주세요.'],
         ''
       );
       return;
@@ -87,23 +87,25 @@ const Upload = React.memo((props) => {
     if (!post_info.contents || post_info.contents === '') {
       customAlert.sweetConfirmReload(
         '빈칸이 있습니다.',
-        '모집글의 내용을 입력해주세요.',
+        ['모집글의 내용을 입력해주세요.'],
         ''
       );
       return;
     }
     if (!post_info?.place || post_info?.place === '') {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 약속 장소를 입력해주세요.',
+        '앗 상세 주소를 입력해주세요',
+        ['더치페이를 위해 모집원을 만날',
+        '상세 주소가 필요해요.'],
         ''
       );
       return;
     }
     if (!post_info?.detail_place || post_info?.detail_place === '') {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 상세주소를 입력해주세요.',
+        '앗 상세 주소를 입력해주세요',
+        ['더치페이를 위해 모집원을 만날',
+        '상세 주소가 필요해요.'],
         ''
       );
       return;
@@ -111,7 +113,7 @@ const Upload = React.memo((props) => {
     if (!post_info.restaurant || post_info.restaurant === '') {
       customAlert.sweetConfirmReload(
         '빈칸이 있습니다.',
-        '배달 예정인 식당을 입력해주세요.',
+        ['배달 예정인 식당을 입력해주세요.'],
         ''
       );
       return;
@@ -119,7 +121,7 @@ const Upload = React.memo((props) => {
     if (!post_info.headCount || post_info.headCount === '0') {
       customAlert.sweetConfirmReload(
         '빈칸이 있습니다.',
-        '모집원의 인원 수를 입력해주세요.',
+        ['모집원의 인원 수를 입력해주세요.'],
         ''
       );
       return;
@@ -140,7 +142,7 @@ const Upload = React.memo((props) => {
       if (time_now > select_time) {
         return customAlert.sweetConfirmReload(
           '모집 예정시간을 확인해주세요',
-          '현재시간보다 과거로 설정되었습니다.',
+          ['현재시간보다 과거로 설정되었습니다.'],
           ''
         );
       }
@@ -149,7 +151,7 @@ const Upload = React.memo((props) => {
     if (!post_info.foodCategory || post_info.foodCategory === '') {
       customAlert.sweetConfirmReload(
         '빈칸이 있습니다.',
-        '모집을 희망하는 식품의 카테고리를 입력해주세요.',
+        ['모집을 희망하는 식품의 카테고리를 입력해주세요.'],
         ''
       );
       return;
@@ -166,48 +168,50 @@ const Upload = React.memo((props) => {
     // 모집글 작성 시 상위, 하위 컴포넌트들에서 올바르지 않은 value있을때 처리하는 과정
     if (!post_info.title || post_info.title === '') {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '모집글의 제목을 입력해주세요.',
+        '빈칸이 있습니다',
+        ['모집글의 제목을 입력해주세요.'],
         ''
       );
       return;
     }
     if (!post_info.contents || post_info.contents === '') {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '모집글의 내용을 입력해주세요.',
+        '빈칸이 있습니다',
+        ['모집글의 내용을 입력해주세요.'],
         ''
       );
       return;
     }
     if (!post_info.place || post_info.place === '') {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 약속 장소를 입력해주세요.',
+        '앗 상세 주소를 입력해주세요',
+        ['더치페이를 위해 모집원을 만날',
+        '상세 주소가 필요해요.'],
         ''
       );
       return;
     }
     if (!post_info?.detail_place || post_info?.detail_place === '') {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 상세주소를 입력해주세요.',
+        '앗 상세 주소를 입력해주세요',
+        ['더치페이를 위해 모집원을 만날',
+        '상세 주소가 필요해요.'],
         ''
       );
       return;
     }
     if (!post_info.restaurant || post_info.restaurant === '') {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '배달 예정인 식당을 입력해주세요.',
+        '빈칸이 있습니다',
+        ['배달 예정인 식당을 입력해주세요.'],
         ''
       );
       return;
     }
     if (!post_info.headCount || post_info.headCount === '0') {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '모집원의 인원 수를 입력해주세요.',
+        '빈칸이 있습니다',
+        ['모집원의 인원 수를 입력해주세요.'],
         ''
       );
       return;
@@ -224,7 +228,7 @@ const Upload = React.memo((props) => {
       if (time_now > select_time) {
         return customAlert.sweetConfirmReload(
           '모집 예정시간을 확인해주세요',
-          '현재시간보다 과거로 설정되었습니다.',
+          ['현재시간보다 과거로 설정되었습니다.'],
           ''
         );
       }
@@ -232,7 +236,7 @@ const Upload = React.memo((props) => {
     if (!post_info.foodCategory || post_info.foodCategory === '') {
       customAlert.sweetConfirmReload(
         '빈칸이 있습니다.',
-        '모집을 희망하는 식품의 카테고리를 입력해주세요.',
+        ['모집을 희망하는 식품의 카테고리를 입력해주세요.'],
         ''
       );
       return;

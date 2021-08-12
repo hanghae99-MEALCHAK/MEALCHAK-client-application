@@ -68,8 +68,8 @@ const ProfileEdit = (props) => {
           if(res){
             dispatch(userAction.editUserProfileAX({ ...editProfile }));
             customAlert.sweetConfirmReload(
-              "프로필이 수정되었습니다.",
-              null,
+              "프로필 수정 완료",
+              ["멋진 프로필이시네요!"],
               "/mypage")
           }
           else {
@@ -77,19 +77,19 @@ const ProfileEdit = (props) => {
           }
         })
       } else {
-        customAlert.sweetConfirmReload("성별/ 연령", "필수항목입니다.", "");
+        customAlert.sweetConfirmReload("성별/ 연령", ["필수항목입니다."], "");
       }
     } else {
       // 프로필 age, gender 둘다 이미 있는 사람
       if (editProfile.gender && editProfile.age) {
         dispatch(userAction.editUserProfileAX({ ...editProfile }));
         customAlert.sweetConfirmReload(
-          "프로필이 수정되었습니다.",
-          null,
+          "프로필 수정 완료",
+          ["멋진 프로필이시네요!"],
           "/mypage"
         );
       } else {
-        customAlert.sweetConfirmReload("성별/ 연령", "필수항목입니다.", "");
+        customAlert.sweetConfirmReload("성별/ 연령", ["필수항목입니다."], "");
       }
     }
   };

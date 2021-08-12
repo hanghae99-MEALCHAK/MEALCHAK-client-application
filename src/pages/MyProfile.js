@@ -145,8 +145,8 @@ const MyProfile = (props) => {
                 radius={radius.button}
               >
                 <Text
-                  width={!other_user?.user_gender ? "4.5rem" : "3.1rem"}
-                  height={!other_user?.user_gender ? "2.4rem" : "2.7rem"}
+                  width={!other_user?.user_gender ? '4.5rem' : '3.1rem'}
+                  height={!other_user?.user_gender ? '2.4rem' : '2.7rem'}
                   size={
                     !other_user?.user_gender ? fontSize.base : fontSize.display4
                   }
@@ -154,13 +154,13 @@ const MyProfile = (props) => {
                   text_align="center"
                   line_height="150%"
                   margin={
-                    !other_user?.user_gender ? "0.5rem 0 0 0" : "0.1rem 0 0 0"
+                    !other_user?.user_gender ? '0.5rem 0 0 0' : '0.1rem 0 0 0'
                   }
-                  padding={!other_user?.user_gender ? "0 0 2.6rem 0" : ""}
+                  padding={!other_user?.user_gender ? '0 0 2.6rem 0' : ''}
                   color={color.brand100}
                 >
                   {other_user?.user_gender ? (
-                    other_user?.user_gender === "male" ? (
+                    other_user?.user_gender === 'male' ? (
                       <svg
                         width="2.4rem"
                         height="2.4rem"
@@ -239,7 +239,7 @@ const MyProfile = (props) => {
                       </svg>
                     )
                   ) : (
-                    "미입력"
+                    '미입력'
                   )}
                 </Text>
                 <Text
@@ -277,17 +277,17 @@ const MyProfile = (props) => {
                   padding="0 0 2.6rem 0"
                   margin="0.5rem 0 0 0"
                 >
-                  {other_user.user_age?.includes("1")
-                    ? "10대"
-                    : other_user.user_age?.includes("2")
-                    ? "20대"
-                    : other_user.user_age?.includes("3")
-                    ? "30대"
-                    : other_user.user_age?.includes("4")
-                    ? "40대"
-                    : other_user.user_age?.includes("5")
-                    ? "50대"
-                    : "미입력"}
+                  {other_user?.user_age.includes('1')
+                    ? '10대'
+                    : other_user?.user_age.includes('2')
+                    ? '20대'
+                    : other_user?.user_age.includes('3')
+                    ? '30대'
+                    : other_user?.user_age.includes('4')
+                    ? '40대'
+                    : other_user?.user_age.includes('5')
+                    ? '50대'
+                    : '미입력'}
                 </Text>
                 <Text
                   width="4rem"

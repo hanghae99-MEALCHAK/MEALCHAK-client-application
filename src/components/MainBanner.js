@@ -22,7 +22,7 @@ const MainBanner = (props) => {
 
   const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post?.list);
-  const rank_list = Object.values(props);
+  const rank_list = useSelector((state) => state.post?.rank);
 
   logger("MainBanner props : ", props);
 

@@ -31,7 +31,7 @@ const TutorialSwiper = (props) => {
           <SwiperSlide>
             <Grid shape="container">
               <Grid maxWidth="36rem">
-                <ElIntro src="/illust/introA_3x.png"></ElIntro>
+                <ElIntro src="/illust/introA_2x.png"></ElIntro>
               </Grid>
               <Grid>
                 <Text

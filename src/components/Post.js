@@ -58,14 +58,8 @@ const Post = (props) => {
     if (is_tomorrow) {
       return `내일 ${hm[0]}:${hm[1]}`;
     }
-    if (
-      parseInt(today.split('-').join('')) >
-      parseInt(props.insert_dt.split(' ')[0].split('-').join(''))
-    ) {
-      return false;
-    } else {
-      return `${ym[1]}월 ${day[0]}일 ${hm[0]}:${hm[1]}`;
-    }
+
+    return `${ym[1]}월 ${day[0]}일 ${hm[0]}:${hm[1]}`;
   };
 
   React.useEffect(() => {
@@ -256,7 +250,7 @@ const Post = (props) => {
                   color={color.bg80}
                   margin="0.7rem 0"
                 >
-                  주문 예정 시각
+                  예상 만남 시간
                 </Text>
                 <Text
                   width="13.6rem"
