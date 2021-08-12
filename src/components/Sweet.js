@@ -41,7 +41,7 @@ const sweetConfirmReload = (msg_title, msg_content, path) => {
       ),
       confirmButtonColor: color.brand100,
       confirmButtonText: (
-        <Grid width="15rem" is_flex2  margin="auto">
+        <Grid width="15rem" is_flex2 margin="auto">
           <Text padding="0" color={color.bg0}>
             확인
           </Text>
@@ -112,7 +112,7 @@ const sweetReviewWrite = (msg_title, msg_name, msg_content, path) => {
       ),
       confirmButtonColor: color.brand100,
       confirmButtonText: (
-        <Grid width="15rem" is_flex2 margin="auto">
+        <Grid width="15rem" is_flex2  margin="auto">
           <Text padding="0" color={color.bg0}>
             확인
           </Text>

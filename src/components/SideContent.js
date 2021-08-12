@@ -52,12 +52,12 @@ const SideContent = (props) => {
 
   // 방 나가기 사용자 방장 구분 후 실행하는 함수
   const get_out_chat = (post_id) => {
-    if (my_id === own_user_id){
-      customAlert.SweetBreak(props.sendBreak, post_id)
+    if (my_id === own_user_id) {
+      customAlert.SweetBreak(props.sendBreak, post_id);
     } else {
       customAlert.SweetOutChat(post_id);
     }
-  }
+  };
 
   React.useEffect(() => {
     logger("사용자 목록", user_in_chat);
@@ -68,18 +68,20 @@ const SideContent = (props) => {
 
   return (
     <React.Fragment>
-      <Container>
         <Grid shape="container" text_align="left">
           <Grid
-            borderBottom={border.line2}
-            padding="1.6rem 2rem"
-            display="inline-table"
+            padding="1.6rem 2rem 0.4rem"
             flex_direction="column"
           >
             <Text size={fontSize.base} bold2="700">
               {props.roomName}
             </Text>
+          </Grid>
 
+          <Grid
+          padding="0 2rem 1.6rem"
+          borderBottom={border.line2}
+          >
             {date_time() ? (
               <Text
                 size={fontSize.small}
@@ -184,15 +186,9 @@ const SideContent = (props) => {
             </Text>
           </Grid>
         </Grid>
-      </Container>
     </React.Fragment>
   );
 };
 
-const Container = styled.div`
-  display: grid;
-  grid-template-rows: 5rem 5rem auto 5rem;
-  grid-auto-rows: minmax(100vh, auto);
-`;
 
 export default SideContent;

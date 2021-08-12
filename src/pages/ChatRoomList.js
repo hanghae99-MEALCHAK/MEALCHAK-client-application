@@ -51,7 +51,7 @@ const ChatRoomList = (props) => {
         order_time
       )
     );
-    history.replace({
+    history.push({
       pathname: '/chatting',
       state: {
         room_id: room_id,
