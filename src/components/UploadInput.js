@@ -423,7 +423,7 @@ const FocusWithinSelect = styled.div`
 `;
 
 const SDatePicker = styled(DatePicker)`
-  width: auto;
+  width: 18rem;
   height: 5rem;
   padding: 1.4rem 1.6rem;
   font-size: 1.4rem;
