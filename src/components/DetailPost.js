@@ -313,15 +313,15 @@ const DetailPost = (props) => {
             </Text>
             {chat_user_list.map((p, idx) => {
               return (
-                <Grid key={idx} is_flex4 margin="0.4rem 0">
+                <Grid key={idx} is_flex4 margin="0.8rem 0">
                   <Image
                     shape="circle"
                     src={p.user_img}
                     size="3"
                     margin="0 0.8rem 0 0"
-                    cursor={user_info.user_id !== p.user_id ? 't' : ''}
+                    cursor={user_info?.user_id !== p.user_id ? 't' : ''}
                     _onClick={() => {
-                      if (user_info.user_id !== p.user_id) {
+                      if (user_info?.user_id !== p.user_id) {
                         history.push({
                           pathname: '/userprofile',
                           state: { ...p },

@@ -1,20 +1,20 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as userAction } from '../redux/modules/user';
-import { actionCreators as imageActions } from '../redux/modules/image';
+import React from "react";
+import styled from "styled-components";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as userAction } from "../redux/modules/user";
+import { actionCreators as imageActions } from "../redux/modules/image";
 
 // select
-import { GenderSelect, AgeSelect } from '../components/ReactSelect';
+import { GenderSelect, AgeSelect } from "../components/ReactSelect";
 
 // style
-import { Button, Grid, Input, Text } from '../elements';
-import { customAlert } from '../components/Sweet';
-import { Header } from '../components';
-import Spinner from '../shared/Spinner';
-import logger from '../shared/Console';
-import theme from '../styles/theme';
+import { Button, Grid, Input, Text } from "../elements";
+import { customAlert } from "../components/Sweet";
+import { Header } from "../components";
+import Spinner from "../shared/Spinner";
+import logger from "../shared/Console";
+import theme from "../styles/theme";
 
 const ProfileEdit = (props) => {
   const { color, border, radius, fontSize, btn_border } = theme;
@@ -25,22 +25,22 @@ const ProfileEdit = (props) => {
   const preview = useSelector((state) => state.image?.preview);
 
   const gender_options = [
-    { value: 'female', label: '여성' },
-    { value: 'male', label: '남성' },
+    { value: "female", label: "여성" },
+    { value: "male", label: "남성" },
   ];
 
   const age_options = [
-    { value: '10~19', label: '10대' },
-    { value: '20~29', label: '20대' },
-    { value: '30~39', label: '30대' },
-    { value: '40~49', label: '40대' },
-    { value: '50~59', label: '50대' },
+    { value: "10~19", label: "10대" },
+    { value: "20~29", label: "20대" },
+    { value: "30~39", label: "30대" },
+    { value: "40~49", label: "40대" },
+    { value: "50~59", label: "50대" },
   ];
 
   const [disabled, setDisabled] = useState(true);
   const [editProfile, setProfile] = useState({
     nickname: user_info?.user_nickname,
-    comment: user_info?.user_comment ? user_info?.user_comment : '',
+    comment: user_info?.user_comment ? user_info?.user_comment : "",
     image: user_info?.user_profile,
     gender: user_info?.user_gender ? user_info?.user_gender : null,
     age: user_info?.user_age ? user_info?.user_age : null,
@@ -64,18 +64,20 @@ const ProfileEdit = (props) => {
 
     if (!user_info?.user_age && !user_info?.user_gender) {
       if (editProfile.gender && editProfile.age) {
-        customAlert.sweetUserInfo(editProfile.age, editProfile.gender).then((res) => {
-          if(res){
-            dispatch(userAction.editUserProfileAX({ ...editProfile }));
-            customAlert.sweetConfirmReload(
-              "프로필이 수정되었습니다.",
-              null,
-              "/mypage")
-          }
-          else {
-            return;
-          }
-        })
+        customAlert
+          .sweetUserInfo(editProfile.age, editProfile.gender)
+          .then((res) => {
+            if (res) {
+              dispatch(userAction.editUserProfileAX({ ...editProfile }));
+              customAlert.sweetConfirmReload(
+                "프로필이 수정되었습니다.",
+                null,
+                "/mypage"
+              );
+            } else {
+              return;
+            }
+          });
       } else {
         customAlert.sweetConfirmReload("성별/ 연령", "필수항목입니다.", "");
       }
@@ -157,16 +159,16 @@ const ProfileEdit = (props) => {
               id="input-file"
               ref={fileInput}
               onChange={selectFile}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
             />
-            <label htmlFor="input-file" value={editProfile.image || ''}>
+            <label htmlFor="input-file" value={editProfile.image || ""}>
               <svg
                 width="30"
                 height="30"
                 viewBox="0 0 30 30"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                style={{ margin: '3.5rem 0 0 3.8rem' }}
+                style={{ margin: "3.5rem 0 0 3.8rem" }}
               >
                 <path
                   d="M5 12.5558C5 11.4204 5.9204 10.5 7.05576 10.5V10.5C7.83809 10.5 8.55262 10.056 8.89902 9.35449L9.81482 7.5C9.99871 7.12761 10.0907 6.94142 10.2076 6.78792C10.5048 6.39791 10.9348 6.13064 11.4161 6.03689C11.6055 6 11.8132 6 12.2285 6H17.7715C18.1868 6 18.3945 6 18.5839 6.03689C19.0652 6.13064 19.4952 6.39791 19.7924 6.78792C19.9093 6.94142 20.0013 7.12761 20.1852 7.5L21.101 9.35449C21.4474 10.056 22.1619 10.5 22.9442 10.5V10.5C24.0796 10.5 25 11.4204 25 12.5558V18.2143C25 20.8349 25 22.1452 24.2369 22.999C24.1621 23.0827 24.0827 23.1621 23.999 23.2369C23.1452 24 21.8349 24 19.2143 24H10.7857C8.16513 24 6.85484 24 6.00096 23.2369C5.91728 23.1621 5.83786 23.0827 5.76307 22.999C5 22.1452 5 20.8349 5 18.2143V12.5558Z"
@@ -258,23 +260,33 @@ const ProfileEdit = (props) => {
           >
             성별
           </Text>
-
           <Grid
             width="32rem"
             minWidth="32rem"
             border={border.bg40}
             radius="1.2rem"
             height="auto"
+            bg={user_info?.user_gender ? "#eee" : ""}
           >
-            <GenderSelect
-              options={gender_options}
-              value={editProfile.gender}
-              setProfile={setProfile}
-              setDisabled={setDisabled}
-              editProfile={editProfile}
-              onChange={props.onChange}
-              gender={editProfile.gender}
-            />
+            {user_info?.user_gender ? (
+              <Text
+                size={fontSize.base}
+                color={color.bg80}
+                padding="1.4rem 0 1.4rem 1.6rem"
+              >
+                {user_info.user_gender === "male" ? "남성" : "여성"}
+              </Text>
+            ) : (
+              <GenderSelect
+                options={gender_options}
+                value={editProfile.gender}
+                setProfile={setProfile}
+                setDisabled={setDisabled}
+                editProfile={editProfile}
+                onChange={props.onChange}
+                gender={editProfile.gender}
+              />
+            )}
           </Grid>
         </Grid>
 
@@ -297,16 +309,32 @@ const ProfileEdit = (props) => {
             border={border.bg40}
             radius="1.2rem"
             height="auto"
+            bg={user_info?.user_age ? "#eee" : ""}
           >
-            <AgeSelect
-              options={age_options}
-              value={editProfile.age}
-              setProfile={setProfile}
-              setDisabled={setDisabled}
-              editProfile={editProfile}
-              onChange={props.onChange}
-              age={editProfile.age}
-            />
+            {user_info?.user_age ? (
+              <Text
+                size={fontSize.base}
+                color={color.bg80}
+                padding="1.4rem 0 1.4rem 1.6rem"
+              >
+                {age_options.map((p) => {
+                  if (p.value === user_info.user_age) {
+                    return p.label;
+                  }
+                  return null;
+                })}
+              </Text>
+            ) : (
+              <AgeSelect
+                options={age_options}
+                value={editProfile.age}
+                setProfile={setProfile}
+                setDisabled={setDisabled}
+                editProfile={editProfile}
+                onChange={props.onChange}
+                age={editProfile.age}
+              />
+            )}
           </Grid>
         </Grid>
 
