@@ -48,12 +48,7 @@ const Search = (props) => {
           </Header>
           <Grid height="4.4rem" />
         </Grid>
-        <Grid
-          is_flex4="t"
-          height="4.4rem"
-          margin="1.6rem auto 1.8rem auto"
-          bg="#ffffff"
-        >
+        <Grid is_flex4="t" height="4.4rem" margin="1.6rem auto 0 auto">
           <Grid width="32rem" margin="auto">
             <Input
               padding="1.4rem 1.6rem"
@@ -64,6 +59,7 @@ const Search = (props) => {
               _onChange={onChange}
               onSubmit={search}
               is_submit
+              style={{ margin: '1.6rem 0' }}
             ></Input>
           </Grid>
 
@@ -71,7 +67,7 @@ const Search = (props) => {
             <svg
               style={{
                 marginTop: '0.5rem',
-                marginLeft: '28rem',
+                marginLeft: '27.5rem',
                 fontSize: '1.9rem',
                 position: 'absolute',
                 cursor: 'pointer',
@@ -130,7 +126,7 @@ const Search = (props) => {
             />
           </svg>
         </Grid>
-        <Grid is_flex2 width="32rem" margin="1.5rem auto">
+        <Grid is_flex2 width="32rem" margin="2.15rem auto">
           <Grid>
             <Text size="1.3rem" color="#9A9896" bold2="500">
               정렬 기준

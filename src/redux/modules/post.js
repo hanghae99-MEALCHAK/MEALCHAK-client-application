@@ -146,9 +146,9 @@ const addPostAX = (post_info) => {
         dispatch(chatActions.setChatListAX());
 
         customAlert.sweetConfirmReload(
-          "작성 완료",
-          "모집글 작성이 완료되었습니다.",
-          "/home"
+          '작성 완료',
+          ['모집글 작성이 완료되었습니다.'],
+          '/home'
         );
 
         // dispatch(locateActions.setAddressNull());
@@ -214,8 +214,8 @@ const editPostAX = (post_id, post_info) => {
         dispatch(editPost(post_id, post));
 
         customAlert.sweetConfirmReload(
-          "수정 완료",
-          "모집글 수정이 완료되었습니다.",
+          '수정 완료',
+          ['모집글 수정이 완료되었습니다.'],
           `/post/${post_id}`
         );
         // customAlert.sweetConfirmReload("수정 완료", '모집글 수정이 완료되었습니다.', `/home`);
@@ -232,10 +232,11 @@ const deletePostAX = (post_id) => {
     sweet
       .fire({
         customClass: {
-          popup: "border",
-          confirmButton: "confirmButton",
-          cancelButton: "cancelButton",
-          denyButton: "denyButton",
+          popup: 'border',
+          confirmButton: 'confirmButton',
+          cancelButton: 'cancelButton',
+          denyButton: 'denyButton',
+          actions: "meal-action-class",
         },
         width: "auto",
         padding: "0 1rem 1rem",
@@ -253,8 +254,8 @@ const deletePostAX = (post_id) => {
         ),
         showDenyButton: true,
         denyButtonText: (
-          <Grid width="9rem" is_flex2>
-            <Text padding="0 2rem" color={color.brand100}>
+          <Grid width="9rem" is_flex2 margin="auto">
+            <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
               취소
             </Text>
           </Grid>
@@ -262,13 +263,14 @@ const deletePostAX = (post_id) => {
         denyButtonColor: color.brand20,
         confirmButtonColor: color.brand100,
         confirmButtonText: (
-          <Grid width="9rem" is_flex2>
-            <Text padding="0" color={color.bg0}>
+          <Grid width="9rem" is_flex2 margin="auto">
+            <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
               삭제하기
             </Text>
           </Grid>
         ),
         focusConfirm: false,
+        reverseButtons: true,
       })
       .then((res) => {
         if (res.isConfirmed) {
@@ -277,17 +279,17 @@ const deletePostAX = (post_id) => {
             .then(() => {
               dispatch(deletePost(post_id));
               customAlert.sweetConfirmReload(
-                "삭제가 완료 됐어요",
-                "선택하신 게시글이 삭제되었어요.",
-                "/home"
+                '삭제가 완료 됐어요',
+                ['선택하신 게시글이 삭제되었어요.'],
+                '/home'
               );
             })
             .catch((e) => {
               logger("삭제 에러", e);
               customAlert.sweetConfirmReload(
-                "삭제 오류",
-                "게시글 삭제 요청 중 에러가 발생했습니다.",
-                "/home"
+                '삭제 오류',
+                ['게시글 삭제 요청 중 에러가 발생했습니다.'],
+                '/home'
               );
             });
         } else if (res.isDenied) {

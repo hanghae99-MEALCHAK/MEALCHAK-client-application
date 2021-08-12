@@ -164,7 +164,7 @@ const SideContent = (props) => {
           align_items="flex-end"
           justify_content="space-between"
           flex
-          padding="1.3rem 2.4rem"
+          padding="1.3rem 2rem"
           height="auto"
           bg={color.bg0}
         >
@@ -181,6 +181,7 @@ const SideContent = (props) => {
               color={color.brand100}
               cursor="pointer"
               _onClick={props._onClick}
+              bold2={fontSize.medium}              
             >
               닫기
             </Text>

@@ -18,9 +18,9 @@ const { color, fontSize } = theme;
 const sweet = withReactContent(Swal);
 
 // 단순 확인 알럿
-// 최상위 제목으로 들어올값, 내용, 주소이동 필요 시 리로드될 주소를 파람값으로 받음
+// 최상위 제목으로 들어올값, 내용(array), 주소이동 필요 시 리로드될 주소를 파람값으로 받음
 // 기본 적으로 처음 함수 만들때 리로드 목적으로 만들어서 path 값 조건 확인 후 사용
-const sweetConfirmReload = (msg_title, msg_content, path) => {
+const sweetConfirmReload = (msg_title, msg_content_array, path) => {
   return sweet
     .fire({
       customClass: {
@@ -34,15 +34,19 @@ const sweetConfirmReload = (msg_title, msg_content, path) => {
           <Text size={fontSize.base} bold2="700" margin="0 auto 1rem">
             {msg_title}
           </Text>
-          <Text size={fontSize.small} word_break="keep-all">
-            {msg_content}
-          </Text>
+          {msg_content_array?.map((p, idx) => {
+            return (
+              <Text size={fontSize.small} word_break="keep-all" key={idx}>
+                {p}
+              </Text>    
+            )
+          })}
         </Grid>
       ),
       confirmButtonColor: color.brand100,
       confirmButtonText: (
         <Grid width="15rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.bg0}>
+          <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
             확인
           </Text>
         </Grid>
@@ -112,8 +116,8 @@ const sweetReviewWrite = (msg_title, msg_name, msg_content, path) => {
       ),
       confirmButtonColor: color.brand100,
       confirmButtonText: (
-        <Grid width="15rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.bg0}>
+        <Grid width="15rem" is_flex2  margin="auto">
+          <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
             확인
           </Text>
         </Grid>
@@ -208,14 +212,14 @@ const sweetPromise = (title, message1, message2, confirmText) => {
       showCancelButton: true,
       cancelButtonColor: color.brand20,
       cancelButtonText: (
-        <Text padding="0" color={color.brand100}>
-          취소
+        <Text padding="0" color={color.brand100} bold2={fontSize.bold}> 
+          닫기
         </Text>
       ),
       confirmButtonColor: color.brand100,
       confirmButtonText: (
         <Grid is_flex2 margin="auto">
-          <Text padding="0" color={color.bg0}>
+          <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
             {confirmText}
           </Text>
         </Grid>
@@ -260,14 +264,14 @@ const sweetNeedLogin = (way) => {
       showCancelButton: true,
       cancelButtonColor: color.brand20,
       cancelButtonText: (
-        <Text padding="0" color={color.brand100}>
+        <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
           닫기
         </Text>
       ),
       confirmButtonColor: color.brand100,
       confirmButtonText: (
         <Grid is_flex2 margin="auto">
-          <Text padding="0" color={color.bg0}>
+          <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
             확인
           </Text>
         </Grid>
@@ -311,7 +315,7 @@ const sweetWA = () => {
       cancelButtonColor: color.brand20,
       cancelButtonText: (
         <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.brand100}>
+          <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
             닫기
           </Text>
         </Grid>
@@ -319,7 +323,7 @@ const sweetWA = () => {
       confirmButtonColor: color.brand100,
       confirmButtonText: (
         <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.bg0}>
+          <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
             확인
           </Text>
         </Grid>
@@ -350,13 +354,13 @@ const sweetAddCheck = () => {
       title: (
         <Grid>
           <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
-            아직 성별/연령 체크가 안되었어요!
+            성별/연령 정보를 알려주세요!
           </Text>
           <Text size={fontSize.small}>
-            아직 사용자님에 대해 모르는 게 많아요!
+            밀착의 모든 서비스를 사용하려면
           </Text>
           <Text size={fontSize.small}>
-            마이페이지에서 성별과 연령을 체크해주세요 :)
+            성별과 연령 정보가 있어야해요.
           </Text>
         </Grid>
       ),
@@ -364,16 +368,16 @@ const sweetAddCheck = () => {
       cancelButtonColor: color.brand20,
       cancelButtonText: (
         <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.brand100}>
-            나중에하기
+          <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
+            나중에 하기
           </Text>
         </Grid>
       ),
       confirmButtonColor: color.brand100,
       confirmButtonText: (
         <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.bg0}>
-            수정하기
+          <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
+            입력하기
           </Text>
         </Grid>
       ),
@@ -430,11 +434,11 @@ const sweetUserInfo = (age, gender) => {
       title: (
         <Grid>
           <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
-            꼼꼼하게 확인해주세요!
+            입력한 성별/연령 정보가 맞나요?
           </Text>
           <Text size={fontSize.small}>
-            성별/연령은 한번 선택시 수정이 어려워요 :( <br />
-            다시 한 번 확인하고 저장을 눌러주세요!
+            성별/연령은 한번 선택 시, 수정이 어려우니 <br />
+            맞게 선택했는지 확인해주세요.
           </Text>
           <Grid margin="1.6rem auto">
             <Text size={fontSize.base}>성별: {gender_label}</Text>
@@ -445,16 +449,16 @@ const sweetUserInfo = (age, gender) => {
       showCancelButton: true,
       cancelButtonColor: color.brand20,
       cancelButtonText: (
-        <Grid width="9rem" margin="auto">
-          <Text padding="0" color={color.brand100}>
-            다시입력하기
+        <Grid width="9rem" is_flex2 margin="auto">
+          <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
+            다시 입력하기
           </Text>
         </Grid>
       ),
       confirmButtonColor: color.brand100,
       confirmButtonText: (
-        <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.bg0}>
+        <Grid width="9rem" is_flex2  margin="auto">
+          <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
             저장하기
           </Text>
         </Grid>
@@ -496,16 +500,16 @@ const sweetEditError = (path) => {
       showCancelButton: false,
       cancelButtonColor: color.brand20,
       cancelButtonText: (
-        <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.brand100}>
+        <Grid width="9rem" is_flex2  margin="auto">
+          <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
             닫기
           </Text>
         </Grid>
       ),
       confirmButtonColor: color.brand100,
       confirmButtonText: (
-        <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.bg0}>
+        <Grid width="9rem" is_flex2  margin="auto">
+          <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
             확인
           </Text>
         </Grid>
@@ -521,10 +525,6 @@ const sweetEditError = (path) => {
       }
     });
 };
-
-// const JoinChat = (props) => {
-//   const dipatch = useDispatch()
-// }
 
 // 채팅 신청 알럿
 // 메인 페이지 포스트, 검색, 디테일 페이지 포스트 3군데 달아야함
@@ -549,8 +549,8 @@ const SweetChatRequest = (user_id, post_user_id, post_id) => {
         text: "채팅 탭으로 이동하시겠습니까?",
         showDenyButton: true,
         denyButtonText: (
-          <Grid width="9rem" is_flex2 margin="auto">
-            <Text padding="0" color={color.brand100}>
+          <Grid width="9rem" is_flex2  margin="auto">
+            <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
               닫기
             </Text>
           </Grid>
@@ -558,8 +558,8 @@ const SweetChatRequest = (user_id, post_user_id, post_id) => {
         denyButtonColor: color.brand20,
         confirmButtonColor: color.brand100,
         confirmButtonText: (
-          <Grid width="9rem" is_flex2 margin="auto">
-            <Text padding="0" color={color.bg0}>
+          <Grid width="9rem" is_flex2  margin="auto">
+            <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
               확인
             </Text>
           </Grid>
@@ -590,16 +590,22 @@ const SweetChatRequest = (user_id, post_user_id, post_id) => {
         padding: "0 1rem 1rem",
         title: (
           <Grid>
-            <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
-              채팅방 신청하시겠습니까?
+            <Text margin="0 auto 0" size={fontSize.base} bold2="700">
+              채팅방에 참여하시겠어요?
+            </Text>
+          </Grid>
+        ),        
+        html: (
+          <Grid>
+            <Text size={fontSize.small} color={color.bg100} line_height="150%">
+              참여하기를 누르면, 방장에게<br />승인 요청을 보낼게요!
             </Text>
           </Grid>
         ),
-        text: "신청확인을 누르면\n방장에게 승인요청을 보냅니다",
         showDenyButton: true,
         denyButtonText: (
           <Grid width="9rem" is_flex2 margin="auto">
-            <Text padding="0" color={color.brand100}>
+            <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
               취소
             </Text>
           </Grid>
@@ -608,8 +614,8 @@ const SweetChatRequest = (user_id, post_user_id, post_id) => {
         confirmButtonColor: color.brand100,
         confirmButtonText: (
           <Grid width="9rem" is_flex2 margin="auto">
-            <Text padding="0" color={color.bg0}>
-              요청하기
+            <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
+              참여하기
             </Text>
           </Grid>
         ),
@@ -625,13 +631,14 @@ const SweetChatRequest = (user_id, post_user_id, post_id) => {
               if (res.data === "이미 신청한 글입니다") {
                 sweetConfirmReload(
                   "이미 신청한 방입니다.",
-                  "승인 대기 중이니 기다려주세요.",
+                  ["승인 대기 중이니 기다려주세요."],
                   ""
                 );
               } else {
                 sweetConfirmReload(
-                  "신청이 완료되었습니다.",
-                  "채팅탭에서 확인가능합니다.",
+                  "방장에게 승인 요청을 보냈어요",
+                  ["채팅 탭에서 승인 대기 중인",
+                  "채팅을 확인하실 수 있어요."],
                   ""
                 );
               }
@@ -640,7 +647,7 @@ const SweetChatRequest = (user_id, post_user_id, post_id) => {
               logger("채팅방 참여 승인 요청 에러", e);
             });
         } else if (res.isDenied) {
-          sweetConfirmReload("요청 취소", "승인 요청이 취소되었습니다.", "");
+          sweetConfirmReload("요청 취소", ["승인 요청이 취소되었습니다."], "");
         } else {
           return;
         }
@@ -670,8 +677,8 @@ const SweetAllowChat = (join_id) => {
       text: "수락을 누르면 채팅방으로 초대됩니다.",
       showDenyButton: true,
       denyButtonText: (
-        <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.brand100}>
+        <Grid width="9rem" is_flex2  margin="auto">
+          <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
             취소
           </Text>
         </Grid>
@@ -680,7 +687,7 @@ const SweetAllowChat = (join_id) => {
       confirmButtonColor: color.brand100,
       confirmButtonText: (
         <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.bg0}>
+          <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
             수락
           </Text>
         </Grid>
@@ -696,7 +703,7 @@ const SweetAllowChat = (join_id) => {
             logger("승인 수락 res", res);
             sweetConfirmReload(
               "수락 완료",
-              "수락이 완료되었습니다.",
+              ["수락이 완료되었습니다."],
               "/allowchat"
             );
           })
@@ -704,7 +711,7 @@ const SweetAllowChat = (join_id) => {
             logger("채팅방 참여 승인 요청 에러", e);
             sweetConfirmReload(
               "승인 요청 에러",
-              "채팅방 참여 승인 요청 중 에러가 발생했습니다",
+              ["채팅방 참여 승인 요청 중 에러가 발생했습니다"],
               ""
             );
           });
@@ -738,8 +745,8 @@ const SweetDenyChat = (join_id) => {
       text: "거절을 누르면 요청이 삭제됩니다.",
       showDenyButton: true,
       denyButtonText: (
-        <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.brand100}>
+        <Grid width="9rem" is_flex2  margin="auto">
+          <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
             취소
           </Text>
         </Grid>
@@ -747,8 +754,8 @@ const SweetDenyChat = (join_id) => {
       denyButtonColor: color.brand20,
       confirmButtonColor: color.brand100,
       confirmButtonText: (
-        <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.bg0}>
+        <Grid width="9rem" is_flex2  margin="auto">
+          <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
             거절
           </Text>
         </Grid>
@@ -764,7 +771,7 @@ const SweetDenyChat = (join_id) => {
             logger("승인 거절 res", res);
             sweetConfirmReload(
               "거절 완료",
-              "수락 거절이 완료되었습니다.",
+              ["수락 거절이 완료되었습니다."],
               "/allowchat"
             );
           })
@@ -772,7 +779,7 @@ const SweetDenyChat = (join_id) => {
             logger("채팅방 참여 승인 요청 에러", e);
             sweetConfirmReload(
               "승인 요청 에러",
-              "채팅방 참여 승인 요청 중 에러가 발생했습니다",
+              ["채팅방 참여 승인 요청 중 에러가 발생했습니다"],
               ""
             );
           });
@@ -806,8 +813,8 @@ const SweetOutChat = (post_id) => {
       text: "나가기를 하면 대화내용이 모두 삭제되고 채팅목록에서도 삭제됩니다.",
       showDenyButton: true,
       denyButtonText: (
-        <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.brand100}>
+        <Grid width="9rem" is_flex2  margin="auto">
+          <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
             취소
           </Text>
         </Grid>
@@ -815,8 +822,8 @@ const SweetOutChat = (post_id) => {
       denyButtonColor: color.brand20,
       confirmButtonColor: color.brand100,
       confirmButtonText: (
-        <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.bg0}>
+        <Grid width="9rem" is_flex2  margin="auto">
+          <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
             나가기
           </Text>
         </Grid>
@@ -831,7 +838,7 @@ const SweetOutChat = (post_id) => {
           .then((res) => {
             sweetConfirmReload(
               "나가기 완료",
-              "채팅방 나가기가 완료되었습니다.",
+              ["채팅방 나가기가 완료되었습니다."],
               "/chatlist"
             );
           })
@@ -839,7 +846,7 @@ const SweetOutChat = (post_id) => {
             logger("채팅방 나가기 요청 에러", e);
             sweetConfirmReload(
               "나가기 요청 에러",
-              "채팅방 나가기 요청 중 에러가 발생했습니다",
+              ["채팅방 나가기 요청 중 에러가 발생했습니다"],
               ""
             );
           });
@@ -874,7 +881,7 @@ const SweetBen = (sendBen, other_user_id, other_user_name) => {
       showDenyButton: true,
       denyButtonText: (
         <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.brand100}>
+          <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
             취소
           </Text>
         </Grid>
@@ -883,7 +890,7 @@ const SweetBen = (sendBen, other_user_id, other_user_name) => {
       confirmButtonColor: color.brand100,
       confirmButtonText: (
         <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.bg0}>
+          <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
             퇴장 시키기
           </Text>
         </Grid>
@@ -925,7 +932,7 @@ const SweetBreak = (sendBreak, post_id) => {
       showDenyButton: true,
       denyButtonText: (
         <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.brand100}>
+          <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
             취소
           </Text>
         </Grid>
@@ -934,7 +941,7 @@ const SweetBreak = (sendBreak, post_id) => {
       confirmButtonColor: color.brand100,
       confirmButtonText: (
         <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.bg0}>
+          <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
             나가기
           </Text>
         </Grid>
@@ -949,7 +956,7 @@ const SweetBreak = (sendBreak, post_id) => {
           .then((res) => {
             sweetConfirmReload(
               "나가기 완료",
-              "채팅방 나가기가 완료되었습니다.",
+              ["채팅방 나가기가 완료되었습니다."],
               "/chatlist"
             );
             sendBreak();
@@ -958,7 +965,7 @@ const SweetBreak = (sendBreak, post_id) => {
             logger("채팅방 나가기 요청 에러", e);
             sweetConfirmReload(
               "나가기 요청 에러",
-              "채팅방 나가기 요청 중 에러가 발생했습니다",
+              ["채팅방 나가기 요청 중 에러가 발생했습니다"],
               ""
             );
           });
@@ -971,7 +978,7 @@ const SweetBreak = (sendBreak, post_id) => {
 };
 
 const customAlert = {
-  sweetConfirmReload,
+  sweetConfirmReload,  
   sweetReviewWrite,
   sweetNeedLogin,
   sweetWA,

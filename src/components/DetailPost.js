@@ -66,14 +66,8 @@ const DetailPost = (props) => {
     if (is_tomorrow) {
       return `내일 ${hm[0]}:${hm[1]}`;
     }
-    if (
-      parseInt(today.split('-').join('')) >
-      parseInt(insert_dt.split(' ')[0].split('-').join(''))
-    ) {
-      return false;
-    } else {
-      return `${ym[1]}월 ${day[0]}일 ${hm[0]}:${hm[1]}`;
-    }
+
+    return `${ym[1]}월 ${day[0]}일 ${hm[0]}:${hm[1]}`;
   };
 
   React.useEffect(() => {
@@ -115,7 +109,25 @@ const DetailPost = (props) => {
       >
         <Grid>
           <Grid is_flex>
-            <UserProfile src={userImg} />
+            <UserProfile
+              src={userImg}
+              onClick={() => {
+                if (is_login) {
+                  if (user_info.user_id === props.user_id) {
+                    return history.push({
+                      pathname: '/myprofile',
+                      state: { ...props },
+                    });
+                  }
+                  history.push({
+                    pathname: '/userprofile',
+                    state: { ...props },
+                  });
+                } else {
+                  customAlert.sweetNeedLogin();
+                }
+              }}
+            />
             <Grid>
               <Grid is_flex>
                 <Text size={fontSize.small} color={color.bg100} bold2="500">
@@ -321,11 +333,19 @@ const DetailPost = (props) => {
                     margin="0 0.8rem 0 0"
                     cursor={user_info?.user_id !== p.user_id ? 't' : ''}
                     _onClick={() => {
-                      if (user_info?.user_id !== p.user_id) {
+                      if (is_login) {
+                        if (user_info?.user_id === p.user_id) {
+                          return history.push({
+                            pathname: '/myprofile',
+                            state: { ...p },
+                          });
+                        }
                         history.push({
                           pathname: '/userprofile',
                           state: { ...p },
                         });
+                      } else {
+                        customAlert.sweetNeedLogin();
                       }
                     }}
                   ></Image>

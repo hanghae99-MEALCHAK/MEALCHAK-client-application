@@ -40,7 +40,7 @@ const PostAddress = React.memo((props) => {
     window.scrollTo(0, 0);
     if (address === "") return;
     dispatch(locateActions.getMyPostCoordAX(address));
-    customAlert.sweetConfirmReload("설정 완료", "주소 설정이 완료되었습니다.", "");
+    customAlert.sweetConfirmReload("설정 완료", ["주소 설정이 완료되었습니다."], "");
   }, [address]);
 
   return (

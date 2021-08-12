@@ -48,7 +48,9 @@ const theme = {
     base: '1.6rem',
     small: '1.3rem',
     tiny: '1rem',
-    bold: '600',
+    regular: '400',
+    medium: '500',
+    bold: '700',
   },
   //   view: {
   //     mobile: `(max-width: 767px)`,

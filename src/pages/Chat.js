@@ -223,15 +223,15 @@ const Chat = (props) => {
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
         logger("강퇴 메세지 상태", ws.ws.readyState);
         customAlert.sweetConfirmReload(
-          "퇴장 시키기 완료",
-          `${other_user_name}님이 퇴장 되었습니다.`,
-          ""
+          '퇴장 시키기 완료',
+          [`${other_user_name}님이 퇴장 되었습니다.`],
+          ''
         );
       });
     } catch (e) {
-      customAlert.sweetConfirmReload("퇴장 에러", "퇴장 요청중 에러 발생", "");
-      logger("message 소켓 함수 에러", e);
-      logger("강퇴 메세지 상태", ws.ws.readyState);
+      customAlert.sweetConfirmReload('퇴장 에러', ['퇴장 요청중 에러 발생'], '');
+      logger('message 소켓 함수 에러', e);
+      logger('강퇴 메세지 상태', ws.ws.readyState);
     }
   };
 
@@ -259,9 +259,9 @@ const Chat = (props) => {
         logger("강퇴 메세지 상태", ws.ws.readyState);
       });
     } catch (e) {
-      customAlert.sweetConfirmReload("방폭 에러", "방폭 요청중 에러 발생", "");
-      logger("message 소켓 함수 에러", e);
-      logger("방폭 메세지 상태", ws.ws.readyState);
+      customAlert.sweetConfirmReload('방폭 에러', ['방폭 요청중 에러 발생'], '');
+      logger('message 소켓 함수 에러', e);
+      logger('방폭 메세지 상태', ws.ws.readyState);
     }
   };
 
