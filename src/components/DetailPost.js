@@ -313,7 +313,7 @@ const DetailPost = (props) => {
             </Text>
             {chat_user_list.map((p, idx) => {
               return (
-                <Grid key={idx} is_flex4 margin="0.4rem 0">
+                <Grid key={idx} is_flex4 margin="0.8rem 0">
                   <Image
                     shape="circle"
                     src={p.user_img}

@@ -260,23 +260,33 @@ const ProfileEdit = (props) => {
           >
             성별
           </Text>
-
           <Grid
             width="32rem"
             minWidth="32rem"
             border={border.bg40}
             radius="1.2rem"
             height="auto"
+            bg={user_info?.user_gender ? "#eee" : ""}
           >
-            <GenderSelect
-              options={gender_options}
-              value={editProfile.gender}
-              setProfile={setProfile}
-              setDisabled={setDisabled}
-              editProfile={editProfile}
-              onChange={props.onChange}
-              gender={editProfile.gender}
-            />
+            {user_info?.user_gender ? (
+              <Text
+                size={fontSize.base}
+                color={color.bg80}
+                padding="1.4rem 0 1.4rem 1.6rem"
+              >
+                {user_info.user_gender === "male" ? "남성" : "여성"}
+              </Text>
+            ) : (
+              <GenderSelect
+                options={gender_options}
+                value={editProfile.gender}
+                setProfile={setProfile}
+                setDisabled={setDisabled}
+                editProfile={editProfile}
+                onChange={props.onChange}
+                gender={editProfile.gender}
+              />
+            )}
           </Grid>
         </Grid>
 
@@ -299,16 +309,32 @@ const ProfileEdit = (props) => {
             border={border.bg40}
             radius="1.2rem"
             height="auto"
+            bg={user_info?.user_age ? "#eee" : ""}
           >
-            <AgeSelect
-              options={age_options}
-              value={editProfile.age}
-              setProfile={setProfile}
-              setDisabled={setDisabled}
-              editProfile={editProfile}
-              onChange={props.onChange}
-              age={editProfile.age}
-            />
+            {user_info?.user_age ? (
+              <Text
+                size={fontSize.base}
+                color={color.bg80}
+                padding="1.4rem 0 1.4rem 1.6rem"
+              >
+                {age_options.map((p) => {
+                  if (p.value === user_info.user_age) {
+                    return p.label;
+                  }
+                  return null;
+                })}
+              </Text>
+            ) : (
+              <AgeSelect
+                options={age_options}
+                value={editProfile.age}
+                setProfile={setProfile}
+                setDisabled={setDisabled}
+                editProfile={editProfile}
+                onChange={props.onChange}
+                age={editProfile.age}
+              />
+            )}
           </Grid>
         </Grid>
 

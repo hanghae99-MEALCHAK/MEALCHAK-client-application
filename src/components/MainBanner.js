@@ -22,7 +22,7 @@ const MainBanner = (props) => {
 
   const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post?.list);
-  const rank_list = Object.values(props);
+  const rank_list = useSelector((state) => state.post?.rank);
 
   logger("MainBanner props : ", props);
 
@@ -56,6 +56,12 @@ const MainBanner = (props) => {
                     if (p.category === "한식") {
                       dispatch(postActions.getPostAX(p.category));
                       props?.getCategory({ kr: true });
+                      props?.getCtg(p.category);
+                      props?.getSort();
+                    }
+                    if (p.category === "분식") {
+                      dispatch(postActions.getPostAX(p.category));
+                      props?.getCategory({ bunsik: true });
                       props?.getCtg(p.category);
                       props?.getSort();
                     }

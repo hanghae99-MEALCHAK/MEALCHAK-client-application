@@ -1,14 +1,14 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as chatActions } from '../redux/modules/chat';
-import { history } from '../redux/configureStore';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as chatActions } from "../redux/modules/chat";
+import { history } from "../redux/configureStore";
 
 // style
-import styled from 'styled-components';
-import { Header, Footer, AllowList } from '../components';
-import { Button, Grid, Image, Text } from '../elements';
-import theme from '../styles/theme';
-import logger from '../shared/Console';
+import styled from "styled-components";
+import { Header, Footer, AllowList } from "../components";
+import { Button, Grid, Image, Text } from "../elements";
+import theme from "../styles/theme";
+import logger from "../shared/Console";
 
 const AllowChat = (props) => {
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const AllowChat = (props) => {
               padding="0 2rem"
               margin="auto"
               _onClick={() => {
-                history.push('/chatlist');
+                history.push("/chatlist");
               }}
               cursor="pointer"
             >
@@ -60,7 +60,7 @@ const AllowChat = (props) => {
               padding="0 2rem"
               margin="auto"
               _onClick={() => {
-                history.push('/allowchat');
+                history.push("/allowchat");
               }}
               cursor="pointer"
             >
@@ -91,9 +91,9 @@ const AllowChat = (props) => {
               <Grid height="20rem"></Grid>
             </>
           )}
-          <Footer {...props}></Footer>
         </Grid>
       </Grid>
+      <Footer {...props}></Footer>
     </React.Fragment>
   );
 };

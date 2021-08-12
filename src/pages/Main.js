@@ -27,7 +27,7 @@ const Main = (props) => {
   const post_list = useSelector((state) => state.post?.list);
   const rank_list = useSelector((state) => state.post?.rank);
 
-  const [ctg, setCtg] = React.useState('');
+  const [ctg, setCtg] = React.useState("");
   const [sort, setSort] = React.useState({
     recent: true,
     nearBy: false,
@@ -44,6 +44,9 @@ const Main = (props) => {
   });
 
   React.useEffect(() => {
+    document
+      .querySelector("body")
+      .scrollTo({ top: 0, left: 0, behavior: "instant" });
     if (post_list.length === 0) {
       dispatch(postActions.getPostAX("전체"));
       setCtg("전체");
@@ -64,7 +67,6 @@ const Main = (props) => {
           <Header {...props} shape="홈">
             {user?.user_address}
           </Header>
-          <Footer {...props}></Footer>
         </Grid>
         <Grid width="36rem" margin="0 0 1rem 0">
           <Button
@@ -94,7 +96,7 @@ const Main = (props) => {
               style={{
                 position: "absolute",
                 top: "6.5rem",
-                margin: "0 0 0 12rem",
+                margin: "0.1rem 0 0 12rem",
               }}
               width="24"
               height="24"
@@ -145,7 +147,11 @@ const Main = (props) => {
           align_items="center"
           padding="2rem 0 1.6rem 0"
         >
-          <Swiper className="category" slidesPerView="7">
+          <Swiper
+            className="category"
+            slidesPerView="7"
+            style={{ transform: "none" }}
+          >
             <SwiperSlide style={{ width: "3rem", textAlign: "center" }}>
               <Text
                 width="3rem"
@@ -155,7 +161,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0.1rem 0.5rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category.all ? '0.2rem solid black' : ''}
+                border_bottom={category.all ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, all: true });
@@ -174,7 +180,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category.kr ? '0.2rem solid black' : ''}
+                border_bottom={category.kr ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, kr: true });
@@ -194,7 +200,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category.kr ? "0.2rem solid black" : ""}
+                border_bottom={category.bunsik ? "0.2rem solid black" : "none"}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, bunsik: true });
@@ -214,7 +220,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category.cn ? '0.2rem solid black' : ''}
+                border_bottom={category.cn ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, cn: true });
@@ -234,7 +240,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category.jp ? '0.2rem solid black' : ''}
+                border_bottom={category.jp ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, jp: true });
@@ -254,7 +260,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category?.west ? '0.2rem solid black' : ''}
+                border_bottom={category?.west ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, west: true });
@@ -274,7 +280,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category.cafe ? '0.2rem solid black' : ''}
+                border_bottom={category.cafe ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, cafe: true });
@@ -294,7 +300,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category.etc ? '0.2rem solid black' : ''}
+                border_bottom={category.etc ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, etc: true });
@@ -317,7 +323,7 @@ const Main = (props) => {
           <Grid flex justify_content="flex-end">
             <Text
               size="1.3rem"
-              color={sort?.recent ? '#ff9425' : '#cecac7'}
+              color={sort?.recent ? "#ff9425" : "#cecac7"}
               bold
               cursor="t"
               // getPostAX(category, sort="recent") - 기본 정렬(sort)값이 recent(마감임박순)
@@ -330,7 +336,7 @@ const Main = (props) => {
             </Text>
             <Text
               size="1.3rem"
-              color={sort?.nearBy ? '#ff9425' : '#cecac7'}
+              color={sort?.nearBy ? "#ff9425" : "#cecac7"}
               bold
               margin="0 0 0 1rem"
               cursor="t"
@@ -385,12 +391,9 @@ const Main = (props) => {
               </Grid>
             </React.Fragment>
           )}
-          {post_list.length > 1 ? (
-            <Grid height="6rem" />
-          ) : (
-            <Grid height="8.4rem" />
-          )}
+          {post_list.length === 0 && <Grid height="8.4rem" />}
         </Grid>
+        <Footer {...props}></Footer>
       </Grid>
     </React.Fragment>
   );
