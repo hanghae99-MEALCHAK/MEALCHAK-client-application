@@ -1,14 +1,16 @@
-import React from "react";
-import styled from "styled-components";
-import { actionCreators as postActions } from "../redux/modules/post";
-import { useDispatch, useSelector } from "react-redux";
-import { history } from "../redux/configureStore";
+import React from 'react';
+import styled from 'styled-components';
+import { actionCreators as postActions } from '../redux/modules/post';
+import { useDispatch, useSelector } from 'react-redux';
+import { history } from '../redux/configureStore';
 
 // style
-import { Grid, Image, Text, Button } from "../elements";
-import { customAlert } from "./Sweet";
-import theme from "../styles/theme";
-import logger from "../shared/Console";
+import { Grid, Image, Text, Button } from '../elements';
+import { customAlert } from './Sweet';
+import theme from '../styles/theme';
+import logger from '../shared/Console';
+
+import moment from 'moment';
 
 const Post = (props) => {
   const { color, fontSize } = theme;
@@ -19,6 +21,12 @@ const Post = (props) => {
   const day = ym[2].split(' ');
   // 시, 분
   const hm = day[1].split(':');
+
+  // 오늘 표시
+  const today = moment().format('YYYY-MM-DD');
+  const tomorrow = moment().add(1, 'd').format('YYYY-MM-DD');
+  const is_today = today === props.orderDate ? true : false;
+  const is_tomorrow = tomorrow === props.orderDate ? true : false;
 
   const is_login = useSelector((state) => state.user.is_login);
   const user_info = useSelector((state) => state.user.user);
@@ -39,6 +47,24 @@ const Post = (props) => {
       return;
     } else {
       customAlert.sweetNeedLogin();
+    }
+  };
+
+  // 날짜에 따라서 오늘 내일 변겨 함수
+  const date_time = () => {
+    if (is_today) {
+      return `오늘 ${hm[0]}:${hm[1]}`;
+    }
+    if (is_tomorrow) {
+      return `내일 ${hm[0]}:${hm[1]}`;
+    }
+    if (
+      parseInt(today.split('-').join('')) >
+      parseInt(props.insert_dt.split(' ')[0].split('-').join(''))
+    ) {
+      return false;
+    } else {
+      return `${ym[1]}월 ${day[0]}일 ${hm[0]}:${hm[1]}`;
     }
   };
 
@@ -70,12 +96,12 @@ const Post = (props) => {
                 if (is_login) {
                   if (user_info.user_id === props.user_id) {
                     return history.push({
-                      pathname: "/myprofile",
+                      pathname: '/myprofile',
                       state: { ...props },
                     });
                   }
                   history.push({
-                    pathname: "/userprofile",
+                    pathname: '/userprofile',
                     state: { ...props },
                   });
                 } else {
@@ -240,7 +266,7 @@ const Post = (props) => {
                   color="#36373C"
                   margin="0.8rem 0"
                 >
-                  {props.orderTime}
+                  {date_time()}
                 </Text>
               </Grid>
             </Grid>

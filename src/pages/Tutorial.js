@@ -66,7 +66,7 @@ const Tutorial = (props) => {
               padding="1rem 0"
               gap="1.6rem"
             >
-              <Grid width="40%">
+              <Grid width="42%">
                 <Button
                   // margin="1.6rem auto"
                   height="5rem"
@@ -87,7 +87,7 @@ const Tutorial = (props) => {
                   </Text>
                 </Button>
               </Grid>
-              <Grid width="40%">
+              <Grid width="42%">
                 <Button
                   bg="#FEE500"
                   height="5rem"
