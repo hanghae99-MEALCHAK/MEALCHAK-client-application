@@ -22,7 +22,7 @@ const ChatUserItem = (props) => {
         <Image 
         cursor="pointer"
         _onClick={() => {
-          return history.push("/mypage")
+          return history.push("/myprofile")
         }}
         src={user_info.user_img}></Image>
         <Text padding="0 0.5rem" bold2="700" size={fontSize.base}>

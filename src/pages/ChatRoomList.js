@@ -17,7 +17,7 @@ const ChatRoomList = (props) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(userAction.loginCheck());
+    dispatch(userAction.loginCheck("/chatlist"));
     if (token) {
       dispatch(chatActions.setChatListAX());
       dispatch(chatActions.awaitChatListAX());
@@ -106,7 +106,7 @@ const ChatRoomList = (props) => {
               </Text>
             </Grid>
           </Grid>
-          {chat_list.map((info, idx) => {
+          {chat_list?.map((info, idx) => {
             return (
               <ChatListItem
                 key={idx}
@@ -128,7 +128,7 @@ const ChatRoomList = (props) => {
             );
           })}
 
-          {await_list.map((info, idx) => {
+          {await_list?.map((info, idx) => {
             return (
               <AwaitList
                 key={idx}
@@ -138,7 +138,7 @@ const ChatRoomList = (props) => {
             );
           })}
 
-          {await_list.length === 0 && chat_list.length === 0 && (
+          {await_list?.length === 0 && chat_list?.length === 0 && (
             <>
               <Grid shape="empty" src="illust/emptyBubbles.png">
                 <EmptyText theme={theme}>아직 채팅 내용이 없어요.</EmptyText>

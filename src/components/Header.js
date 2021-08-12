@@ -81,7 +81,7 @@ const Header = (props) => {
   }
 
   // 모집글 업로드페이지일때
-  if (props.shape === '글쓰기') {
+  if (props.shape === '모임 만들기') {
     return (
       <React.Fragment>
         <Grid
@@ -107,7 +107,7 @@ const Header = (props) => {
             close
           </span>
           <Text margin="auto" size="1.6rem" bold>
-            {props.children}
+            모임 만들기
           </Text>
         </Grid>
       </React.Fragment>

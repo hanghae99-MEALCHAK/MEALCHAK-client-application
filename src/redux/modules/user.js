@@ -1,27 +1,27 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
-import axiosModule from '../axios_module';
-import jwtDecode from 'jwt-decode';
-import { customAlert } from '../../components/Sweet';
-import { Text } from '../../elements';
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import axiosModule from "../axios_module";
+import jwtDecode from "jwt-decode";
+import { customAlert } from "../../components/Sweet";
+import { Text } from "../../elements";
 
-import { actionCreators as imageActions } from './image';
+import { actionCreators as imageActions } from "./image";
 
 // 개발환경 console.log() 관리용
-import logger from '../../shared/Console';
+import logger from "../../shared/Console";
 
 // token
-import { token } from '../../shared/OAuth';
+import { token } from "../../shared/OAuth";
 
 // Action
-const SET_USER = 'SET_USER';
-const SET_ANOTHER_USER = 'SET_ANOTHER_USER';
-const SET_MYREVIEW = 'SET_MYREVIEW';
-const SET_MYPOST = 'SET_MYPOST';
-const LOG_OUT = 'LOG_OUT';
-const LOADING = 'LOADING';
-const EDIT_PROFILE = 'EDIT_PROFILE';
-const EDIT_ADDRESS = 'EDIT_ADDRESS';
+const SET_USER = "SET_USER";
+const SET_ANOTHER_USER = "SET_ANOTHER_USER";
+const SET_MYREVIEW = "SET_MYREVIEW";
+const SET_MYPOST = "SET_MYPOST";
+const LOG_OUT = "LOG_OUT";
+const LOADING = "LOADING";
+const EDIT_PROFILE = "EDIT_PROFILE";
+const EDIT_ADDRESS = "EDIT_ADDRESS";
 
 // Action Creator
 const setUser = createAction(SET_USER, (user_info) => ({ user_info }));
@@ -59,18 +59,18 @@ const kakaoLogin = (code) => {
       .get(`user/kakao/callback?code=${code}`)
       .then((res) => {
         // 인가코드에 관한 응답으로 jwt token 받음
-        logger('user모듈 - 36', res);
+        logger("user모듈 - 36", res);
 
         const ACCESS_TOKEN = res.data.token;
 
         // 세션에 토큰 저장
-        sessionStorage.setItem('token', ACCESS_TOKEN);
+        sessionStorage.setItem("token", ACCESS_TOKEN);
 
         // 저장된 토큰으로 user 정보 확인 후 리덕스에 저장
-        const token = sessionStorage.getItem('token');
+        const token = sessionStorage.getItem("token");
 
         // jwtDecode를 이용해서 user 정보 서버에 요청없이 확인 후 저장
-        logger('user 정보 decoding', jwtDecode(token));
+        logger("user 정보 decoding", jwtDecode(token));
         const user_nickname = jwtDecode(token).username;
         const user_id = jwtDecode(token).userId;
 
@@ -82,17 +82,17 @@ const kakaoLogin = (code) => {
         );
 
         customAlert.sweetConfirmReload(
-          '로그인 성공',
+          "로그인 성공",
           `${user_nickname}님 환영합니다.`,
-          '/home'
+          "/home"
         );
       })
       .catch((err) => {
-        logger('user 모듈 74 - 소셜로그인 에러', err);
+        logger("user 모듈 74 - 소셜로그인 에러", err);
         customAlert.sweetConfirmReload(
-          '로그인 오류',
-          '로그인에 실패하였습니다.',
-          '/'
+          "로그인 오류",
+          "로그인에 실패하였습니다.",
+          "/"
         ); // 로그인 실패하면 로그인화면으로 돌려보냄
       });
   };
@@ -102,14 +102,14 @@ const kakaoLogin = (code) => {
 const editUserProfileAX = (profile) => {
   return function (dispatch, getState, { history }) {
     let form = new FormData();
-    form.append('username', profile.nickname);
-    form.append('comment', profile.comment);
-    form.append('file', profile.image);
-    form.append('gender', profile.gender);
-    form.append('age', profile.age);
+    form.append("username", profile.nickname);
+    form.append("comment", profile.comment);
+    form.append("file", profile.image);
+    form.append("gender", profile.gender);
+    form.append("age", profile.age);
 
     axiosModule
-      .put('/userInfo/update', form)
+      .put("/userInfo/update", form)
       .then((res) => {
         logger("profile 수정 모듈", res);
         let _profile = res.data;
@@ -122,10 +122,10 @@ const editUserProfileAX = (profile) => {
         };
         dispatch(editProfile(profile));
         dispatch(imageActions.setPreview(null));
-        logger('profile 수정 모듈', res);
+        logger("profile 수정 모듈", res);
       })
       .catch((e) => {
-        logger('profile 수정 모듈 e', e);
+        logger("profile 수정 모듈 e", e);
       });
   };
 };
@@ -136,9 +136,9 @@ const loginCheck = (path) => {
   return function (dispatch, getState, { history }) {
     if (token) {
       axiosModule
-        .get('/user/info')
+        .get("/user/info")
         .then((res) => {
-          logger('로그인 체크 res', res);
+          logger("로그인 체크 res", res);
           const user_info = {
             user_id: res.data.id,
             user_nickname: res.data.username,
@@ -154,13 +154,16 @@ const loginCheck = (path) => {
               ...user_info,
             })
           );
-          if (path === '/profile') {
+          if (path === "/profile") {
             return;
-          } 
-          else {
+          } else {
             if (!res.data.age || !res.data.gender) {
-              if(path === "/upload"){
-                return customAlert.sweetConfirmReload("성별/연령이 필요한 기능입니다.", "수정페이지로 이동합니다. 성별과 연령을 체크해주세요 :)", "/profile")
+              if (path === "/upload") {
+                return customAlert.sweetConfirmReload(
+                  "성별/연령이 필요한 기능입니다.",
+                  "수정페이지로 이동합니다. 성별과 연령을 체크해주세요 :)",
+                  "/profile"
+                );
               }
               customAlert.sweetAddCheck();
             }
@@ -174,11 +177,24 @@ const loginCheck = (path) => {
           }
         })
         .catch((e) => {
-          logger('로그인 체크 에러', e);
+          logger("로그인 체크 에러", e);
           dispatch(logOut());
         });
     } else {
-      customAlert.sweetNeedLogin('replace');
+      return customAlert
+        .sweetPromise(
+          "앗 로그인이 필요해요!",
+          "1초 만에 카카오 로그인하면",
+          "밀착 서비스를 사용하실 수 있어요",
+          "확인"
+        )
+        .then((res) => {
+          if (res) {
+            return history.replace("/");
+          } else {
+            return history.replace("/home");
+          }
+        });
     }
   };
 };
@@ -186,7 +202,7 @@ const loginCheck = (path) => {
 const editUserAddressAX = (address) => {
   return function (dispatch, getState, { history }) {
     axiosModule
-      .put('/user/location', {
+      .put("/user/location", {
         address: address.address,
         longitude: address.longitude,
         latitude: address.latitude,
@@ -194,12 +210,12 @@ const editUserAddressAX = (address) => {
       .then((res) => {
         // 유저 정보의 주소 데이터 변경
         dispatch(editAddress(res.data.address));
-        history.push('/home');
+        history.push("/home");
         // 유저주소를 변경 후 메인 페이지에서 거리에 따라 게시글 바뀌지 않는 현상 해결
         window.location.reload();
       })
       .catch((err) => {
-        logger('address 모듈 error: ', err);
+        logger("address 모듈 error: ", err);
       });
   };
 };
@@ -211,7 +227,7 @@ const findUserProfileAX = (user_id) => {
       axiosModule
         .get(`/userInfo/${user_id}`)
         .then((res) => {
-          logger('타 유저 프로필 체크 res', res);
+          logger("타 유저 프로필 체크 res", res);
           const user_info = {
             user_id: res.data.userId,
             user_profile: res.data.profileImg,
@@ -236,7 +252,7 @@ const findUserProfileAX = (user_id) => {
           // }
         })
         .catch((e) => {
-          logger('타 유저 프로필 확인 에러', e);
+          logger("타 유저 프로필 확인 에러", e);
         });
     } else {
       dispatch(logOut());
@@ -248,15 +264,15 @@ const getMyPostAX = () => {
   return function (dispatch, getState, { history }) {
     if (token) {
       axiosModule
-        .get('/posts/myPosts')
+        .get("/posts/myPosts")
         .then((res) => {
-          logger('내가 쓴 글 res', res);
+          logger("내가 쓴 글 res", res);
           let posts = [];
 
           if (res.data.length !== 0) {
             res.data.forEach((p) => {
-              let hour = p.orderTime.split(' ')[1].split(':')[0];
-              let minute = p.orderTime.split(' ')[1].split(':')[1];
+              let hour = p.orderTime.split(" ")[1].split(":")[0];
+              let minute = p.orderTime.split(" ")[1].split(":")[1];
 
               const my_post = {
                 post_id: p.postId,
@@ -265,10 +281,10 @@ const getMyPostAX = () => {
                 category: p.category,
                 shop: p.restaurant,
                 headCount: p.headCount,
-                orderTime: hour + ':' + minute,
-                orderDate: p.orderTime.split(' ')[0],
-                address: p.address.split('/')[0],
-                detail_address: p.address.split('/')[1],
+                orderTime: hour + ":" + minute,
+                orderDate: p.orderTime.split(" ")[0],
+                address: p.address.split("/")[0],
+                detail_address: p.address.split("/")[1],
                 insert_dt: p.createdAt,
                 username: p.username,
                 user_id: p.userId,
@@ -284,10 +300,10 @@ const getMyPostAX = () => {
           dispatch(setMyPost(posts));
         })
         .catch((e) => {
-          logger('내가 받은 리뷰 에러1111111', e);
+          logger("내가 받은 리뷰 에러1111111", e);
         });
     } else {
-      dispatch(logOut());
+      dispatch(loginCheck());
     }
   };
 };
@@ -297,9 +313,9 @@ const getMyReviewAX = () => {
   return function (dispatch, getState, { history }) {
     if (token) {
       axiosModule
-        .get('/review')
+        .get("/review")
         .then((res) => {
-          logger('내가 받은 리뷰 res', res);
+          logger("내가 받은 리뷰 res", res);
           let reviews = [];
 
           if (res.data.length !== 0) {
@@ -317,10 +333,10 @@ const getMyReviewAX = () => {
           dispatch(setMyReview(reviews));
         })
         .catch((e) => {
-          logger('내가 받은 리뷰 에러', e);
+          logger("내가 받은 리뷰 에러", e);
         });
     } else {
-      dispatch(logOut());
+      dispatch(loginCheck());
     }
   };
 };
@@ -335,26 +351,26 @@ const reviewWriteAX = (manner, review, user_id, nickname) => {
           review: review,
         })
         .then((res) => {
-          logger('내가 받은 리뷰 res', res);
+          logger("내가 받은 리뷰 res", res);
           customAlert.sweetReviewWrite(
-            '성공적으로 리뷰를 보냈어요!',
+            "성공적으로 리뷰를 보냈어요!",
             `${nickname} 님께`,
-            '따뜻한 마음이 전송되었어요 :)',
-            'goBack'
+            "따뜻한 마음이 전송되었어요 :)",
+            "goBack"
           );
           // history.replace("/userprofile");
           // window.location.replace("/userprofile");
         })
         .catch((e) => {
-          logger('내가 받은 리뷰 에러', e);
+          logger("내가 받은 리뷰 에러", e);
           customAlert.sweetConfirmReload(
-            '이미 리뷰를 작성하셨습니다!',
-            '이전 페이지로 돌아갑니다.',
-            'goBack'
+            "이미 리뷰를 작성하셨습니다!",
+            "이전 페이지로 돌아갑니다.",
+            "goBack"
           );
         });
     } else {
-      dispatch(logOut());
+      dispatch(loginCheck());
     }
   };
 };
@@ -366,34 +382,34 @@ export default handleActions(
         draft.user = action.payload.user_info;
         draft.is_login = true;
         draft.is_loaded = true;
-        logger('set_user 리듀서', draft.user);
+        logger("set_user 리듀서", draft.user);
       }),
     [SET_ANOTHER_USER]: (state, action) =>
       produce(state, (draft) => {
         draft.anotherUser = action.payload.user_info;
-        logger('set_another_user 리듀서', draft.anotherUser);
+        logger("set_another_user 리듀서", draft.anotherUser);
       }),
     [SET_MYREVIEW]: (state, action) =>
       produce(state, (draft) => {
         draft.myReview.push(...action.payload.my_review);
-        logger('set_my_review 리듀서', draft.myReview);
+        logger("set_my_review 리듀서", draft.myReview);
       }),
     [SET_MYPOST]: (state, action) =>
       produce(state, (draft) => {
         draft.myPost.push(...action.payload.my_post);
-        logger('set_my_post 리듀서', draft.myPost);
+        logger("set_my_post 리듀서", draft.myPost);
       }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
-        sessionStorage.removeItem('token');
+        sessionStorage.removeItem("token");
         draft.user = null;
         draft.is_login = false;
         draft.is_loading = false;
 
         customAlert.sweetConfirmReload(
-          '로그아웃 되었습니다.',
-          '또 만나요!',
-          '/'
+          "로그아웃 되었습니다.",
+          "또 만나요!",
+          "/"
         );
       }),
     [LOADING]: (state, action) =>
@@ -407,7 +423,6 @@ export default handleActions(
         draft.user.user_profile = action.payload.profile.profileImg;
         draft.user.user_age = action.payload.profile.user_age;
         draft.user.user_gender = action.payload.profile.user_gender;
-
       }),
     [EDIT_ADDRESS]: (state, action) =>
       produce(state, (draft) => {

@@ -260,15 +260,15 @@ const UserProfile = (props) => {
                   padding="0 0 2.6rem 0"
                   margin="0.5rem 0 0 0"
                 >
-                  {other_user.user_age?.includes('1')
+                  {other_user?.user_age?.includes('1')
                     ? '10대'
-                    : other_user.user_age?.includes('2')
+                    : other_user?.user_age?.includes('2')
                     ? '20대'
-                    : other_user.user_age?.includes('3')
+                    : other_user?.user_age?.includes('3')
                     ? '30대'
-                    : other_user.user_age?.includes('4')
+                    : other_user?.user_age?.includes('4')
                     ? '40대'
-                    : other_user.user_age?.includes('5')
+                    : other_user?.user_age?.includes('5')
                     ? '50대'
                     : '미입력'}
                 </Text>
