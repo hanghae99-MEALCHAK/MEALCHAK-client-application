@@ -23,7 +23,7 @@ const Footer = (props) => {
     if (is_login) {
       history.push(`/${path}`);
     } else {
-      customAlert.sweetNeedLogin();
+      customAlert.sweetNeedLogin("replace");
     }
   };
 

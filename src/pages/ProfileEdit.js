@@ -419,6 +419,26 @@ const TextArea = styled.textarea`
     line-height: 150%;
     letter-spacing: -0.01rem;
   }
+  &::-webkit-input-placeholder::after {
+    display: block;
+    content: "어느 지역에서 주로 시켜먹나요?\A제일 좋아하는 음식은 무엇인가요?\A나를 나타낼 수 있는 문구로 소개해보세요!";
+  }
+  &::-moz-placeholder {
+    /* Firefox 19+ */
+    display: block;
+    content: "어느 지역에서 주로 시켜먹나요?\A제일 좋아하는 음식은 무엇인가요?\A나를 나타낼 수 있는 문구로 소개해보세요!";
+  }
+
+  &:-ms-input-placeholder {
+    display: block;
+    content: "어느 지역에서 주로 시켜먹나요?\A제일 좋아하는 음식은 무엇인가요?\A나를 나타낼 수 있는 문구로 소개해보세요!";
+  }
+
+  &:-moz-placeholder {
+    /* Firefox 18- */
+    display: block;
+    content: "어느 지역에서 주로 시켜먹나요?\A제일 좋아하는 음식은 무엇인가요?\A나를 나타낼 수 있는 문구로 소개해보세요!";
+  }
 `;
 
 const FocusWithin = styled.div`

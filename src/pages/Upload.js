@@ -252,9 +252,7 @@ const Upload = React.memo((props) => {
         margin="0 auto"
       >
         <Grid shape="container">
-          <Header {...props} shape="글쓰기">
-            글쓰기
-          </Header>
+          <Header {...props} shape="모임 만들기"/>
           <Grid height="4.4rem" />
           <UploadContents
             post_info={post_info}

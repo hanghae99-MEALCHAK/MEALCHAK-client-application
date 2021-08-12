@@ -66,7 +66,7 @@ const UserProfile = (props) => {
               </Text>
               <Grid width="auto" text_align="center">
                 <Text size={fontSize.small} color="#9A9896" line_height="150%">
-                  {other_user?.user_comment ? other_user?.user_comment : ""}
+                  {other_user?.user_comment ? other_user?.user_comment : ''}
                 </Text>
               </Grid>
             </Grid>
