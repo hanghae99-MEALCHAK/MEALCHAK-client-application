@@ -1,8 +1,8 @@
-import React from 'react';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { history } from '../redux/configureStore';
-import moment from 'moment';
+import React from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
+import moment from "moment";
 
 import { actionCreators as postAction } from "../redux/modules/post";
 import { actionCreators as userAction } from "../redux/modules/user";
@@ -10,17 +10,17 @@ import { Kakao_auth_url } from "../shared/OAuth";
 import logger from "../shared/Console";
 
 // style
-import { Button, Grid, Text } from '../elements';
-import { UploadInput, UploadContents, Header } from '../components';
-import theme from '../styles/theme';
-import { customAlert } from '../components/Sweet';
-import Spinner from '../shared/Spinner';
+import { Button, Grid, Text } from "../elements";
+import { UploadInput, UploadContents, Header } from "../components";
+import theme from "../styles/theme";
+import { customAlert } from "../components/Sweet";
+import Spinner from "../shared/Spinner";
 
 const Upload = React.memo((props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const post_list = useSelector((state) => state.post.list);
-  logger('Upload:19: ', props);
+  logger("Upload:19: ", props);
   // style
   const { color, border, radius, fontSize } = theme;
 
@@ -37,17 +37,19 @@ const Upload = React.memo((props) => {
   let _post = post_list[post_idx];
 
   React.useEffect(() => {
-    window.scrollTo(0, 0);
+    document
+      .querySelector("body")
+      .scrollTo({ top: 0, left: 0, behavior: "instant" });
     if (is_edit && !_post) {
       customAlert.sweetConfirmReload(
-        '해당게시물을 찾을 수 없습니다.',
+        "해당게시물을 찾을 수 없습니다.",
         null,
-        'goBack'
+        "goBack"
       );
       return;
     }
-    logger('post 수정 전 내용', _post);
-    logger('post 수정 전 내용', is_edit);
+    logger("post 수정 전 내용", _post);
+    logger("post 수정 전 내용", is_edit);
   }, []);
 
   React.useEffect(() => {
@@ -71,56 +73,56 @@ const Upload = React.memo((props) => {
   };
   const [post_info, setPostInfo] = useState(_post ? { ...past_post } : {});
 
-  const today = moment().format('YYYY-MM-DD');
-  const now_time = moment().format('HH:mm');
+  const today = moment().format("YYYY-MM-DD");
+  const now_time = moment().format("HH:mm");
 
   const uploadBtn = () => {
     // 모집글 작성 시 상위, 하위 컴포넌트들에서 올바르지 않은 value있을때 처리하는 과정
-    if (!post_info.title || post_info.title === '') {
+    if (!post_info.title || post_info.title === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '모집글의 제목을 입력해주세요.',
-        ''
+        "빈칸이 있습니다.",
+        "모집글의 제목을 입력해주세요.",
+        ""
       );
       return;
     }
-    if (!post_info.contents || post_info.contents === '') {
+    if (!post_info.contents || post_info.contents === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '모집글의 내용을 입력해주세요.',
-        ''
+        "빈칸이 있습니다.",
+        "모집글의 내용을 입력해주세요.",
+        ""
       );
       return;
     }
-    if (!post_info?.place || post_info?.place === '') {
+    if (!post_info?.place || post_info?.place === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 약속 장소를 입력해주세요.',
-        ''
+        "빈칸이 있습니다.",
+        "안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 약속 장소를 입력해주세요.",
+        ""
       );
       return;
     }
-    if (!post_info?.detail_place || post_info?.detail_place === '') {
+    if (!post_info?.detail_place || post_info?.detail_place === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 상세주소를 입력해주세요.',
-        ''
+        "빈칸이 있습니다.",
+        "안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 상세주소를 입력해주세요.",
+        ""
       );
       return;
     }
-    if (!post_info.restaurant || post_info.restaurant === '') {
+    if (!post_info.restaurant || post_info.restaurant === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '배달 예정인 식당을 입력해주세요.',
-        ''
+        "빈칸이 있습니다.",
+        "배달 예정인 식당을 입력해주세요.",
+        ""
       );
       return;
     }
-    if (!post_info.headCount || post_info.headCount === '0') {
+    if (!post_info.headCount || post_info.headCount === "0") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '모집원의 인원 수를 입력해주세요.',
-        ''
+        "빈칸이 있습니다.",
+        "모집원의 인원 수를 입력해주세요.",
+        ""
       );
       return;
     }
@@ -132,83 +134,83 @@ const Upload = React.memo((props) => {
     // 시간의 경우 날짜가 내일 이후면 어떤 시간도 상관없지만 오늘일 경우 현재시간 이전일 수 없어서 조건 줌
     if (post_info.appointmentDate === today) {
       const select_time = parseInt(
-        post_info.appointmentTime.split(':').join('')
+        post_info.appointmentTime.split(":").join("")
       );
-      const time_now = parseInt(now_time.split(':').join(''));
+      const time_now = parseInt(now_time.split(":").join(""));
 
       // 선택시간이 과거인 경우
       if (time_now > select_time) {
         return customAlert.sweetConfirmReload(
-          '모집 예정시간을 확인해주세요',
-          '현재시간보다 과거로 설정되었습니다.',
-          ''
+          "모집 예정시간을 확인해주세요",
+          "현재시간보다 과거로 설정되었습니다.",
+          ""
         );
       }
     }
 
-    if (!post_info.foodCategory || post_info.foodCategory === '') {
+    if (!post_info.foodCategory || post_info.foodCategory === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '모집을 희망하는 식품의 카테고리를 입력해주세요.',
-        ''
+        "빈칸이 있습니다.",
+        "모집을 희망하는 식품의 카테고리를 입력해주세요.",
+        ""
       );
       return;
     }
 
-    logger('post 업로드 상태', post_info);
+    logger("post 업로드 상태", post_info);
 
     dispatch(postAction.addPostAX(post_info));
   };
 
   const UploadEditBtn = () => {
-    logger('수정 버튼, post_info', post_info);
+    logger("수정 버튼, post_info", post_info);
 
     // 모집글 작성 시 상위, 하위 컴포넌트들에서 올바르지 않은 value있을때 처리하는 과정
-    if (!post_info.title || post_info.title === '') {
+    if (!post_info.title || post_info.title === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '모집글의 제목을 입력해주세요.',
-        ''
+        "빈칸이 있습니다.",
+        "모집글의 제목을 입력해주세요.",
+        ""
       );
       return;
     }
-    if (!post_info.contents || post_info.contents === '') {
+    if (!post_info.contents || post_info.contents === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '모집글의 내용을 입력해주세요.',
-        ''
+        "빈칸이 있습니다.",
+        "모집글의 내용을 입력해주세요.",
+        ""
       );
       return;
     }
-    if (!post_info.place || post_info.place === '') {
+    if (!post_info.place || post_info.place === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 약속 장소를 입력해주세요.',
-        ''
+        "빈칸이 있습니다.",
+        "안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 약속 장소를 입력해주세요.",
+        ""
       );
       return;
     }
-    if (!post_info?.detail_place || post_info?.detail_place === '') {
+    if (!post_info?.detail_place || post_info?.detail_place === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 상세주소를 입력해주세요.',
-        ''
+        "빈칸이 있습니다.",
+        "안전한 더치페이를 위해 모집원을 만날 장소가 필요합니다.\n 상세주소를 입력해주세요.",
+        ""
       );
       return;
     }
-    if (!post_info.restaurant || post_info.restaurant === '') {
+    if (!post_info.restaurant || post_info.restaurant === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '배달 예정인 식당을 입력해주세요.',
-        ''
+        "빈칸이 있습니다.",
+        "배달 예정인 식당을 입력해주세요.",
+        ""
       );
       return;
     }
-    if (!post_info.headCount || post_info.headCount === '0') {
+    if (!post_info.headCount || post_info.headCount === "0") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '모집원의 인원 수를 입력해주세요.',
-        ''
+        "빈칸이 있습니다.",
+        "모집원의 인원 수를 입력해주세요.",
+        ""
       );
       return;
     }
@@ -216,24 +218,24 @@ const Upload = React.memo((props) => {
     // 시간의 경우 날짜가 내일 이후면 어떤 시간도 상관없지만 오늘일 경우 현재시간 이전일 수 없어서 조건 줌
     if (post_info.appointmentDate === today) {
       const select_time = parseInt(
-        post_info.appointmentTime.split(':').join('')
+        post_info.appointmentTime.split(":").join("")
       );
-      const time_now = parseInt(now_time.split(':').join(''));
+      const time_now = parseInt(now_time.split(":").join(""));
 
       // 선택시간이 과거인 경우
       if (time_now > select_time) {
         return customAlert.sweetConfirmReload(
-          '모집 예정시간을 확인해주세요',
-          '현재시간보다 과거로 설정되었습니다.',
-          ''
+          "모집 예정시간을 확인해주세요",
+          "현재시간보다 과거로 설정되었습니다.",
+          ""
         );
       }
     }
-    if (!post_info.foodCategory || post_info.foodCategory === '') {
+    if (!post_info.foodCategory || post_info.foodCategory === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        '모집을 희망하는 식품의 카테고리를 입력해주세요.',
-        ''
+        "빈칸이 있습니다.",
+        "모집을 희망하는 식품의 카테고리를 입력해주세요.",
+        ""
       );
       return;
     }

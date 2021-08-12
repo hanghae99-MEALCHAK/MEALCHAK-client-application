@@ -90,7 +90,7 @@ function App() {
           <Route path="/chatlist" component={ChatRoomList}/>
           <Route path="/chatting" component={Chat}/>
           <Route path="/allowchat" component={AllowChat}/>
-          <Route path="*" component={NotFound}></Route>
+          {/* <Route path="*" component={NotFound}></Route> */}
           <Route path="/write" component={ReviewWrite}/>
         </ConnectedRouter>
       </Grid>

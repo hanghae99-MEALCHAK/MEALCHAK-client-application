@@ -105,68 +105,52 @@ const UploadInput = React.memo((props) => {
       <Grid padding="0 2rem">
         <Container>
           <Grid>
-            <FocusWithin>
-              <Grid flex justify_content="flex-start" align_items="center">
-                <Text
-                  padding="2.4rem 0 0.8rem"
-                  color={color.bg80}
-                  bold="700"
-                  size={fontSize.base}
-                >
-                  배달 받을 곳
-                </Text>
-                {/* <Button
-                  width="7rem"
-                  border={border.bg40}
-                  padding="0.3rem 0 0.3rem 0"
-                  margin="1.5rem 0 0 1rem"
-                  radius="1.2rem"
-                  color="white"
-                  size="1.3rem"
-                  bg="gray"
-                  _onClick={onClick}
-                  className="menu-trigger"
-                  cursor="t"
-                >
-                  주소 찾기
-                </Button> */}
-                {/* <DropDown /> */}
-              </Grid>
-              <div className="container">
-                <div className="menu-container">
-                  <nav
-                    ref={dropdownRef}
-                    className={`menu ${isActive ? "active" : "inactive"}`}
-                    style={{
-                      minWidth: "36rem",
-                      backgroundColor: "transparent",
-                      cursor: "pointer",
-                      zIndex: "1",
-                      top: 0,
-                      // margin: "0 35rem 0 auto",
-                      position: "fixed",
-                    }}
-                  >
-                    <PostAddress close={onClick} />
-                  </nav>
-                </div>
-              </div>
-              <Grid
-                height="5rem"
-                radius="1.2rem"
-                border={border.bg40}
-                padding="1.4rem 1.6rem"
-                bg={color.bg20}
-                margin="0 0 0.8rem"
+            <Grid flex justify_content="flex-start" align_items="center">
+              <Text
+                padding="2.4rem 0 0.8rem"
+                color={color.bg80}
+                bold="700"
+                size={fontSize.base}
               >
-                <Text color={color.bg80} size={fontSize.base}>
-                  {post_address
-                    ? post_address
-                    : props?.find_address
-                    ? props.find_address
-                    : "주소를 찾으면 자동으로 입력돼요."}
-                </Text>
-              </Grid>
+                배달 받을 곳
+              </Text>
+            </Grid>
+            <div className="container">
+              <div className="menu-container">
+                <nav
+                  ref={dropdownRef}
+                  className={`menu ${isActive ? "active" : "inactive"}`}
+                  style={{
+                    minWidth: "36rem",
+                    backgroundColor: "transparent",
+                    cursor: "pointer",
+                    zIndex: "1",
+                    top: 0,
+                    // margin: "0 35rem 0 auto",
+                    position: "fixed",
+                  }}
+                >
+                  <PostAddress close={onClick} />
+                </nav>
+              </div>
+            </div>
+            <Grid
+              height="5rem"
+              radius="1.2rem"
+              border={border.bg40}
+              padding="1.4rem 1.6rem"
+              bg={color.bg20}
+              margin="0 0 0.8rem"
+            >
+              <Text color={color.bg80} size={fontSize.base}>
+                {post_address
+                  ? post_address
+                  : props?.find_address
+                  ? props.find_address
+                  : "주소를 찾으면 자동으로 입력돼요."}
+              </Text>
+            </Grid>
+            <FocusWithin>
               <Input
                 border={border.bg40}
                 padding="1.5rem 1.3rem"
@@ -259,8 +243,8 @@ const UploadInput = React.memo((props) => {
               </Select> */}
           </Grid>
           {/* </FocusWithinSelect> */}
-          <Grid text_align="right">
-            <Text color="red" size={fontSize.tiny} padding="0.8rem 1rem 0">
+          <Grid text_align="left">
+            <Text color="#F35959" size={fontSize.small} line_height="150%" padding="0.8rem 1rem 0 0rem">
               5인 이상 집합금지로 인원에 제한이 있습니다.
             </Text>
           </Grid>
