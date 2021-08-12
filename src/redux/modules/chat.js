@@ -9,7 +9,6 @@ import { actionCreators as userAction } from "./user";
 import logger from "../../shared/Console";
 import jwtDecode from "jwt-decode";
 
-
 // Action
 // 나만의 채팅 목록
 const SET_CHAT_LIST = "SET_CHAT_LIST";
@@ -105,7 +104,7 @@ const setChatListAX = () => {
         .get("/chat/rooms/mine")
         .then((res) => {
           logger("나의 채팅방 목록", res);
-          
+
           let my_chat_list = [];
           res.data.forEach((c) => {
             let one_chat_info = {
@@ -123,22 +122,12 @@ const setChatListAX = () => {
         })
         .catch((e) => {
           customAlert.sweetConfirmReload(
-            '개설된 채팅방 목록이 없습니다.',
-            ['채팅을 시작해보세요'],
-            ''
+            "채팅방 목록조회에 실패했습니다.",
+            ["메인페이지로 돌아갑니다."],
+            "history"
           );
           logger("나의 채팅방 목록 조회 에러", e);
         });
-        dispatch(setChatList(my_chat_list));
-      })
-      .catch((e) => {
-        customAlert.sweetConfirmReload(
-          '채팅방 목록조회에 실패했습니다.',
-          ['메인페이지로 돌아갑니다.'],
-          'history'
-        );
-        logger('나의 채팅방 목록 조회 에러', e);
-      });
     } else {
       dispatch(userAction.loginCheck());
     }
@@ -174,9 +163,9 @@ const getChatMessagesAX = () => {
       })
       .catch((e) => {
         customAlert.sweetConfirmReload(
-          '불러오기 실패',
-          ['채팅방 메세지 불러오기에 실패했습니다.'],
-          ''
+          "불러오기 실패",
+          ["채팅방 메세지 불러오기에 실패했습니다."],
+          ""
         );
         logger("채팅 메세지 불러오기 실패", e);
       });
@@ -192,15 +181,15 @@ const chatAllowAX = (joinId, boolean) => {
         logger("승인 수락, 거절 res", res);
         if (boolean === true) {
           customAlert.sweetConfirmReload(
-            '수락 완료',
-            ['수락이 완료되었습니다.'],
-            ''
+            "수락 완료",
+            ["수락이 완료되었습니다."],
+            ""
           );
         } else {
           customAlert.sweetConfirmReload(
-            '거절 완료',
-            ['수락 거절이 완료되었습니다.'],
-            ''
+            "거절 완료",
+            ["수락 거절이 완료되었습니다."],
+            ""
           );
         }
       })
@@ -213,7 +202,7 @@ const chatAllowAX = (joinId, boolean) => {
 // 채팅 승인 대기 목록
 const requestChatListAX = () => {
   return function (dispatch, getState, { history }) {
-    if(token){
+    if (token) {
       axiosModule
         .get("/posts/join/request/list")
         .then((res) => {
@@ -229,15 +218,15 @@ const requestChatListAX = () => {
             };
             request_list.push(one_req);
           });
-  
+
           dispatch(setRequestList(request_list));
         })
         .catch((e) => {
           logger("방장 승인 대기 목록 에러", e);
           customAlert.sweetConfirmReload(
-            '목록 조회 실패',
-            ['승인 대기 목록 조회에 실패했습니다.'],
-            '/chatlist'
+            "목록 조회 실패",
+            ["승인 대기 목록 조회에 실패했습니다."],
+            "/chatlist"
           );
         });
     } else {
@@ -271,9 +260,9 @@ const awaitChatListAX = () => {
         // chatlist 페이지에서 열려있는 채팅목록 아래에 비활성화 상태로 뜨도록 하는 것
         logger("신청자 승인 요청 목록 에러", e);
         customAlert.sweetConfirmReload(
-          '목록 조회 실패',
-          ['승인 대기 목록 조회에 실패했습니다.'],
-          '/home'
+          "목록 조회 실패",
+          ["승인 대기 목록 조회에 실패했습니다."],
+          "/home"
         );
       });
   };
@@ -285,18 +274,18 @@ const awaitChatOut = (join_id) => {
       .delete(`/posts/join/request/${join_id}`)
       .then((res) => {
         customAlert.sweetConfirmReload(
-          '승인 요청 취소 완료',
-          ['승인 요청이 성공적으로 취소 됐어요.'],
-          '/chatlist'
+          "승인 요청 취소 완료",
+          ["승인 요청이 성공적으로 취소 됐어요."],
+          "/chatlist"
         );
       })
       .catch((e) => {
         // chatlist 페이지에서 열려있는 채팅목록 아래에 비활성화 상태로 뜨도록 하는 것
         logger("대기 취소 에러", e);
         customAlert.sweetConfirmReload(
-          '대기 승인 취소 실패',
-          ['대기 승인 취소에 실패했습니다.'],
-          ''
+          "대기 승인 취소 실패",
+          ["대기 승인 취소에 실패했습니다."],
+          ""
         );
       });
   };
@@ -322,9 +311,9 @@ const getChatUserAX = (roomId) => {
       .catch((e) => {
         logger("채팅 참여 유저 목록확인 에러", e);
         customAlert.sweetConfirmReload(
-          '사용자 조회 실패',
-          ['채팅에 참여중인 사용자를 조회하는 것에 실패했습니다.'],
-          'goBack'
+          "사용자 조회 실패",
+          ["채팅에 참여중인 사용자를 조회하는 것에 실패했습니다."],
+          "goBack"
         );
       });
   };
@@ -361,9 +350,9 @@ export default handleActions(
           // 강퇴 당한 사람의 경우 퇴장 알럿 표시
           if (user_id === parseInt(m.message)) {
             customAlert.sweetConfirmReload(
-              '강퇴알림',
-              ['현재 방에서 강퇴당하셨습니다.', '채팅목록으로 돌아갑니다.'],
-              '/chatlist'
+              "강퇴알림",
+              ["현재 방에서 강퇴당하셨습니다.", "채팅목록으로 돌아갑니다."],
+              "/chatlist"
             );
           } else {
             // 그 외 사용자들은 리스트에서 강퇴 유저 삭제시킴
