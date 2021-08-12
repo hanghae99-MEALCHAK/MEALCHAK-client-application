@@ -1,9 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { forwardRef } from "react";
+import { useRef } from "react";
+import styled from "styled-components";
 
-import { Grid } from './index';
+import { Grid } from "./index";
 
-const Input = (props) => {
+const Input = forwardRef((props, ref) => {
   const {
     placeholder,
     _onChange,
@@ -49,6 +50,7 @@ const Input = (props) => {
       <Grid display={`${flex}`}>
         {is_submit ? (
           <ElInput
+            ref={ref}
             type={type}
             placeholder={placeholder}
             onChange={_onChange}
@@ -64,13 +66,14 @@ const Input = (props) => {
             maxLength={length}
             width={width}
             onKeyPress={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === "Enter") {
                 onSubmit(e);
               }
             }}
           />
         ) : (
           <ElInput
+            ref={ref}
             type={type}
             min={min}
             bold={bold}
@@ -90,41 +93,40 @@ const Input = (props) => {
       </Grid>
     </React.Fragment>
   );
-};
+});
 
 Input.defaultProps = {
-  width: '100%',
-  radius: '1.2rem',
-  size: '1.2rem',
-  padding: '1.5rem 0',
-  border: '0.1rem solid #718093',
-  bold: '400',
+  width: "100%",
+  radius: "1.2rem",
+  size: "1.2rem",
+  padding: "1.5rem 0",
+  border: "0.1rem solid #718093",
+  bold: "400",
   multiLine: false,
-  placeholder: '텍스트를 입력해주세요.',
-  type: 'text',
-  value: '',
+  placeholder: "텍스트를 입력해주세요.",
+  type: "text",
+  value: "",
   length: 50,
-  color: '#888E95',
+  color: "#888E95",
   is_submit: false,
   flex: false,
   onSubmit: () => {},
   _onChange: () => {},
   _onClick: () => {},
-
 };
 
 const ElTextarea = styled.textarea`
-  ${(props) => (props.border ? `border: ${props.border};` : '')};
+  ${(props) => (props.border ? `border: ${props.border};` : "")};
   border-radius: 0.4rem;
   width: 100%;
   padding: 1.5rem 0;
   box-sizing: border-box;
   resize: none;
-  ${(props) => (props.size ? `font-size: ${props.size};` : '1.4rem')};
+  ${(props) => (props.size ? `font-size: ${props.size};` : "1.4rem")};
   &::placeholder {
-    ${(props) => (props.size ? `font-size: ${props.size};` : '1.2rem')};
-    ${(props) => (props.color ? `color: ${props.color};` : '')};
-    ${(props) => (props.bold ? `font-weight: ${props.bold};` : '')};
+    ${(props) => (props.size ? `font-size: ${props.size};` : "1.2rem")};
+    ${(props) => (props.color ? `color: ${props.color};` : "")};
+    ${(props) => (props.bold ? `font-weight: ${props.bold};` : "")};
   }
   &:focus {
     outline: none;
@@ -132,16 +134,16 @@ const ElTextarea = styled.textarea`
 `;
 
 const ElInput = styled.input`
-  ${(props) => (props.radius ? `border-radius: ${props.radius};` : '1.2rem')};
-  width: ${(props) => (props.width ? `${props.width};` : '100%')};
-  ${(props) => (props.size ? `font-size: ${props.size};` : '1.6rem')};
-  ${(props) => (props.border ? `border: ${props.border};` : '')};
-  ${(props) => (props.padding ? `padding: ${props.padding};` : '')};
+  ${(props) => (props.radius ? `border-radius: ${props.radius};` : "1.2rem")};
+  width: ${(props) => (props.width ? `${props.width};` : "100%")};
+  ${(props) => (props.size ? `font-size: ${props.size};` : "1.6rem")};
+  ${(props) => (props.border ? `border: ${props.border};` : "")};
+  ${(props) => (props.padding ? `padding: ${props.padding};` : "")};
   box-sizing: border-box;
   &::placeholder {
-    ${(props) => (props.size ? `font-size: ${props.size};` : '1.6rem')};
-    ${(props) => (props.bold ? `font-weight: ${props.bold};` : '')};
-    ${(props) => (props.color ? `color: ${props.color};` : '')};
+    ${(props) => (props.size ? `font-size: ${props.size};` : "1.6rem")};
+    ${(props) => (props.bold ? `font-weight: ${props.bold};` : "")};
+    ${(props) => (props.color ? `color: ${props.color};` : "")};
   }
   &:focus {
     outline: none;

@@ -146,6 +146,45 @@ const sweetReviewWrite = (msg_title, msg_name, msg_content, path) => {
     });
 };
 
+// 단순 확인 알럿
+const sweetOK = (title, message1, message2) => {
+  return sweet
+    .fire({
+      customClass: {
+        popup: "border",
+        confirmButton: "confirmButton",
+      },
+      width: "auto",
+      padding: "0 1rem 1rem",
+      title: (
+        <Grid>
+          <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
+            {title}
+          </Text>
+          <Text size={fontSize.small}>
+            {message1} <br />
+            {message2}
+          </Text>
+        </Grid>
+      ),
+      confirmButtonColor: color.brand100,
+      confirmButtonText: (
+        <Grid width="15rem" is_flex2 margin="auto">
+          <Text padding="0" color={color.bg0}>
+            확인
+          </Text>
+        </Grid>
+      ),
+      focusConfirm: false,
+    })
+    .then((res) => {
+      if (res.isConfirmed) {
+        return true;
+      }
+      return false;
+    });
+};
+
 // 확인, 취소 필요한 알럿
 const sweetPromise = (title, message1, message2, confirmText) => {
   return sweet
@@ -245,9 +284,9 @@ const sweetNeedLogin = (way) => {
         if (way === "replace") {
           history.replace("/");
         }
-        history.push("/");
+        return;
       }
-      history.replace("/");
+      return;
     });
 };
 
@@ -272,7 +311,7 @@ const sweetWA = () => {
           <Text size={fontSize.small}>홈으로 돌아갑니다.</Text>
         </Grid>
       ),
-      showCancelButton: false,
+      showCancelButton: true,
       cancelButtonColor: color.brand20,
       cancelButtonText: (
         <Grid width="9rem" is_flex2 margin="auto">
@@ -486,10 +525,6 @@ const sweetEditError = (path) => {
       }
     });
 };
-
-// const JoinChat = (props) => {
-//   const dipatch = useDispatch()
-// }
 
 // 채팅 신청 알럿
 // 메인 페이지 포스트, 검색, 디테일 페이지 포스트 3군데 달아야함
@@ -957,6 +992,7 @@ const customAlert = {
   sweetAddCheck,
   sweetUserInfo,
   sweetPromise,
+  sweetOK,
 };
 
 export { customAlert };

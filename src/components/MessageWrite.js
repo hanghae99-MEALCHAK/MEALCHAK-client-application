@@ -3,6 +3,8 @@ import { useState } from "react";
 import logger from "../shared/Console";
 import { useDispatch } from "react-redux";
 import { actionCreators as chatActions } from "../redux/modules/chat";
+import { useRef } from "react";
+import _ from "lodash";
 
 // style
 import styled from "styled-components";
@@ -11,6 +13,12 @@ import theme from "../styles/theme";
 import { customAlert } from "./Sweet";
 
 const MessageWrite = (props) => {
+  // const throttle = _.throttle((m) => dispatch(chatActions.writeMessage(m)), 300);
+  // const send_action = React.useCallback(throttle, []);
+
+  const now_message = useRef();
+  const msg = now_message.current;
+
   const dispatch = useDispatch();
   const { color, border, radius, fontSize } = theme;
   const { sendMessage } = props;
@@ -19,15 +27,15 @@ const MessageWrite = (props) => {
 
   const changeMessage = (e) => {
     setMessage(e.target.value);
-    dispatch(chatActions.writeMessage(e.target.value));
+    // send_action(e.target.value);
   };
 
   const sendMessageBtn = () => {
     if (new_message === "") {
       return customAlert.sweetConfirmReload("메세지를 입력해주세요.", null, "");
     }
-    logger("보낼 메세지 내용", new_message);
-    sendMessage();
+    logger("보낼 메세지 내용", msg.defaultValue);
+    sendMessage(msg.defaultValue);
     setMessage("");
   };
 
@@ -55,6 +63,7 @@ const MessageWrite = (props) => {
             padding="1.1rem 1.6rem"
             value={new_message}
             _onChange={changeMessage}
+            ref={now_message}
             border="none"
           ></Input>
           <Button

@@ -59,6 +59,12 @@ const MainBanner = (props) => {
                       props?.getCtg(p.category);
                       props?.getSort();
                     }
+                    if (p.category === "분식") {
+                      dispatch(postActions.getPostAX(p.category));
+                      props?.getCategory({ bunsik: true });
+                      props?.getCtg(p.category);
+                      props?.getSort();
+                    }
                     if (p.category === "중식") {
                       dispatch(postActions.getPostAX(p.category));
                       props?.getCategory({ cn: true });

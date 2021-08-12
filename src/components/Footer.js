@@ -23,7 +23,7 @@ const Footer = (props) => {
     if (is_login) {
       history.push(`/${path}`);
     } else {
-      customAlert.sweetNeedLogin();
+      customAlert.sweetNeedLogin("replace");
     }
   };
 
@@ -32,9 +32,11 @@ const Footer = (props) => {
       <Grid
         height="5.2rem"
         maxWidth="36rem"
-        margin="0 auto 0 -0.1rem"
+        margin="0 auto 0 auto"
         padding="0.5rem 0"
-        is_fixed="t"
+        // is_fixed="t"
+        position="sticky"
+        bottom="0"
         bg={color.bg0}
         shadow="t"
       >

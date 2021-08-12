@@ -125,7 +125,7 @@ const Post = (props) => {
                     margin="0"
                     color={
                       props.valid === false || disabled
-                        ? '#9A9896'
+                        ? `${color.bg20}`
                         : color.success100
                     }
                     bold
@@ -204,7 +204,7 @@ const Post = (props) => {
               bold2="500"
               line_height="150%"
               color="#36373C"
-              margin="0 0 0.8rem 0"
+              margin="0 0 1.2rem 0"
               overflow="hidden"
               text_overflow="ellipsis"
               white_space="nowrap"

@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router';
-import { actionCreators as userAction } from '../redux/modules/user';
+import React from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router";
+import { actionCreators as userAction } from "../redux/modules/user";
 
 // style
-import { Button, Grid, Text } from '../elements';
-import { Header } from '../components';
-import theme from '../styles/theme';
-import { MyOneReview } from '../components';
-import Spinner from '../shared/Spinner';
-import logger from '../shared/Console';
+import { Button, Grid, Text } from "../elements";
+import { Header, ProfileTab } from "../components";
+import theme from "../styles/theme";
+import { MyOneReview } from "../components";
+import Spinner from "../shared/Spinner";
+import logger from "../shared/Console";
 
 const MyProfile = (props) => {
   const dispatch = useDispatch();
@@ -21,11 +21,13 @@ const MyProfile = (props) => {
   const { color, border, fontSize, radius } = theme;
 
   React.useEffect(() => {
-    window.scrollTo(0, 0);
+    document
+      .querySelector("body")
+      .scrollTo({ top: 0, left: 0, behavior: "instant" });
     dispatch(userAction.loginCheck());
     dispatch(userAction.findUserProfileAX(user_id));
-    logger('props from MyPage : ', location.state);
-    logger('MyProfile another_user_info: ', other_user);
+    logger("props from MyPage : ", location.state);
+    logger("MyProfile another_user_info: ", other_user);
   }, []);
 
   if (is_login) {
@@ -65,244 +67,8 @@ const MyProfile = (props) => {
                 </Text>
               </Grid>
             </Grid>
-            {/* <Grid
-              bg={color.bg0}
-              margin="0rem auto 0.5rem"
-              padding="0rem 0.5rem 0.5rem 0.5rem"
-              justify_content="center"
-            >
-              <Text
-                height="6.8rem"
-                bold
-                text_align="center"
-                size="4.5rem"
-                line_height="150%"
-                color={color.brand100}
-              >
-                {other_user?.user_manner.toFixed(1)}
-              </Text>
-              <Text
-                height="2rem"
-                size="1.3rem"
-                line_height="150%"
-                text_align="center"
-                color={color.bg80}
-                padding="0"
-              >
-                매너 점수
-              </Text>
-            </Grid> */}
-            <Grid
-              is_flex
-              width="32rem"
-              height="7.9rem"
-              margin="1.5rem auto 2rem auto"
-            >
-              <Grid
-                is_flex_column
-                width="10.1rem"
-                height="7.9rem"
-                bg={color.bg0}
-                border={border.bg40}
-                margin="0rem auto 0.5rem"
-                padding="0rem 0.5rem 0.5rem 0.5rem"
-                justify_content="center"
-                radius={radius.button}
-              >
-                <Text
-                  width="3.1rem"
-                  height="3.2rem"
-                  size={fontSize.display4}
-                  bold
-                  text_align="center"
-                  line_height="150%"
-                  color={color.brand100}
-                >
-                  {other_user?.user_manner.toFixed(1)}
-                </Text>
-                <Text
-                  width="4rem"
-                  height="1.5rem"
-                  size={fontSize.tiny}
-                  bold2="500"
-                  line_height="150%"
-                  text_align="center"
-                  color={color.bg80}
-                  padding="0"
-                >
-                  매너 점수
-                </Text>
-              </Grid>
-              <Grid
-                is_flex_column
-                width="10.1rem"
-                height="7.9rem"
-                bg={color.bg0}
-                border={border.bg40}
-                margin="0rem auto 0.5rem"
-                padding="0rem 0.5rem 0.5rem 0.5rem"
-                justify_content="center"
-                radius={radius.button}
-              >
-                <Text
-                  width={!other_user?.user_gender ? '4.5rem' : '3.1rem'}
-                  height={!other_user?.user_gender ? '2.4rem' : '2.7rem'}
-                  size={
-                    !other_user?.user_gender ? fontSize.base : fontSize.display4
-                  }
-                  bold
-                  text_align="center"
-                  line_height="150%"
-                  margin={
-                    !other_user?.user_gender ? '0.5rem 0 0 0' : '0.1rem 0 0 0'
-                  }
-                  padding={!other_user?.user_gender ? '0 0 2.6rem 0' : ''}
-                  color={color.brand100}
-                >
-                  {other_user?.user_gender ? (
-                    other_user?.user_gender === 'male' ? (
-                      <svg
-                        width="2.4rem"
-                        height="2.4rem"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle
-                          cx="8"
-                          cy="12"
-                          r="4"
-                          stroke="#FF9425"
-                          strokeWidth="2"
-                        />
-                        <line
-                          x1="16"
-                          y1="4"
-                          x2="16"
-                          y2="9"
-                          stroke="#FF9425"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                        />
-                        <line
-                          x1="16"
-                          y1="4"
-                          x2="11"
-                          y2="4"
-                          stroke="#FF9425"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                        />
-                        <line
-                          x1="15.6569"
-                          y1="4.41421"
-                          x2="11.4142"
-                          y2="8.65685"
-                          stroke="#FF9425"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        width="2.4rem"
-                        height="2.4rem"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle
-                          cx="12"
-                          cy="8.3999"
-                          r="4.8"
-                          stroke="#FF9425"
-                          strokeWidth="2.4"
-                        />
-                        <line
-                          x1="11.9998"
-                          y1="14.4"
-                          x2="11.9998"
-                          y2="20.4"
-                          stroke="#FF9425"
-                          strokeWidth="2.4"
-                          strokeLinecap="round"
-                        />
-                        <line
-                          x1="15.5998"
-                          y1="16.8001"
-                          x2="8.3998"
-                          y2="16.8001"
-                          stroke="#FF9425"
-                          strokeWidth="2.4"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                    )
-                  ) : (
-                    '미입력'
-                  )}
-                </Text>
-                <Text
-                  width="4rem"
-                  height="1.5rem"
-                  size={fontSize.tiny}
-                  bold2="500"
-                  line_height="150%"
-                  text_align="center"
-                  color={color.bg80}
-                  padding="0"
-                >
-                  성별
-                </Text>
-              </Grid>
-              <Grid
-                is_flex_column
-                width="10.1rem"
-                height="7.9rem"
-                bg={color.bg0}
-                border={border.bg40}
-                margin="0rem auto 0.5rem"
-                padding="0rem 0.5rem 0.5rem 0.5rem"
-                justify_content="center"
-                radius={radius.button}
-              >
-                <Text
-                  width="3.4rem"
-                  height="2.4rem"
-                  size={fontSize.base}
-                  bold
-                  text_align="center"
-                  line_height="150%"
-                  color={color.brand100}
-                  padding="0 0 2.6rem 0"
-                  margin="0.5rem 0 0 0"
-                >
-                  {other_user?.user_age.includes('1')
-                    ? '10대'
-                    : other_user?.user_age.includes('2')
-                    ? '20대'
-                    : other_user?.user_age.includes('3')
-                    ? '30대'
-                    : other_user?.user_age.includes('4')
-                    ? '40대'
-                    : other_user?.user_age.includes('5')
-                    ? '50대'
-                    : '미입력'}
-                </Text>
-                <Text
-                  width="4rem"
-                  height="1.5rem"
-                  size={fontSize.tiny}
-                  bold2="500"
-                  line_height="150%"
-                  text_align="center"
-                  color={color.bg80}
-                  padding="0"
-                >
-                  연령
-                </Text>
-              </Grid>
-            </Grid>
+            {/* 매너점수, 성별, 연령 */}
+            <ProfileTab user_info={other_user} />
 
             <Grid width="32rem" height="5rem" margin="0 auto">
               <Button
@@ -364,7 +130,7 @@ const Profile = styled.div`
 
 const MyReviewImg = styled.div`
   margin: 4.7rem auto 0 auto;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   width: 20rem;
   height: 11.7rem;
   background-size: cover;

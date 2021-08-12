@@ -1,23 +1,27 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as chatActions } from '../redux/modules/chat';
-import { actionCreators as userAction } from '../redux/modules/user';
-import { history } from '../redux/configureStore';
-import { token } from '../shared/OAuth';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as chatActions } from "../redux/modules/chat";
+import { actionCreators as userAction } from "../redux/modules/user";
+import { history } from "../redux/configureStore";
+import { token } from "../shared/OAuth";
 
 // style
-import { Header, Footer, ChatListItem, AwaitList } from '../components';
-import { Button, Grid, Input, Text } from '../elements';
-import theme from '../styles/theme';
-import styled from 'styled-components';
+import { Header, Footer, ChatListItem, AwaitList } from "../components";
+import { Button, Grid, Input, Text } from "../elements";
+import theme from "../styles/theme";
+import styled from "styled-components";
 
-import logger from '../shared/Console';
+import logger from "../shared/Console";
 
 const ChatRoomList = (props) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(userAction.loginCheck());
+    document
+      .querySelector("body")
+      .scrollTo({ top: 0, left: 0, behavior: "instant" });
+    dispatch(userAction.loginCheck("/chatlist"));
+    
     if (token) {
       dispatch(chatActions.setChatListAX());
       dispatch(chatActions.awaitChatListAX());
@@ -52,7 +56,7 @@ const ChatRoomList = (props) => {
       )
     );
     history.push({
-      pathname: '/chatting',
+      pathname: "/chatting",
       state: {
         room_id: room_id,
         roomName: roomName,
@@ -83,7 +87,7 @@ const ChatRoomList = (props) => {
               padding="0 2rem"
               margin="auto"
               _onClick={() => {
-                history.push('/chatlist');
+                history.push("/chatlist");
               }}
               cursor="pointer"
             >
@@ -98,7 +102,7 @@ const ChatRoomList = (props) => {
                 margin="0 0 0.8rem"
                 color={color.bg60}
                 _onClick={() => {
-                  history.push('/allowchat');
+                  history.push("/allowchat");
                 }}
                 cursor="pointer"
               >
@@ -106,7 +110,7 @@ const ChatRoomList = (props) => {
               </Text>
             </Grid>
           </Grid>
-          {chat_list.map((info, idx) => {
+          {chat_list?.map((info, idx) => {
             return (
               <ChatListItem
                 key={idx}
@@ -128,7 +132,7 @@ const ChatRoomList = (props) => {
             );
           })}
 
-          {await_list.map((info, idx) => {
+          {await_list?.map((info, idx) => {
             return (
               <AwaitList
                 key={idx}
@@ -138,7 +142,7 @@ const ChatRoomList = (props) => {
             );
           })}
 
-          {await_list.length === 0 && chat_list.length === 0 && (
+          {await_list?.length === 0 && chat_list?.length === 0 && (
             <>
               <Grid shape="empty" src="illust/emptyBubbles.png">
                 <EmptyText theme={theme}>아직 채팅 내용이 없어요.</EmptyText>
@@ -146,10 +150,9 @@ const ChatRoomList = (props) => {
               <Grid height="20rem"></Grid>
             </>
           )}
-
-          <Footer {...props}></Footer>
         </Grid>
       </Grid>
+      <Footer {...props}></Footer>
     </React.Fragment>
   );
 };
