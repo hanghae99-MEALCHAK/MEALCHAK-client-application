@@ -54,6 +54,7 @@ const Grid = (props) => {
     fix_center,
     display,
     opacity,
+    z_index,
   } = props;
 
   const styles = {
@@ -104,6 +105,7 @@ const Grid = (props) => {
     src: src,
     display: display,
     opacity: opacity,
+    z_index: z_index,
   };
 
   if (shape === 'container') {
@@ -182,6 +184,7 @@ Grid.defaultProps = {
   src: '',
   display: '',
   opacity: '',
+  z_index: '',
 };
 
 const GridBox = styled.div`
@@ -255,6 +258,7 @@ const GridBox = styled.div`
     props.fix_center ? `left: 50%; transform: translateX(-50%);` : ''}
   ${(props) => (props.display ? `display: ${props.display};` : '')}
   ${(props) => (props.opacity ? `opacity: ${props.opacity};` : '')}
+  ${(props) => (props.z_index ? `z-index: ${props.z_index};` : '')}
 
   @media (min-width: 501px) {
     ${(props) =>

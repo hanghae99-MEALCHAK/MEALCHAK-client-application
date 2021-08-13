@@ -48,10 +48,12 @@ const MyPage = (props) => {
           minHeight="100vh"
           border={border.line1}
           margin="0 auto"
+          padding="0 0 1.47rem 0"
         >
           <Grid shape="container">
             <Header {...props} shape="마이페이지" />
             <Grid height="4.4rem" />
+            <Footer {...props}></Footer>
 
             <Grid margin="3.6rem auto 2rem">
               <Profile user_profile={user_info.user_profile} />
@@ -71,11 +73,17 @@ const MyPage = (props) => {
               >
                 {user_info.user_nickname}
               </Text>
-              <Grid width="auto" text_align="center" margin="0.5rem 0 0 0">
+              <Grid
+                width="24rem"
+                text_align="center"
+                margin="0.5rem auto 0 auto"
+              >
                 <Text size={fontSize.small} color="#9A9896" line_height="150%">
-                  {user_info?.user_comment
-                    ? user_info?.user_comment
-                    : "프로필 수정에서 한 줄 소개를 입력해주세요."}
+                  <span style={{whiteSpace: "pre-wrap"}}>
+                    {user_info?.user_comment
+                      ? user_info?.user_comment
+                      : "프로필 수정에서 한 줄 소개를 입력해주세요."}
+                  </span>
                 </Text>
               </Grid>
             </Grid>
@@ -234,8 +242,10 @@ const MyPage = (props) => {
                   onClick={() => {
                     customAlert.sweetConfirmReload(
                       "링크가 복사 됐어요!",
-                      ["이제 친구들에게 공유하고",
-                      "함께 밀착 서비스를 사용해보세요 :)"],
+                      [
+                        "이제 친구들에게 공유하고",
+                        "함께 밀착 서비스를 사용해보세요 :)",
+                      ],
                       ""
                     );
                   }}
@@ -280,8 +290,6 @@ const MyPage = (props) => {
                 </Text>
               </Grid>
             )}
-
-            <Footer {...props}></Footer>
           </Grid>
         </Grid>
       </React.Fragment>

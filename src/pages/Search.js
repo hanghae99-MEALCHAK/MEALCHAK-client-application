@@ -11,10 +11,14 @@ import { actionCreators as searchActions } from '../redux/modules/search';
 import theme from '../styles/theme';
 
 const Search = (props) => {
-  const { border } = theme;
+  const { color, border } = theme;
 
   const dispatch = useDispatch();
   const [food, setFood] = React.useState('');
+  const [sort, setSort] = React.useState({
+    recent: true,
+    nearby: false,
+  });
   let search_list = useSelector((state) => state.search.list);
   const is_food = useSelector((state) => state.search.is_food);
 
@@ -128,16 +132,33 @@ const Search = (props) => {
         </Grid>
         <Grid is_flex2 width="32rem" margin="2.15rem auto">
           <Grid>
-            <Text size="1.3rem" color="#9A9896" bold2="500">
+            <Text size="1.3rem" color={color.bg80} bold2="500">
               정렬 기준
             </Text>
           </Grid>
           <Grid flex justify_content="flex-end">
-            <Text size="1.3rem" color="#ff9425" bold>
+            <Text
+              size="1.3rem"
+              color={sort?.recent ? color.brand100 : color.bg60}
+              bold
+              cursor="t"
+              _onClick={() => {
+                setSort({ ...{ sort: false }, recent: true });
+              }}
+            >
               마감임박순
             </Text>
-            <Text size="1.3rem" color="#cecac7" bold margin="0 0 0 1rem">
-              최신순
+            <Text
+              size="1.3rem"
+              color={sort?.nearby ? color.brand100 : color.bg60}
+              bold
+              margin="0 0 0 1rem"
+              cursor="t"
+              _onClick={() => {
+                setSort({ ...{ sort: false }, nearby: true });
+              }}
+            >
+              거리순
             </Text>
           </Grid>
         </Grid>
