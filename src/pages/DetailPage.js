@@ -25,6 +25,7 @@ const DetailPage = (props) => {
   const { border } = theme;
 
   React.useEffect(() => {
+    logger("디테일페이지", post_list)
     if (post) {
       return;
     }

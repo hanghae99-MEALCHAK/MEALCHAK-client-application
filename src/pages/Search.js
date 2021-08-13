@@ -32,7 +32,7 @@ const Search = (props) => {
   };
 
   React.useEffect(() => {
-    dispatch(searchActions.food_check(false));
+    // dispatch(searchActions.food_check(false));
   }, []);
   return (
     <React.Fragment>

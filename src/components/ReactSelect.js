@@ -65,6 +65,10 @@ const customStyles2 = {
     height: "100%",
     padding: "1rem",
   }),
+  placeholder: (provided, state) => ({
+    ...provided,
+    color: color.bg80,
+  }),
 };
 
 const customTheme2 = (theme) => {
@@ -73,8 +77,8 @@ const customTheme2 = (theme) => {
     borderRadius: radius.button,
     colors: {
       ...theme.colors,
-      primary25: color.brand20,
-      primary: color.bg40,
+      primary25: color.brand40,
+      primary: color.brand100,
     },
   };
 };
@@ -130,6 +134,7 @@ export const HeadSelect = (props) => {
           }}
           styles={customStyles2}
           theme={customTheme2}
+          
         />
       </div>
     </React.Fragment>
@@ -169,7 +174,7 @@ export const CTGSelect = (props) => {
 
 export const GenderSelect = (props) => {
   const user_info = useSelector((state) => state.user.user);
-  const gender = user_info.user_gender === "female"? "여성" : "남성";
+  const gender = user_info.user_gender === "female" ? "여성" : "남성";
   return (
     <React.Fragment>
       <div style={styles.app}>
@@ -181,9 +186,7 @@ export const GenderSelect = (props) => {
           }}
           options={props.options}
           placeholder={
-            user_info.user_gender
-              ? `${gender}`
-              : "성별을 선택해주세요"
+            user_info.user_gender ? `${gender}` : "성별을 선택해주세요"
           }
           onChange={(e) => {
             props.setProfile({
@@ -202,23 +205,23 @@ export const GenderSelect = (props) => {
 export const AgeSelect = (props) => {
   const user_info = useSelector((state) => state.user.user);
   const age = () => {
-    if(user_info.user_age === "10~19"){
-      return "10대"
+    if (user_info.user_age === "10~19") {
+      return "10대";
     }
-    if(user_info.user_age === "20~29"){
-      return "20대"
+    if (user_info.user_age === "20~29") {
+      return "20대";
     }
-    if(user_info.user_age === "30~39"){
-      return "30대"
+    if (user_info.user_age === "30~39") {
+      return "30대";
     }
-    if(user_info.user_age === "40~49"){
-      return "40대"
+    if (user_info.user_age === "40~49") {
+      return "40대";
     }
-    if(user_info.user_age === "50~59"){
-      return "50대"
+    if (user_info.user_age === "50~59") {
+      return "50대";
     }
     return;
-  }
+  };
   return (
     <React.Fragment>
       <div style={styles.app}>
@@ -234,7 +237,7 @@ export const AgeSelect = (props) => {
             user_info.user_age ? `${age()}` : "연령대를 선택해주세요."
           }
           onChange={(e) => {
-            logger("연령 이벤트", e.value)
+            logger("연령 이벤트", e.value);
             props.setProfile({
               ...props.editProfile,
               age: e.value,

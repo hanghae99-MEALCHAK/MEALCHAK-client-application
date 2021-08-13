@@ -406,11 +406,13 @@ export default handleActions(
         draft.is_login = false;
         draft.is_loading = false;
 
-        customAlert.sweetConfirmReload(
+        customAlert.sweetOK(
           '로그아웃 되었습니다.',
-          ['또 만나요!'],
-          '/'
-        );
+          '또 만나요!',
+          "",
+        ).then((res) => {
+          return window.location.replace("/")
+        })
       }),
     [LOADING]: (state, action) =>
       produce(state, (draft) => {

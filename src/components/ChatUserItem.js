@@ -23,7 +23,10 @@ const ChatUserItem = (props) => {
         margin="0.4rem 0.8rem 0.4rem 0" 
         cursor="pointer"
         _onClick={() => {
-          return history.push("/myprofile")
+          return history.push({
+            pathname: "/myprofile",
+            state: { ...user_info },
+          })
         }}
         src={user_info.user_img}></Image>
         <Text bold2="700" size={fontSize.base}>

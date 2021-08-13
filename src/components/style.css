@@ -1,85 +1,151 @@
 * {
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  .menu-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .menu-trigger {
-    background: #ffffff;
-    border-radius: 90px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4px 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    border: none;
-    vertical-align: middle;
-    transition: box-shadow 0.4s ease;
-    margin-left: auto;
-  }
-  
-  .menu-trigger:hover {
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
-  }
-  
-  .menu-trigger span {
-    font-weight: 700;
-    vertical-align: middle;
-    font-size: 14px;
-    margin: 0 10px;
-  }
-  
-  .menu-trigger img {
-    border-radius: 90px;
-  }
-  
-  .menu {
-    background: #ffffff;
-    position: absolute;
-    top: 60px;
-    /* right: 0; */
-    /* margin: 0 8.2rem 0 0; */
-    width: 30rem;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-20px);
-    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
-  }
-  
-  .menu.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-  
-  .menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .menu li {
-    border-bottom: 1px solid #dddddd;
-  }
-  
-  .menu li a {
-    text-decoration: none;
-    color: #333333;
-    padding: 15px 20px;
-    display: block;
-  }
-  
-  .placeholder show{
-    font-size: 1.2rem;
-  }
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.menu-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-trigger {
+  background: #ffffff;
+  border-radius: 90px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  border: none;
+  vertical-align: middle;
+  transition: box-shadow 0.4s ease;
+  margin-left: auto;
+}
+
+.menu-trigger:hover {
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+.menu-trigger span {
+  font-weight: 700;
+  vertical-align: middle;
+  font-size: 14px;
+  margin: 0 10px;
+}
+
+.menu-trigger img {
+  border-radius: 90px;
+}
+
+.menu {
+  background: #ffffff;
+  position: absolute;
+  top: 60px;
+  /* right: 0; */
+  /* margin: 0 8.2rem 0 0; */
+  width: 30rem;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+}
+
+.menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  border-bottom: 1px solid #dddddd;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: #333333;
+  padding: 15px 20px;
+  display: block;
+}
+
+.placeholder show {
+  font-size: 1.2rem;
+}
+
+/* date picker calender */
+.react-datepicker__header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #EBE9E8 !important;
+}
+
+.sunday {
+  color: rgb(255, 0, 0) !important;
+}
+
+/* date picker time */
+.time-box {
+  width: 20rem !important;
+  height: 33rem !important;
+  border-radius: 1.2rem !important;
+}
+.react-datepicker__time-list::-webkit-scrollbar {
+  display: none !important;
+}
+
+.react-datepicker__header--time--only {
+  border-top-left-radius: 1.2rem !important;
+  border-top-right-radius: 1.2rem !important;
+  padding: 1.6rem 0 0.8rem !important;
+}
+
+.react-datepicker-time__header {
+  color: #36373C !important;
+  font-size: 1.6rem !important;
+
+}
+
+.react-datepicker__time-list-item--selected {
+  background-color: #fff0e1 !important;
+  color: #ff9425 !important;
+}
+
+.react-datepicker__time-container {
+  width: 100%;
+}
+
+.react-datepicker__time-box {
+  width: 100% !important;
+}
+
+.react-datepicker__time{
+  border-bottom-left-radius: 1.2rem !important;
+  border-bottom-right-radius: 1.2rem !important;
+}
+
+.react-datepicker__time-list{
+  height: calc(28rem + (1.7rem / 2)) !important;
+}
+
+.react-datepicker__time-list-item {
+  height: auto !important;
+  font-size: 1.3rem;
+  font-weight: 500;
+  padding: 0.5rem 0 !important;
+  margin: 0.8rem;
+}
+.react-datepicker__time-list-item:hover {
+  background-color: #fff0e1 !important;
+  color: #ff9425;
+}

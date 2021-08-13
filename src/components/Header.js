@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import logger from '../shared/Console';
 import { history } from '../redux/configureStore';
 import { customAlert } from './Sweet';
+import { useDispatch } from 'react-redux';
+import { actionCreators as searchActions } from '../redux/modules/search';
 
 import { useSelector } from 'react-redux';
 
@@ -11,6 +13,7 @@ import theme from '../styles/theme';
 import { HiOutlineMenu } from 'react-icons/hi';
 
 const Header = (props) => {
+  const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
 
   const loginCheck = (path) => {
@@ -523,8 +526,9 @@ const Header = (props) => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             onClick={() => {
-              history.push('/home');
-              // history.goBack();
+              // history.push('/home');
+              history.goBack();
+              dispatch(searchActions.food_check(false));
             }}
           >
             <path

@@ -36,7 +36,7 @@ const UploadContents = React.memo((props) => {
               placeholder="메뉴를 포함해서 제목을 작성해보세요!"
               length={20}
               size={fontSize.base}
-              color={color.bg60}
+              color={color.bg80}
               bold="400"
               value={post_info.title}
               _onChange={(e) => {
@@ -55,7 +55,7 @@ const UploadContents = React.memo((props) => {
             placeholder="어떤 음식을 함께 즐기고 싶으신가요?"
             multiLine="t"
             length="300"
-            color={color.bg60}
+            color={color.bg80}
             value={post_info.contents}
             _onChange={(e) => {
               setPostInfo({ ...post_info, contents: e.target.value });

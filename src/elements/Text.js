@@ -72,6 +72,7 @@ const Text = (props) => {
 
 Text.defaultProps = {
   text_decoration: "",
+  word_break: '',
   children: null,
   bold: false,
   bold2: false,
@@ -96,7 +97,6 @@ Text.defaultProps = {
   border_bottom: '',
   bg: false,
   radius: '',
-  word_break: '',
 };
 
 const P = styled.p`
@@ -132,7 +132,7 @@ const P = styled.p`
   ${(props) => (props.radius ? `border-radius: ${props.radius};` : '')}
   ${(props) => (props.word_break ? `word-break: ${props.word_break};` : '')}
   ${(props) => (props.text_decoration ? `text-decoration: ${props.text_decoration};` : '')}
-
+  
 
 `;
 
