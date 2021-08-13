@@ -193,16 +193,16 @@ const ProfileTab = (props) => {
             margin="0"
           >
             {info?.user_age
-              ? info.user_age?.includes('1')
-                ? '10대'
-                : info.user_age?.includes('2')
-                ? '20대'
-                : info.user_age?.includes('3')
-                ? '30대'
-                : info.user_age?.includes('4')
-                ? '40대'
-                : info.user_age?.includes('5') && '50대'
-              : '미입력'}
+              ? info.user_age?.includes("1")
+                ? "10대"
+                : info.user_age?.includes("2")
+                ? "20대"
+                : info.user_age?.includes("3")
+                ? "30대"
+                : info.user_age?.includes("4")
+                ? "40대"
+                : info.user_age?.includes("5") && "50대"
+              : "미입력"}
           </Text>
           <Text
             width="4rem"

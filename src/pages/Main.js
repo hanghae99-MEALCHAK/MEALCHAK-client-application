@@ -58,15 +58,16 @@ const Main = (props) => {
     <React.Fragment>
       <Grid
         minHeight="100vh"
-        minWidth="36rem"
         maxWidth="36rem"
         margin="0 auto"
         border={border.line1}
+        padding="0 0 5.2rem 0"
       >
         <Grid shape="container">
           <Header {...props} shape="홈">
             {user?.user_address}
           </Header>
+          <Footer {...props}></Footer>
         </Grid>
         <Grid width="36rem" margin="0 0 1rem 0">
           <Button
@@ -393,7 +394,6 @@ const Main = (props) => {
           )}
           {post_list.length === 0 && <Grid height="8.4rem" />}
         </Grid>
-        <Footer {...props}></Footer>
       </Grid>
     </React.Fragment>
   );

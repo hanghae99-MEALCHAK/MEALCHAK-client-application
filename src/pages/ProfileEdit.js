@@ -242,7 +242,8 @@ const ProfileEdit = (props) => {
             size={fontSize.small}
             line_height="150%"
           >
-            20글자 이상 입력해주세요.
+            {/* 20글자 이상 입력해주세요. */}
+            130자까지 입력 가능합니다.
           </Text>
         </Grid>
 

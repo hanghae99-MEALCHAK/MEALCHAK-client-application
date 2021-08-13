@@ -31,12 +31,10 @@ const Footer = (props) => {
     <React.Fragment>
       <Grid
         height="5.2rem"
-        maxWidth="36rem"
-        margin="0 auto 0 auto"
+        maxWidth="36.01rem"
+        margin="0 0 0 -0.1rem"
         padding="0.5rem 0"
-        // is_fixed="t"
-        position="sticky"
-        bottom="0"
+        is_fixed="t"
         bg={color.bg0}
         shadow="t"
       >
