@@ -3,14 +3,13 @@ import styled from 'styled-components';
 import logger from '../shared/Console';
 import { history } from '../redux/configureStore';
 import { customAlert } from './Sweet';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as searchActions } from '../redux/modules/search';
+import { actionCreators as imageActions } from "../redux/modules/image";
 
 // styles
 import { HiOutlineMenu } from "react-icons/hi";
 import { Grid, Text } from "../elements";
-import logger from "../shared/Console";
-import { customAlert } from "./Sweet";
 import theme from "../styles/theme";
 
 const Header = (props) => {
