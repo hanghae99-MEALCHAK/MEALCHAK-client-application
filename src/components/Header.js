@@ -1,9 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-
-import { history } from "../redux/configureStore";
-import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as imageActions } from "../redux/modules/image";
+import React from 'react';
+import styled from 'styled-components';
+import logger from '../shared/Console';
+import { history } from '../redux/configureStore';
+import { customAlert } from './Sweet';
+import { useDispatch } from 'react-redux';
+import { actionCreators as searchActions } from '../redux/modules/search';
 
 // styles
 import { HiOutlineMenu } from "react-icons/hi";
@@ -526,7 +527,9 @@ const Header = (props) => {
             xmlns="http://www.w3.org/2000/svg"
             cursor="pointer"
             onClick={() => {
+              // history.push('/home');
               history.goBack();
+              dispatch(searchActions.food_check(false));
             }}
             style={{ margin: "0 0 0 1rem" }}
           >

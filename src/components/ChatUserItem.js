@@ -20,13 +20,15 @@ const ChatUserItem = (props) => {
     return (
       <Grid is_flex4="t" padding="0.8rem 0 0.8rem 2rem">
         <Image
-          margin="0.4rem 0.8rem 0.4rem 0"
-          cursor="pointer"
-          _onClick={() => {
-            return history.push("/myprofile");
-          }}
-          src={user_info.user_img}
-        ></Image>
+        margin="0.4rem 0.8rem 0.4rem 0" 
+        cursor="pointer"
+        _onClick={() => {
+          return history.push({
+            pathname: "/myprofile",
+            state: { ...user_info },
+          })
+        }}
+        src={user_info.user_img}></Image>
         <Text bold2="700" size={fontSize.base}>
           나 ({user_info.user_name})
         </Text>
