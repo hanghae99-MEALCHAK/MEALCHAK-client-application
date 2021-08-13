@@ -1,9 +1,9 @@
 // 마이페이지, 타 유저 프로필, 내가 보는 내 프로필의 매너점수, 성별, 연령 탭
-import React from "react";
+import React from 'react';
 
 // styles
-import { Grid, Text } from "../elements";
-import theme from "../styles/theme";
+import { Grid, Text } from '../elements';
+import theme from '../styles/theme';
 
 const ProfileTab = (props) => {
   const { color, border, fontSize, radius } = theme;
@@ -65,17 +65,17 @@ const ProfileTab = (props) => {
         >
           <Text
             width="5.8rem"
-            height={info?.user_gender ? "3.2rem" : "2.4rem"}
+            height={info?.user_gender ? '3.2rem' : '2.4rem'}
             size={fontSize.display4}
             bold
             text_align="center"
             line_height="150%"
-            padding={info?.user_gender ? "0" : "0 0 3.1rem 0"}
-            margin={info?.user_gender ? "0" : "0.1rem 0 0 0"}
+            padding={info?.user_gender ? '0' : '0 0 3.1rem 0'}
+            margin={info?.user_gender ? '0' : '0.1rem 0 0 0'}
             color={color.brand100}
           >
             {info?.user_gender ? (
-              info?.user_gender === "male" ? (
+              info?.user_gender === 'male' ? (
                 <svg
                   width="3rem"
                   height="3rem"
@@ -154,7 +154,7 @@ const ProfileTab = (props) => {
                 </svg>
               )
             ) : (
-              "미입력"
+              '미입력'
             )}
           </Text>
           <Text
@@ -182,7 +182,7 @@ const ProfileTab = (props) => {
           radius={radius.button}
         >
           <Text
-            width={info?.user_age ? "4.5rem" : "5.8rem"}
+            width={info?.user_age ? '4.5rem' : '5.8rem'}
             height="3.2rem"
             size={fontSize.display4}
             bold

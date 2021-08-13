@@ -15,12 +15,17 @@ import moment from 'moment';
 const Post = (props) => {
   const { color, fontSize } = theme;
 
+  // 글 생성 시간
   // 연, 월
   const ym = props?.insert_dt.split('-');
   // 일
   const day = ym[2].split(' ');
   // 시, 분
   const hm = day[1].split(':');
+
+  // 예상 만남 시간
+  const ordDate = props?.orderDate.split('-');
+  const ordTime = props?.orderTime.split(':');
 
   // 오늘 표시
   const today = moment().format('YYYY-MM-DD');
@@ -53,13 +58,13 @@ const Post = (props) => {
   // 날짜에 따라서 오늘 내일 변겨 함수
   const date_time = () => {
     if (is_today) {
-      return `오늘 ${hm[0]}:${hm[1]}`;
+      return `오늘 ${ordTime[0]}:${ordTime[1]}`;
     }
     if (is_tomorrow) {
-      return `내일 ${hm[0]}:${hm[1]}`;
+      return `내일 ${ordTime[0]}:${ordTime[1]}`;
     }
 
-    return `${ym[1]}월 ${day[0]}일 ${hm[0]}:${hm[1]}`;
+    return `${ordDate[1]}월 ${ordDate[2]}일 ${ordTime[0]}:${ordTime[1]}`;
   };
 
   React.useEffect(() => {
