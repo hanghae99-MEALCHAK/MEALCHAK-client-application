@@ -21,7 +21,7 @@ const ChatRoomList = (props) => {
       .querySelector("body")
       .scrollTo({ top: 0, left: 0, behavior: "instant" });
     dispatch(userAction.loginCheck("/chatlist"));
-    
+
     if (token) {
       dispatch(chatActions.setChatListAX());
       dispatch(chatActions.awaitChatListAX());
@@ -70,89 +70,85 @@ const ChatRoomList = (props) => {
   return (
     <React.Fragment>
       <Grid
+        minWidth="36rem"
         maxWidth="36rem"
         minHeight="100vh"
         border={border.line1}
         margin="0 auto"
-        padding="0 0 6rem 0"
+        // padding="0 0 6rem 0"
       >
         <Grid shape="container">
           <Header {...props} shape="채팅리스트" />
           <Grid height="4.4rem" />
-
-          <Grid is_flex4="t" text_align="center" borderBottom={border.line1}>
-            <Grid
-              borderBottom={border.line3}
-              width="auto"
-              padding="0 2rem"
-              margin="auto"
+          <Footer {...props}></Footer>
+        </Grid>
+        <Grid is_flex4="t" text_align="center" borderBottom={border.line1}>
+          <Grid
+            borderBottom={border.line3}
+            width="auto"
+            padding="0 2rem"
+            margin="auto"
+            _onClick={() => {
+              history.push("/chatlist");
+            }}
+            cursor="pointer"
+          >
+            <Text size={fontSize.base} bold2="700" margin="0 0 0.8rem">
+              참여중인 채팅방
+            </Text>
+          </Grid>
+          <Grid width="auto" padding="0 2rem" margin="auto">
+            <Text
+              bold2="700"
+              size={fontSize.base}
+              margin="0 0 0.8rem"
+              color={color.bg60}
               _onClick={() => {
-                history.push("/chatlist");
+                history.push("/allowchat");
               }}
               cursor="pointer"
             >
-              <Text size={fontSize.base} bold2="700" margin="0 0 0.8rem">
-                참여중인 채팅방
-              </Text>
-            </Grid>
-            <Grid width="auto" padding="0 2rem" margin="auto">
-              <Text
-                bold2="700"
-                size={fontSize.base}
-                margin="0 0 0.8rem"
-                color={color.bg60}
-                _onClick={() => {
-                  history.push("/allowchat");
-                }}
-                cursor="pointer"
-              >
-                들어온 승인 요청
-              </Text>
-            </Grid>
+              들어온 승인 요청
+            </Text>
           </Grid>
-          {chat_list?.map((info, idx) => {
-            return (
-              <ChatListItem
-                key={idx}
-                live_chat={info.live_chat}
-                room_id={info.room_id}
-                roomName={info.roomName}
-                post_id={info.postId}
-                headCountChat={info.headCountChat}
-                _onClick={(e) => {
-                  enterRoom(
-                    info.room_id,
-                    info.roomName,
-                    info.postId,
-                    info.own_user_id,
-                    info.order_time
-                  );
-                }}
-              />
-            );
-          })}
-
-          {await_list?.map((info, idx) => {
-            return (
-              <AwaitList
-                key={idx}
-                roomName={info.title}
-                join_id={info.join_id}
-              />
-            );
-          })}
-
-          {await_list?.length === 0 && chat_list?.length === 0 && (
-            <>
-              <Grid shape="empty" src="illust/emptyBubbles.png">
-                <EmptyText theme={theme}>아직 채팅 내용이 없어요.</EmptyText>
-              </Grid>
-              <Grid height="20rem"></Grid>
-            </>
-          )}
         </Grid>
+        {chat_list?.map((info, idx) => {
+          return (
+            <ChatListItem
+              key={idx}
+              live_chat={info.live_chat}
+              room_id={info.room_id}
+              roomName={info.roomName}
+              post_id={info.postId}
+              headCountChat={info.headCountChat}
+              _onClick={(e) => {
+                enterRoom(
+                  info.room_id,
+                  info.roomName,
+                  info.postId,
+                  info.own_user_id,
+                  info.order_time
+                );
+              }}
+            />
+          );
+        })}
+
+        {await_list?.map((info, idx) => {
+          return (
+            <AwaitList key={idx} roomName={info.title} join_id={info.join_id} />
+          );
+        })}
+
+        {await_list?.length === 0 && chat_list?.length === 0 && (
+          <>
+            <Grid shape="empty" src="illust/emptyBubbles.png">
+              <EmptyText theme={theme}>아직 채팅 내용이 없어요.</EmptyText>
+            </Grid>
+            <Grid height="20rem"></Grid>
+          </>
+        )}
       </Grid>
-      <Footer {...props}></Footer>
     </React.Fragment>
   );
 };

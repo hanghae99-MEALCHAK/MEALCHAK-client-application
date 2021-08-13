@@ -24,6 +24,7 @@ const Input = forwardRef((props, ref) => {
     radius,
     width,
     flex,
+    height,
   } = props;
 
   if (multiLine) {
@@ -31,6 +32,7 @@ const Input = forwardRef((props, ref) => {
       <Grid>
         <ElTextarea
           rows={15}
+          height={height}
           value={value}
           color={color}
           placeholder={placeholder}
@@ -40,6 +42,7 @@ const Input = forwardRef((props, ref) => {
           maxLength={length}
           size={size}
           padding={padding}
+          maxlength={length}
         ></ElTextarea>
       </Grid>
     );
@@ -123,6 +126,7 @@ const ElTextarea = styled.textarea`
   box-sizing: border-box;
   resize: none;
   ${(props) => (props.size ? `font-size: ${props.size};` : "1.4rem")};
+  ${(props) => (props.height ? `height: ${props.height};` : "")};
   &::placeholder {
     ${(props) => (props.size ? `font-size: ${props.size};` : "1.2rem")};
     ${(props) => (props.color ? `color: ${props.color};` : "")};

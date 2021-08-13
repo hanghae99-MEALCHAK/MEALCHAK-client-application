@@ -20,17 +20,18 @@ const ChatUserItem = (props) => {
     return (
       <Grid is_flex4="t" padding="0.8rem 0 0.8rem 2rem">
         <Image
-        margin="0.4rem 0.8rem 0.4rem 0" 
-        cursor="pointer"
-        _onClick={() => {
-          return history.push("/myprofile")
-        }}
-        src={user_info.user_img}></Image>
+          margin="0.4rem 0.8rem 0.4rem 0"
+          cursor="pointer"
+          _onClick={() => {
+            return history.push("/myprofile");
+          }}
+          src={user_info.user_img}
+        ></Image>
         <Text bold2="700" size={fontSize.base}>
           나 ({user_info.user_name})
         </Text>
         {user_info.user_id === props.own_user_id && (
-          <Text            
+          <Text
             width="2.7rem"
             height="1.5rem"
             margin="0 0 0 0.4rem"
@@ -65,9 +66,7 @@ const ChatUserItem = (props) => {
               });
             }}
           ></Image>
-          <Text size={fontSize.base}>
-            {user_info.user_name}
-          </Text>
+          <Text size={fontSize.base}>{user_info.user_name}</Text>
         </Grid>
         <IoIosCloseCircle
           size="2.4rem"
@@ -98,9 +97,7 @@ const ChatUserItem = (props) => {
           });
         }}
       ></Image>
-      <Text size={fontSize.base}>
-        {user_info.user_name}
-      </Text>
+      <Text size={fontSize.base}>{user_info.user_name}</Text>
       {user_info.user_id === props.own_user_id && (
         <Text
           padding="0.1rem"

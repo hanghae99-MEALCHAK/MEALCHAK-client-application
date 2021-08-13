@@ -1,44 +1,44 @@
-import React from 'react';
-import styled from 'styled-components';
-import { actionCreators as userActions } from '../redux/modules/user';
+import React from "react";
+import styled from "styled-components";
+import { actionCreators as userActions } from "../redux/modules/user";
 
-import { Grid, Button, Text, Input } from '../elements';
-import { Header } from '../components';
-import theme from '../styles/theme';
-import logger from '../shared/Console';
-import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router';
-import { customAlert } from '../components/Sweet';
+import { Grid, Button, Text, Input } from "../elements";
+import { Header } from "../components";
+import theme from "../styles/theme";
+import logger from "../shared/Console";
+import { useDispatch } from "react-redux";
+import { useLocation } from "react-router";
+import { customAlert } from "../components/Sweet";
 
-import Select from '../components/ReactSelect';
+import Select from "../components/ReactSelect";
 
 const { color, border, fontSize } = theme;
 // select options
 const options = [
-  { value: 'chocolate', label: '최고예요!' },
-  { value: 'strawberry', label: '좋아요~' },
-  { value: 'vanilla', label: '별로예요:(' },
+  { value: "chocolate", label: "최고예요!" },
+  { value: "strawberry", label: "좋아요~" },
+  { value: "vanilla", label: "별로예요:(" },
 ];
 
 const ReviewWrite = (props) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const [manner, setManner] = React.useState('');
-  const [review, setReview] = React.useState('');
+  const [manner, setManner] = React.useState("");
+  const [review, setReview] = React.useState("");
   const [disabled, setDisabled] = React.useState(true);
 
   const changeManner = (manner) => {
-    if (manner === '최고예요!') {
-      setManner('BEST');
+    if (manner === "최고예요!") {
+      setManner("BEST");
       setDisabled(false);
     }
-    if (manner === '좋아요~') {
-      setManner('GOOD');
+    if (manner === "좋아요~") {
+      setManner("GOOD");
       setDisabled(false);
     }
-    if (manner === '별로예요:(') {
-      setManner('BAD');
+    if (manner === "별로예요:(") {
+      setManner("BAD");
       setDisabled(false);
     }
   };
@@ -55,17 +55,21 @@ const ReviewWrite = (props) => {
   };
 
   const changeDisabled = (e) => {
+    if (e.target.value.length === 100) {
+      // customAlert 변경
+      window.alert("리뷰 작성 시 100자 이상 입력할 수 없습니다.");
+    }
     setReview(e.target.value);
     setDisabled(false);
   };
 
   React.useEffect(() => {
-    logger('ReviewWrite props: ', props);
-    logger('ReviewWrite location-state: ', location.state);
+    logger("ReviewWrite props: ", props);
+    logger("ReviewWrite location-state: ", location.state);
   }, []);
 
   React.useEffect(() => {
-    if (manner === '' && review === '') {
+    if (manner === "" || review === "" || review === " ") {
       setDisabled(true);
     } else if (manner && review) {
       setDisabled(false);
@@ -80,9 +84,7 @@ const ReviewWrite = (props) => {
       margin="0 auto"
     >
       <Grid shape="container">
-        <Header {...props} shape="검색">
-          리뷰 남기기
-        </Header>
+        <Header {...props} shape="리뷰남기기"/>
         <Grid height="4.4rem" />
 
         <Grid margin="2rem auto 1rem">
@@ -122,16 +124,20 @@ const ReviewWrite = (props) => {
         </Grid>
         <Grid
           width="36rem"
+          // 임시 height
+          height="30rem"
           padding="1rem 3rem 0 3rem"
           borderTop="0.1rem solid #EBE9E8"
         >
           <Input
+            type="text"
+            height="100%"
             bold="400"
             border="none"
             size={fontSize.base}
             placeholder="해당 사용자와의 밀착이 만족스러우셨다면 따뜻한 리뷰를 전해보세요!"
             multiLine="t"
-            length="300"
+            length="100"
             color="#9A9896"
             value={review}
             _onChange={changeDisabled}
