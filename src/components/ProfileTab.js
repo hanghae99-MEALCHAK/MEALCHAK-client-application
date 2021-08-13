@@ -198,7 +198,7 @@ const ProfileTab = (props) => {
                 : info.user_age?.includes("2")
                 ? "20대"
                 : info.user_age?.includes("3")
-                ? "info30대"
+                ? "30대"
                 : info.user_age?.includes("4")
                 ? "40대"
                 : info.user_age?.includes("5") && "50대"
