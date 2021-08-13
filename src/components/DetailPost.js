@@ -52,6 +52,10 @@ const DetailPost = (props) => {
   // 시, 분
   const hm = day[1].split(':');
 
+  // 예상 만남 시간
+  const ordDate = orderDate.split('-');
+  const ordTime = orderTime.split(':');
+
   // 오늘 표시
   const today = moment().format('YYYY-MM-DD');
   const tomorrow = moment().add(1, 'd').format('YYYY-MM-DD');
@@ -61,13 +65,13 @@ const DetailPost = (props) => {
   // 날짜에 따라서 오늘 내일 변겨 함수
   const date_time = () => {
     if (is_today) {
-      return `오늘 ${hm[0]}:${hm[1]}`;
+      return `오늘 ${ordTime[0]}:${ordTime[1]}`;
     }
     if (is_tomorrow) {
-      return `내일 ${hm[0]}:${hm[1]}`;
+      return `내일 ${ordTime[0]}:${ordTime[1]}`;
     }
 
-    return `${ym[1]}월 ${day[0]}일 ${hm[0]}:${hm[1]}`;
+    return `${ordDate[1]}월 ${ordDate[2]}일 ${ordTime[0]}:${ordTime[1]}`;
   };
 
   React.useEffect(() => {
