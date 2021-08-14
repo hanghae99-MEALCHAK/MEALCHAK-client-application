@@ -2,15 +2,23 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
 
 import { Grid, Text } from "../elements";
+import { customAlert } from "./Sweet";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
 
 const MyOneReview = (props) => {
   const { color, fontSize } = theme;
+
+  const is_login = useSelector((state) => state.user.is_login);
+  const user_info = useSelector((state) => state.user.user);
+
   // 연, 월
-  const ym = props.other_user? props?.createdAt.split("-") : props?.insert_dt.split("-");
+  const ym = props.other_user
+    ? props?.createdAt.split("-")
+    : props?.insert_dt.split("-");
   // 일
   const day = ym[2].split(" ");
   // 시, 분
@@ -24,10 +32,32 @@ const MyOneReview = (props) => {
         margin="1.5rem 0 0 0"
         borderBottom="0.1rem solid #F4F4F3"
       >
-        <Profile user_profile={props.other_user ? props.profileImg : props.user_profile} />
+        <Profile
+          user_profile={
+            props.other_user ? props.profileImg : props.user_profile
+          }
+          onClick={() => {
+            if (is_login) {
+              if (!props.id && user_info.user_id === props.user_id) {
+                return history.push({
+                  pathname: "/myprofile",
+                  state: user_info.user_id,
+                });
+              }
+              if (props.id || props.user_id) {
+                history.push({
+                  pathname: "/userprofile",
+                  state: props.id || props.user_id,
+                });
+              }
+            } else {
+              customAlert.sweetNeedLogin();
+            }
+          }}
+        />
         <Grid minWidth="3.6rem" height="2rem" padding="0 0 0 5rem">
           <Text size={fontSize.small} line_height="150%" color={color.bg100}>
-            {props.other_user? props.username : props.user_nickname}
+            {props.other_user ? props.username : props.user_nickname}
           </Text>
         </Grid>
         <Grid
@@ -39,7 +69,9 @@ const MyOneReview = (props) => {
           align_items="flex-start"
           radius="0 1.2rem 1.2rem 1.2rem"
         >
-          <Text margin="0 0.4rem" size={fontSize.small}>{props.other_user ? props.review : props.review}</Text>
+          <Text margin="0 0.4rem" size={fontSize.small}>
+            {props.other_user ? props.review : props.review}
+          </Text>
         </Grid>
         <Grid height="1.5rem" padding="0 0 0 5rem">
           <Text size={fontSize.tiny} line_height="150%" color="#9A9896">
@@ -65,6 +97,7 @@ const Profile = styled.div`
       : `background-image: url(http://115.85.182.57:8080/image/profileDefaultImg.jpg)`}
   background-size: cover;
   background-position: center;
+  cursor: pointer;
 `;
 
 export default MyOneReview;
