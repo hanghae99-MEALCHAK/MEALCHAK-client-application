@@ -118,7 +118,11 @@ const Post = (props) => {
                   minWidth="5.5rem"
                   maxWidth="9.1rem"
                   height="2.3rem"
-                  bg="rgba(84, 189, 88, 0.1)"
+                  bg={
+                    props.valid === false || disabled
+                      ? color.bg20
+                      : "rgba(84, 189, 88, 0.1)"
+                  }
                   radius="0.5rem"
                   padding="0.4rem 0.8rem"
                   margin="0 3.3rem 0 0"
@@ -130,7 +134,7 @@ const Post = (props) => {
                     margin="0"
                     color={
                       props.valid === false || disabled
-                        ? `${color.bg20}`
+                        ? color.bg80
                         : color.success100
                     }
                     bold
