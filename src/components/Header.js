@@ -351,6 +351,9 @@ const Header = (props) => {
           height="4.4rem"
           margin="0 auto"
           bg="#ffffff"
+          _onClick={() => {
+            history.goBack();
+          }}
         >
           <svg
             width="24"
@@ -359,9 +362,6 @@ const Header = (props) => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             cursor="pointer"
-            onClick={() => {
-              history.goBack();
-            }}
             style={{ margin: "0 0 0 1rem" }}
           >
             <path
