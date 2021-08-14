@@ -141,7 +141,11 @@ const DetailPost = (props) => {
                   width={valid === false ? '5.5rem' : ''}
                   maxWidth="9.1rem"
                   height="2.3rem"
-                  bg={color.bg20}
+                  bg={
+                    props.valid === false || disabled
+                      ? color.bg20
+                      : "rgba(84, 189, 88, 0.1)"
+                  }
                   radius="0.5rem"
                   padding="0.4rem 0.8rem"
                 >
