@@ -229,7 +229,7 @@ const findUserProfileAX = (user_id) => {
         .then((res) => {
           logger("타 유저 프로필 체크 res", res);
           const user_info = {
-            user_id: res.data.userId,
+            // user_id: res.data.userId,
             user_profile: res.data.profileImg,
             user_nickname: res.data.username,
             user_comment: res.data.comment,
@@ -321,6 +321,7 @@ const getMyReviewAX = () => {
           if (res.data.length !== 0) {
             res.data.forEach((p) => {
               const my_review = {
+                user_id: p.id,
                 user_profile: p.profileImg,
                 user_nickname: p.username,
                 my_manner: p.manner,

@@ -27,6 +27,9 @@ const Search = (props) => {
   };
 
   const search = () => {
+    console.log(food);
+    console.log(setFood);
+
     dispatch(searchActions.getSearchListDB(food));
   };
 
