@@ -79,7 +79,7 @@ const MyPage = (props) => {
                 margin="0.5rem auto 0 auto"
               >
                 <Text size={fontSize.small} color="#9A9896" line_height="150%">
-                  <span style={{whiteSpace: "pre-wrap"}}>
+                  <span style={{ whiteSpace: "pre-wrap" }}>
                     {user_info?.user_comment
                       ? user_info?.user_comment
                       : "프로필 수정에서 한 줄 소개를 입력해주세요."}

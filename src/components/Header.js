@@ -5,12 +5,12 @@ import { history } from '../redux/configureStore';
 import { customAlert } from './Sweet';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as searchActions } from '../redux/modules/search';
-import { actionCreators as imageActions } from '../redux/modules/image';
+import { actionCreators as imageActions } from "../redux/modules/image";
 
 // styles
-import { HiOutlineMenu } from 'react-icons/hi';
-import { Grid, Text } from '../elements';
-import theme from '../styles/theme';
+import { HiOutlineMenu } from "react-icons/hi";
+import { Grid, Text } from "../elements";
+import theme from "../styles/theme";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -351,6 +351,9 @@ const Header = (props) => {
           height="4.4rem"
           margin="0 auto"
           bg="#ffffff"
+          _onClick={() => {
+            history.goBack();
+          }}
         >
           <svg
             width="24"
