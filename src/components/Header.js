@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import logger from '../shared/Console';
-import { history } from '../redux/configureStore';
-import { customAlert } from './Sweet';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as searchActions } from '../redux/modules/search';
+import React from "react";
+import styled from "styled-components";
+import logger from "../shared/Console";
+import { history } from "../redux/configureStore";
+import { customAlert } from "./Sweet";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as searchActions } from "../redux/modules/search";
 import { actionCreators as imageActions } from "../redux/modules/image";
 
 // styles
@@ -531,7 +531,7 @@ const Header = (props) => {
             onClick={() => {
               // history.push('/home');
               history.goBack();
-              dispatch(searchActions.food_check(false));
+              // dispatch(searchActions.food_check(false));
             }}
             style={{ margin: '0 0 0 1rem' }}
           >
@@ -566,10 +566,10 @@ const Header = (props) => {
         >
           <svg
             style={{
-              fontSize: '1.9rem',
-              position: 'absolute',
-              marginLeft: '1.2rem',
-              cursor: 'pointer',
+              fontSize: "1.9rem",
+              position: "absolute",
+              marginLeft: "1.2rem",
+              cursor: "pointer",
             }}
             width="24"
             height="24"
@@ -577,8 +577,9 @@ const Header = (props) => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             onClick={() => {
-              history.push('/home');
-              // history.goBack();
+              // history.push('/home');
+              history.goBack();
+              dispatch(searchActions.food_check(false));
             }}
           >
             <path

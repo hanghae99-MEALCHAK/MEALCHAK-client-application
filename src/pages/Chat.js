@@ -157,7 +157,7 @@ const Chat = (props) => {
         waitForConnection(ws, callback);
         
       }
-    }, 0.001);
+    }, 0.1);
   };
 
   const sendMessage = (new_message) => {
