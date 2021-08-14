@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
 
 import { Grid, Text } from "../elements";
 import theme from "../styles/theme";
@@ -24,7 +25,12 @@ const MyOneReview = (props) => {
         margin="1.5rem 0 0 0"
         borderBottom="0.1rem solid #F4F4F3"
       >
-        <Profile user_profile={props.other_user ? props.profileImg : props.user_profile} />
+        <Profile user_profile={props.other_user ? props.profileImg : props.user_profile} onClick={() => {
+          history.push({
+            pathname: '/userprofile',
+            state: { ...props },
+          });
+        }}/>
         <Grid minWidth="3.6rem" height="2rem" padding="0 0 0 5rem">
           <Text size={fontSize.small} line_height="150%" color={color.bg100}>
             {props.other_user? props.username : props.user_nickname}

@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import logger from '../shared/Console';
-import { history } from '../redux/configureStore';
-import { customAlert } from './Sweet';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as searchActions } from '../redux/modules/search';
+import React from "react";
+import styled from "styled-components";
+import logger from "../shared/Console";
+import { history } from "../redux/configureStore";
+import { customAlert } from "./Sweet";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as searchActions } from "../redux/modules/search";
 import { actionCreators as imageActions } from "../redux/modules/image";
 
 // styles
@@ -528,7 +528,7 @@ const Header = (props) => {
             onClick={() => {
               // history.push('/home');
               history.goBack();
-              dispatch(searchActions.food_check(false));
+              // dispatch(searchActions.food_check(false));
             }}
             style={{ margin: "0 0 0 1rem" }}
           >
@@ -561,34 +561,35 @@ const Header = (props) => {
           margin="0 auto"
           bg="#ffffff"
         >
-            <svg
-              style={{
-                fontSize: "1.9rem",
-                position: "absolute",
-                marginLeft: "1.2rem",
-                cursor: "pointer",
-              }}
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              onClick={() => {
-                history.push("/home");
-                // history.goBack();
-              }}
-            >
-              <path
-                d="M15 5L7 12L15 19"
-                stroke="#36373C"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <Text margin="auto" size="1.6rem" bold2="700">
-              {props.children}
-            </Text>
+          <svg
+            style={{
+              fontSize: "1.9rem",
+              position: "absolute",
+              marginLeft: "1.2rem",
+              cursor: "pointer",
+            }}
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            onClick={() => {
+              // history.push('/home');
+              history.goBack();
+              dispatch(searchActions.food_check(false));
+            }}
+          >
+            <path
+              d="M15 5L7 12L15 19"
+              stroke="#36373C"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <Text margin="auto" size="1.6rem" bold2="700">
+            {props.children}
+          </Text>
         </Grid>
       </React.Fragment>
     );
