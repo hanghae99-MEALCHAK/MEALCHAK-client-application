@@ -361,10 +361,7 @@ const Header = (props) => {
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            cursor="pointer"
-            onClick={() => {
-              history.goBack();
-            }}
+            cursor="pointer"            
             style={{ margin: '0 0 0 1rem' }}
           >
             <path

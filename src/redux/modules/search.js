@@ -44,6 +44,7 @@ const getSearchListDB = (food) => {
             distance: p.distance,
             room_id: p.roomId,
             nowHeadCount: p.nowHeadCount,
+            valid: p.valid,
           };
           search_list.push(post);
         });

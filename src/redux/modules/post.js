@@ -83,6 +83,7 @@ const getPostAX = (category, sort = 'recent') => {
               distance: p.distance,
               room_id: p.roomId,
               nowHeadCount: p.nowHeadCount,
+              valid: p.valid,
             };
             logger('post', post);
             post_list.push(post);

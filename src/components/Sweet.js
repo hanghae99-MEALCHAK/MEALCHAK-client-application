@@ -125,7 +125,6 @@ const sweetReviewWrite = (msg_title, msg_name, msg_content, path) => {
       focusConfirm: false,
     })
     .then((res) => {
-      console.log(res);
       if (res.isConfirmed) {
         // 주소 값이 없으면 리턴
         if (path === "") {
@@ -648,6 +647,13 @@ const SweetChatRequest = (user_id, post_user_id, post_id) => {
                 sweetConfirmReload(
                   "이미 신청한 방입니다.",
                   ["승인 대기 중이니 기다려주세요."],
+                  ""
+                );
+              } 
+              if (res.data === "이미 속해있는 채팅방입니다") {
+                sweetConfirmReload(
+                  "이미 참여중인 채팅입니다",
+                  ["채팅탭에서 확인해주세요"],
                   ""
                 );
               } else {

@@ -42,7 +42,7 @@ const customTheme = (theme) => {
     colors: {
       ...theme.colors,
       primary25: color.brand20,
-      primary: color.bg40,
+      primary: color.bg100,
     },
   };
 };
@@ -82,6 +82,7 @@ const customTheme2 = (theme) => {
     },
   };
 };
+
 
 const ReactSelect = (props) => {
   return (
@@ -130,11 +131,10 @@ export const HeadSelect = (props) => {
               ...props.post_info,
               headCount: e.value,
             });
-            props.onChange({ headCount: e.value });
+            props.onChange({ headCount: e.value });            
           }}
           styles={customStyles2}
           theme={customTheme2}
-          
         />
       </div>
     </React.Fragment>
