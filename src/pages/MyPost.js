@@ -33,13 +33,13 @@ const MyPost = (props) => {
   if (is_login) {
     return (
       <Grid
-        maxWidth="36rem"
-        minWidth="36rem"
-        minHeight="100vh"
-        border={border.line1}
-        margin="0 auto"
+        // maxWidth="36rem"
+        // minWidth="36rem"
+        // minHeight="100vh"
+        // border={border.line1}
+        // margin="0 auto"
       >
-        <Grid shape="container">
+        <Grid shape="container" minWidth="36rem">
           <Header {...props} shape="내가쓴글" />
           <Grid height="4.4rem" />          
           {my_post?.length !== 0 ? (

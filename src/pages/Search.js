@@ -41,10 +41,10 @@ const Search = (props) => {
   return (
     <React.Fragment>
       <Grid
-        width="36rem"
-        minHeight="100vh"
-        margin="0 auto"
-        border={border.line1}
+        // width="36rem"
+        // minHeight="100vh"
+        // margin="0 auto"
+        // border={border.line1}
       >
         <Grid shape="container">
           <Header {...props} shape="검색">

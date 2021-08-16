@@ -29,10 +29,10 @@ const TutorialSwiper = (props) => {
           }}
         >
           <SwiperSlide>
-            <Grid shape="container">
-              <Grid maxWidth="36rem">
-                <ElIntro src="/illust/introA_2x.png"></ElIntro>
-              </Grid>
+            <Grid shape="container">              
+              <Grid maxWidth="36rem">              
+                <ElIntro src="/illust/introA_1x.png"></ElIntro>                
+              </Grid>              
               <Grid>
                 <Text
                   margin="1rem 0 0.8rem 0"
@@ -55,7 +55,7 @@ const TutorialSwiper = (props) => {
           <SwiperSlide>
             <Grid shape="container">
               <Grid maxWidth="36rem">
-                <ElIntro src="/illust/introB_3x.png"></ElIntro>
+                <ElIntro src="/illust/introB_2x.png"></ElIntro>
               </Grid>
               <Grid>
                 <Text
@@ -109,6 +109,7 @@ TutorialSwiper.defaultProps = {};
 
 const ElIntro = styled.img`
   max-width: 32rem;
+  /* vertical-align: middle; */
 `;
 
 export default TutorialSwiper;
