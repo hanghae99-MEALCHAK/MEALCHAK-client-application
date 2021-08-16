@@ -105,9 +105,9 @@ const DetailPost = (props) => {
   return (
     <React.Fragment>
       <Grid
-        width="30rem"
-        margin="1.6rem auto"
-        padding="1.6rem 1.6rem 0 1.6rem"
+        width="32rem"
+        margin="1.6rem auto 0"
+        padding="1.6rem"
         is_border="0.1rem solid #EBE9E8"
         radius={radius.postBox}
       >
@@ -255,7 +255,7 @@ const DetailPost = (props) => {
           {props.is_profile && (
             <>
               {props.valid === false ? (
-                <Grid maxWidth="30rem" margin="1.6rem 0 0 0">
+                <Grid maxWidth="32rem" margin="1.6rem 0 0 0">
                   <Button
                     height="4.4rem"
                     radius="1.2rem"
@@ -322,9 +322,9 @@ const DetailPost = (props) => {
       {!props.is_profile && (
         <>
           <Grid
-            width="30rem"
+            width="32rem"
             margin="1.6rem auto"
-            padding="1.6rem"
+            padding="1.6rem 1.6rem 0.8rem 1.6rem"
             is_border="0.1rem solid #EBE9E8"
             radius={radius.postBox}
           >
@@ -339,7 +339,7 @@ const DetailPost = (props) => {
                     src={p.user_img}
                     size="3"
                     margin="0 0.8rem 0 0"
-                    cursor={user_info?.user_id !== p.user_id ? 't' : ''}
+                    cursor='t'
                     _onClick={() => {
                       if (is_login) {
                         if (user_info?.user_id === p.user_id) {
@@ -380,14 +380,14 @@ const DetailPost = (props) => {
             })}
           </Grid>
           <Grid
-            maxWidth="30rem"
+            maxWidth="32rem"
             margin="0 auto"
             height="auto"
             // is_fixed="t"
             // bottom="1rem"
           >
             {props.is_me ? (
-              <Grid text_align="center" is_flex3 maxWidth="30rem" gap="0.8rem">
+              <Grid text_align="center" is_flex3 maxWidth="32rem" gap="0.8rem">
                 <Button
                   width="15.2rem"
                   height="4.6rem"
@@ -423,7 +423,7 @@ const DetailPost = (props) => {
                 </Button>
               </Grid>
             ) : (
-              <Grid maxWidth="30rem" height="5rem">
+              <Grid maxWidth="32rem" height="5rem">
                 <Button
                   shape="large"
                   color={disabled ? '#EBE9E8' : color.brand100}

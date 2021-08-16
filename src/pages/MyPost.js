@@ -44,8 +44,7 @@ const MyPost = (props) => {
       >
         <Grid shape="container">
           <Header {...props} shape="내가쓴글" />
-          <Grid height="4.4rem" />
-          <Grid height="1.6rem" />
+          <Grid height="4.4rem" />          
           {/* {my_post?.length !== 0 ? (
             my_post.map((p, idx) => {
               return <Post {...p} is_profile key={idx} />;
@@ -66,6 +65,7 @@ const MyPost = (props) => {
               <MyReviewText>아직 내가 쓴 글이 없어요.</MyReviewText>
             </Grid>
           )}
+          <Grid height="1.6rem" />
         </Grid>
       </Grid>
     );
