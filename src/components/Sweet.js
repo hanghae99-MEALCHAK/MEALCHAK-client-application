@@ -503,54 +503,54 @@ const sweetUserInfo = (age, gender) => {
 
 // 작성 에러시 홈으로 간다고 하면 홈으로 보내고
 // 홈으로 안가면 이전 디테일 페이지로 보내줌
-const sweetEditError = (path) => {
-  return sweet
-    .fire({
-      customClass: {
-        popup: "border",
-        confirmButton: "confirmButton",
-        cancelButton: "cancelButton",
-        denyButton: "denyButton",
-        actions: "meal-action-class",
-      },
-      width: "auto",
-      padding: "0 1rem 1rem",
-      title: (
-        <Grid>
-          <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
-            모집글 작성에 에러가 발생했습니다.
-          </Text>
-          <Text size={fontSize.small}>홈 화면으로 돌아가시겠습니까?</Text>
-        </Grid>
-      ),
-      showCancelButton: false,
-      cancelButtonColor: color.brand20,
-      cancelButtonText: (
-        <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
-            닫기
-          </Text>
-        </Grid>
-      ),
-      confirmButtonColor: color.brand100,
-      confirmButtonText: (
-        <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
-            확인
-          </Text>
-        </Grid>
-      ),
-      focusConfirm: false,
-      reverseButtons: true,
-    })
-    .then((res) => {
-      if (res.isConfirmed) {
-        history.replace("/home");
-      } else {
-        history.push(path);
-      }
-    });
-};
+// const sweetEditError = (path) => {
+//   return sweet
+//     .fire({
+//       customClass: {
+//         popup: "border",
+//         confirmButton: "confirmButton",
+//         cancelButton: "cancelButton",
+//         denyButton: "denyButton",
+//         actions: "meal-action-class",
+//       },
+//       width: "auto",
+//       padding: "0 1rem 1rem",
+//       title: (
+//         <Grid>
+//           <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
+//             마감 기한이 끝난 글입니다.
+//           </Text>
+//           <Text size={fontSize.small}>새로운 모집글을 확인해주세요.</Text>
+//         </Grid>
+//       ),
+//       showCancelButton: false,
+//       cancelButtonColor: color.brand20,
+//       cancelButtonText: (
+//         <Grid width="9rem" is_flex2 margin="auto">
+//           <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
+//             닫기
+//           </Text>
+//         </Grid>
+//       ),
+//       confirmButtonColor: color.brand100,
+//       confirmButtonText: (
+//         <Grid width="9rem" is_flex2 margin="auto">
+//           <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
+//             확인
+//           </Text>
+//         </Grid>
+//       ),
+//       focusConfirm: false,
+//       reverseButtons: true,
+//     })
+//     .then((res) => {
+//       if (res.isConfirmed) {
+//         window.location.replace("/home");
+//       } else {
+//         window.location.replace("/home");
+//       }
+//     });
+// };
 
 const SweetAllowChat = (join_id) => {
   sweet
@@ -879,7 +879,7 @@ const customAlert = {
   sweetReviewWrite,
   sweetNeedLogin,
   sweetWA,
-  sweetEditError,
+  // sweetEditError,
   SweetAllowChat,
   SweetDenyChat,
   SweetOutChat,

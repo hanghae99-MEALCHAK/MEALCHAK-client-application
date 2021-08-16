@@ -129,36 +129,39 @@ const getOnePostAX = (post_id) => {
         logger("get one post 정보", now_time_int);
         logger("get one post 정보", post_time_int);
         if (now_time_int > post_time_int) {
-          const search_list = getState().search.list;
-
-          customAlert
+          return customAlert
             .sweetOK(
               "마감 기한이 끝난 글입니다.",
               "새로운 모집글을 확인해주세요."
             )
             .then((res) => {
-              if (search_list === []) {
+              logger("상세 확인 1");
+              const search_list = getState().search.list;
+              if (search_list.length === 0) {
                 // 홈 상세페이지
+                logger("상세 확인 홈");
                 return window.location.replace("/home");
               } else {
                 // 검색결과 있다는건 검색페이지라는 뜻
-                let idx = search_list.findIndex((s) => s.post_id === post_id);
-                if (idx !== -1) {
-                  if (search_list.length === 1) {
-                    return window.location.replace("/search");
-                  } else {
-                    dispatch(clearOldPost(post_id));
-                    return dispatch(searchActions.clearOldSearch(post_id));
-                  }
+                logger("상세 확인 검색");
+
+                if (search_list.length === 1) {
+                  logger("상세 확인 검색 길이 1");
+                  return window.location.replace("/search");
+                } else {
+                  logger("상세 확인 검색 길이 많음");
+                  history.goBack();
+                  return dispatch(searchActions.clearOldSearch(post_id));
                 }
               }
             });
         } else {
+          logger("상세 확인 null");
           return null;
         }
       })
       .catch((e) => {
-        logger("상세보기 마감 에러", e)
+        logger("상세보기 마감 에러", e);
       });
   };
 };
@@ -286,13 +289,20 @@ const editPostAX = (post_id, post_info) => {
       })
       .catch((e) => {
         logger("모집글 수정 모듈 에러", e);
-        customAlert.sweetEditError(`/post/${post_id}`);
+        customAlert
+          .sweetOK(
+            "마감 기한이 끝난 글입니다.",
+            "새로운 모집글을 확인해주세요."
+          )
+          .then(() => {
+            window.location.replace("/home");
+          });
       });
   };
 };
 
 // 채팅 신청
-const requestChatPostAX = (user_id, post_user_id, post_id) => {
+const requestChatPostAX = (user_id, post_user_id, post_id, detail_path) => {
   return function (dispatch, getState, { history }) {
     if (user_id === post_user_id) {
       return customAlert
@@ -348,7 +358,7 @@ const requestChatPostAX = (user_id, post_user_id, post_id) => {
               .catch((e) => {
                 logger("채팅방 참여 승인 요청 에러", e);
                 // 만료된 글에 채팅 신청 누른 경우 500 나면서 여기로 떨어짐
-                if (path === "post") {
+                if (detail_path === "post") {
                   return customAlert
                     .sweetOK(
                       "마감 기한이 끝난 글입니다.",
@@ -356,24 +366,26 @@ const requestChatPostAX = (user_id, post_user_id, post_id) => {
                     )
                     .then((res) => {
                       // 마감된 포스트 지울 내용 필요
+                      logger("채팅 버튼 확인");
+                      logger("채팅 마감 검색 경로", path);
+
                       const search_list = getState().search.list;
-                      if (search_list === []) {
+                      if (search_list.length === 0) {
                         // 홈 상세페이지
+                        logger("채팅 버튼 홈, 검색상세", search_list);
                         return window.location.replace("/home");
                       } else {
                         // 검색결과 있다는건 검색페이지라는 뜻
-                        let idx = search_list.findIndex(
-                          (s) => s.post_id === post_id
-                        );
-                        if (idx !== -1) {
-                          if (search_list.length === 1) {
-                            return window.location.replace("/search");
-                          } else {
-                            dispatch(clearOldPost(post_id));
-                            return dispatch(
-                              searchActions.clearOldSearch(post_id)
-                            );
-                          }
+                        logger("채팅 버튼 검색");
+                        if (search_list.length === 1) {
+                          logger("채팅 버튼 검색 1개일때");
+                          return window.location.replace("/search");
+                        } else {
+                          logger("채팅 버튼 검색 여러개일때");
+                          history.goBack();
+                          return dispatch(
+                            searchActions.clearOldSearch(post_id)
+                          );
                         }
                       }
                     });
@@ -381,6 +393,7 @@ const requestChatPostAX = (user_id, post_user_id, post_id) => {
 
                 // 검색페이지
                 if (path === "search") {
+                  logger("채팅 마감 검색 경로", path);
                   return customAlert
                     .sweetOK(
                       "마감 기한이 끝난 글입니다.",
@@ -388,18 +401,13 @@ const requestChatPostAX = (user_id, post_user_id, post_id) => {
                     )
                     .then((res) => {
                       const search_list = getState().search.list;
-                      let idx = search_list.findIndex(
-                        (s) => s.post_id === post_id
-                      );
-                      if (idx !== -1) {
-                        if (search_list.length === 1) {
-                          logger("검색 마감 채팅 버튼 결과", search_list);
-                          return window.location.replace("/search");
-                        } else {
-                          return dispatch(
-                            searchActions.clearOldSearch(post_id)
-                          );
-                        }
+
+                      if (search_list.length === 1) {
+                        logger("검색 마감 채팅 버튼 결과", search_list);
+                        return window.location.replace("/search");
+                      } else {
+                        logger("채팅 마감 검색 여러개");
+                        return dispatch(searchActions.clearOldSearch(post_id));
                       }
                     });
                 }
