@@ -75,7 +75,7 @@ const ChatRoomList = (props) => {
         // minHeight="100vh"
         // border={border.line1}
         // margin="0 auto"
-        // padding="0 0 6rem 0"
+        padding="0 0 5.2rem 0"
       >
         <Grid shape="container" minWidth="36rem">
           <Header {...props} shape="채팅리스트" />

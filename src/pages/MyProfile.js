@@ -17,9 +17,11 @@ const MyProfile = (props) => {
   const location = useLocation();
   const is_login = useSelector((state) => state.user?.is_login);
   const other_user = useSelector((state) => state.user?.anotherUser);
-  const user_id = props.location.state.user_id ? props.location.state.user_id : props.location.state.userId;
+  const user_id = props.location.state.user_id
+    ? props.location.state.user_id
+    : props.location.state.userId;
   const { color, border, fontSize, radius } = theme;
- 
+
   React.useEffect(() => {
     document
       .querySelector("body")
@@ -28,8 +30,8 @@ const MyProfile = (props) => {
     dispatch(userAction.loginCheck());
     dispatch(userAction.findUserProfileAX(user_id));
     logger("props from MyPage : ", location.state);
+    logger("props from MyPage2 : ", props);
     logger("MyProfile another_user_info: ", other_user);
-    
   }, []);
 
   if (is_login) {

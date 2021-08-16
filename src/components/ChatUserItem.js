@@ -5,12 +5,15 @@ import { history } from "../redux/configureStore";
 import { IoIosCloseCircle } from "react-icons/io";
 import { customAlert } from "./Sweet";
 import logger from "../shared/Console";
+import { useSelector } from "react-redux";
 
 const ChatUserItem = (props) => {
   const { fontSize, color, radius } = theme;
   const user_info = props.user_info;
   const shape = props.shape;
   const owner = props.owner;
+
+  const my_info = useSelector((state) => state.user.user);
 
   React.useEffect(() => {
     logger("sendBen 찾기", props);
@@ -20,15 +23,25 @@ const ChatUserItem = (props) => {
     return (
       <Grid is_flex4="t" padding="0.8rem 0 0.8rem 2rem">
         <Image
-        margin="0.4rem 0.8rem 0.4rem 0" 
-        cursor="pointer"
-        _onClick={() => {
-          return history.push({
-            pathname: "/myprofile",
-            state: { ...user_info },
-          })
-        }}
-        src={user_info.user_img}></Image>
+          margin="0.4rem 0.8rem 0.4rem 0"
+          cursor="pointer"
+          _onClick={() => {
+            console.log("1",props);
+            if (props?.user_info.user_id !== my_info.user_id) {
+              return history.push({
+                pathname: `/userprofile/${props?.user_info.user_id}`,
+                state: { user_id: props.user_info.user_id },
+              });
+            }
+            if (props?.user_info.user_id === my_info.user_id) {
+              return history.push({
+                pathname: `/myprofile`,
+                state: { user_id: props.user_info.user_id },
+              });
+            }
+          }}
+          src={user_info.user_img}
+        ></Image>
         <Text bold2="700" size={fontSize.base}>
           나 ({user_info.user_name})
         </Text>
@@ -62,10 +75,19 @@ const ChatUserItem = (props) => {
             shape="circle"
             src={user_info.user_img}
             _onClick={() => {
-              history.push({
-                pathname: "/userprofile",
-                state: { ...user_info },
-              });
+              console.log("2",props);
+              if (props?.user_info.user_id !== my_info.user_id) {
+                return history.push({
+                  pathname: `/userprofile/${props?.user_info.user_id}`,
+                  state: { user_id: props.user_info.user_id },
+                });
+              }
+              if (props?.user_info.user_id === my_info.user_id) {
+                return history.push({
+                  pathname: `/myprofile`,
+                  state: { user_id: props.user_info.user_id },
+                });
+              }
             }}
           ></Image>
           <Text size={fontSize.base}>{user_info.user_name}</Text>
@@ -93,10 +115,19 @@ const ChatUserItem = (props) => {
         shape="circle"
         src={user_info.user_img}
         _onClick={() => {
-          history.push({
-            pathname: "/userprofile",
-            state: { ...user_info },
-          });
+          console.log("ㅎㅎ", props);
+          if (props?.user_info.user_id !== my_info.user_id) {
+            return history.push({
+              pathname: `/userprofile/${props?.user_info.user_id}`,
+              state: { user_id: props.user_info.user_id },
+            });
+          }
+          if (props?.user_info.user_id === my_info.user_id) {
+            return history.push({
+              pathname: `/myprofile`,
+              state: { user_id: props.user_info.user_id },
+            });
+          }
         }}
       ></Image>
       <Text size={fontSize.base}>{user_info.user_name}</Text>

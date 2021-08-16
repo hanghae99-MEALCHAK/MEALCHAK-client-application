@@ -50,7 +50,7 @@ const Header = (props) => {
             cursor="t"
             _onClick={() => {
               if (!is_login) {
-                return customAlert.sweetNeedLogin();
+                return customAlert.sweetNeedLogin("replace");
               }
               history.replace('/address');
             }}
@@ -105,7 +105,8 @@ const Header = (props) => {
               cursor: 'pointer',
             }}
             onClick={() => {
-              history.replace('/home');
+              // history.replace('/home');
+              history.goBack();
             }}
           >
             close

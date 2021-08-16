@@ -54,7 +54,6 @@ const MyOneReview = (props) => {
                   pathname: `/userprofile/${props.userId}`,
                   state: {...props},
                 });
-                // window.location.reload();
               }
               if (props.user_id) {
                 return history.push({
