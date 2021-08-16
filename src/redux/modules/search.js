@@ -26,7 +26,7 @@ const getSearchListDB = (food) => {
     // const username = getState().user.user.username;
     dispatch(food_check(true));
     axiosModule
-      .post(`/search`, food)
+      .get(`/search?keyword=${food}`)
       .then((res) => {
         let search_list = [];
 
@@ -75,12 +75,12 @@ export default handleActions(
     [CLEAR_OLD_SEARCH]: (state, action) =>
       produce(state, (draft) => {
         let idx = draft.list.findIndex(
-          (p) => p.post_id === action.payload.post_id
+          (p) => p.post_id === parseInt(action.payload.post_id)
         );
         if (idx !== -1) {
           draft.list.splice(idx, 1);
         }
-        history.goBack();
+        
       }),
   },
   initialState

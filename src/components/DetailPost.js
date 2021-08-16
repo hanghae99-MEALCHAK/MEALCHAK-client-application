@@ -97,7 +97,7 @@ const DetailPost = (props) => {
     if (is_login) {
       // customAlert.SweetChatRequest(user_info?.user_id, user_id, post_id);
       dispatch(
-        postAction.requestChatPostAX(user_info?.user_id, user_id, post_id)
+        postAction.requestChatPostAX(user_info?.user_id, user_id, post_id, "post")
       );
       return;
     } else {
