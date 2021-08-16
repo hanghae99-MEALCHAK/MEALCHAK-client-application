@@ -16,7 +16,7 @@ const Message = (props) => {
 
   //   메세지 타임
   // const now_time = moment().format("h:m");
-  const now_time = useSelector(state => state.chat.now_time)
+  const now_time = useSelector((state) => state.chat.now_time);
 
   let time = "";
   if (!(messagesInfo.createdAt === null)) {
@@ -36,7 +36,6 @@ const Message = (props) => {
     logger("user id", typeof user_info?.user_id);
     logger("msg id", typeof messagesInfo.sender_id);
   }, [user_info?.user_nickname]);
-
 
   if (messagesInfo.type === "ENTER") {
     return (
@@ -61,86 +60,93 @@ const Message = (props) => {
   }
 
   // 메세지 작성자 user id, 현재 사용자 id 비교
-  if (user_info?.user_id === parseInt(messagesInfo.sender_id)) {
-    return (
-      <Grid margin="0 auto 1.6rem" text_align="left">
-        <Grid is_flex4="t" justify_content="space-between">
-          <Grid />
-          <Grid
-            is_flex4="t"
-            maxWidth="28rem"
-            flex_direction="row-reverse"
-            align_items="flex-end"
-          >
+  if (messagesInfo.type === "TALK") {
+    if (user_info?.user_id === parseInt(messagesInfo.sender_id)) {
+      return (
+        <Grid margin="0 auto 1.6rem" text_align="left">
+          <Grid is_flex4="t" justify_content="space-between">
+            <Grid />
             <Grid
-              bg={color.brand40}
-              width="max-content"
-              padding="0.8rem"
-              radius="1.2rem 0 1.2rem 1.2rem"
+              is_flex4="t"
+              maxWidth="28rem"
+              flex_direction="row-reverse"
+              align_items="flex-end"
             >
-              <Text size={fontSize.small} word_break="break-all">
-                {messagesInfo?.message}
+              <Grid
+                bg={color.brand40}
+                width="max-content"
+                padding="0.8rem"
+                radius="1.2rem 0 1.2rem 1.2rem"
+              >
+                <Text size={fontSize.small} word_break="break-all">
+                  {messagesInfo?.message}
+                </Text>
+              </Grid>
+
+              <Text
+                size={fontSize.tiny}
+                margin="0 0.4rem 0 0"
+                color={color.bg0}
+              >
+                {DB_time !== ":undefined" ? DB_time : now_time}
               </Text>
             </Grid>
-
-            <Text size={fontSize.tiny} margin="0 0.4rem 0 0" color={color.bg0}>
-              {DB_time !== ":undefined" ? DB_time : now_time}
-            </Text>
           </Grid>
         </Grid>
-      </Grid>
-    );
+      );
+    } else {
+      // 다른 사람 메세지
+      return (
+        <Grid
+          is_flex4="t"
+          margin="0 auto 1.6rem -0.4rem"
+          flex_direction="row"
+          align_items="start"
+        >
+          <Grid width="4rem" margin="0 0.8rem 0 0">
+            <Image size="4" src={messagesInfo.sender_img}></Image>
+          </Grid>
+          <Grid margin="0 auto 1.6rem" text_align="left" padding="1rem 0 0">
+            <Text color={color.bg0} size={fontSize.tiny} text_align="left">
+              {messagesInfo.sender}
+            </Text>
+            <Grid is_flex4="t" justify_content="space-between">
+              <Grid
+                is_flex4="t"
+                maxWidth="15rem"
+                flex_direction="row"
+                align_items="flex-end"
+              >
+                <Grid
+                  bg={color.bg0}
+                  width="auto"
+                  padding="0.8rem"
+                  radius="0 1.2rem 1.2rem 1.2rem"
+                >
+                  <Text size={fontSize.small} word_break="break-all">
+                    {messagesInfo?.message}
+                  </Text>
+                </Grid>
+  
+                <Text
+                  size={fontSize.tiny}
+                  margin="0 0 0 0.4rem"
+                  color={color.bg0}
+                >
+                  {DB_time !== ":undefined" ? DB_time : now_time}
+                </Text>
+                <Grid width="1rem" />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      );
+    }
   }
 
-
-
-  // 다른 사람 메세지
-  return (
-    <Grid
-      is_flex4="t"
-      margin="0 auto 1.6rem -0.4rem"
-      flex_direction="row"
-      align_items="start"
-    >
-      <Grid width="4rem" margin="0 0.8rem 0 0">
-        <Image size="4" src={messagesInfo.sender_img}></Image>
-      </Grid>
-      <Grid
-       
-        margin="0 auto 1.6rem"
-        text_align="left"
-        padding="1rem 0 0"
-      >
-        <Text color={color.bg0} size={fontSize.tiny} text_align="left">
-          {messagesInfo.sender}
-        </Text>
-        <Grid is_flex4="t" justify_content="space-between">
-          <Grid
-            is_flex4="t"
-            maxWidth="15rem"
-            flex_direction="row"
-            align_items="flex-end"
-          >
-            <Grid
-              bg={color.bg0}
-              width="auto"
-              padding="0.8rem"
-              radius="0 1.2rem 1.2rem 1.2rem"
-            >
-              <Text size={fontSize.small} word_break="break-all">
-                {messagesInfo?.message}
-              </Text>
-            </Grid>
-
-            <Text size={fontSize.tiny} margin="0 0 0 0.4rem" color={color.bg0}>
-              {DB_time !== ":undefined" ? DB_time : now_time}
-            </Text>
-            <Grid width="1rem" />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
-  );
+  else {
+    return null;
+  }
 };
 
 export default Message;

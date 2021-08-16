@@ -1,20 +1,20 @@
-import React from 'react';
-import styled from 'styled-components';
-import { history } from '../redux/configureStore';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as postAction } from '../redux/modules/post';
-import { actionCreators as chatActions } from '../redux/modules/chat';
+import React from "react";
+import styled from "styled-components";
+import { history } from "../redux/configureStore";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as postAction } from "../redux/modules/post";
+import { actionCreators as chatActions } from "../redux/modules/chat";
 
-import { Grid, Button, Text, Image } from '../elements';
+import { Grid, Button, Text, Image } from "../elements";
 
-import theme from '../styles/theme';
-import logger from '../shared/Console';
-import { customAlert } from './Sweet';
+import theme from "../styles/theme";
+import logger from "../shared/Console";
+import { customAlert } from "./Sweet";
 
-import moment from 'moment';
+import moment from "moment";
 
 const DetailPost = (props) => {
-  logger('상세포스트 프롭스', props);
+  logger("상세포스트 프롭스", props);
   const {
     address,
     detail_address,
@@ -46,19 +46,19 @@ const DetailPost = (props) => {
   const [disabled, setDisabled] = React.useState(false);
 
   // 연, 월
-  const ym = props?.insert_dt.split('-');
+  const ym = props?.insert_dt.split("-");
   // 일
-  const day = ym[2].split(' ');
+  const day = ym[2].split(" ");
   // 시, 분
-  const hm = day[1].split(':');
+  const hm = day[1].split(":");
 
   // 예상 만남 시간
-  const ordDate = orderDate.split('-');
-  const ordTime = orderTime.split(':');
+  const ordDate = orderDate.split("-");
+  const ordTime = orderTime.split(":");
 
   // 오늘 표시
-  const today = moment().format('YYYY-MM-DD');
-  const tomorrow = moment().add(1, 'd').format('YYYY-MM-DD');
+  const today = moment().format("YYYY-MM-DD");
+  const tomorrow = moment().add(1, "d").format("YYYY-MM-DD");
   const is_today = today === orderDate ? true : false;
   const is_tomorrow = tomorrow === orderDate ? true : false;
 
@@ -95,7 +95,10 @@ const DetailPost = (props) => {
 
   const requestJoin = () => {
     if (is_login) {
-      customAlert.SweetChatRequest(user_info?.user_id, user_id, post_id);
+      // customAlert.SweetChatRequest(user_info?.user_id, user_id, post_id);
+      dispatch(
+        postAction.requestChatPostAX(user_info?.user_id, user_id, post_id)
+      );
       return;
     } else {
       customAlert.sweetNeedLogin();
@@ -119,12 +122,12 @@ const DetailPost = (props) => {
                 if (is_login) {
                   if (user_info.user_id === props.user_id) {
                     return history.push({
-                      pathname: '/myprofile',
+                      pathname: "/myprofile",
                       state: { ...props },
                     });
                   }
                   history.push({
-                    pathname: '/userprofile',
+                    pathname: "/userprofile",
                     state: { ...props },
                   });
                 } else {
@@ -138,7 +141,7 @@ const DetailPost = (props) => {
                   {username}
                 </Text>
                 <Grid
-                  width={valid === false ? '5.5rem' : ''}
+                  width={valid === false ? "5.5rem" : ""}
                   maxWidth="9.1rem"
                   height="2.3rem"
                   bg={
@@ -198,7 +201,7 @@ const DetailPost = (props) => {
               size={fontSize.small}
               color={color.bg80}
             >
-              배달 받을 곳
+              만날 장소
             </Text>
             {!props.is_profile && (
               <Text
@@ -344,12 +347,12 @@ const DetailPost = (props) => {
                       if (is_login) {
                         if (user_info?.user_id === p.user_id) {
                           return history.push({
-                            pathname: '/myprofile',
+                            pathname: "/myprofile",
                             state: { ...p },
                           });
                         }
                         history.push({
-                          pathname: '/userprofile',
+                          pathname: "/userprofile",
                           state: { ...p },
                         });
                       } else {
@@ -426,9 +429,10 @@ const DetailPost = (props) => {
               <Grid maxWidth="32rem" height="5rem">
                 <Button
                   shape="large"
-                  color={disabled ? '#EBE9E8' : color.brand100}
+                  color={disabled ? "#EBE9E8" : color.brand100}
                   size={fontSize.small}
                   disabled={disabled}
+                  cursor="pointer"
                   _onClick={(e) => {
                     if (props.headCount === props.nowHeadCount) {
                       return setDisabled(true);
@@ -439,9 +443,9 @@ const DetailPost = (props) => {
                   <Text
                     bold
                     size="1.6rem"
-                    color={disabled ? '#CECAC7' : color.bg0}
+                    color={disabled ? "#CECAC7" : color.bg0}
                   >
-                    {disabled ? '모집 마감됐어요' : '채팅 시작하기'}
+                    {disabled ? "모집 마감됐어요" : "채팅 시작하기"}
                   </Text>
                 </Button>
               </Grid>
@@ -460,7 +464,7 @@ const UserProfile = styled.div`
   width: 4.925rem;
   height: 4rem;
   border-radius: 2rem;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   background-size: cover;
   background-position: center;
   margin: 1rem 1rem 1rem 0;

@@ -158,15 +158,13 @@ const loginCheck = (path) => {
             return;
           } else {
             if (!res.data.age || !res.data.gender) {
-              if (path === "/upload") {
-                return customAlert.sweetConfirmReload(
-                  "성별/연령 정보가 필요해요!",
-                  [
-                    "해당 서비스를 사용하려면",
-                    "성별과 연령 정보가 있어야해요.",
-                  ],
-                  "/profile"
-                );
+              if(path === "/upload"){
+                return customAlert.sweetOK(
+                  "성별/연령 정보가 필요해요!", 
+                  "해당 서비스를 사용하려면",
+                  "성별과 연령 정보가 있어야해요.", "입력하러 가기").then((res) => {
+                    return history.push("/profile");
+                  })
               }
               customAlert.sweetAddCheck();
             }

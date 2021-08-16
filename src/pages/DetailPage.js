@@ -1,18 +1,23 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Grid } from '../elements';
-import { Header, DetailPost } from '../components';
-import { actionCreators as postActions } from '../redux/modules/post';
+import { Grid } from "../elements";
+import { Header, DetailPost } from "../components";
+import { actionCreators as postActions } from "../redux/modules/post";
 
-import theme from '../styles/theme';
+import theme from "../styles/theme";
 
 // 개발환경 console.log() 관리용
-import logger from '../shared/Console';
+import logger from "../shared/Console";
 
 const DetailPage = (props) => {
   const dispatch = useDispatch();
   const id = props.match.params.id;
+
+  React.useEffect(() => {
+    dispatch(postActions.getOnePostAX(id));
+  }, [])
+
   const post_list = useSelector((state) => state.post.list);
   const user_info = useSelector((state) => state.user.user);
   const post_idx = post_list.findIndex((p) => p.post_id === parseInt(id));
@@ -20,16 +25,15 @@ const DetailPage = (props) => {
 
   const chat_user_list = useSelector((state) => state.post.chat_user_list);
 
-  logger('디테일페이지 -', chat_user_list);
+  logger("디테일페이지 -", chat_user_list);
   const is_me = post?.user_id === user_info?.user_id ? true : false;
   const { border } = theme;
 
   React.useEffect(() => {
-    logger("디테일페이지", post_list)
     if (post) {
       return;
     }
-    // dispatch(postActions.getPostAX('전체'));
+    dispatch(postActions.getPostAX("전체"));
     dispatch(postActions.getDetailPostUserListAX(parseInt(id)));
   }, []);
 

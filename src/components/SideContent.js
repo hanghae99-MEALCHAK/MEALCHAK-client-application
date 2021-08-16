@@ -68,128 +68,122 @@ const SideContent = (props) => {
 
   return (
     <React.Fragment>
-        <Grid shape="container" text_align="left">
-          <Grid
-            padding="1.6rem 2rem 0.4rem"
-            flex_direction="column"
-          >
-            <Text size={fontSize.base} bold2="700">
-              {props.roomName}
-            </Text>
-          </Grid>
+      <Grid shape="container" text_align="left">
+        <Grid padding="1.6rem 2rem 0.4rem" flex_direction="column">
+          <Text size={fontSize.base} bold2="700">
+            {props.roomName}
+          </Text>
+        </Grid>
 
-          <Grid
-          padding="0 2rem 1.6rem"
-          borderBottom={border.line2}
-          >
-            {date_time() ? (
-              <Text
-                size={fontSize.small}
-                color={color.bg80}
-                margin="0.4rem 0 0"
-                bold2="500"
-              >
-                예상 만남 시간
-                <span style={{ fontWeight: "400", marginLeft: "0.5rem" }}>
-                  {/* {ym[1]}월 {day[0]}일 {hm[0]}:{hm[1]} */}
-                  {date_time()}
-                </span>
-              </Text>
-            ) : (
-              <Text
-                size={fontSize.small}
-                color={color.bg80}
-                margin="0.4rem 0 0"
-                bold2="500"
-              >
-                모집 기간 만료
-              </Text>
-            )}
-          </Grid>
-
-          <Grid padding="1.6rem 0 0.8rem 2.4rem">
-            <Text size={fontSize.base} color={color.bg80}>
-              대화상대
-              <span
-                style={{
-                  padding: "0 0.6rem",
-                  fontSize: fontSize.base,
-                  fontWeight: 700,
-                  color: color.brand100,
-                }}
-              >
-                {user_in_chat?.length}
+        <Grid padding="0 2rem 1.6rem" borderBottom={border.line2}>
+          {date_time() ? (
+            <Text
+              size={fontSize.small}
+              color={color.bg80}
+              margin="0.4rem 0 0"
+              bold2="500"
+            >
+              예상 만남 시간
+              <span style={{ fontWeight: "400", marginLeft: "0.5rem" }}>
+                {/* {ym[1]}월 {day[0]}일 {hm[0]}:{hm[1]} */}
+                {date_time()}
               </span>
             </Text>
-          </Grid>
+          ) : (
+            <Text
+              size={fontSize.small}
+              color={color.bg80}
+              margin="0.4rem 0 0"
+              bold2="500"
+            >
+              모집 기간 만료
+            </Text>
+          )}
+        </Grid>
 
-          {user_in_chat?.map((user_info, idx) => {
-            if (my_id === user_info?.user_id) {
+        <Grid padding="1.6rem 0 0.8rem 2.4rem">
+          <Text size={fontSize.base} color={color.bg80}>
+            대화상대
+            <span
+              style={{
+                padding: "0 0.6rem",
+                fontSize: fontSize.base,
+                fontWeight: 700,
+                color: color.brand100,
+              }}
+            >
+              {user_in_chat?.length}
+            </span>
+          </Text>
+        </Grid>
+
+        {user_in_chat?.map((user_info, idx) => {
+          if (my_id === user_info?.user_id) {
+            return (
+              <ChatUserItem
+                key={idx}
+                user_info={user_info}
+                shape="is_me"
+                own_user_id={own_user_id}
+              />
+            );
+          }
+        })}
+        {user_in_chat?.map((user_info, idx) => {
+          if (my_id !== user_info?.user_id) {
+            if (my_id === own_user_id) {
               return (
                 <ChatUserItem
                   key={idx}
                   user_info={user_info}
-                  shape="is_me"
+                  owner={true}
+                  sendBen={props.sendBen}
+                />
+              );
+            } else {
+              return (
+                <ChatUserItem
+                  key={idx}
+                  user_info={user_info}
                   own_user_id={own_user_id}
                 />
               );
             }
-          })}
-          {user_in_chat?.map((user_info, idx) => {
-            if (my_id !== user_info?.user_id) {
-              if (my_id === own_user_id) {
-                return (
-                  <ChatUserItem
-                    key={idx}
-                    user_info={user_info}
-                    owner={true}
-                    sendBen={props.sendBen}
-                  />
-                );
-              } else {
-                return (
-                  <ChatUserItem
-                    key={idx}
-                    user_info={user_info}
-                    own_user_id={own_user_id}
-                  />
-                );
-              }
-            }
-          })}
+          }
+        })}
+      </Grid>
+      <Grid
+        borderTop={border.line2}
+        position="absolute"
+        align_items="flex-end"
+        justify_content="space-between"
+        flex
+        padding="1.3rem 2rem"
+        height="auto"
+        bg={color.bg0}
+      >
+        <FiLogOut
+          size="2.4rem"
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            get_out_chat(props.post_id);
+          }}
+        />
+        
+        <Grid width="auto">
+          <Text
+            size={fontSize.small}
+            color={color.brand100}
+            cursor="pointer"
+            _onClick={props._onClick}
+            bold2={fontSize.medium}
+          >
+            닫기
+          </Text>
         </Grid>
-        <Grid
-          borderTop={border.line2}
-          position="absolute"
-          align_items="flex-end"
-          justify_content="space-between"
-          flex
-          padding="1.3rem 2rem"
-          height="auto"
-          bg={color.bg0}
-        >
-          <FiLogOut
-            size="2.4rem"
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              get_out_chat(props.post_id);
-            }}
-          />
-          <Grid width="auto">
-            <Text
-              size={fontSize.small}
-              color={color.brand100}
-              cursor="pointer"
-              _onClick={props._onClick}
-              bold2={fontSize.medium}              
-            >
-              닫기
-            </Text>
-          </Grid>
-        </Grid>
+      </Grid>
     </React.Fragment>
   );
 };
-
 
 export default SideContent;

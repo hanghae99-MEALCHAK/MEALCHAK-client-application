@@ -124,7 +124,7 @@ const UploadInput = React.memo((props) => {
                 bold2="500"
                 size={fontSize.base}
               >
-                배달 받을 곳
+                만날 장소
               </Text>
             </Grid>
             <div className="container">
@@ -299,7 +299,7 @@ const UploadInput = React.memo((props) => {
                 <TDatePicker
                   timeCaption="Time"
                   dateFormat="p"
-                  timeIntervals={15}
+                  timeIntervals={1}
                   showTimeSelectOnly
                   showTimeSelect
                   theme={theme}
