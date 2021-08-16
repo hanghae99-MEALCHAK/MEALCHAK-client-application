@@ -70,14 +70,14 @@ const ChatRoomList = (props) => {
   return (
     <React.Fragment>
       <Grid
-        minWidth="36rem"
-        maxWidth="36rem"
-        minHeight="100vh"
-        border={border.line1}
-        margin="0 auto"
+        // minWidth="36rem"
+        // maxWidth="36rem"
+        // minHeight="100vh"
+        // border={border.line1}
+        // margin="0 auto"
         // padding="0 0 6rem 0"
       >
-        <Grid shape="container">
+        <Grid shape="container" minWidth="36rem">
           <Header {...props} shape="채팅리스트" />
           <Grid height="4.4rem" />
           <Footer {...props}></Footer>

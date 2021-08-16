@@ -137,13 +137,13 @@ const ProfileEdit = (props) => {
   if (is_login) {
     return (
       <Grid
-        maxWidth="36rem"
-        minWidth="32rem"
-        minHeight="100vh"
-        border={border.line1}
-        margin="0 auto"
+        // maxWidth="36rem"
+        // minWidth="32rem"
+        // minHeight="100vh"
+        // border={border.line1}
+        // margin="0 auto"
       >
-        <Grid shape="container">
+        <Grid shape="container" minWidth="32rem">
           <Header {...props} shape="프로필수정" />
 
           <Grid margin="3.6rem auto 2rem">

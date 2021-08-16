@@ -108,6 +108,16 @@ const Grid = (props) => {
     z_index: z_index,
   };
 
+  if (shape === 'topGrid') {
+    return (
+    <React.Fragment>
+      <TopGrid {...styled}>
+        {children}
+      </TopGrid>
+    </React.Fragment>
+    )
+  }
+
   if (shape === 'container') {
     return (
       <React.Fragment>
@@ -234,8 +244,8 @@ const GridBox = styled.div`
   ${(props) => (props.flex ? `display: flex; ` : '')}
   ${(props) =>
     props.card_flex ? `display: flex; justify-content: center;` : ''}
-  ${(props) => (props.wrap ? `flex-wrap: wrap;` : '')}
-    ${(props) => (props.border ? `border: ${props.border};` : '')}
+  ${(props) => (props.wrap ? `flex-wrap: wrap;` : '')}  
+  ${(props) => (props.border ? `border: ${props.border};` : '')}
   ${(props) => (props.is_border ? `border: ${props.is_border};` : '')}
   ${(props) =>
     props.updownborder
@@ -280,6 +290,9 @@ const Container = styled.div`
   flex-direction: column;
   ${(props) => (props.text_align ? `text-align: ${props.text_align}; ` : '')}
   ${(props) => (props.align_items ? `align-items: ${props.align_items};` : '')}
+  ${(props) => (props.padding ? `padding: ${props.padding};` : '')}
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
+  ${(props) => (props.minWidth ? `min-width: ${props.minWidth};` : '')}
 `;
 
 const EmptyImg = styled.div`
@@ -292,6 +305,15 @@ const EmptyImg = styled.div`
   background-image: url('${(props) => props.src}');
   background-size: cover;
   background-position: center;
+`;
+
+const TopGrid = styled.div`
+  @media (min-width: 414px) {
+    border: ${props => props.theme.border.line1}
+  }
+  max-width: 36rem;
+  min-height: 100vh;
+  margin: 0 auto;
 `;
 
 export default Grid;

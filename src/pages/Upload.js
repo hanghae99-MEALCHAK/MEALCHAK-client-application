@@ -250,10 +250,10 @@ const Upload = React.memo((props) => {
   if (is_login) {
     return (
       <Grid
-        maxWidth="36rem"
-        minHeight="100vh"
-        border={border.line1}
-        margin="0 auto"
+        // maxWidth="36rem"
+        // minHeight="100vh"
+        // border={border.line1}
+        // margin="0 auto"
       >
         <Grid shape="container">
           <Header {...props} shape="모임 만들기"/>

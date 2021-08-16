@@ -16,10 +16,10 @@ const Settings = (props) => {
   const { color, border, fontSize } = theme;
   return (
     <Grid
-      maxWidth="36rem"
-      minHeight="100vh"
-      border={border.line1}
-      margin="0 auto"
+      // maxWidth="36rem"
+      // minHeight="100vh"
+      // border={border.line1}
+      // margin="0 auto"
     >
       <Grid shape="container">
         <Header {...props} shape="설정" />
