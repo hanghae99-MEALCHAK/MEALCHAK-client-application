@@ -359,6 +359,9 @@ const Main = (props) => {
               if (category.kr && p.category === '한식') {
                 return <Post {...p} key={p.post_id} />;
               }
+              if (category.bunsik && p.category === '분식') {
+                return <Post {...p} key={p.post_id} />;
+              }
               if (category.cn && p.category === '중식') {
                 return <Post {...p} key={p.post_id} />;
               }

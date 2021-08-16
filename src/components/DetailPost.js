@@ -180,7 +180,7 @@ const DetailPost = (props) => {
               {title}
             </Text>
             <Text
-              margin="0 0 1rem 0"
+              margin="0 0 1.6rem 0"
               size={fontSize.small}
               line_height="150%"
               color={color.bg100}
@@ -192,7 +192,7 @@ const DetailPost = (props) => {
           <GreyLine />
           <Grid is_flex4>
             <Text
-              margin="0.8rem 0"
+              margin="0.8rem 0.8rem 0.8rem 0"
               bold2="400"
               line_height="150%"
               size={fontSize.small}
@@ -217,7 +217,7 @@ const DetailPost = (props) => {
           </Grid>
           <Text
             line_height="150%"
-            margin="0 0 1.6rem 0"
+            margin="0 0 1.2rem 0"
             size="1.3rem"
             bold2="500"
             color={color.bg100}
@@ -244,10 +244,10 @@ const DetailPost = (props) => {
             </Text>
           </GridGap>
           <GridGap>
-            <Text width="15rem" size="1.3rem" color={color.bg100}>
+            <Text width="15rem" size="1.3rem" color={color.bg100} margin="0 0 1.6rem 0">
               {shop}
             </Text>
-            <Text width="15rem" size="1.3rem" color={color.bg100}>
+            <Text width="15rem" size="1.3rem" color={color.bg100} margin="0 0 1.6rem 0">
               {date_time()}
             </Text>
           </GridGap>
@@ -470,7 +470,6 @@ const GreyLine = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 1px;
-  margin: 1rem auto;
   background-color: #f1f2f4;
 `;
 

@@ -55,9 +55,9 @@ const ReviewWrite = (props) => {
   };
 
   const changeDisabled = (e) => {
-    if (e.target.value.length === 100) {
+    if (e.target.value.length === 150) {
       // customAlert 변경
-      window.alert("리뷰 작성 시 100자 이상 입력할 수 없습니다.");
+      window.alert("리뷰 작성 시 150자 이상 입력할 수 없습니다.");
     }
     setReview(e.target.value);
     setDisabled(false);
@@ -137,7 +137,7 @@ const ReviewWrite = (props) => {
             size={fontSize.base}
             placeholder="해당 사용자와의 밀착이 만족스러우셨다면 따뜻한 리뷰를 전해보세요!"
             multiLine="t"
-            length="100"
+            length="150"
             color="#9A9896"
             value={review}
             _onChange={changeDisabled}
