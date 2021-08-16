@@ -15,18 +15,15 @@ import { Header } from '../components';
 import theme from '../styles/theme';
 
 const MyPost = (props) => {
-  // logger('MyPost11111111111 : ', props);
+  const { color, border, fontSize } = theme;
+
   const dispatch = useDispatch();
 
   const is_login = useSelector((state) => state.user.is_login);
   const my_post = useSelector((state) => state.user?.myPost);
-  const user_info = useSelector((state) => state.user.user);
-  // logger('MyPost222222222 : ', my_post);
-
-  const { color, border, fontSize } = theme;
 
   React.useEffect(() => {
-    window.scrollTo(0, 0);
+    document.querySelector('body').scrollTo(0, 0);
     dispatch(userActions.loginCheck());
     if (my_post.length === 0) {
       dispatch(userActions.getMyPostAX());
@@ -45,16 +42,6 @@ const MyPost = (props) => {
         <Grid shape="container">
           <Header {...props} shape="내가쓴글" />
           <Grid height="4.4rem" />          
-          {/* {my_post?.length !== 0 ? (
-            my_post.map((p, idx) => {
-              return <Post {...p} is_profile key={idx} />;
-            })
-          ) : (
-            <Grid width="36rem" margin="18rem auto 0 auto">
-              <MyReviewImg src="illust/emptyMeal_3x.png"></MyReviewImg>
-              <MyReviewText>아직 내가 쓴 글이 없어요.</MyReviewText>
-            </Grid>
-          )} */}
           {my_post?.length !== 0 ? (
             my_post.map((p, idx) => {
               return <DetailPost {...p} is_profile key={idx} />;

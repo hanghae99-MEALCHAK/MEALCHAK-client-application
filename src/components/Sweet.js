@@ -54,6 +54,7 @@ const sweetConfirmReload = (msg_title, msg_content_array, path) => {
       focusConfirm: false,
     })
     .then((res) => {
+      console.log(res);
       if (res.isConfirmed) {
         // 주소 값이 없으면 리턴
         if (path === "") {
@@ -79,10 +80,15 @@ const sweetConfirmReload = (msg_title, msg_content_array, path) => {
         // 그 외 새로 리로드 될때
         window.location.replace(path);
       }
-      if (res.isDismissed) {
+      else if (res.isDismissed) {
         // 뒤로가기
         if (path === "goBack") {
           history.goBack();
+          return;
+        }
+        // 마이페이지
+        if (path === "/mypage") {
+          history.push("/mypage");
           return;
         }
       } else {
