@@ -55,6 +55,10 @@ const Message = (props) => {
     );
   }
 
+  if (messagesInfo.type === "BAN") {
+    return;
+  }
+
   // 메세지 작성자 user id, 현재 사용자 id 비교
   if (messagesInfo.type === "TALK") {
     if (user_info?.user_id === parseInt(messagesInfo.sender_id)) {

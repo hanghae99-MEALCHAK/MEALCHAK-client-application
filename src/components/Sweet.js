@@ -78,6 +78,13 @@ const sweetConfirmReload = (msg_title, msg_content_array, path) => {
         }
         // 그 외 새로 리로드 될때
         window.location.replace(path);
+      }
+      if (res.isDismissed) {
+        // 뒤로가기
+        if (path === "goBack") {
+          history.goBack();
+          return;
+        }
       } else {
         if (path === "/profile") {
           return history.push(path);
@@ -125,7 +132,6 @@ const sweetReviewWrite = (msg_title, msg_name, msg_content, path) => {
       focusConfirm: false,
     })
     .then((res) => {
-      console.log(res);
       if (res.isConfirmed) {
         // 주소 값이 없으면 리턴
         if (path === "") {

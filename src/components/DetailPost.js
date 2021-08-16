@@ -108,8 +108,8 @@ const DetailPost = (props) => {
   return (
     <React.Fragment>
       <Grid
-        width="30rem"
-        margin="1.6rem auto"
+        width="32rem"
+        margin="1.6rem auto 0"
         padding="1.6rem"
         is_border="0.1rem solid #EBE9E8"
         radius={radius.postBox}
@@ -183,7 +183,7 @@ const DetailPost = (props) => {
               {title}
             </Text>
             <Text
-              margin="0 0 1rem 0"
+              margin="0 0 1.6rem 0"
               size={fontSize.small}
               line_height="150%"
               color={color.bg100}
@@ -195,7 +195,7 @@ const DetailPost = (props) => {
           <GreyLine />
           <Grid is_flex4>
             <Text
-              margin="0.8rem 0"
+              margin="0.8rem 0.8rem 0.8rem 0"
               bold2="400"
               line_height="150%"
               size={fontSize.small}
@@ -220,7 +220,7 @@ const DetailPost = (props) => {
           </Grid>
           <Text
             line_height="150%"
-            margin="0 0 1.6rem 0"
+            margin="0 0 1.2rem 0"
             size="1.3rem"
             bold2="500"
             color={color.bg100}
@@ -247,10 +247,10 @@ const DetailPost = (props) => {
             </Text>
           </GridGap>
           <GridGap>
-            <Text width="15rem" size="1.3rem" color={color.bg100}>
+            <Text width="15rem" size="1.3rem" color={color.bg100} margin="0 0 1.6rem 0">
               {shop}
             </Text>
-            <Text width="15rem" size="1.3rem" color={color.bg100}>
+            <Text width="15rem" size="1.3rem" color={color.bg100} margin="0 0 1.6rem 0">
               {date_time()}
             </Text>
           </GridGap>
@@ -258,7 +258,7 @@ const DetailPost = (props) => {
           {props.is_profile && (
             <>
               {props.valid === false ? (
-                <Grid maxWidth="30rem" margin="1.6rem 0 0 0">
+                <Grid maxWidth="32rem" margin="1.6rem 0 0 0">
                   <Button
                     height="4.4rem"
                     radius="1.2rem"
@@ -325,9 +325,9 @@ const DetailPost = (props) => {
       {!props.is_profile && (
         <>
           <Grid
-            width="30rem"
+            width="32rem"
             margin="1.6rem auto"
-            padding="1.6rem"
+            padding="1.6rem 1.6rem 0.8rem 1.6rem"
             is_border="0.1rem solid #EBE9E8"
             radius={radius.postBox}
           >
@@ -342,7 +342,7 @@ const DetailPost = (props) => {
                     src={p.user_img}
                     size="3"
                     margin="0 0.8rem 0 0"
-                    cursor={user_info?.user_id !== p.user_id ? "t" : ""}
+                    cursor='t'
                     _onClick={() => {
                       if (is_login) {
                         if (user_info?.user_id === p.user_id) {
@@ -383,14 +383,14 @@ const DetailPost = (props) => {
             })}
           </Grid>
           <Grid
-            maxWidth="30rem"
+            maxWidth="32rem"
             margin="0 auto"
             height="auto"
             // is_fixed="t"
             // bottom="1rem"
           >
             {props.is_me ? (
-              <Grid text_align="center" is_flex3 maxWidth="30rem" gap="0.8rem">
+              <Grid text_align="center" is_flex3 maxWidth="32rem" gap="0.8rem">
                 <Button
                   width="15.2rem"
                   height="4.6rem"
@@ -426,7 +426,7 @@ const DetailPost = (props) => {
                 </Button>
               </Grid>
             ) : (
-              <Grid maxWidth="30rem" height="5rem">
+              <Grid maxWidth="32rem" height="5rem">
                 <Button
                   shape="large"
                   color={disabled ? "#EBE9E8" : color.brand100}
@@ -474,7 +474,6 @@ const GreyLine = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 1px;
-  margin: 1rem auto;
   background-color: #f1f2f4;
 `;
 

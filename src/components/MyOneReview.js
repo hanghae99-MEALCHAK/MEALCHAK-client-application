@@ -1,8 +1,9 @@
 // MyReview map 함수 하위 컴포넌트
 import React from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { history } from "../redux/configureStore";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 import { Grid, Text } from "../elements";
 import { customAlert } from "./Sweet";
@@ -12,7 +13,10 @@ import logger from "../shared/Console";
 const MyOneReview = (props) => {
   const { color, fontSize } = theme;
 
+  const dispatch = useDispatch();
+
   const is_login = useSelector((state) => state.user.is_login);
+  const other_user = useSelector((state) => state.user?.anotherUser);
   const user_info = useSelector((state) => state.user.user);
 
   // 연, 월
@@ -25,6 +29,7 @@ const MyOneReview = (props) => {
   const hm = day[1].split(":");
 
   logger("MyOneReview props: ", props);
+
   return (
     <React.Fragment>
       <Grid
@@ -38,16 +43,23 @@ const MyOneReview = (props) => {
           }
           onClick={() => {
             if (is_login) {
-              if (!props.id && user_info.user_id === props.user_id) {
+              if (user_info.user_id === props.userId) {
                 return history.push({
                   pathname: "/myprofile",
-                  state: user_info.user_id,
+                  state: { ...props },
                 });
               }
-              if (props.id || props.user_id) {
-                history.push({
-                  pathname: "/userprofile",
-                  state: props.id || props.user_id,
+              if (props.userId) {
+                return history.push({
+                  pathname: `/userprofile/${props.userId}`,
+                  state: {...props},
+                });
+                // window.location.reload();
+              }
+              if (props.user_id) {
+                return history.push({
+                  pathname: `/userprofile/${props.user_id}`,
+                  state: {...props},
                 });
               }
             } else {
