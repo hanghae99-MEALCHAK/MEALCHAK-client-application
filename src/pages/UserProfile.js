@@ -21,16 +21,23 @@ const UserProfile = (props) => {
   const location = useLocation();
   const is_login = useSelector((state) => state.user?.is_login);
   const other_user = useSelector((state) => state.user?.anotherUser);
-  const user_id = location.state?.user_id;
+  const user_id = location.state?.user_id
+    ? location.state.user_id
+    : location.state.userId;
+  const id = props.match.params.id;
   const { color, border, fontSize, radius } = theme;
+
   React.useEffect(() => {
     document
       .querySelector("body")
       .scrollTo({ top: 0, left: 0, behavior: "instant" });
+
     dispatch(userAction.loginCheck());
     dispatch(userAction.findUserProfileAX(user_id));
-    logger("Mypage props: ", location.state);
+    logger("UserProfile props state: ", location.state);
+    logger("UserProfile props: ", props);
     logger("another_user_info: ", other_user);
+    logger("id : ", typeof id);
   }, []);
 
   if (is_login) {
@@ -66,7 +73,9 @@ const UserProfile = (props) => {
               </Text>
               <Grid width="auto" text_align="center">
                 <Text size={fontSize.small} color="#9A9896" line_height="150%">
-                  {other_user?.user_comment ? other_user?.user_comment : ''}
+                  <span style={{ whiteSpace: "pre-wrap" }}>
+                    {other_user?.user_comment ? other_user?.user_comment : ""}
+                  </span>
                 </Text>
               </Grid>
             </Grid>

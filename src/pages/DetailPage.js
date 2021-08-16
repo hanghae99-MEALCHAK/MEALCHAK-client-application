@@ -29,7 +29,7 @@ const DetailPage = (props) => {
     if (post) {
       return;
     }
-    dispatch(postActions.getPostAX('전체'));
+    // dispatch(postActions.getPostAX('전체'));
     dispatch(postActions.getDetailPostUserListAX(parseInt(id)));
   }, []);
 

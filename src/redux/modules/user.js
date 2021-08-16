@@ -90,9 +90,9 @@ const kakaoLogin = (code) => {
       .catch((err) => {
         logger("user 모듈 74 - 소셜로그인 에러", err);
         customAlert.sweetConfirmReload(
-          '로그인 오류',
-          ['로그인에 실패하였습니다.'],
-          '/'
+          "로그인 오류",
+          ["로그인에 실패하였습니다."],
+          "/"
         ); // 로그인 실패하면 로그인화면으로 돌려보냄
       });
   };
@@ -158,12 +158,15 @@ const loginCheck = (path) => {
             return;
           } else {
             if (!res.data.age || !res.data.gender) {
-              if(path === "/upload"){
+              if (path === "/upload") {
                 return customAlert.sweetConfirmReload(
-                  "성별/연령 정보가 필요해요!", 
-                  ["해당 서비스를 사용하려면",
-                  "성별과 연령 정보가 있어야해요."],
-                  "/profile")
+                  "성별/연령 정보가 필요해요!",
+                  [
+                    "해당 서비스를 사용하려면",
+                    "성별과 연령 정보가 있어야해요.",
+                  ],
+                  "/profile"
+                );
               }
               customAlert.sweetAddCheck();
             }
@@ -223,13 +226,14 @@ const editUserAddressAX = (address) => {
 // 타 유저 프로필 페이지 - 해당 유저 정보 가져오기
 const findUserProfileAX = (user_id) => {
   return function (dispatch, getState, { history }) {
+    // dispatch(setAnotherUser(null));
     if (token) {
       axiosModule
         .get(`/userInfo/${user_id}`)
         .then((res) => {
           logger("타 유저 프로필 체크 res", res);
           const user_info = {
-            // user_id: res.data.userId,
+            user_id: res.data.userId,
             user_profile: res.data.profileImg,
             user_nickname: res.data.username,
             user_comment: res.data.comment,
@@ -365,9 +369,9 @@ const reviewWriteAX = (manner, review, user_id, nickname) => {
         .catch((e) => {
           logger("내가 받은 리뷰 에러", e);
           customAlert.sweetConfirmReload(
-            '이미 리뷰를 작성하셨습니다!',
-            ['이전 페이지로 돌아갑니다.'],
-            'goBack'
+            "이미 리뷰를 작성하셨습니다!",
+            ["이전 페이지로 돌아갑니다."],
+            "goBack"
           );
         });
     } else {
@@ -407,13 +411,11 @@ export default handleActions(
         draft.is_login = false;
         draft.is_loading = false;
 
-        customAlert.sweetOK(
-          '로그아웃 되었습니다.',
-          '또 만나요!',
-          "",
-        ).then((res) => {
-          return window.location.replace("/")
-        })
+        customAlert
+          .sweetOK("로그아웃 되었습니다.", "또 만나요!", "")
+          .then((res) => {
+            return window.location.replace("/");
+          });
       }),
     [LOADING]: (state, action) =>
       produce(state, (draft) => {
@@ -440,6 +442,7 @@ const actionCreators = {
   loginCheck,
   logOut,
   loading,
+  setAnotherUser,
   editUserProfileAX,
   editUserAddressAX,
   findUserProfileAX,
