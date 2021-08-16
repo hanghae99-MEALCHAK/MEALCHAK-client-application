@@ -100,7 +100,7 @@ const Post = (props) => {
                     });
                   }
                   history.push({
-                    pathname: '/userprofile',
+                    pathname: `/userprofile/${props.user_id}`,
                     state: { ...props },
                   });
                 } else {
@@ -155,14 +155,13 @@ const Post = (props) => {
               line_height="150%"
               color={color.bg100}
               bold
-              margin="0 0 1rem 0"
+              margin="0 0 0.8rem 0"
             >
               {props.title}
             </Text>
             <Text
               width="28.8rem"
-              height="4rem"
-              margin="0"
+              margin="0 0 1.6rem 0"
               size={fontSize.small}
               line_height="150%"
               color={color.bg100}

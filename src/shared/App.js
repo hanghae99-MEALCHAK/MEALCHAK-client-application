@@ -82,7 +82,7 @@ function App() {
           <Route path="/mypage" component={MyPage} />
           <Route path="/mypost" component={MyPost} />
           <Route path="/myprofile" component={MyProfile} />
-          <Route path="/userprofile" component={UserProfile} />
+          <Route path="/userprofile/:id" exact component={UserProfile} />
           <Route path="/profile" component={ProfileEdit} />
           <Route path="/myreview" component={MyReview} />
           <Route path="/settings" component={Settings} />

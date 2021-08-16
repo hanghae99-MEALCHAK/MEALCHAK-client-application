@@ -43,7 +43,6 @@ const Footer = (props) => {
             text_align="center"
             maxWidth="9rem"
             _onClick={() => {
-              window.scrollTo(0, 0);
               history.push("/home");
             }}
           >
