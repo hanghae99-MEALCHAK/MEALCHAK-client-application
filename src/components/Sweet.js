@@ -165,7 +165,7 @@ const sweetReviewWrite = (msg_title, msg_name, msg_content, path) => {
 };
 
 // 단순 확인 알럿
-const sweetOK = (title, message1, message2) => {
+const sweetOK = (title, message1, message2, confirmText) => {
   return sweet
     .fire({
       customClass: {
@@ -189,7 +189,7 @@ const sweetOK = (title, message1, message2) => {
       confirmButtonText: (
         <Grid width="15rem" is_flex2 margin="auto">
           <Text padding="0" color={color.bg0}>
-            확인
+            {confirmText ? confirmText : "확인"}
           </Text>
         </Grid>
       ),
@@ -238,7 +238,7 @@ const sweetPromise = (title, message1, message2, confirmText) => {
       confirmButtonText: (
         <Grid is_flex2 margin="auto">
           <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
-            {confirmText}
+            {confirmText ? confirmText : "확인"}
           </Text>
         </Grid>
       ),
@@ -538,136 +538,6 @@ const sweetEditError = (path) => {
         history.push(path);
       }
     });
-};
-
-// 채팅 신청 알럿
-// 메인 페이지 포스트, 검색, 디테일 페이지 포스트 3군데 달아야함
-const SweetChatRequest = (user_id, post_user_id, post_id) => {
-  if (user_id === post_user_id) {
-    sweet
-      .fire({
-        customClass: {
-          popup: "border",
-          confirmButton: "confirmButton",
-          cancelButton: "cancelButton",
-          denyButton: "denyButton",
-          actions: "meal-action-class",
-        },
-        width: "auto",
-        padding: "0 1rem 1rem",
-        title: (
-          <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
-            본인이 작성한 글입니다.
-          </Text>
-        ),
-        text: "채팅 탭으로 이동하시겠습니까?",
-        showDenyButton: true,
-        denyButtonText: (
-          <Grid width="9rem" is_flex2 margin="auto">
-            <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
-              닫기
-            </Text>
-          </Grid>
-        ),
-        denyButtonColor: color.brand20,
-        confirmButtonColor: color.brand100,
-        confirmButtonText: (
-          <Grid width="9rem" is_flex2 margin="auto">
-            <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
-              확인
-            </Text>
-          </Grid>
-        ),
-        focusConfirm: false,
-        reverseButtons: true,
-      })
-      .then((res) => {
-        if (res.isConfirmed) {
-          history.push("/chatlist");
-        } else if (res.isDenied) {
-          return;
-        } else {
-          return;
-        }
-      });
-  } else {
-    sweet
-      .fire({
-        customClass: {
-          popup: "border",
-          confirmButton: "confirmButton",
-          cancelButton: "cancelButton",
-          denyButton: "denyButton",
-          actions: "meal-action-class",
-        },
-        width: "auto",
-        padding: "0 1rem 1rem",
-        title: (
-          <Grid>
-            <Text margin="0 auto 0" size={fontSize.base} bold2="700">
-              채팅방에 참여하시겠어요?
-            </Text>
-          </Grid>
-        ),
-        html: (
-          <Grid>
-            <Text size={fontSize.small} color={color.bg100} line_height="150%">
-              참여하기를 누르면, 방장에게
-              <br />
-              승인 요청을 보낼게요!
-            </Text>
-          </Grid>
-        ),
-        showDenyButton: true,
-        denyButtonText: (
-          <Grid width="9rem" is_flex2 margin="auto">
-            <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
-              취소
-            </Text>
-          </Grid>
-        ),
-        denyButtonColor: color.brand20,
-        confirmButtonColor: color.brand100,
-        confirmButtonText: (
-          <Grid width="9rem" is_flex2 margin="auto">
-            <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
-              참여하기
-            </Text>
-          </Grid>
-        ),
-        focusConfirm: false,
-        reverseButtons: true,
-      })
-      .then((res) => {
-        if (res.isConfirmed) {
-          axiosModule
-            .get(`/posts/join/request/${post_id}`)
-            .then((res) => {
-              logger("채팅 신청", res);
-              if (res.data === "이미 신청한 글입니다") {
-                sweetConfirmReload(
-                  "이미 신청한 방입니다.",
-                  ["승인 대기 중이니 기다려주세요."],
-                  ""
-                );
-              } else {
-                sweetConfirmReload(
-                  "방장에게 승인 요청을 보냈어요",
-                  ["채팅 탭에서 승인 대기 중인", "채팅을 확인하실 수 있어요."],
-                  ""
-                );
-              }
-            })
-            .catch((e) => {
-              logger("채팅방 참여 승인 요청 에러", e);
-            });
-        } else if (res.isDenied) {
-          sweetConfirmReload("요청 취소", ["승인 요청이 취소되었습니다."], "");
-        } else {
-          return;
-        }
-      });
-  }
 };
 
 const SweetAllowChat = (join_id) => {
@@ -998,7 +868,6 @@ const customAlert = {
   sweetNeedLogin,
   sweetWA,
   sweetEditError,
-  SweetChatRequest,
   SweetAllowChat,
   SweetDenyChat,
   SweetOutChat,

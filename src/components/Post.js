@@ -1,41 +1,49 @@
-import React from 'react';
-import styled from 'styled-components';
-import { actionCreators as postActions } from '../redux/modules/post';
-import { useDispatch, useSelector } from 'react-redux';
-import { history } from '../redux/configureStore';
+import React from "react";
+import styled from "styled-components";
+import { actionCreators as postActions } from "../redux/modules/post";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
 
 // style
-import { Grid, Image, Text, Button } from '../elements';
-import { customAlert } from './Sweet';
-import theme from '../styles/theme';
-import logger from '../shared/Console';
+import { Grid, Image, Text, Button } from "../elements";
+import { customAlert } from "./Sweet";
+import theme from "../styles/theme";
+import logger from "../shared/Console";
 
-import moment from 'moment';
+import moment from "moment";
 
 const Post = (props) => {
   const { color, fontSize } = theme;
 
   // 글 생성 시간
   // 연, 월
-  const ym = props?.insert_dt.split('-');
+  const ym = props?.insert_dt.split("-");
   // 일
-  const day = ym[2].split(' ');
+  const day = ym[2].split(" ");
   // 시, 분
-  const hm = day[1].split(':');
+  const hm = day[1].split(":");
 
   // 예상 만남 시간
-  const ordDate = props?.orderDate.split('-');
-  const ordTime = props?.orderTime.split(':');
+  const ordDate = props?.orderDate.split("-");
+  const ordTime = props?.orderTime.split(":");
 
   // 오늘 표시
-  const today = moment().format('YYYY-MM-DD');
-  const tomorrow = moment().add(1, 'd').format('YYYY-MM-DD');
+  const today = moment().format("YYYY-MM-DD");
+  const now = moment().format("HH:mm");
+  const tomorrow = moment().add(1, "d").format("YYYY-MM-DD");
   const is_today = today === props.orderDate ? true : false;
   const is_tomorrow = tomorrow === props.orderDate ? true : false;
 
   const is_login = useSelector((state) => state.user.is_login);
   const user_info = useSelector((state) => state.user.user);
   const [disabled, setDisabled] = React.useState(false);
+
+  // 마감여부
+  const now_time_int = parseInt(
+    today.split("-").join("") + now.split(":").join("")
+  );
+  const post_time_int = parseInt(ordDate.join("") + ordTime.join(""));
+  const is_over = now_time_int > post_time_int ? true : false;
 
   const dispatch = useDispatch();
   // 내 위치에서부터 얼마나 떨어져있는지 보여주는 변수(소수점이므로 1000을 곱해 m로 나타냄)
@@ -44,10 +52,17 @@ const Post = (props) => {
 
   const requestJoin = () => {
     if (is_login) {
-      customAlert.SweetChatRequest(
-        user_info?.user_id,
-        props.user_id,
-        props.post_id
+      // customAlert.SweetChatRequest(
+      //   user_info?.user_id,
+      //   props.user_id,
+      //   props.post_id
+      // );
+      dispatch(
+        postActions.requestChatPostAX(
+          user_info?.user_id,
+          props.user_id,
+          props.post_id
+        )
       );
       return;
     } else {
@@ -95,12 +110,12 @@ const Post = (props) => {
                 if (is_login) {
                   if (user_info.user_id === props.user_id) {
                     return history.push({
-                      pathname: '/myprofile',
+                      pathname: "/myprofile",
                       state: { ...props },
                     });
                   }
                   history.push({
-                    pathname: '/userprofile',
+                    pathname: "/userprofile",
                     state: { ...props },
                   });
                 } else {
@@ -114,11 +129,15 @@ const Post = (props) => {
                   {props.username}
                 </Text>
                 <Grid
-                  width={props.valid === false || disabled ? '5rem' : ''}
+                  width={props.valid === false || disabled ? "5rem" : ""}
                   minWidth="5.5rem"
                   maxWidth="9.1rem"
                   height="2.3rem"
-                  bg={props.valid === false || disabled ? `${color.bg20}` : "rgba(84, 189, 88, 0.1)"}
+                  bg={
+                    props.valid === false || disabled
+                      ? `${color.bg20}`
+                      : "rgba(84, 189, 88, 0.1)"
+                  }
                   radius="0.5rem"
                   padding="0.4rem 0.8rem"
                   margin="0 3.3rem 0 0"
@@ -185,7 +204,7 @@ const Post = (props) => {
                 color={color.bg80}
                 margin="0.8rem 0.8rem 0.8rem 0"
               >
-                배달 받을 곳
+                만날 장소
               </Text>
               {!props.is_profile && (
                 <Text
@@ -271,7 +290,7 @@ const Post = (props) => {
             </Grid>
           </Grid>
           {props.valid === false || disabled ? (
-            ''
+            ""
           ) : (
             <Grid is_flex maxWidth="29rem" margin="0 0 1.5rem 0">
               <Button
@@ -285,8 +304,8 @@ const Post = (props) => {
                 bold={fontSize.bold}
                 cursor="pointer"
                 _onClick={() => {
-                  history.push(`/post/${props.post_id}`);
                   dispatch(postActions.getDetailPostUserListAX(props.post_id));
+                  history.push(`/post/${props.post_id}`);
                 }}
               >
                 자세히 보기
@@ -295,7 +314,7 @@ const Post = (props) => {
                 width="14rem"
                 height="4.4rem"
                 radius="1.2rem"
-                bg={disabled ? '#EBE9E8' : color.brand100}
+                bg={disabled ? "#EBE9E8" : color.brand100}
                 border="none"
                 size={fontSize.small}
                 bold={fontSize.bold}
@@ -311,7 +330,7 @@ const Post = (props) => {
                 <Text
                   bold
                   size={fontSize.small}
-                  color={disabled ? '#CECAC7' : color.bg0}
+                  color={disabled ? "#CECAC7" : color.bg0}
                 >
                   채팅 시작하기
                 </Text>
@@ -330,7 +349,7 @@ const UserProfile = styled.div`
   width: 4.3rem;
   height: 3.8rem;
   border-radius: 2rem;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   background-size: cover;
   background-position: center;
   margin: 1rem 1rem 1rem 0;

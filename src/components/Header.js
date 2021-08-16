@@ -362,9 +362,6 @@ const Header = (props) => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             cursor="pointer"
-            onClick={() => {
-              history.goBack();
-            }}
             style={{ margin: '0 0 0 1rem' }}
           >
             <path

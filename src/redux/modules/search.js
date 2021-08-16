@@ -1,14 +1,20 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
-import axiosModule from '../axios_module';
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import axiosModule from "../axios_module";
 
-import logger from '../../shared/Console';
+import logger from "../../shared/Console";
+import { customAlert } from "../../components/Sweet";
+import { history } from "../configureStore";
 
-const GET_SEARCH_LIST = 'GET_SEARCH_LIST';
-const FOOD_CHECK = 'FOOD_CHECK';
+const GET_SEARCH_LIST = "GET_SEARCH_LIST";
+const FOOD_CHECK = "FOOD_CHECK";
+const CLEAR_OLD_SEARCH = "CLEAR_OLD_SEARCH";
 
 const getSearchList = createAction(GET_SEARCH_LIST, (search) => ({ search }));
 const food_check = createAction(FOOD_CHECK, (is_food) => ({ is_food }));
+const clearOldSearch = createAction(CLEAR_OLD_SEARCH, (post_id) => ({
+  post_id,
+}));
 
 const initialState = {
   list: [],
@@ -25,8 +31,8 @@ const getSearchListDB = (food) => {
         let search_list = [];
 
         res.data.forEach((p) => {
-          let hour = p.orderTime.split(' ')[1].split(':')[0];
-          let minute = p.orderTime.split(' ')[1].split(':')[1];
+          let hour = p.orderTime.split(" ")[1].split(":")[0];
+          let minute = p.orderTime.split(" ")[1].split(":")[1];
           let post = {
             post_id: p.postId,
             title: p.title,
@@ -34,8 +40,8 @@ const getSearchListDB = (food) => {
             category: p.category,
             shop: p.restaurant,
             headCount: p.headCount,
-            orderTime: hour + ':' + minute,
-            orderDate: p.orderTime.split(' ')[0],
+            orderTime: hour + ":" + minute,
+            orderDate: p.orderTime.split(" ")[0],
             address: p.address,
             insert_dt: p.createdAt,
             username: p.username,
@@ -44,13 +50,14 @@ const getSearchListDB = (food) => {
             distance: p.distance,
             room_id: p.roomId,
             nowHeadCount: p.nowHeadCount,
+            valid: p.valid,
           };
           search_list.push(post);
         });
         dispatch(getSearchList(search_list));
       })
       .catch((err) => {
-        logger('search모듈 - getSeartchListDB: ', err);
+        logger("search모듈 - getSeartchListDB: ", err);
       });
   };
 };
@@ -65,6 +72,16 @@ export default handleActions(
       produce(state, (draft) => {
         draft.is_food = action.payload.is_food;
       }),
+    [CLEAR_OLD_SEARCH]: (state, action) =>
+      produce(state, (draft) => {
+        let idx = draft.list.findIndex(
+          (p) => p.post_id === action.payload.post_id
+        );
+        if (idx !== -1) {
+          draft.list.splice(idx, 1);
+        }
+        history.goBack();
+      }),
   },
   initialState
 );
@@ -72,6 +89,7 @@ export default handleActions(
 const actionCreators = {
   getSearchListDB,
   food_check,
+  clearOldSearch,
 };
 
 export { actionCreators };
