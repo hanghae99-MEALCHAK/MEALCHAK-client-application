@@ -40,6 +40,10 @@ const UserProfile = (props) => {
     logger("id : ", typeof id);
   }, []);
 
+  React.useEffect(() => {
+    dispatch(userAction.findUserProfileAX(id));
+  },[dispatch, props.match.params.id])
+
   if (is_login) {
     return (
       <React.Fragment>
