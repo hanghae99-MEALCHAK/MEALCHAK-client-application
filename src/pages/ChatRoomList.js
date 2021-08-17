@@ -7,6 +7,7 @@ import { token } from "../shared/OAuth";
 
 // style
 import { Header, Footer, ChatListItem, AwaitList, PcSide } from "../components";
+import { emptyBubbles } from "../styles/img/index";
 import { Button, Grid, Input, Text } from "../elements";
 import theme from "../styles/theme";
 import styled from "styled-components";
@@ -143,7 +144,7 @@ const ChatRoomList = (props) => {
 
         {await_list?.length === 0 && chat_list?.length === 0 && (
           <>
-            <Grid shape="empty" src="illust/emptyBubbles.png">
+            <Grid shape="empty" src={emptyBubbles}>
               <EmptyText theme={theme}>아직 채팅 내용이 없어요.</EmptyText>
             </Grid>
             <Grid height="20rem"></Grid>

@@ -23,11 +23,11 @@ const Image = (props) => {
   };
 
   if (shape === 'circle') {
-    return <ImageCircle {...styles} onClick={_onClick}></ImageCircle>;
+    return <ImageCircle {...styles} onClick={_onClick} alt=""></ImageCircle>;
   }
 
   if (shape === 'circleBtn') {
-    return <ButtonCircle {...styles} onClick={_onClick}></ButtonCircle>;
+    return <ButtonCircle {...styles} onClick={_onClick} alt=""></ButtonCircle>;
   }
 
   if (shape === 'rectangle') {
@@ -38,17 +38,18 @@ const Image = (props) => {
           onMouseEnter={_onMouseEnter}
           onMouseLeave={_onMouseLeave}
           onClick={_onClick}
+          alt=""
         ></AspectInner>
       </AspectOutter>
     );
   }
 
   if (shape === 'main') {
-    return <MainInner {...styles}>{children} onClick={_onClick}</MainInner>;
+    return <MainInner {...styles}  alt="">{children} onClick={_onClick}</MainInner>;
   }
   return (
     <React.Fragment>
-      <ImageDefault {...styles} onClick={_onClick}></ImageDefault>
+      <ImageDefault {...styles} onClick={_onClick}  alt=""></ImageDefault>
     </React.Fragment>
   );
 };

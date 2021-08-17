@@ -6,6 +6,7 @@ import moment from "moment";
 
 // style
 import { Grid, Text, Image } from "../elements";
+import { exit } from "../styles/img/index";
 import theme from "../styles/theme";
 import { FiLogOut } from "react-icons/fi";
 import styled from "styled-components";
@@ -165,7 +166,7 @@ const SideContent = (props) => {
         <Grid width="auto" height="auto">
           <Image
             size="2.4"
-            src="illust/exit.png"
+            src={exit}
             cursor="pointer"
             _onClick={() => {
               get_out_chat(props.post_id);

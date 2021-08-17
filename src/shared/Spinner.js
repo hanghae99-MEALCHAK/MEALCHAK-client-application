@@ -1,16 +1,29 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import { createTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+
 import CircularProgress from "@material-ui/core/CircularProgress";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#FF9425",
+    },
+  },
+});
 
 const Spinner = (props) => {
   return (
-    <Outter>
-      <Box>
-        <div>
-          <CircularProgress />
-        </div>
-      </Box>
-    </Outter>
+    <ThemeProvider theme={theme}>
+      <Outter>
+        <Box>
+          <div>
+            <CircularProgress />
+          </div>
+        </Box>
+      </Outter>
+    </ThemeProvider>
   );
 };
 

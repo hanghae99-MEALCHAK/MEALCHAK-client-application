@@ -17,7 +17,7 @@ import logger from "../shared/Console";
 
 SwiperCore.use([Pagination, Autoplay]);
 
-const MainBanner = (props) => {
+const MainBanner = React.memo((props) => {
   const { color } = theme;
 
   const dispatch = useDispatch();
@@ -119,7 +119,7 @@ const MainBanner = (props) => {
       </div>
     </React.Fragment>
   );
-};
+});
 
 MainBanner.defaultProps = {};
 

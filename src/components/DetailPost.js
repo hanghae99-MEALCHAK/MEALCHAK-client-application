@@ -14,7 +14,7 @@ import { customAlert } from "./Sweet";
 
 import moment from "moment";
 
-const DetailPost = (props) => {
+const DetailPost = React.memo((props) => {
   logger("상세포스트 프롭스", props);
   const {
     address,
@@ -472,7 +472,7 @@ const DetailPost = (props) => {
       )}
     </React.Fragment>
   );
-};
+});
 
 DetailPost.defaultProps = {};
 

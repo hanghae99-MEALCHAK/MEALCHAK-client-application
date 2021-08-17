@@ -7,7 +7,8 @@ import { history } from "../redux/configureStore";
 
 // style
 import { Header, Footer, ProfileTab, PcSide } from "../components";
-import { Grid, Text } from "../elements";
+import { inviteBg100 } from "../styles/img/index";
+import { Grid, Text, Image } from "../elements";
 import Spinner from "../shared/Spinner";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
@@ -204,15 +205,27 @@ const MyPage = (props) => {
                 >
                   <g clipPath="url(#clip0)">
                     <path
-                      d="M22.7274 25.1883C22.2716 23.6998 21.2672 22.3846 19.8701 21.4465C18.4729 20.5085 16.7611 20 15 20C13.2389 20 11.5271 20.5085 10.1299 21.4465C8.73276 22.3846 7.72839 23.6998 7.27259 25.1883"
+                      d="M21.2274 25.1883C20.7716 23.6998 19.7672 22.3846 18.3701 21.4465C16.9729 20.5085 15.2611 20 13.5 20C11.7389 20 10.0271 20.5085 8.62991 21.4465C7.23276 22.3846 6.22839 23.6998 5.77259 25.1883"
                       stroke="#36373C"
                       strokeWidth="2"
                       strokeLinecap="round"
                     />
                     <circle
-                      cx="15"
+                      cx="13.5"
                       cy="11"
                       r="5"
+                      stroke="#36373C"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M19.5 17H25.5"
+                      stroke="#36373C"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M22.5 14L22.5 20"
                       stroke="#36373C"
                       strokeWidth="2"
                       strokeLinecap="round"

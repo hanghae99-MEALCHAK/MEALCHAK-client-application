@@ -11,6 +11,7 @@ import { Post, DetailPost, PcSide } from "../components";
 
 // style
 import { Button, Grid, Input, Text } from "../elements";
+import { emptyMeal_3x } from "../styles/img/index";
 import { Header } from "../components";
 import theme from "../styles/theme";
 
@@ -50,7 +51,7 @@ const MyPost = (props) => {
               })
             ) : (
               <Grid width="36rem" margin="18rem auto 0 auto">
-                <MyReviewImg src="illust/emptyMeal_3x.png"></MyReviewImg>
+                <MyReviewImg src={emptyMeal_3x}></MyReviewImg>
                 <MyReviewText>아직 내가 쓴 글이 없어요.</MyReviewText>
               </Grid>
             )}

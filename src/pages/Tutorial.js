@@ -1,16 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
-import { history } from '../redux/configureStore';
-import { useSelector } from 'react-redux';
+import React from "react";
+import styled from "styled-components";
+import { history } from "../redux/configureStore";
+import { useSelector } from "react-redux";
 // kakao login
-import { Kakao_auth_url } from '../shared/OAuth';
+import { Kakao_auth_url } from "../shared/OAuth";
 
 // style
-import { Button, Grid, Text } from '../elements';
-import theme from '../styles/theme';
+import { mainLogo } from "../styles/img/index";
+import { Button, Grid, Text } from "../elements";
+import theme from "../styles/theme";
 
-import { TutorialSwiper } from '../components';
-import { customAlert } from '../components/Sweet';
+import { TutorialSwiper } from "../components";
+import { customAlert } from "../components/Sweet";
 
 const Tutorial = (props) => {
   const { color, border, fontSize, radius } = theme;
@@ -27,9 +28,9 @@ const Tutorial = (props) => {
     // 로그인 한 사용자가 로딩 시간때문인지 일정시간이 지나야 아래 부분실행됨
     if (is_login) {
       customAlert.sweetConfirmReload(
-        '로그인 한 사용자입니다.',
-        ['홈으로 돌아갑니다.'],
-        'history'
+        "로그인 한 사용자입니다.",
+        ["홈으로 돌아갑니다."],
+        "history"
       );
     }
   }, [is_login]);
@@ -38,7 +39,7 @@ const Tutorial = (props) => {
     <React.Fragment>
       {loading ? (
         <Grid is_flex4 height="100vh">
-          <LogoImg src="/illust/logo_3x.png"></LogoImg>
+          <LogoImg src={mainLogo}></LogoImg>
         </Grid>
       ) : (
         <Grid
@@ -74,7 +75,7 @@ const Tutorial = (props) => {
                   border="none"
                   radius={radius.button}
                   _onClick={() => {
-                    history.push('/home');
+                    history.push("/home");
                   }}
                   bg={color.brand20}
                 >
@@ -132,7 +133,7 @@ const Tutorial = (props) => {
 
 const LogoImg = styled.div`
   margin: auto;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   width: 240px;
   height: 80px;
   background-size: cover;

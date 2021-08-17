@@ -7,6 +7,7 @@
     url("../src/styles/fonts/SpoqaHanSansNeo-Thin.woff2") format("woff2"),
     url("../src/styles/fonts/SpoqaHanSansNeo-Thin.woff") format("woff"),
     url("../src/styles/fonts/SpoqaHanSansNeo-Thin.ttf") format("truetype");
+  font-display: swap;
 }
 @font-face {
   font-family: "Spoqa Han Sans";
@@ -15,6 +16,7 @@
     url("../src/styles/fonts/SpoqaHanSansNeo-Light.woff2") format("woff2"),
     url("../src/styles/fonts/SpoqaHanSansNeo-Light.woff") format("woff"),
     url("../src/styles/fonts/SpoqaHanSansNeo-Light.ttf") format("truetype");
+  font-display: swap;
 }
 @font-face {
   font-family: "Spoqa Han Sans Neo";
@@ -23,6 +25,7 @@
     url("../src/styles/fonts/SpoqaHanSansNeo-Regular.woff2") format("woff2"),
     url("../src/styles/fonts/SpoqaHanSansNeo-Regular.woff") format("woff"),
     url("../src/styles/fonts/SpoqaHanSansNeo-Regular.ttf") format("truetype");
+  font-display: swap;
 }
 @font-face {
   font-family: "Spoqa Han Sans Neo";
@@ -31,6 +34,7 @@
     url("../src/styles/fonts/SpoqaHanSansNeo-Bold.woff2") format("woff2"),
     url("../src/styles/fonts/SpoqaHanSansNeo-Bold.woff") format("woff"),
     url("../src/styles/fonts/SpoqaHanSansNeo-Bold.ttf") format("truetype");
+  font-display: swap;
 }
 body {
   position: relative;
