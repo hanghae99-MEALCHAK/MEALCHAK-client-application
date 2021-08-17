@@ -12,7 +12,7 @@ import logger from "../shared/Console";
 
 import moment from "moment";
 
-const Post = (props) => {
+const Post = React.memo((props) => {
   const { color, fontSize } = theme;
 
   // 글 생성 시간
@@ -340,7 +340,7 @@ const Post = (props) => {
       </Grid>
     </React.Fragment>
   );
-};
+});
 
 Post.defaultProps = {};
 

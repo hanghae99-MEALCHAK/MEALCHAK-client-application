@@ -1,20 +1,18 @@
 import React from "react";
-import styled from "styled-components";
-import { useState } from "react";
-import logger from "../shared/Console";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postAction } from "../redux/modules/post";
-import { actionCreators as userAction } from "../redux/modules/user";
-import { Kakao_auth_url } from "../shared/OAuth";
-import Spinner from "../shared/Spinner";
-import { history } from "../redux/configureStore";
 import { useLocation } from "react-router";
+import { history } from "../redux/configureStore";
+import { actionCreators as userAction } from "../redux/modules/user";
+
 import { MyOneReview } from "../components";
+import Spinner from "../shared/Spinner";
 
 // style
-import { Button, Grid, Input, Text } from "../elements";
-import { Header, Footer, ProfileTab } from "../components";
+import { Button, Grid, Text } from "../elements";
+import { Header, ProfileTab } from "../components";
+import styled from "styled-components";
 import theme from "../styles/theme";
+import logger from "../shared/Console";
 
 const UserProfile = (props) => {
   const dispatch = useDispatch();
@@ -50,7 +48,6 @@ const UserProfile = (props) => {
         <Grid
           maxWidth="36rem"
           minHeight="100vh"
-          // border={border.line1}
           margin="0 auto"
         >
           <Grid shape="container">

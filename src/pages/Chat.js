@@ -278,7 +278,6 @@ const Chat = (props) => {
         <Grid
           maxWidth="36rem"
           minHeight="100vh"
-          // border={border.line1}
           margin="0 auto"
           bg="#7B6E62"
         >
