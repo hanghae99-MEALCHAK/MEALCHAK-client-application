@@ -5,7 +5,7 @@ import { history } from "../redux/configureStore";
 
 // style
 import styled from "styled-components";
-import { Header, Footer, AllowList } from "../components";
+import { Header, Footer, AllowList, PcSide } from "../components";
 import { Button, Grid, Image, Text } from "../elements";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
@@ -25,8 +25,9 @@ const AllowChat = (props) => {
 
   return (
     <React.Fragment>
+      <PcSide {...props} />
       <Grid
-        maxWidth="36rem"
+        // maxWidth="36rem"
         minHeight="100vh"
         // border={border.line1}
         margin="0 auto"

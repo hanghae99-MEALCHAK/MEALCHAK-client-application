@@ -19,8 +19,10 @@ import SideContent from "./SideContent";
 import ChatUserItem from "./ChatUserItem";
 import ScrollTop from "./ScrollTop";
 import ProfileTab from "./ProfileTab";
+import PcSide from "./PcSide";
 
 export {
+  PcSide,
   DetailPost,
   Footer,
   Header,

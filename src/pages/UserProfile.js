@@ -8,8 +8,8 @@ import { MyOneReview } from "../components";
 import Spinner from "../shared/Spinner";
 
 // style
-import { Button, Grid, Text } from "../elements";
-import { Header, ProfileTab } from "../components";
+import { Button, Grid, Input, Text } from "../elements";
+import { Header, Footer, ProfileTab, PcSide } from "../components";
 import styled from "styled-components";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
@@ -40,14 +40,16 @@ const UserProfile = (props) => {
 
   React.useEffect(() => {
     dispatch(userAction.findUserProfileAX(id));
-  },[dispatch, props.match.params.id])
+  }, [dispatch, props.match.params.id]);
 
   if (is_login) {
     return (
       <React.Fragment>
+        <PcSide {...props} />
         <Grid
-          maxWidth="36rem"
+          // maxWidth="36rem"
           minHeight="100vh"
+          // border={border.line1}
           margin="0 auto"
         >
           <Grid shape="container">

@@ -11,7 +11,7 @@ import logger from "../shared/Console";
 
 // style
 import { Button, Grid, Text } from "../elements";
-import { UploadInput, UploadContents, Header } from "../components";
+import { UploadInput, UploadContents, Header, PcSide } from "../components";
 import theme from "../styles/theme";
 import { customAlert } from "../components/Sweet";
 import Spinner from "../shared/Spinner";
@@ -80,51 +80,49 @@ const Upload = React.memo((props) => {
     // 모집글 작성 시 상위, 하위 컴포넌트들에서 올바르지 않은 value있을때 처리하는 과정
     if (!post_info.title || post_info.title === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        ['모집글의 제목을 입력해주세요.'],
-        ''
+        "빈칸이 있습니다.",
+        ["모집글의 제목을 입력해주세요."],
+        ""
       );
       return;
     }
     if (!post_info.contents || post_info.contents === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        ['모집글의 내용을 입력해주세요.'],
-        ''
+        "빈칸이 있습니다.",
+        ["모집글의 내용을 입력해주세요."],
+        ""
       );
       return;
     }
     if (!post_info?.place || post_info?.place === "") {
       customAlert.sweetConfirmReload(
-        '앗 상세 주소를 입력해주세요',
-        ['더치페이를 위해 모집원을 만날',
-        '상세 주소가 필요해요.'],
-        ''
+        "앗 상세 주소를 입력해주세요",
+        ["더치페이를 위해 모집원을 만날", "상세 주소가 필요해요."],
+        ""
       );
       return;
     }
     if (!post_info?.detail_place || post_info?.detail_place === "") {
       customAlert.sweetConfirmReload(
-        '앗 상세 주소를 입력해주세요',
-        ['더치페이를 위해 모집원을 만날',
-        '상세 주소가 필요해요.'],
-        ''
+        "앗 상세 주소를 입력해주세요",
+        ["더치페이를 위해 모집원을 만날", "상세 주소가 필요해요."],
+        ""
       );
       return;
     }
     if (!post_info.restaurant || post_info.restaurant === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        ['배달 예정인 식당을 입력해주세요.'],
-        ''
+        "빈칸이 있습니다.",
+        ["배달 예정인 식당을 입력해주세요."],
+        ""
       );
       return;
     }
     if (!post_info.headCount || post_info.headCount === "0") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        ['모집원의 인원 수를 입력해주세요.'],
-        ''
+        "빈칸이 있습니다.",
+        ["모집원의 인원 수를 입력해주세요."],
+        ""
       );
       return;
     }
@@ -143,18 +141,18 @@ const Upload = React.memo((props) => {
       // 선택시간이 과거인 경우
       if (time_now > select_time) {
         return customAlert.sweetConfirmReload(
-          '모집 예정시간을 확인해주세요',
-          ['현재시간보다 과거로 설정되었습니다.'],
-          ''
+          "모집 예정시간을 확인해주세요",
+          ["현재시간보다 과거로 설정되었습니다."],
+          ""
         );
       }
     }
 
     if (!post_info.foodCategory || post_info.foodCategory === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        ['모집을 희망하는 식품의 카테고리를 입력해주세요.'],
-        ''
+        "빈칸이 있습니다.",
+        ["모집을 희망하는 식품의 카테고리를 입력해주세요."],
+        ""
       );
       return;
     }
@@ -170,51 +168,49 @@ const Upload = React.memo((props) => {
     // 모집글 작성 시 상위, 하위 컴포넌트들에서 올바르지 않은 value있을때 처리하는 과정
     if (!post_info.title || post_info.title === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다',
-        ['모집글의 제목을 입력해주세요.'],
-        ''
+        "빈칸이 있습니다",
+        ["모집글의 제목을 입력해주세요."],
+        ""
       );
       return;
     }
     if (!post_info.contents || post_info.contents === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다',
-        ['모집글의 내용을 입력해주세요.'],
-        ''
+        "빈칸이 있습니다",
+        ["모집글의 내용을 입력해주세요."],
+        ""
       );
       return;
     }
     if (!post_info.place || post_info.place === "") {
       customAlert.sweetConfirmReload(
-        '앗 상세 주소를 입력해주세요',
-        ['더치페이를 위해 모집원을 만날',
-        '상세 주소가 필요해요.'],
-        ''
+        "앗 상세 주소를 입력해주세요",
+        ["더치페이를 위해 모집원을 만날", "상세 주소가 필요해요."],
+        ""
       );
       return;
     }
     if (!post_info?.detail_place || post_info?.detail_place === "") {
       customAlert.sweetConfirmReload(
-        '앗 상세 주소를 입력해주세요',
-        ['더치페이를 위해 모집원을 만날',
-        '상세 주소가 필요해요.'],
-        ''
+        "앗 상세 주소를 입력해주세요",
+        ["더치페이를 위해 모집원을 만날", "상세 주소가 필요해요."],
+        ""
       );
       return;
     }
     if (!post_info.restaurant || post_info.restaurant === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다',
-        ['배달 예정인 식당을 입력해주세요.'],
-        ''
+        "빈칸이 있습니다",
+        ["배달 예정인 식당을 입력해주세요."],
+        ""
       );
       return;
     }
     if (!post_info.headCount || post_info.headCount === "0") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다',
-        ['모집원의 인원 수를 입력해주세요.'],
-        ''
+        "빈칸이 있습니다",
+        ["모집원의 인원 수를 입력해주세요."],
+        ""
       );
       return;
     }
@@ -229,17 +225,17 @@ const Upload = React.memo((props) => {
       // 선택시간이 과거인 경우
       if (time_now > select_time) {
         return customAlert.sweetConfirmReload(
-          '모집 예정시간을 확인해주세요',
-          ['현재시간보다 과거로 설정되었습니다.'],
-          ''
+          "모집 예정시간을 확인해주세요",
+          ["현재시간보다 과거로 설정되었습니다."],
+          ""
         );
       }
     }
     if (!post_info.foodCategory || post_info.foodCategory === "") {
       customAlert.sweetConfirmReload(
-        '빈칸이 있습니다.',
-        ['모집을 희망하는 식품의 카테고리를 입력해주세요.'],
-        ''
+        "빈칸이 있습니다.",
+        ["모집을 희망하는 식품의 카테고리를 입력해주세요."],
+        ""
       );
       return;
     }
@@ -249,64 +245,67 @@ const Upload = React.memo((props) => {
 
   if (is_login) {
     return (
-      <Grid
-        maxWidth="36rem"
-        minHeight="100vh"
-        // border={border.line1}
-        margin="0 auto"
-      >
-        <Grid shape="container">
-          <Header {...props} shape="모임 만들기"/>
-          <Grid height="4.4rem" />
-          <UploadContents
-            post_info={post_info}
-            onChange={(value) => setPostInfo({ ...post_info, ...value })}
-          />
+      <>
+       <PcSide {...props}/>
+        <Grid
+          // maxWidth="36rem"
+          minHeight="100vh"
+          // border={border.line1}
+          margin="0 auto"
+        >
+          <Grid shape="container">
+            <Header {...props} shape="모임 만들기" />
+            <Grid height="4.4rem" />
+            <UploadContents
+              post_info={post_info}
+              onChange={(value) => setPostInfo({ ...post_info, ...value })}
+            />
 
-          {/* <Grid borderBottom={border.line2}></Grid> */}
-          <UploadInput
-            post_info={post_info}
-            find_address={props.location.state?.address}
-            onChange={(value) => setPostInfo({ ...post_info, ...value })}
-          />
-          {/* <Grid height="10rem" /> */}
-          <Grid
-            height="auto"
-            maxWidth="36rem"
-            margin="0 auto"
-            padding="2.8rem 2rem 2.7rem"
-            bg={color.bg0}
-          >
-            {is_edit ? (
-              <Button
-                bg={color.brand100}
-                height="5rem"
-                border="none"
-                radius={radius.button}
-                cursor="t"
-                _onClick={UploadEditBtn}
-              >
-                <Text color={color.bg0} bold2="700" size={fontSize.base}>
-                  모집글 수정하기
-                </Text>
-              </Button>
-            ) : (
-              <Button
-                bg={color.brand100}
-                height="5rem"
-                border="none"
-                radius={radius.button}
-                cursor="t"
-                _onClick={uploadBtn}
-              >
-                <Text color={color.bg0} bold2="700" size={fontSize.base}>
-                  밀착할 사람 모집하기
-                </Text>
-              </Button>
-            )}
+            {/* <Grid borderBottom={border.line2}></Grid> */}
+            <UploadInput
+              post_info={post_info}
+              find_address={props.location.state?.address}
+              onChange={(value) => setPostInfo({ ...post_info, ...value })}
+            />
+            {/* <Grid height="10rem" /> */}
+            <Grid
+              height="auto"
+              maxWidth="36rem"
+              margin="0 auto"
+              padding="2.8rem 2rem 2.7rem"
+              bg={color.bg0}
+            >
+              {is_edit ? (
+                <Button
+                  bg={color.brand100}
+                  height="5rem"
+                  border="none"
+                  radius={radius.button}
+                  cursor="t"
+                  _onClick={UploadEditBtn}
+                >
+                  <Text color={color.bg0} bold2="700" size={fontSize.base}>
+                    모집글 수정하기
+                  </Text>
+                </Button>
+              ) : (
+                <Button
+                  bg={color.brand100}
+                  height="5rem"
+                  border="none"
+                  radius={radius.button}
+                  cursor="t"
+                  _onClick={uploadBtn}
+                >
+                  <Text color={color.bg0} bold2="700" size={fontSize.base}>
+                    밀착할 사람 모집하기
+                  </Text>
+                </Button>
+              )}
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </>
     );
   } else {
     return <Spinner />;

@@ -133,7 +133,8 @@ const UploadInput = React.memo((props) => {
                   ref={dropdownRef}
                   className={`menu ${isActive ? "active" : "inactive"}`}
                   style={{
-                    minWidth: "36rem",
+                    // minWidth: "36rem",
+                    
                     backgroundColor: "transparent",
                     cursor: "pointer",
                     zIndex: "1",

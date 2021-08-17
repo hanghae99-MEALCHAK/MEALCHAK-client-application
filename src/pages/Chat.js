@@ -11,7 +11,13 @@ import SockJS from "sockjs-client";
 // style
 import styled from "styled-components";
 import Spinner from "../shared/Spinner";
-import { Header, MessageList, MessageWrite, SideContent } from "../components";
+import {
+  Header,
+  MessageList,
+  MessageWrite,
+  SideContent,
+  PcSide,
+} from "../components";
 import { Grid } from "../elements";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 import { actionCreators as userAction } from "../redux/modules/user";
@@ -116,9 +122,7 @@ const Chat = (props) => {
               // 실시간 채팅 시간 넣어주는 부분
               const now_time = moment().format("YYYY-MM-DD HH:mm:ss");
               dispatch(
-                chatActions.getMessages(
-                  { ...newMessage, createdAt: now_time }
-                )
+                chatActions.getMessages({ ...newMessage, createdAt: now_time })
               );
             },
             {
@@ -155,7 +159,6 @@ const Chat = (props) => {
         callback();
       } else {
         waitForConnection(ws, callback);
-        
       }
     }, 0.1);
   };
@@ -223,15 +226,19 @@ const Chat = (props) => {
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
         logger("강퇴 메세지 상태", ws.ws.readyState);
         customAlert.sweetConfirmReload(
-          '퇴장 시키기 완료',
+          "퇴장 시키기 완료",
           [`${other_user_name}님이 퇴장 되었습니다.`],
-          ''
+          ""
         );
       });
     } catch (e) {
-      customAlert.sweetConfirmReload('퇴장 에러', ['퇴장 요청중 에러 발생'], '');
-      logger('message 소켓 함수 에러', e);
-      logger('강퇴 메세지 상태', ws.ws.readyState);
+      customAlert.sweetConfirmReload(
+        "퇴장 에러",
+        ["퇴장 요청중 에러 발생"],
+        ""
+      );
+      logger("message 소켓 함수 에러", e);
+      logger("강퇴 메세지 상태", ws.ws.readyState);
     }
   };
 
@@ -259,9 +266,13 @@ const Chat = (props) => {
         logger("강퇴 메세지 상태", ws.ws.readyState);
       });
     } catch (e) {
-      customAlert.sweetConfirmReload('방폭 에러', ['방폭 요청중 에러 발생'], '');
-      logger('message 소켓 함수 에러', e);
-      logger('방폭 메세지 상태', ws.ws.readyState);
+      customAlert.sweetConfirmReload(
+        "방폭 에러",
+        ["방폭 요청중 에러 발생"],
+        ""
+      );
+      logger("message 소켓 함수 에러", e);
+      logger("방폭 메세지 상태", ws.ws.readyState);
     }
   };
 
@@ -275,9 +286,11 @@ const Chat = (props) => {
   } else {
     return (
       <React.Fragment>
+        <PcSide {...props} />
         <Grid
-          maxWidth="36rem"
+          // maxWidth="36rem"
           minHeight="100vh"
+          // border={border.line1}
           margin="0 auto"
           bg="#7B6E62"
         >

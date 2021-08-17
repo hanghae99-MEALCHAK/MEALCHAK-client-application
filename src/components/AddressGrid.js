@@ -1,24 +1,25 @@
 // RoadAddress.js의 DaumPostCode 컴포넌트를 감싸줄 컴포넌트
-import React from 'react';
+import React from "react";
 
-import { Header } from '../components';
+import { Header } from "../components";
 
 // style
-import { Grid } from '../elements';
-import theme from '../styles/theme';
+import styled from "styled-components";
+import { Grid } from "../elements";
+import theme from "../styles/theme";
 
 const AddressGrid = (props) => {
   const { border } = theme;
 
   return (
-    <React.Fragment>
+    <GridTop is_home={props.is_home} is_post={props.is_post}>
       <Grid
-        minHeight={props.is_home ? '100vh' : ''}
-        minWidth={props.is_post ? '36rem' : '36rem'}
-        maxWidth={props.is_post ? '32rem' : '36rem'}
-        width={props.is_home ? '36rem' : ''}
-        margin="0 auto"
-        border={border.line1}
+        // minHeight={props.is_home ? "100vh" : ""}
+        // minWidth={props.is_post ? "36rem" : "36rem"}
+        // maxWidth={props.is_post ? "32rem" : "36rem"}
+        // width={props.is_home ? "36rem" : ""}
+        // margin="0 auto"
+        // border={border.line1}
       >
         <Grid shape="container">
           {props.is_post ? (
@@ -31,11 +32,21 @@ const AddressGrid = (props) => {
             </Header>
           )}
           <Grid height="4.4rem" />
+          <Grid width="99.5%">{props.children}</Grid>
         </Grid>
-        {props.children}
       </Grid>
-    </React.Fragment>
+    </GridTop>
   );
 };
+
+const GridTop = styled.div`
+  @media (min-width: 414px) {
+    min-height: ${(props) => (props.is_home ? "100vh" : "")};
+    max-width: "36rem";
+    width: ${(props) => (props.is_home ? "36rem" : "")};
+    ${(props) => props.is_post ? `transform: translateX(0.1rem)` : ""};
+  }
+  width: 100%;
+`;
 
 export default AddressGrid;

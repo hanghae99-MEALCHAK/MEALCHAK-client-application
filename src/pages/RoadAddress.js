@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import DaumPostCode from "react-daum-postcode";
-import { AddressGrid } from "../components";
+import { AddressGrid, PcSide } from "../components";
 
 import { useDispatch } from "react-redux";
 import { actionCreators as locateActions } from "../redux/modules/loc";
 import logger from "../shared/Console";
 
-const RoadAddress = () => {
+const RoadAddress = (props) => {
   const dispatch = useDispatch();
   const [address, setAddress] = React.useState("");
   const is_home = true;
@@ -43,7 +43,8 @@ const RoadAddress = () => {
 
   return (
     <AddressGrid is_home={is_home}>
-      <DaumPostCode onComplete={handleComplete} className="post-code" style={{height:"100vh"}} />
+       <PcSide {...props}/>
+      <DaumPostCode onComplete={handleComplete} className="post-code" style={{height:"90vh"}} />
     </AddressGrid>
   );
 };

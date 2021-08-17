@@ -155,22 +155,24 @@ const SideContent = (props) => {
       <Grid
         borderTop={border.line2}
         position="absolute"
-        align_items="flex-end"
+        align_items="center"
         justify_content="space-between"
         flex
-        padding="1.3rem 2rem"
-        height="auto"
+        padding="0 2rem"
+        height="5rem"
         bg={color.bg0}
       >
-        <FiLogOut
-          size="2.4rem"
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            get_out_chat(props.post_id);
-          }}
-        />
-        
-        <Grid width="auto">
+        <Grid width="auto" height="auto">
+          <Image
+            size="2.4"
+            src="illust/exit.png"
+            cursor="pointer"
+            _onClick={() => {
+              get_out_chat(props.post_id);
+            }}
+          />
+        </Grid>
+        <Grid width="auto" height="auto">
           <Text
             size={fontSize.small}
             color={color.brand100}

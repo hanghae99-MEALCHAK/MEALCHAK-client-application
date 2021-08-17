@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Grid, Text, Button } from "../elements";
-import { Post, Footer, Header, MainBanner } from "../components";
+import { Grid, Text, Button } from '../elements';
+import { Post, Footer, Header, MainBanner, PcSide } from '../components';
 
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as userActions } from "../redux/modules/user";
@@ -63,10 +63,12 @@ const Main = (props) => {
 
   return (
     <React.Fragment>
+      <PcSide {...props}/>
       <Grid
         minHeight="100vh"
-        maxWidth="36rem"
+        // maxWidth="36rem"
         margin="0 auto"
+        // border={border.line1}
         padding="0 0 5.2rem 0"
       >
         <Grid shape="container">

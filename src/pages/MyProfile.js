@@ -6,7 +6,7 @@ import { actionCreators as userAction } from "../redux/modules/user";
 
 // style
 import { Button, Grid, Text } from "../elements";
-import { Header, ProfileTab } from "../components";
+import { Header, ProfileTab, PcSide } from "../components";
 import theme from "../styles/theme";
 import { MyOneReview } from "../components";
 import Spinner from "../shared/Spinner";
@@ -37,8 +37,9 @@ const MyProfile = (props) => {
   if (is_login) {
     return (
       <React.Fragment>
+        <PcSide {...props} />
         <Grid
-          maxWidth="36rem"
+          // maxWidth="36rem"
           minHeight="100vh"
           // border={border.line1}
           margin="0 auto"

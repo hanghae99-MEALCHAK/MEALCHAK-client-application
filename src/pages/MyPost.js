@@ -1,18 +1,18 @@
 // 마이페이지 - 내가 쓴 글
-import React from 'react';
-import styled from 'styled-components';
-import logger from '../shared/Console';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as postActions } from '../redux/modules/post';
-import { actionCreators as userActions } from '../redux/modules/user';
-import Spinner from '../shared/Spinner';
-import { history } from '../redux/configureStore';
-import { Post, DetailPost } from '../components';
+import React from "react";
+import styled from "styled-components";
+import logger from "../shared/Console";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as userActions } from "../redux/modules/user";
+import Spinner from "../shared/Spinner";
+import { history } from "../redux/configureStore";
+import { Post, DetailPost, PcSide } from "../components";
 
 // style
-import { Button, Grid, Input, Text } from '../elements';
-import { Header } from '../components';
-import theme from '../styles/theme';
+import { Button, Grid, Input, Text } from "../elements";
+import { Header } from "../components";
+import theme from "../styles/theme";
 
 const MyPost = (props) => {
   const { color, border, fontSize } = theme;
@@ -23,7 +23,7 @@ const MyPost = (props) => {
   const my_post = useSelector((state) => state.user?.myPost);
 
   React.useEffect(() => {
-    document.querySelector('body').scrollTo(0, 0);
+    document.querySelector("body").scrollTo(0, 0);
     dispatch(userActions.loginCheck());
     if (my_post.length === 0) {
       dispatch(userActions.getMyPostAX());
@@ -32,29 +32,32 @@ const MyPost = (props) => {
 
   if (is_login) {
     return (
-      <Grid
-        maxWidth="36rem"
-        minWidth="36rem"
-        minHeight="100vh"
-        // border={border.line1}
-        margin="0 auto"
-      >
-        <Grid shape="container">
-          <Header {...props} shape="내가쓴글" />
-          <Grid height="4.4rem" />          
-          {my_post?.length !== 0 ? (
-            my_post.map((p, idx) => {
-              return <DetailPost {...p} is_profile key={idx} />;
-            })
-          ) : (
-            <Grid width="36rem" margin="18rem auto 0 auto">
-              <MyReviewImg src="illust/emptyMeal_3x.png"></MyReviewImg>
-              <MyReviewText>아직 내가 쓴 글이 없어요.</MyReviewText>
-            </Grid>
-          )}
-          <Grid height="1.6rem" />
+      <>
+        <PcSide {...props} />
+        <Grid
+          // maxWidth="36rem"
+          // minWidth="36rem"
+          minHeight="100vh"
+          // border={border.line1}
+          margin="0 auto"
+        >
+          <Grid shape="container" minWidth="36rem">
+            <Header {...props} shape="내가쓴글" />
+            <Grid height="4.4rem" />
+            {my_post?.length !== 0 ? (
+              my_post.map((p, idx) => {
+                return <DetailPost {...p} is_profile key={idx} />;
+              })
+            ) : (
+              <Grid width="36rem" margin="18rem auto 0 auto">
+                <MyReviewImg src="illust/emptyMeal_3x.png"></MyReviewImg>
+                <MyReviewText>아직 내가 쓴 글이 없어요.</MyReviewText>
+              </Grid>
+            )}
+            <Grid height="1.6rem" />
+          </Grid>
         </Grid>
-      </Grid>
+      </>
     );
   } else {
     return <Spinner />;
@@ -65,7 +68,7 @@ MyPost.defaultProps = {};
 
 const MyReviewImg = styled.div`
   margin: auto;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   width: 20rem;
   height: 11.7rem;
   background-size: cover;

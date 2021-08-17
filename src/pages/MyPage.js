@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 
 // style
-import { Header, Footer, ProfileTab } from "../components";
+import { Header, Footer, ProfileTab, PcSide } from "../components";
 import { Grid, Text } from "../elements";
 import Spinner from "../shared/Spinner";
 import theme from "../styles/theme";
@@ -43,8 +43,9 @@ const MyPage = (props) => {
   if (is_login) {
     return (
       <React.Fragment>
+        <PcSide {...props} />
         <Grid
-          maxWidth="36rem"
+          // maxWidth="36rem"
           minHeight="100vh"
           // border={border.line1}
           margin="0 auto"
