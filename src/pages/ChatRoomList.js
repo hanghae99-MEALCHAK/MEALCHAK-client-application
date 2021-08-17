@@ -6,7 +6,7 @@ import { history } from "../redux/configureStore";
 import { token } from "../shared/OAuth";
 
 // style
-import { Header, Footer, ChatListItem, AwaitList } from "../components";
+import { Header, Footer, ChatListItem, AwaitList, PcSide } from "../components";
 import { Button, Grid, Input, Text } from "../elements";
 import theme from "../styles/theme";
 import styled from "styled-components";
@@ -69,12 +69,13 @@ const ChatRoomList = (props) => {
 
   return (
     <React.Fragment>
+      <PcSide {...props} />
       <Grid
-        // minWidth="36rem"
+        minWidth="36rem"
         // maxWidth="36rem"
-        // minHeight="100vh"
+        minHeight="100vh"
         // border={border.line1}
-        // margin="0 auto"
+        margin="0 auto"
         padding="0 0 5.2rem 0"
       >
         <Grid shape="container" minWidth="36rem">

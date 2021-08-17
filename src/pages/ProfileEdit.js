@@ -11,7 +11,7 @@ import { GenderSelect, AgeSelect } from "../components/ReactSelect";
 // style
 import { Button, Grid, Input, Text } from "../elements";
 import { customAlert } from "../components/Sweet";
-import { Header } from "../components";
+import { Header, PcSide } from "../components";
 import Spinner from "../shared/Spinner";
 import logger from "../shared/Console";
 import theme from "../styles/theme";
@@ -64,18 +64,20 @@ const ProfileEdit = (props) => {
 
     if (!user_info?.user_age && !user_info?.user_gender) {
       if (editProfile.gender && editProfile.age) {
-        customAlert.sweetUserInfo(editProfile.age, editProfile.gender).then((res) => {
-          if(res){
-            dispatch(userAction.editUserProfileAX({ ...editProfile }));
-            customAlert.sweetConfirmReload(
-              "프로필 수정 완료",
-              ["멋진 프로필이시네요!"],
-              "/mypage")
-          }
-          else {
-            return;
-          }
-        })
+        customAlert
+          .sweetUserInfo(editProfile.age, editProfile.gender)
+          .then((res) => {
+            if (res) {
+              dispatch(userAction.editUserProfileAX({ ...editProfile }));
+              customAlert.sweetConfirmReload(
+                "프로필 수정 완료",
+                ["멋진 프로필이시네요!"],
+                "/mypage"
+              );
+            } else {
+              return;
+            }
+          });
       } else {
         customAlert.sweetConfirmReload("성별/ 연령", ["필수항목입니다."], "");
       }
@@ -136,232 +138,245 @@ const ProfileEdit = (props) => {
 
   if (is_login) {
     return (
-      <Grid
-        // maxWidth="36rem"
-        // minWidth="32rem"
-        // minHeight="100vh"
-        // border={border.line1}
-        // margin="0 auto"
-      >
-        <Grid shape="container" minWidth="32rem">
-          <Header {...props} shape="프로필수정" />
-
-          <Grid margin="3.6rem auto 2rem">
-            <Profile
-              user_profile={preview ? preview : user_info?.user_profile}
-            />
-          </Grid>
-          <ProfileCover>
-            <input
-              type="file"
-              id="input-file"
-              ref={fileInput}
-              onChange={selectFile}
-              style={{ display: "none" }}
-            />
-            <label htmlFor="input-file" value={editProfile.image || ""} style={{cursor: "pointer"}}>
-              <svg
-                width="2.5rem"
-                height="2.5rem"
-                viewBox="0 0 30 30"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                style={{ margin: "3.6rem 0 0 3.8rem" }}
-              >
-                <path
-                  d="M5 12.5558C5 11.4204 5.9204 10.5 7.05576 10.5V10.5C7.83809 10.5 8.55262 10.056 8.89902 9.35449L9.81482 7.5C9.99871 7.12761 10.0907 6.94142 10.2076 6.78792C10.5048 6.39791 10.9348 6.13064 11.4161 6.03689C11.6055 6 11.8132 6 12.2285 6H17.7715C18.1868 6 18.3945 6 18.5839 6.03689C19.0652 6.13064 19.4952 6.39791 19.7924 6.78792C19.9093 6.94142 20.0013 7.12761 20.1852 7.5L21.101 9.35449C21.4474 10.056 22.1619 10.5 22.9442 10.5V10.5C24.0796 10.5 25 11.4204 25 12.5558V18.2143C25 20.8349 25 22.1452 24.2369 22.999C24.1621 23.0827 24.0827 23.1621 23.999 23.2369C23.1452 24 21.8349 24 19.2143 24H10.7857C8.16513 24 6.85484 24 6.00096 23.2369C5.91728 23.1621 5.83786 23.0827 5.76307 22.999C5 22.1452 5 20.8349 5 18.2143V12.5558Z"
-                  stroke="white"
-                  strokeWidth="2"
-                />
-                <circle cx="15" cy="16" r="4" stroke="white" strokeWidth="2" />
-              </svg>
-            </label>
-          </ProfileCover>
-          <FocusWithin>
-            <Grid
-              width="32rem"
-              minWidth="32rem"
-              heigh="8.2rem"
-              margin="0 auto 2.4rem auto"
-            >
-              <Text
-                width="32rem"
-                margin="0 0 0.9rem 0"
-                height="2.4rem"
-                bold2="500"
-                size={fontSize.base}
-                color={color.bg100}
-                line_height="150%"
-              >
-                닉네임
-              </Text>
-              <Input
-                type="text"
-                border={btn_border.bg40}
-                padding="1.5rem 1.3rem"
-                size={fontSize.base}
-                color={color.bg80}
-                length={10}
-                placeholder={user_info?.user_nickname}
-                value={editProfile?.nickname}
-                _onChange={changeNick}
-              />
-            </Grid>
-          </FocusWithin>
-          <FocusWithin>
-            <Grid
-              width="32rem"
-              minWidth="32rem"
-              height="8.2rem"
-              shape="container"
-              align_items="center"
-            >
-              <Text
-                width="32rem"
-                margin="0 0 0.9rem 0"
-                height="2.4rem"
-                bold2="500"
-                size={fontSize.base}
-                color={color.bg100}
-                line_height="150%"
-              >
-                소개글
-              </Text>
-              <TextArea
-                onChange={changeComment}
-                value={editProfile?.comment}
-                placeholder="어느 지역에서 주로 시켜먹나요?&#13;&#10;제일 좋아하는 음식은 무엇인가요?&#13;&#10;나를 나타낼 수 있는 문구로 소개해보세요!"
-              ></TextArea>
-            </Grid>
-          </FocusWithin>
-          <Text
-            width="28.8rem"
-            height="2.2rem"
-            margin="0.4rem auto 0 2rem"
-            color="#9A9896"
-            size={fontSize.small}
-            line_height="150%"
-          >
-            {/* 20글자 이상 입력해주세요. */}
-            130자까지 입력 가능합니다.
-          </Text>
-        </Grid>
-
-        <Grid margin="0 auto 1rem" shape="container" align_items="center">
-          <Text
-            width="32rem"
-            margin="2.4rem 0 0 0"
-            height="2.4rem"
-            bold2="500"
-            size={fontSize.base}
-            color={color.bg100}
-            line_height="150%"
-          >
-            성별
-          </Text>
-          <Grid
-            width="32rem"
-            minWidth="32rem"
-            border={border.bg40}
-            radius="1.2rem"
-            height="auto"
-            bg={user_info?.user_gender ? "#eee" : ""}
-          >
-            {user_info?.user_gender ? (
-              <Text
-                size={fontSize.base}
-                color={color.bg80}
-                padding="1.4rem 0 1.4rem 1.6rem"
-              >
-                {user_info.user_gender === "male" ? "남성" : "여성"}
-              </Text>
-            ) : (
-              <GenderSelect
-                options={gender_options}
-                value={editProfile.gender}
-                setProfile={setProfile}
-                setDisabled={setDisabled}
-                editProfile={editProfile}
-                onChange={props.onChange}
-                gender={editProfile.gender}
-              />
-            )}
-          </Grid>
-        </Grid>
-
-        <Grid margin="0 auto 1rem" shape="container" align_items="center">
-          <Text
-            width="32rem"
-            margin="2.4rem 0 0 0"
-            height="2.4rem"
-            bold2="500"
-            size={fontSize.base}
-            color={color.bg100}
-            line_height="150%"
-          >
-            연령
-          </Text>
-
-          <Grid
-            width="32rem"
-            minWidth="32rem"
-            border={border.bg40}
-            radius="1.2rem"
-            height="auto"
-            bg={user_info?.user_age ? "#eee" : ""}
-          >
-            {user_info?.user_age ? (
-              <Text
-                size={fontSize.base}
-                color={color.bg80}
-                padding="1.4rem 0 1.4rem 1.6rem"
-              >
-                {age_options.map((p) => {
-                  if (p.value === user_info.user_age) {
-                    return p.label;
-                  }
-                  return null;
-                })}
-              </Text>
-            ) : (
-              <AgeSelect
-                options={age_options}
-                value={editProfile.age}
-                setProfile={setProfile}
-                setDisabled={setDisabled}
-                editProfile={editProfile}
-                onChange={props.onChange}
-                age={editProfile.age}
-              />
-            )}
-          </Grid>
-        </Grid>
-
+      <>
+        <PcSide {...props} />
         <Grid
-          height="auto"
-          maxWidth="35.5rem"
-          margin="0 auto 0 0.1rem"
-          padding="2.8rem 2rem 2.7rem"
+          // maxWidth="36rem"
+          minWidth="32rem"
+          minHeight="100vh"
+          // border={border.line1}
+          margin="0 auto"
         >
-          <Button
-            bg={disabled ? color.bg40 : color.brand100}
-            height="5rem"
-            border="none"
-            radius={radius.button}
-            cursor="t"
-            disabled={disabled}
-            _onClick={editUser}
-          >
+          <Grid shape="container" minWidth="32rem">
+            <Header {...props} shape="프로필수정" />
+
+            <Grid margin="3.6rem auto 2rem">
+              <Profile
+                user_profile={preview ? preview : user_info?.user_profile}
+              />
+            </Grid>
+            <ProfileCover>
+              <input
+                type="file"
+                id="input-file"
+                ref={fileInput}
+                onChange={selectFile}
+                style={{ display: "none" }}
+              />
+              <label
+                htmlFor="input-file"
+                value={editProfile.image || ""}
+                style={{ cursor: "pointer" }}
+              >
+                <svg
+                  width="2.5rem"
+                  height="2.5rem"
+                  viewBox="0 0 30 30"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{ margin: "3.6rem 0 0 3.8rem" }}
+                >
+                  <path
+                    d="M5 12.5558C5 11.4204 5.9204 10.5 7.05576 10.5V10.5C7.83809 10.5 8.55262 10.056 8.89902 9.35449L9.81482 7.5C9.99871 7.12761 10.0907 6.94142 10.2076 6.78792C10.5048 6.39791 10.9348 6.13064 11.4161 6.03689C11.6055 6 11.8132 6 12.2285 6H17.7715C18.1868 6 18.3945 6 18.5839 6.03689C19.0652 6.13064 19.4952 6.39791 19.7924 6.78792C19.9093 6.94142 20.0013 7.12761 20.1852 7.5L21.101 9.35449C21.4474 10.056 22.1619 10.5 22.9442 10.5V10.5C24.0796 10.5 25 11.4204 25 12.5558V18.2143C25 20.8349 25 22.1452 24.2369 22.999C24.1621 23.0827 24.0827 23.1621 23.999 23.2369C23.1452 24 21.8349 24 19.2143 24H10.7857C8.16513 24 6.85484 24 6.00096 23.2369C5.91728 23.1621 5.83786 23.0827 5.76307 22.999C5 22.1452 5 20.8349 5 18.2143V12.5558Z"
+                    stroke="white"
+                    strokeWidth="2"
+                  />
+                  <circle
+                    cx="15"
+                    cy="16"
+                    r="4"
+                    stroke="white"
+                    strokeWidth="2"
+                  />
+                </svg>
+              </label>
+            </ProfileCover>
+            <FocusWithin>
+              <Grid
+                width="32rem"
+                minWidth="32rem"
+                heigh="8.2rem"
+                margin="0 auto 2.4rem auto"
+              >
+                <Text
+                  width="32rem"
+                  margin="0 0 0.9rem 0"
+                  height="2.4rem"
+                  bold2="500"
+                  size={fontSize.base}
+                  color={color.bg100}
+                  line_height="150%"
+                >
+                  닉네임
+                </Text>
+                <Input
+                  type="text"
+                  border={btn_border.bg40}
+                  padding="1.5rem 1.3rem"
+                  size={fontSize.base}
+                  color={color.bg80}
+                  length={10}
+                  placeholder={user_info?.user_nickname}
+                  value={editProfile?.nickname}
+                  _onChange={changeNick}
+                />
+              </Grid>
+            </FocusWithin>
+            <FocusWithin>
+              <Grid
+                width="32rem"
+                minWidth="32rem"
+                height="8.2rem"
+                shape="container"
+                align_items="center"
+              >
+                <Text
+                  width="32rem"
+                  margin="0 0 0.9rem 0"
+                  height="2.4rem"
+                  bold2="500"
+                  size={fontSize.base}
+                  color={color.bg100}
+                  line_height="150%"
+                >
+                  소개글
+                </Text>
+                <TextArea
+                  onChange={changeComment}
+                  value={editProfile?.comment}
+                  placeholder="어느 지역에서 주로 시켜먹나요?&#13;&#10;제일 좋아하는 음식은 무엇인가요?&#13;&#10;나를 나타낼 수 있는 문구로 소개해보세요!"
+                ></TextArea>
+              </Grid>
+            </FocusWithin>
             <Text
-              color={disabled ? color.bg60 : color.bg0}
-              bold2="700"
-              size={fontSize.base}
+              width="28.8rem"
+              height="2.2rem"
+              margin="0.4rem auto 0 2rem"
+              color="#9A9896"
+              size={fontSize.small}
+              line_height="150%"
             >
-              저장하기
+              {/* 20글자 이상 입력해주세요. */}
+              130자까지 입력 가능합니다.
             </Text>
-          </Button>
+          </Grid>
+
+          <Grid margin="0 auto 1rem" shape="container" align_items="center">
+            <Text
+              width="32rem"
+              margin="2.4rem 0 0 0"
+              height="2.4rem"
+              bold2="500"
+              size={fontSize.base}
+              color={color.bg100}
+              line_height="150%"
+            >
+              성별
+            </Text>
+            <Grid
+              width="32rem"
+              minWidth="32rem"
+              border={border.bg40}
+              radius="1.2rem"
+              height="auto"
+              bg={user_info?.user_gender ? "#eee" : ""}
+            >
+              {user_info?.user_gender ? (
+                <Text
+                  size={fontSize.base}
+                  color={color.bg80}
+                  padding="1.4rem 0 1.4rem 1.6rem"
+                >
+                  {user_info.user_gender === "male" ? "남성" : "여성"}
+                </Text>
+              ) : (
+                <GenderSelect
+                  options={gender_options}
+                  value={editProfile.gender}
+                  setProfile={setProfile}
+                  setDisabled={setDisabled}
+                  editProfile={editProfile}
+                  onChange={props.onChange}
+                  gender={editProfile.gender}
+                />
+              )}
+            </Grid>
+          </Grid>
+
+          <Grid margin="0 auto 1rem" shape="container" align_items="center">
+            <Text
+              width="32rem"
+              margin="2.4rem 0 0 0"
+              height="2.4rem"
+              bold2="500"
+              size={fontSize.base}
+              color={color.bg100}
+              line_height="150%"
+            >
+              연령
+            </Text>
+
+            <Grid
+              width="32rem"
+              minWidth="32rem"
+              border={border.bg40}
+              radius="1.2rem"
+              height="auto"
+              bg={user_info?.user_age ? "#eee" : ""}
+            >
+              {user_info?.user_age ? (
+                <Text
+                  size={fontSize.base}
+                  color={color.bg80}
+                  padding="1.4rem 0 1.4rem 1.6rem"
+                >
+                  {age_options.map((p) => {
+                    if (p.value === user_info.user_age) {
+                      return p.label;
+                    }
+                    return null;
+                  })}
+                </Text>
+              ) : (
+                <AgeSelect
+                  options={age_options}
+                  value={editProfile.age}
+                  setProfile={setProfile}
+                  setDisabled={setDisabled}
+                  editProfile={editProfile}
+                  onChange={props.onChange}
+                  age={editProfile.age}
+                />
+              )}
+            </Grid>
+          </Grid>
+
+          <Grid
+            height="auto"
+            maxWidth="35.5rem"
+            margin="0 auto 0 0.1rem"
+            padding="2.8rem 2rem 2.7rem"
+          >
+            <Button
+              bg={disabled ? color.bg40 : color.brand100}
+              height="5rem"
+              border="none"
+              radius={radius.button}
+              cursor="t"
+              disabled={disabled}
+              _onClick={editUser}
+            >
+              <Text
+                color={disabled ? color.bg60 : color.bg0}
+                bold2="700"
+                size={fontSize.base}
+              >
+                저장하기
+              </Text>
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
+      </>
     );
   } else {
     return <Spinner />;

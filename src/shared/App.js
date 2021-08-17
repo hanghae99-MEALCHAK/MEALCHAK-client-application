@@ -70,7 +70,7 @@ function App() {
     <React.Fragment>
       <Grid>
         <ConnectedRouter history={history}>
-          <GlobalStyle />
+          <GlobalStyle/>
           <Grid shape="topGrid">
             <Route path="/" exact component={Tutorial} />
             <Route path="/home" exact component={Main} />

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 import { Grid, Button, Text, Input } from "../elements";
-import { Header } from "../components";
+import { Header, PcSide } from "../components";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
 import { useDispatch } from "react-redux";
@@ -77,74 +77,76 @@ const ReviewWrite = (props) => {
   }, [manner, review]);
 
   return (
-    <Grid
-      // maxWidth="36rem"
-      // minHeight="100vh"
-      // border={border.line1}
-      // margin="0 auto"
-    >
-      <Grid shape="container">
-        <Header {...props} shape="리뷰남기기"/>
-        <Grid height="4.4rem" />
+    <>
+      <PcSide {...props} />
+      <Grid
+        // maxWidth="36rem"
+        minHeight="100vh"
+        // border={border.line1}
+        margin="0 auto"
+      >
+        <Grid shape="container">
+          <Header {...props} shape="리뷰남기기" />
+          <Grid height="4.4rem" />
 
-        <Grid margin="2rem auto 1rem">
-          <Profile user_profile={location.state.profile}></Profile>
-        </Grid>
-        <Grid margin="0 auto 2rem">
-          <Text
-            width="auto"
-            size={fontSize.large}
-            color={color.bg100}
-            bold2="500"
-            line_height="150%"
-            text_align="center"
-          >
-            {location.state.nickname}
-          </Text>
-        </Grid>
-        <GreyLine />
-        <Grid padding="0 2rem">
-          <Text
-            width="auto"
-            margin="2rem 0 1rem 0"
-            size={fontSize.base}
-            color={manner ? color.bg100 : color.bg80}
-            bold2="500"
-            line_height="150%"
-          >
-            해당 사용자와의 밀착은 어땠나요?
-          </Text>
-          <Grid margin="0 0 2rem 0">
-            <Select
-              value={manner}
-              options={options}
-              changeManner={changeManner}
-            ></Select>
+          <Grid margin="2rem auto 1rem">
+            <Profile user_profile={location.state.profile}></Profile>
           </Grid>
-        </Grid>
-        <Grid
-          width="36rem"
-          // 임시 height
-          height="30rem"
-          padding="1rem 3rem 0 3rem"
-          borderTop="0.1rem solid #EBE9E8"
-        >
-          <Input
-            type="text"
-            height="100%"
-            bold="400"
-            border="none"
-            size={fontSize.base}
-            placeholder="해당 사용자와의 밀착이 만족스러우셨다면 따뜻한 리뷰를 전해보세요!"
-            multiLine="t"
-            length="150"
-            color="#9A9896"
-            value={review}
-            _onChange={changeDisabled}
-          />
-        </Grid>
+          <Grid margin="0 auto 2rem">
+            <Text
+              width="auto"
+              size={fontSize.large}
+              color={color.bg100}
+              bold2="500"
+              line_height="150%"
+              text_align="center"
+            >
+              {location.state.nickname}
+            </Text>
+          </Grid>
+          <GreyLine />
+          <Grid padding="0 2rem">
+            <Text
+              width="auto"
+              margin="2rem 0 1rem 0"
+              size={fontSize.base}
+              color={manner ? color.bg100 : color.bg80}
+              bold2="500"
+              line_height="150%"
+            >
+              해당 사용자와의 밀착은 어땠나요?
+            </Text>
+            <Grid margin="0 0 2rem 0">
+              <Select
+                value={manner}
+                options={options}
+                changeManner={changeManner}
+              ></Select>
+            </Grid>
+          </Grid>
+          <Grid
+            width="36rem"
+            // 임시 height
+            height="30rem"
+            padding="1rem 3rem 0 3rem"
+            borderTop="0.1rem solid #EBE9E8"
+          >
+            <Input
+              type="text"
+              height="100%"
+              bold="400"
+              border="none"
+              size={fontSize.base}
+              placeholder="해당 사용자와의 밀착이 만족스러우셨다면 따뜻한 리뷰를 전해보세요!"
+              multiLine="t"
+              length="150"
+              color="#9A9896"
+              value={review}
+              _onChange={changeDisabled}
+            />
+          </Grid>
 
-        {/* <Grid margin="1.5rem 0" padding="0 2rem">
+          {/* <Grid margin="1.5rem 0" padding="0 2rem">
           <Text
             width="auto"
             size={fontSize.small}
@@ -158,30 +160,31 @@ const ReviewWrite = (props) => {
               : "해당 사용자와의 밀착이 만족스러우셨다면 따뜻한 리뷰를 전해보세요!"}
           </Text>
         </Grid> */}
-      </Grid>
-      <Grid
-        maxWidth="35.9rem"
-        width="100%"
-        height="auto"
-        margin="1rem auto 0 auto"
-        padding="1.5rem 2rem"
-        // is_fixed="t"
-        borderTop="0.1rem solid #EBE9E8"
-      >
-        <Button
-          shape="large"
-          color={!disabled ? color.brand100 : color.bg40}
-          size={fontSize.small}
-          cursor="t"
-          _onClick={reviewWrite}
-          disabled={disabled}
+        </Grid>
+        <Grid
+          maxWidth="35.9rem"
+          width="100%"
+          height="auto"
+          margin="1rem auto 0 auto"
+          padding="1.5rem 2rem"
+          // is_fixed="t"
+          borderTop="0.1rem solid #EBE9E8"
         >
-          <Text bold size="1.6rem" color={!disabled ? color.bg0 : color.bg60}>
-            보내기
-          </Text>
-        </Button>
+          <Button
+            shape="large"
+            color={!disabled ? color.brand100 : color.bg40}
+            size={fontSize.small}
+            cursor="t"
+            _onClick={reviewWrite}
+            disabled={disabled}
+          >
+            <Text bold size="1.6rem" color={!disabled ? color.bg0 : color.bg60}>
+              보내기
+            </Text>
+          </Button>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 };
 

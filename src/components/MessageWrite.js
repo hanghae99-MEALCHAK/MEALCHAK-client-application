@@ -40,17 +40,7 @@ const MessageWrite = (props) => {
   };
 
   return (
-    <React.Fragment>
-      <Grid
-        height="5rem"
-        maxWidth="36rem"
-        // margin="0 auto 0 -0.1rem"
-        padding="0.3rem"
-        is_fixed="t"
-        bg={color.bg0}
-        fix_center="t"
-        shadow="t"
-      >
+    <GridTop>
         <Grid is_flex4="t" border={border.bg40} radius={radius.inputBox}>
           <Input
             flex="flex"
@@ -80,10 +70,27 @@ const MessageWrite = (props) => {
             </Text>
           </Button>
         </Grid>
-      </Grid>
-    </React.Fragment>
+    </GridTop>
   );
 };
+
+const GridTop = styled.div`
+  @media (min-width: 414px) {
+    max-width: 36rem;
+    margin: 0 auto 0 -0.1rem;
+  }
+  height: 5rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.3rem;
+  background-color: #ffffff;
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.06);
+`;
 
 const Div = styled.div`
   display: flex;

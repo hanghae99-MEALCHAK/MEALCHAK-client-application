@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Grid } from "../elements";
-import { Header, DetailPost } from "../components";
+import { Header, DetailPost, PcSide } from "../components";
 import { actionCreators as postActions } from "../redux/modules/post";
 
 import theme from "../styles/theme";
@@ -39,11 +39,12 @@ const DetailPage = (props) => {
 
   return (
     <React.Fragment>
+       <PcSide {...props}/>
       <Grid
-        // minHeight="100vh"
+        minHeight="100vh"
         // maxWidth="36rem"
         // border={border.line1}
-        // margin="0 auto"
+        margin="0 auto"
       >
         <Grid shape="container">
           <Header {...props} shape="상세페이지">
