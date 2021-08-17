@@ -53,12 +53,6 @@ const Main = (props) => {
       setCtg("전체");
     }
     dispatch(postActions.getRankDB());
-  }, []);
-
-  React.useEffect(() => {
-    dispatch(postActions.getPostAX("전체"));
-    setCtg("전체");
-    dispatch(postActions.getRankDB());
   }, [dispatch, user?.user_address]);
 
   return (

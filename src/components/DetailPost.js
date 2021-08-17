@@ -4,6 +4,7 @@ import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postAction } from "../redux/modules/post";
 import { actionCreators as chatActions } from "../redux/modules/chat";
+import Map from "../components/Map";
 
 import { Grid, Button, Text, Image } from "../elements";
 
@@ -35,10 +36,13 @@ const DetailPost = (props) => {
     username,
     room_id,
     valid,
+    latitude,
+    longitude,
     chat_user_list,
   } = props;
 
   const { color, radius, fontSize } = theme;
+
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const user_info = useSelector((state) => state.user.user);
@@ -75,10 +79,6 @@ const DetailPost = (props) => {
   };
 
   React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  React.useEffect(() => {
     if (valid === false) {
       return setDisabled(true);
     }
@@ -97,7 +97,12 @@ const DetailPost = (props) => {
     if (is_login) {
       // customAlert.SweetChatRequest(user_info?.user_id, user_id, post_id);
       dispatch(
-        postAction.requestChatPostAX(user_info?.user_id, user_id, post_id, "post")
+        postAction.requestChatPostAX(
+          user_info?.user_id,
+          user_id,
+          post_id,
+          "post"
+        )
       );
       return;
     } else {
@@ -247,10 +252,20 @@ const DetailPost = (props) => {
             </Text>
           </GridGap>
           <GridGap>
-            <Text width="15rem" size="1.3rem" color={color.bg100} margin="0 0 1.6rem 0">
+            <Text
+              width="15rem"
+              size="1.3rem"
+              color={color.bg100}
+              margin="0 0 1.6rem 0"
+            >
               {shop}
             </Text>
-            <Text width="15rem" size="1.3rem" color={color.bg100} margin="0 0 1.6rem 0">
+            <Text
+              width="15rem"
+              size="1.3rem"
+              color={color.bg100}
+              margin="0 0 1.6rem 0"
+            >
               {date_time()}
             </Text>
           </GridGap>
@@ -321,7 +336,6 @@ const DetailPost = (props) => {
           )}
         </Grid>
       </Grid>
-
       {!props.is_profile && (
         <>
           <Grid
@@ -342,7 +356,7 @@ const DetailPost = (props) => {
                     src={p.user_img}
                     size="3"
                     margin="0 0.8rem 0 0"
-                    cursor='t'
+                    cursor="t"
                     _onClick={() => {
                       if (is_login) {
                         if (user_info?.user_id === p.user_id) {
@@ -382,6 +396,8 @@ const DetailPost = (props) => {
               );
             })}
           </Grid>
+          {/* 자세히 보기 - 지도 */}
+          <Map {...props} />
           <Grid
             maxWidth="32rem"
             margin="0 auto"
