@@ -386,7 +386,7 @@ const ProfileEdit = (props) => {
 ProfileEdit.defaultProps = {};
 
 const Profile = styled.div`
-  margin: auto;
+  margin: 1rem auto;
   width: 10rem;
   height: 10rem;
   border-radius: 5rem;
@@ -402,7 +402,7 @@ const Profile = styled.div`
 const ProfileCover = styled.div`
   position: absolute;
   margin-left: 12.9rem;
-  top: 8.1rem;
+  top: 4.7rem;
   width: 10rem;
   height: 10rem;
   border-radius: 5rem;

@@ -30,6 +30,7 @@ const DELETE_POST = "DELETE_POST";
 const SET_RANK = "SET_RANK";
 const CLEAR_POST = "CLEAR_POST";
 const CLEAR_OLD_POST = "CLEAR_OLD_POST";
+const ADD_LAT_LNG = "ADD_LAT_LNG";
 
 const setPost = createAction(SET_POST, (post_list) => ({
   post_list,
@@ -48,12 +49,14 @@ const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
 const setRank = createAction(SET_RANK, (rank_list) => ({ rank_list }));
 const clearPost = createAction(CLEAR_POST, () => ({}));
 const clearOldPost = createAction(CLEAR_OLD_POST, (post_id) => ({ post_id }));
+const addLatLng = createAction(ADD_LAT_LNG, (x_y) => ({ x_y }));
 
 const initialState = {
   list: [],
   rank: [],
   chat_user_list: [],
   one_list: [],
+  post_lat_lng: [],
 };
 
 const getPostAX = (category, sort = "recent") => {
@@ -171,7 +174,7 @@ const getDetailPostUserListAX = (postId) => {
       .get(`/posts/${postId}`)
       .then((res) => {
         let user_list = [];
-
+        console.log(res);
         res.data.userList.forEach((p) => {
           let user = {
             user_id: p.id,
@@ -181,6 +184,12 @@ const getDetailPostUserListAX = (postId) => {
           user_list.push(user);
         });
         dispatch(getDetailPostUserList(user_list));
+        dispatch(
+          addLatLng({
+            latitude: res.data.latitude,
+            longitude: res.data.longitude,
+          })
+        );
       })
       .catch((err) => {
         logger("getDetailPostUserListAX 에러: ", err);
@@ -550,6 +559,10 @@ export default handleActions(
     [GET_DETAIL_POST_USER_LIST]: (state, action) =>
       produce(state, (draft) => {
         draft.chat_user_list = action.payload.user_list;
+      }),
+    [ADD_LAT_LNG]: (state, action) =>
+      produce(state, (draft) => {
+        draft.post_lat_lng = action.payload.x_y;
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {

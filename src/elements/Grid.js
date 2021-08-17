@@ -56,6 +56,9 @@ const Grid = (props) => {
     display,
     opacity,
     z_index,
+    className,
+    ref,
+    id,
   } = props;
 
   const styles = {
@@ -108,6 +111,9 @@ const Grid = (props) => {
     opacity: opacity,
     z_index: z_index,
     fix_left: fix_left,
+    className: className,
+    ref: ref,
+    id: id,
   };
 
   if (shape === "topGrid") {
@@ -139,7 +145,14 @@ const Grid = (props) => {
   return (
     <React.Fragment>
       {/* styles를 GridBox의 props로 넘겨주고 있는것 */}
-      <GridBox {...styles} onClick={_onClick} onChange={_onChange}>
+      <GridBox
+        {...styles}
+        onClick={_onClick}
+        onChange={_onChange}
+        className={className}
+        ref={ref}
+        id={id}
+      >
         {children}
       </GridBox>
     </React.Fragment>
