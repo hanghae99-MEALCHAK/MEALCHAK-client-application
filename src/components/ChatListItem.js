@@ -3,12 +3,12 @@ import theme from "../styles/theme";
 import { Grid, Text } from "../elements";
 import logger from "../shared/Console";
 
-const ChatListItem = (props) => {
+const ChatListItem = React.memo((props) => {
   const { color, border, fontSize } = theme;
   const { roomName, live_chat, _onClick, headCountChat } = props;
 
   React.useEffect(() => {
-    logger("chat list item props정보", props);
+    logger("chat list item props정보");
   }, []);
 
   if (!live_chat) {
@@ -149,6 +149,6 @@ const ChatListItem = (props) => {
       </React.Fragment>
     );
   }
-};
+});
 
 export default ChatListItem;

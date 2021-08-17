@@ -13,6 +13,7 @@ import logger from "../shared/Console";
 import moment from "moment";
 
 const Post = React.memo((props) => {
+  logger("포스트 리렌더링이 되었습니다.")
   const { color, fontSize } = theme;
 
   // 글 생성 시간

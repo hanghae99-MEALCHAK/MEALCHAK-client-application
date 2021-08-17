@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Grid, Text } from '../elements';
+import { introA_3x, introB_3x, introC_3x } from '../styles/img/index';
 import theme from '../styles/theme';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -30,7 +31,7 @@ const TutorialSwiper = (props) => {
           <SwiperSlide>
             <Grid shape="container">              
               <Grid maxWidth="36rem">              
-                <ElIntro src="/illust/introA_1x.png"></ElIntro>                
+                <ElIntro src={introA_3x} alt="intro"></ElIntro>                
               </Grid>              
               <Grid>
                 <Text
@@ -54,7 +55,7 @@ const TutorialSwiper = (props) => {
           <SwiperSlide>
             <Grid shape="container">
               <Grid maxWidth="36rem">
-                <ElIntro src="/illust/introB_2x.png"></ElIntro>
+                <ElIntro src={introB_3x} alt="intro"></ElIntro>
               </Grid>
               <Grid>
                 <Text
@@ -78,7 +79,7 @@ const TutorialSwiper = (props) => {
           <SwiperSlide>
             <Grid shape="container">
               <Grid>
-                <ElIntro src="/illust/introC_3x.png"></ElIntro>
+                <ElIntro src={introC_3x} alt="intro"></ElIntro>
               </Grid>
               <Grid>
                 <Text

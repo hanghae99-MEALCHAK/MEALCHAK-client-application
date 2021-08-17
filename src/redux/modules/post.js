@@ -117,7 +117,7 @@ const getOnePostAX = (post_id) => {
         let p = res.data;
         const time = p.orderTime.split(" ")[1].split(":").join("");
         const orderDate = p.orderTime.split(" ")[0].split("-").join("");
-        const post_time_int = parseInt(orderDate + time);
+        const post_time_int = parseInt(orderDate + time) + 100;
 
         // 마감 여부
         const today = moment().format("YYYY-MM-DD");

@@ -7,6 +7,7 @@ import { actionCreators as userAction } from "../redux/modules/user";
 // style
 import { Button, Grid, Text } from "../elements";
 import { Header, ProfileTab, PcSide } from "../components";
+import { emptyMeal_3x } from "../styles/img/index";
 import theme from "../styles/theme";
 import { MyOneReview } from "../components";
 import Spinner from "../shared/Spinner";
@@ -106,7 +107,7 @@ const MyProfile = (props) => {
               })
             ) : (
               <Grid width="36rem" margin="0 auto">
-                <MyReviewImg src="illust/emptyMeal_3x.png"></MyReviewImg>
+                <MyReviewImg src={emptyMeal_3x}></MyReviewImg>
                 <MyReviewText>아직 받은 리뷰가 없어요.</MyReviewText>
               </Grid>
             )}

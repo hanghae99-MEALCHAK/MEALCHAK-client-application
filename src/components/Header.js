@@ -11,6 +11,7 @@ import { actionCreators as postActions } from "../redux/modules/post";
 // styles
 import { HiOutlineMenu } from "react-icons/hi";
 import { Grid, Text, Image } from "../elements";
+import { deleteLogo, arrowLeft } from "../styles/img/index";
 import theme from "../styles/theme";
 
 const Header = (props) => {
@@ -90,7 +91,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src="illust/delete.png"
+          src={deleteLogo}
           cursor="pointer"
           _onClick={() => {
             // history.replace('/home');
@@ -112,7 +113,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src="illust/arrowLeft.png"
+          src={arrowLeft}
           cursor="pointer"
           _onClick={() => {
             // history.replace('/home');
@@ -241,7 +242,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src="illust/arrowLeft.png"
+          src={arrowLeft}
           cursor="pointer"
           _onClick={() => {
             dispatch(imageActions.setPreview(null));
@@ -267,7 +268,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src="illust/arrowLeft.png"
+          src={arrowLeft}
           cursor="pointer"
           _onClick={() => {
             history.replace("/mypage");
@@ -288,7 +289,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src="illust/arrowLeft.png"
+          src={arrowLeft}
           cursor="pointer"
           _onClick={() => {
             history.replace("/mypage");
@@ -309,7 +310,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src="illust/arrowLeft.png"
+          src={arrowLeft}
           cursor="pointer"
           _onClick={() => {
             history.replace("/mypage");
@@ -330,7 +331,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src="illust/arrowLeft.png"
+          src={arrowLeft}
           cursor="pointer"
           _onClick={() => {
             history.replace("/mypage");
@@ -351,7 +352,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src="illust/arrowLeft.png"
+          src={arrowLeft}
           cursor="pointer"
           _onClick={() => {
             // history.push('/home');
@@ -374,7 +375,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src="illust/arrowLeft.png"
+          src={arrowLeft}
           cursor="pointer"
           _onClick={() => {
             // history.goBack();
@@ -399,7 +400,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src="illust/delete.png"
+          src={deleteLogo}
           cursor="pointer"
           _onClick={() => {
             if (props?.is_home) {

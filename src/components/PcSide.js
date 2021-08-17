@@ -4,6 +4,18 @@ import { history } from "../redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { token } from "../shared/OAuth";
+import {
+  mainLogo,
+  homeBrand100,
+  homeBg100,
+  friendsBrand100,
+  friendsBg100,
+  chatBrand100,
+  chatback100,
+  mypageBrand100,
+  mypageback100,
+  exitGray,
+} from "../styles/img/index";
 
 import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
@@ -36,7 +48,8 @@ const PcSide = (props) => {
   return (
     <SideGrid is_tutorial={path}>
       <Grid shape="container" maxWidth="16rem">
-        <SideLogo src="illust/logo_3x.png" />
+        <SideLogo src={mainLogo} alt="side-menu-logo"/>
+
         <Grid
           is_flex4="t"
           align_items="center"
@@ -48,8 +61,8 @@ const PcSide = (props) => {
           <Image
             src={
               path === "/home" || path === "/address" || path === "/post/:id"
-                ? "illust/homeBrand100.png"
-                : "illust/homeBg100.png"
+                ? homeBrand100
+                : homeBg100
             }
             size="2.06"
             margin="0 1.6rem 0 0"
@@ -57,9 +70,17 @@ const PcSide = (props) => {
           <Text
             text_align="center"
             size={fontSize.small}
-            color={path === "/home" || path === "/address" || path === "/post/:id" ? color.brand100 : color.bg100}
+            color={
+              path === "/home" || path === "/address" || path === "/post/:id"
+                ? color.brand100
+                : color.bg100
+            }
             cursor="t"
-            bold2={path === "/home" || path === "/address" || path === "/post/:id" ? "700" : "500"}
+            bold2={
+              path === "/home" || path === "/address" || path === "/post/:id"
+                ? "700"
+                : "500"
+            }
           >
             홈
           </Text>
@@ -76,8 +97,8 @@ const PcSide = (props) => {
           <Image
             src={
               path === "/upload" || path === "/upload/:id"
-                ? "illust/friendsBrand100.png"
-                : "illust/friendsBg100.png"
+                ? friendsBrand100
+                : friendsBg100
             }
             size="2.06"
             margin="0 1.6rem 0 0"
@@ -85,7 +106,11 @@ const PcSide = (props) => {
           <Text
             text_align="center"
             size={fontSize.small}
-            color={path === "/upload" || path === "/upload/:id" ? color.brand100 : color.bg100}
+            color={
+              path === "/upload" || path === "/upload/:id"
+                ? color.brand100
+                : color.bg100
+            }
             cursor="t"
             bold2={path === "/upload" || path === "/upload/:id" ? "700" : "500"}
           >
@@ -103,9 +128,11 @@ const PcSide = (props) => {
         >
           <Image
             src={
-              path === "/chatlist" || path === "/allowchat" || path === "/chatting"
-                ? "illust/chatBrand100.png"
-                : "illust/chatback100.png"
+              path === "/chatlist" ||
+              path === "/allowchat" ||
+              path === "/chatting"
+                ? chatBrand100
+                : chatback100
             }
             size="2.06"
             margin="0 1.6rem 0 0"
@@ -114,13 +141,19 @@ const PcSide = (props) => {
             text_align="center"
             size={fontSize.small}
             color={
-              path === "/chatlist" || path === "/allowchat" || path === "/chatting"
+              path === "/chatlist" ||
+              path === "/allowchat" ||
+              path === "/chatting"
                 ? color.brand100
                 : color.bg100
             }
             cursor="t"
             bold2={
-              path === "/chatlist" || path === "/allowchat" || path === "/chatting" ? "700" : "500"
+              path === "/chatlist" ||
+              path === "/allowchat" ||
+              path === "/chatting"
+                ? "700"
+                : "500"
             }
           >
             채팅
@@ -137,9 +170,13 @@ const PcSide = (props) => {
         >
           <Image
             src={
-                path === "/mypage" || path === "/settings" || path === "/myreview" || path === "/profile" || path === "/mypost"
-                ? "illust/mypageBrand100.png"
-                : "illust/mypageback100.png"
+              path === "/mypage" ||
+              path === "/settings" ||
+              path === "/myreview" ||
+              path === "/profile" ||
+              path === "/mypost"
+                ? mypageBrand100
+                : mypageback100
             }
             size="2.06"
             margin="0 1.6rem 0 0"
@@ -147,9 +184,25 @@ const PcSide = (props) => {
           <Text
             text_align="center"
             size={fontSize.small}
-            color={path === "/mypage" || path === "/settings" || path === "/myreview" || path === "/profile" || path === "/mypost" ? color.brand100 : color.bg100}
+            color={
+              path === "/mypage" ||
+              path === "/settings" ||
+              path === "/myreview" ||
+              path === "/profile" ||
+              path === "/mypost"
+                ? color.brand100
+                : color.bg100
+            }
             cursor="t"
-            bold2={path === "/mypage" || path === "/settings" || path === "/myreview" || path === "/profile" || path === "/mypost" ? "700" : "500"}
+            bold2={
+              path === "/mypage" ||
+              path === "/settings" ||
+              path === "/myreview" ||
+              path === "/profile" ||
+              path === "/mypost"
+                ? "700"
+                : "500"
+            }
           >
             마이페이지
           </Text>
@@ -164,11 +217,7 @@ const PcSide = (props) => {
               dispatch(userActions.logOut());
             }}
           >
-            <Image
-              src={"illust/exitGray.png"}
-              size="2.06"
-              margin="0 1.6rem 0 0"
-            />
+            <Image src={exitGray} size="2.06" margin="0 1.6rem 0 0" />
             <Text
               text_align="center"
               size={fontSize.small}
@@ -194,7 +243,6 @@ const SideGrid = styled.div`
   bottom: 0;
   left: 50%;
   transform: translateX(-200%);
-  /* ${(props) => (props.is_tutorial === "/" ? `display : none;` : "")} */
 
   @media (max-width: 1200px) {
     padding: 2.19rem 5rem 0 0;

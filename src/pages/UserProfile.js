@@ -9,6 +9,7 @@ import Spinner from "../shared/Spinner";
 
 // style
 import { Button, Grid, Input, Text } from "../elements";
+import { emptyMeal_3x } from "../styles/img/index";
 import { Header, Footer, ProfileTab, PcSide } from "../components";
 import styled from "styled-components";
 import theme from "../styles/theme";
@@ -125,7 +126,7 @@ const UserProfile = (props) => {
               })
             ) : (
               <Grid width="36rem" margin="0 auto">
-                <MyReviewImg src="illust/emptyMeal_3x.png"></MyReviewImg>
+                <MyReviewImg src={emptyMeal_3x}></MyReviewImg>
                 <MyReviewText>아직 받은 리뷰가 없어요.</MyReviewText>
               </Grid>
             )}

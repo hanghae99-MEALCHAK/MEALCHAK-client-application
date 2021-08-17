@@ -10,7 +10,7 @@ import theme from "../styles/theme";
 // 개발환경 console.log() 관리용
 import logger from "../shared/Console";
 
-const DetailPage = (props) => {
+const DetailPage = React.memo((props) => {
   const dispatch = useDispatch();
   const id = props.match.params.id;
 
@@ -59,6 +59,6 @@ const DetailPage = (props) => {
       </Grid>
     </React.Fragment>
   );
-};
+});
 
 export default DetailPage;

@@ -1,14 +1,26 @@
 import React from "react";
 import logger from "../shared/Console";
 import { history } from "../redux/configureStore";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
 import styled from "styled-components";
+import {
+  homeBrand100,
+  homeback60,
+  friendsBrand100,
+  friends,
+  chatBrand100,
+  chatback60,
+  mypageBrand100,
+  mypageback60,
+} from "../styles/img/index";
 import { customAlert } from "./Sweet";
 
 const Footer = (props) => {
+  const dispatch = useDispatch();
   const { color, fontSize } = theme;
 
   const path = props.match.path;
@@ -35,15 +47,16 @@ const Footer = (props) => {
           text_align="center"
           maxWidth="9rem"
           _onClick={() => {
+            // dispatch(postActions.getPostAX("전체"));
             history.push("/home");
           }}
         >
           <Grid is_flex4="t" justify_content="center">
-          <Image
+            <Image
               src={
                 path === "/home"
-                  ? "illust/homeBrand100.png"
-                  : "illust/homeback60.png"
+                  ? homeBrand100
+                  : homeback60
               }
               size="3"
               margin="0"
@@ -57,7 +70,7 @@ const Footer = (props) => {
               cursor="t"
               bold2={path === "/home" ? "700" : "400"}
             >
-                홈
+              홈
             </Text>
           </Grid>
         </Grid>
@@ -74,8 +87,8 @@ const Footer = (props) => {
             <Image
               src={
                 path === "/upload"
-                  ? "illust/friendsBrand100.png"
-                  : "illust/friends.png"
+                  ? friendsBrand100
+                  : friends
               }
               size="3"
               margin="0"
@@ -105,8 +118,8 @@ const Footer = (props) => {
             <Image
               src={
                 path === "/chatlist" || path === "/allowchat"
-                  ? "illust/chatBrand100.png"
-                  : "illust/chatback60.png"
+                  ? chatBrand100
+                  : chatback60
               }
               size="3"
               margin="0"
@@ -143,8 +156,8 @@ const Footer = (props) => {
             <Image
               src={
                 path === "/mypage"
-                  ? "illust/mypageBrand100.png"
-                  : "illust/mypageback60.png"
+                  ? mypageBrand100
+                  : mypageback60
               }
               size="3"
               margin="0"

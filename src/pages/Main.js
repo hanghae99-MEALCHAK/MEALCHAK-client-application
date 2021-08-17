@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { Grid, Text, Button } from '../elements';
 import { Post, Footer, Header, MainBanner, PcSide } from '../components';
+import { emptyHome_3x } from "../styles/img/index";
 
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as userActions } from "../redux/modules/user";
@@ -53,13 +54,8 @@ const Main = (props) => {
       setCtg("전체");
     }
     dispatch(postActions.getRankDB());
-  }, []);
-
-  React.useEffect(() => {
-    dispatch(postActions.getPostAX("전체"));
-    setCtg("전체");
-    dispatch(postActions.getRankDB());
   }, [dispatch, user?.user_address]);
+
 
   return (
     <React.Fragment>
@@ -391,7 +387,7 @@ const Main = (props) => {
             <React.Fragment>
               <Grid>
                 <Grid is_flex_column height="20rem" margin="3.2rem 0 0 0">
-                  <LogoImg src="/illust/emptyHome_3x.png"></LogoImg>
+                  <LogoImg src={emptyHome_3x}></LogoImg>
                 </Grid>
                 <Text
                   size={fontSize.base}

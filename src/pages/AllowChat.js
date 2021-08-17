@@ -7,6 +7,7 @@ import { history } from "../redux/configureStore";
 import styled from "styled-components";
 import { Header, Footer, AllowList, PcSide } from "../components";
 import { Button, Grid, Image, Text } from "../elements";
+import { emptyBubbles } from "../styles/img/index";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
 
@@ -87,7 +88,7 @@ const AllowChat = (props) => {
 
           {allow_list.length === 0 && (
             <>
-              <Grid shape="empty" src="illust/emptyBubbles.png">
+              <Grid shape="empty" src={emptyBubbles}>
                 <EmptyText theme={theme}>아직 들어온 요청이 없어요.</EmptyText>
               </Grid>
               <Grid height="20rem"></Grid>
