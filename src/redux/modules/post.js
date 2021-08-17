@@ -59,7 +59,6 @@ const initialState = {
 const getPostAX = (category, sort = "recent") => {
   return function (dispatch, getState, { history }) {
     // dispatch(userActions.loading(true));
-    dispatch(clearPost());
     axiosModule
       .get(`/posts/around?category=${category}&sort=${sort}`)
       .then((res) => {
@@ -100,7 +99,7 @@ const getPostAX = (category, sort = "recent") => {
           // response가 비어있을 때
         }
         dispatch(setPost(post_list));
-        // dispatch(userActions.loading(false));
+        dispatch(userActions.loading(false));
       })
       .catch((err) => {
         logger("ErrorMessage: ", err);

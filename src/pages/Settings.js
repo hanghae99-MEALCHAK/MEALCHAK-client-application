@@ -14,6 +14,10 @@ import { Header, PcSide } from "../components";
 const Settings = (props) => {
   const dispatch = useDispatch();
   const { color, border, fontSize } = theme;
+
+  React.useEffect(() => {
+    document.querySelector("body").scrollTo(0, 0);
+  }, []);
   return (
     <>
       <PcSide {...props} />

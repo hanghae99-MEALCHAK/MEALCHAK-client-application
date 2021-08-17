@@ -42,7 +42,7 @@ const Tutorial = (props) => {
         </Grid>
       ) : (
         <Grid
-          // maxWidth="36rem"
+          maxWidth="36rem"
           // border={border.line1}
           margin="0 auto"
           // padding="2rem"

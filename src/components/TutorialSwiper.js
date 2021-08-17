@@ -17,8 +17,7 @@ const TutorialSwiper = (props) => {
   const { color, fontSize } = theme;
 
   return (
-    <React.Fragment>
-      <div>
+    <React.Fragment>    
         <Swiper
           style={{}}
           className="tutorial"
@@ -99,8 +98,7 @@ const TutorialSwiper = (props) => {
               </Grid>
             </Grid>
           </SwiperSlide>
-        </Swiper>
-      </div>
+        </Swiper>      
     </React.Fragment>
   );
 };

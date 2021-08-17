@@ -1,5 +1,37 @@
-@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+/* @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css); */
 
+@font-face {
+  font-family: "Spoqa Han Sans";
+  font-weight: 300;
+  src: local("Spoqa Han Sans"),
+    url("../src/styles/fonts/SpoqaHanSansNeo-Thin.woff2") format("woff2"),
+    url("../src/styles/fonts/SpoqaHanSansNeo-Thin.woff") format("woff"),
+    url("../src/styles/fonts/SpoqaHanSansNeo-Thin.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Spoqa Han Sans";
+  font-weight: 400;
+  src: local("Spoqa Han Sans"),
+    url("../src/styles/fonts/SpoqaHanSansNeo-Light.woff2") format("woff2"),
+    url("../src/styles/fonts/SpoqaHanSansNeo-Light.woff") format("woff"),
+    url("../src/styles/fonts/SpoqaHanSansNeo-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: 500;
+  src: local("Spoqa Han Sans Regular"),
+    url("../src/styles/fonts/SpoqaHanSansNeo-Regular.woff2") format("woff2"),
+    url("../src/styles/fonts/SpoqaHanSansNeo-Regular.woff") format("woff"),
+    url("../src/styles/fonts/SpoqaHanSansNeo-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: 700;
+  src: local("Spoqa Han Sans Bold"),
+    url("../src/styles/fonts/SpoqaHanSansNeo-Bold.woff2") format("woff2"),
+    url("../src/styles/fonts/SpoqaHanSansNeo-Bold.woff") format("woff"),
+    url("../src/styles/fonts/SpoqaHanSansNeo-Bold.ttf") format("truetype");
+}
 body {
   position: relative;
   overflow-x: hidden;
@@ -39,7 +71,6 @@ html {
     font-size: 91%;
   }
 }
-
 
 @media all and (max-width: 800px) {
   html {
@@ -92,7 +123,6 @@ html {
   }
 }
 
-
 @media all and (max-width: 330px) {
   html {
     position: relative;
@@ -108,3 +138,9 @@ html {
     font-size: 48.3%;
   }
 }
+
+/* 
+===================================================
+                        폰트
+===================================================
+*/

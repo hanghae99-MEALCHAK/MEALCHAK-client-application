@@ -54,7 +54,6 @@ const sweetConfirmReload = (msg_title, msg_content_array, path) => {
       focusConfirm: false,
     })
     .then((res) => {
-      console.log(res);
       if (res.isConfirmed) {
         // 주소 값이 없으면 리턴
         if (path === "") {
