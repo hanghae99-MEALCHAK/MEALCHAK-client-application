@@ -43,7 +43,7 @@ const RoadAddress = () => {
 
   return (
     <AddressGrid is_home={is_home}>
-      <DaumPostCode onComplete={handleComplete} className="post-code" style={{height:"52.2rem"}} />
+      <DaumPostCode onComplete={handleComplete} className="post-code" style={{height:"100vh"}} />
     </AddressGrid>
   );
 };

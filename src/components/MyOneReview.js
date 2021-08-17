@@ -10,7 +10,7 @@ import { customAlert } from "./Sweet";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
 
-const MyOneReview = (props) => {
+const MyOneReview = React.memo((props) => {
   const { color, fontSize } = theme;
 
   const dispatch = useDispatch();
@@ -93,7 +93,7 @@ const MyOneReview = (props) => {
       </Grid>
     </React.Fragment>
   );
-};
+});
 
 const Profile = styled.div`
   position: absolute;

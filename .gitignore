@@ -1,1 +1,4 @@
 node_modules
+
+# API KEY
+.env
