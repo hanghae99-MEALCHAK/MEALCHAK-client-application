@@ -1,23 +1,23 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { Grid, Text, Button } from '../elements';
-import { Post, Footer, Header, MainBanner } from '../components';
+import { Grid, Text, Button } from "../elements";
+import { Post, Footer, Header, MainBanner } from "../components";
 
-import { actionCreators as postActions } from '../redux/modules/post';
-import { actionCreators as userActions } from '../redux/modules/user';
-import { useDispatch, useSelector } from 'react-redux';
-import { history } from '../redux/configureStore';
-import logger from '../shared/Console';
+import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as userActions } from "../redux/modules/user";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
+import logger from "../shared/Console";
 
-import theme from '../styles/theme';
+import theme from "../styles/theme";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Pagination, Navigation } from 'swiper';
-import 'swiper/swiper.scss';
-import 'swiper/components/navigation/navigation.scss';
-import 'swiper/components/pagination/pagination.scss';
-import '../shared/Swiper.scss';
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Pagination, Navigation } from "swiper";
+import "swiper/swiper.scss";
+import "swiper/components/navigation/navigation.scss";
+import "swiper/components/pagination/pagination.scss";
+import "../shared/Swiper.scss";
 
 const Main = (props) => {
   const { color, border, btn_border, fontSize } = theme;
@@ -26,8 +26,9 @@ const Main = (props) => {
   const user = useSelector((state) => state.user.user);
   const post_list = useSelector((state) => state.post?.list);
   const rank_list = useSelector((state) => state.post?.rank);
+  const is_loading = useSelector((state) => state.user.is_loading);
 
-  const [ctg, setCtg] = React.useState('');
+  const [ctg, setCtg] = React.useState("");
   const [sort, setSort] = React.useState({
     recent: true,
     nearBy: false,
@@ -45,23 +46,29 @@ const Main = (props) => {
 
   React.useEffect(() => {
     document
-      .querySelector('body')
-      .scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    if (post_list.length === 0) {
-      dispatch(postActions.getPostAX('전체'));
-      setCtg('전체');
+      .querySelector("body")
+      .scrollTo({ top: 0, left: 0, behavior: "instant" });
+    if (post_list.length === 0 || is_loading === false) {
+      dispatch(postActions.getPostAX("전체"));
+      setCtg("전체");
     }
     dispatch(postActions.getRankDB());
   }, []);
 
+  React.useEffect(() => {
+    dispatch(postActions.getPostAX("전체"));
+    setCtg("전체");
+    dispatch(postActions.getRankDB());
+  }, [dispatch, user?.user_address]);
+
   return (
     <React.Fragment>
       <Grid
-        // minHeight="100vh"
-        // maxWidth="36rem"
-        // margin="0 auto"
-        // border={border.line1}
-        // padding="0 0 5.2rem 0"
+      // minHeight="100vh"
+      // maxWidth="36rem"
+      // margin="0 auto"
+      // border={border.line1}
+      // padding="0 0 5.2rem 0"
       >
         <Grid shape="container" padding="0 0 5.2rem 0">
           <Header {...props} shape="홈">
@@ -79,7 +86,7 @@ const Main = (props) => {
             border={btn_border.bg40}
             radius="1.2rem"
             _onClick={() => {
-              history.push('/search');
+              history.push("/search");
             }}
           >
             <Text
@@ -95,9 +102,9 @@ const Main = (props) => {
             </Text>
             <svg
               style={{
-                position: 'absolute',
-                top: '6.5rem',
-                margin: '0.1rem 0 0 12rem',
+                position: "absolute",
+                top: "6.5rem",
+                margin: "0.1rem 0 0 12rem",
               }}
               width="24"
               height="24"
@@ -151,9 +158,9 @@ const Main = (props) => {
           <Swiper
             className="category"
             slidesPerView="7"
-            style={{ transform: 'none' }}
+            style={{ transform: "none" }}
           >
-            <SwiperSlide style={{ width: '3rem', textAlign: 'center' }}>
+            <SwiperSlide style={{ width: "3rem", textAlign: "center" }}>
               <Text
                 width="3rem"
                 height="2.4rem"
@@ -162,7 +169,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0.1rem 0.5rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category.all ? '0.2rem solid black' : ''}
+                border_bottom={category.all ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, all: true });
@@ -172,7 +179,7 @@ const Main = (props) => {
                 전체
               </Text>
             </SwiperSlide>
-            <SwiperSlide style={{ width: '3rem', textAlign: 'center' }}>
+            <SwiperSlide style={{ width: "3rem", textAlign: "center" }}>
               <Text
                 width="3rem"
                 height="2.4rem"
@@ -181,7 +188,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category.kr ? '0.2rem solid black' : ''}
+                border_bottom={category.kr ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, kr: true });
@@ -192,7 +199,7 @@ const Main = (props) => {
                 한식
               </Text>
             </SwiperSlide>
-            <SwiperSlide style={{ width: '3rem', textAlign: 'center' }}>
+            <SwiperSlide style={{ width: "3rem", textAlign: "center" }}>
               <Text
                 width="3rem"
                 height="2.4rem"
@@ -201,7 +208,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category.bunsik ? '0.2rem solid black' : 'none'}
+                border_bottom={category.bunsik ? "0.2rem solid black" : "none"}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, bunsik: true });
@@ -212,7 +219,7 @@ const Main = (props) => {
                 분식
               </Text>
             </SwiperSlide>
-            <SwiperSlide style={{ width: '3rem', textAlign: 'center' }}>
+            <SwiperSlide style={{ width: "3rem", textAlign: "center" }}>
               <Text
                 width="3rem"
                 height="2.4rem"
@@ -221,7 +228,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category.cn ? '0.2rem solid black' : ''}
+                border_bottom={category.cn ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, cn: true });
@@ -232,7 +239,7 @@ const Main = (props) => {
                 중식
               </Text>
             </SwiperSlide>
-            <SwiperSlide style={{ width: '3rem', textAlign: 'center' }}>
+            <SwiperSlide style={{ width: "3rem", textAlign: "center" }}>
               <Text
                 width="3rem"
                 height="2.4rem"
@@ -241,7 +248,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category.jp ? '0.2rem solid black' : ''}
+                border_bottom={category.jp ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, jp: true });
@@ -252,7 +259,7 @@ const Main = (props) => {
                 일식
               </Text>
             </SwiperSlide>
-            <SwiperSlide style={{ width: '5rem', textAlign: 'center' }}>
+            <SwiperSlide style={{ width: "5rem", textAlign: "center" }}>
               <Text
                 width="3rem"
                 height="2.4rem"
@@ -261,7 +268,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category?.west ? '0.2rem solid black' : ''}
+                border_bottom={category?.west ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, west: true });
@@ -272,7 +279,7 @@ const Main = (props) => {
                 양식
               </Text>
             </SwiperSlide>
-            <SwiperSlide style={{ width: '5rem', textAlign: 'center' }}>
+            <SwiperSlide style={{ width: "5rem", textAlign: "center" }}>
               <Text
                 width="3rem"
                 height="2.4rem"
@@ -281,7 +288,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category.cafe ? '0.2rem solid black' : ''}
+                border_bottom={category.cafe ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, cafe: true });
@@ -292,7 +299,7 @@ const Main = (props) => {
                 카페
               </Text>
             </SwiperSlide>
-            <SwiperSlide style={{ width: '5rem', textAlign: 'center' }}>
+            <SwiperSlide style={{ width: "5rem", textAlign: "center" }}>
               <Text
                 width="3rem"
                 height="2.4rem"
@@ -301,7 +308,7 @@ const Main = (props) => {
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
                 padding="1.6rem 0 2.8rem 0"
-                border_bottom={category.etc ? '0.2rem solid black' : ''}
+                border_bottom={category.etc ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, etc: true });
@@ -324,7 +331,7 @@ const Main = (props) => {
           <Grid flex justify_content="flex-end">
             <Text
               size="1.3rem"
-              color={sort?.recent ? '#ff9425' : '#cecac7'}
+              color={sort?.recent ? "#ff9425" : "#cecac7"}
               bold
               cursor="t"
               // getPostAX(category, sort="recent") - 기본 정렬(sort)값이 recent(마감임박순)
@@ -337,13 +344,13 @@ const Main = (props) => {
             </Text>
             <Text
               size="1.3rem"
-              color={sort?.nearBy ? '#ff9425' : '#cecac7'}
+              color={sort?.nearBy ? "#ff9425" : "#cecac7"}
               bold
               margin="0 0 0 1rem"
               cursor="t"
               _onClick={() => {
                 setSort({ ...{ sort: false }, nearBy: true });
-                dispatch(postActions.getPostAX(ctg, 'nearBy'));
+                dispatch(postActions.getPostAX(ctg, "nearBy"));
               }}
             >
               거리순
@@ -356,25 +363,25 @@ const Main = (props) => {
               if (category.all) {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.kr && p.category === '한식') {
+              if (category.kr && p.category === "한식") {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.bunsik && p.category === '분식') {
+              if (category.bunsik && p.category === "분식") {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.cn && p.category === '중식') {
+              if (category.cn && p.category === "중식") {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.jp && p.category === '일식') {
+              if (category.jp && p.category === "일식") {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.west && p.category === '양식') {
+              if (category.west && p.category === "양식") {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.cafe && p.category === '카페') {
+              if (category.cafe && p.category === "카페") {
                 return <Post {...p} key={p.post_id} />;
               }
-              if (category.etc && p.category === '기타') {
+              if (category.etc && p.category === "기타") {
                 return <Post {...p} key={p.post_id} />;
               }
               return null;
@@ -414,7 +421,7 @@ const Hr = styled.hr`
 
 const LogoImg = styled.div`
   margin: 0 auto 1rem auto;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   width: 18.4rem;
   height: 16.7rem;
   background-size: cover;

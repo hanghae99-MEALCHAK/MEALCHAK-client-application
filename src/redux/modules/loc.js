@@ -29,7 +29,7 @@ const initialState = {
 // 특정 주소(도로명주소 혹은 지번주소)로 위도, 경도, 지번, 도로명주소, 우편번호 도출 middleware
 const getMyCoordinateAX = (address) => {
   return function (dispatch, getState, { history }) {
-    let rest_api = "3125ba608fbb74bdf912f794ddb65da6";
+    let rest_api = process.env.REACT_APP_KAKAO_REST_API_KEY;
     const headers = {
       Authorization: `KakaoAK ${rest_api}`,
     };
@@ -59,7 +59,7 @@ const getMyCoordinateAX = (address) => {
 // 특정 주소 도출 middleware(게시글 주소 추가)
 const getMyPostCoordAX = (address) => {
   return function (dispatch, getState, { history }) {
-    let rest_api = "3125ba608fbb74bdf912f794ddb65da6";
+    let rest_api = process.env.REACT_APP_KAKAO_REST_API_KEY;
     const headers = {
       Authorization: `KakaoAK ${rest_api}`,
     };

@@ -26,7 +26,6 @@ const ChatUserItem = (props) => {
           margin="0.4rem 0.8rem 0.4rem 0"
           cursor="pointer"
           _onClick={() => {
-            console.log("1",props);
             if (props?.user_info.user_id !== my_info.user_id) {
               return history.push({
                 pathname: `/userprofile/${props?.user_info.user_id}`,
@@ -75,7 +74,6 @@ const ChatUserItem = (props) => {
             shape="circle"
             src={user_info.user_img}
             _onClick={() => {
-              console.log("2",props);
               if (props?.user_info.user_id !== my_info.user_id) {
                 return history.push({
                   pathname: `/userprofile/${props?.user_info.user_id}`,
@@ -115,7 +113,6 @@ const ChatUserItem = (props) => {
         shape="circle"
         src={user_info.user_img}
         _onClick={() => {
-          console.log("ㅎㅎ", props);
           if (props?.user_info.user_id !== my_info.user_id) {
             return history.push({
               pathname: `/userprofile/${props?.user_info.user_id}`,
