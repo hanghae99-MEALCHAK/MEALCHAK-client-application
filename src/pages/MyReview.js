@@ -32,13 +32,13 @@ const MyReview = (props) => {
   if (is_login) {
     return (
       <Grid
-        // maxWidth="36rem"
+        maxWidth="36rem"
         minWidth="36rem"
-        // minHeight="100vh"
+        minHeight="100vh"
         // border={border.line1}
-        // margin="0 auto"
+        margin="0 auto"
       >
-        <Grid shape="container" minWidth="36rem">
+        <Grid shape="container">
           <Header {...props} shape="내가받은리뷰" />
           <Grid height="4.4rem" />
           <Grid height="1.6rem" />

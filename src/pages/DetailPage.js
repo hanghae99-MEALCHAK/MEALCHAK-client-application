@@ -40,10 +40,10 @@ const DetailPage = (props) => {
   return (
     <React.Fragment>
       <Grid
-        // minHeight="100vh"
-        // maxWidth="36rem"
+        minHeight="100vh"
+        maxWidth="36rem"
         // border={border.line1}
-        // margin="0 auto"
+        margin="0 auto"
       >
         <Grid shape="container">
           <Header {...props} shape="상세페이지">

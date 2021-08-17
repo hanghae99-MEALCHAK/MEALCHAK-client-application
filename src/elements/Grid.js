@@ -110,12 +110,10 @@ const Grid = (props) => {
 
   if (shape === 'topGrid') {
     return (
-    <React.Fragment>
-      <TopGrid {...styled}>
-        {children}
-      </TopGrid>
-    </React.Fragment>
-    )
+      <React.Fragment>
+        <TopGrid>{children}</TopGrid>
+      </React.Fragment>
+    );
   }
 
   if (shape === 'container') {
@@ -290,9 +288,6 @@ const Container = styled.div`
   flex-direction: column;
   ${(props) => (props.text_align ? `text-align: ${props.text_align}; ` : '')}
   ${(props) => (props.align_items ? `align-items: ${props.align_items};` : '')}
-  ${(props) => (props.padding ? `padding: ${props.padding};` : '')}
-  ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
-  ${(props) => (props.minWidth ? `min-width: ${props.minWidth};` : '')}
 `;
 
 const EmptyImg = styled.div`
@@ -308,8 +303,8 @@ const EmptyImg = styled.div`
 `;
 
 const TopGrid = styled.div`
-  @media (min-width: 414px) {
-    border: ${props => props.theme.border.line1}
+  @media (min-width: 415px) {
+    border: ${(props) => props.theme.border.line1};
   }
   max-width: 36rem;
   min-height: 100vh;

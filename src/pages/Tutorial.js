@@ -42,15 +42,15 @@ const Tutorial = (props) => {
         </Grid>
       ) : (
         <Grid
-          // maxWidth="36rem"
+          maxWidth="36rem"
           // border={border.line1}
-          // margin="0 auto"
+          margin="0 auto"
           // padding="2rem"
-          // minHeight="100vh"
-          // text_align="center"
+          minHeight="100vh"
+          text_align="center"
         >
           {/* 패딩 빼보자 */}
-          <Grid shape="container" text_align="center">
+          <Grid shape="container">
             <Grid margin="2rem auto">
               <TutorialSwiper></TutorialSwiper>
             </Grid>

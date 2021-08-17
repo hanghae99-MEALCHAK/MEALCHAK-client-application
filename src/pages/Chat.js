@@ -278,11 +278,10 @@ const Chat = (props) => {
         <Grid
           maxWidth="36rem"
           minHeight="100vh"
-          border={border.line1}
           margin="0 auto"
           bg="#7B6E62"
         >
-          <Grid shape="container" align_items="flex-end" bg="#7B6E62">
+          <Grid shape="container" align_items="flex-end">
             <SideGrid isOpen={isOpen}>
               <Sidebar
                 transitions={true}
