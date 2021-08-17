@@ -24,7 +24,7 @@ const Map = (props) => {
     const container = document.getElementById("map");
     const options = {
       center: new kakao.maps.LatLng(latitude, longitude),
-      level: 3,
+      level: 4,
     };
 
     const map = new kakao.maps.Map(container, options);
@@ -33,26 +33,26 @@ const Map = (props) => {
     const marker = new kakao.maps.Marker({ position: markerPosition });
     marker.setMap(map);
 
-    // 일반 지도, 스카이뷰 지도 타입을 전환 control 생성
-    const mapTypeControl = new kakao.maps.MapTypeControl();
+    // // 일반 지도, 스카이뷰 지도 타입을 전환 control 생성
+    // const mapTypeControl = new kakao.maps.MapTypeControl();
 
-    // kakao.maps.ControlPosition 컨트롤이 표시될 위치를 정의
-    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+    // // kakao.maps.ControlPosition 컨트롤이 표시될 위치를 정의
+    // map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
-    // 지도 확대 축소, 제어 zoom control 생성
-    const zoomControl = new kakao.maps.ZoomControl();
-    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+    // // 지도 확대 축소, 제어 zoom control 생성
+    // const zoomControl = new kakao.maps.ZoomControl();
+    // map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
     const content =
       '<div class="wrap">' +
       '    <div class="info">' +
       '        <div class="title">' +
       `            ${props?.title}` +
-      '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
+      // '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
       "        </div>" +
       '        <div class="body">' +
       '            <div class="img">' +
-      `                <img src=${props?.userImg} width="5.1rem" height="4.8rem">` +
+      `                <img class="img02" src=${props?.userImg}>` +
       "           </div>" +
       '            <div class="desc">' +
       `                <div class="ellipsis">${props?.address}</div>` +
@@ -75,18 +75,18 @@ const Map = (props) => {
       overlay.setMap(map);
     });
 
-    // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
-    const closeOverlay = () => {
-      overlay.setMap(null);
-    };
-  }, []);
+    // // 커스텀 오버레이 닫기
+    // function closeOverlay() {
+    //   overlay.setMap(null);
+    // }
+  }, [latitude, longitude]);
 
   return (
     <React.Fragment>
       <Grid
         id="map"
         width="32rem"
-        height="32rem"
+        height="25rem"
         margin="1.6rem auto"
         padding="1.6rem 1.6rem 0.8rem 1.6rem"
         is_border="0.1rem solid #EBE9E8"

@@ -336,8 +336,6 @@ const DetailPost = (props) => {
           )}
         </Grid>
       </Grid>
-      {/* 자세히 보기 - 지도 */}
-      <Map {...props}/>
       {!props.is_profile && (
         <>
           <Grid
@@ -398,6 +396,8 @@ const DetailPost = (props) => {
               );
             })}
           </Grid>
+          {/* 자세히 보기 - 지도 */}
+          <Map {...props} />
           <Grid
             maxWidth="32rem"
             margin="0 auto"
