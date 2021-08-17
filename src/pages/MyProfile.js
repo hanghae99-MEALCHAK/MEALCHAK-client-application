@@ -38,10 +38,10 @@ const MyProfile = (props) => {
     return (
       <React.Fragment>
         <Grid
-          // maxWidth="36rem"
-          // minHeight="100vh"
+          maxWidth="36rem"
+          minHeight="100vh"
           // border={border.line1}
-          // margin="0 auto"
+          margin="0 auto"
         >
           <Grid shape="container">
             <Header {...props} shape="프로필" />

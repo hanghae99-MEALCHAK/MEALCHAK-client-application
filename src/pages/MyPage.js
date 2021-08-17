@@ -44,13 +44,13 @@ const MyPage = (props) => {
     return (
       <React.Fragment>
         <Grid
-          // maxWidth="36rem"
-          // minHeight="100vh"
+          maxWidth="36rem"
+          minHeight="100vh"
           // border={border.line1}
-          // margin="0 auto"
-          // padding="0 0 1.47rem 0"
+          margin="0 auto"
+          padding="0 0 1.47rem 0"
         >
-          <Grid shape="container" padding="0 0 1.47rem 0">
+          <Grid shape="container">
             <Header {...props} shape="마이페이지" />
             <Grid height="4.4rem" />
             <Footer {...props}></Footer>
