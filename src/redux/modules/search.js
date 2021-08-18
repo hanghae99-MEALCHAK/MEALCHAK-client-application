@@ -21,12 +21,12 @@ const initialState = {
   is_food: false,
 };
 
-const getSearchListDB = (food) => {
+const getSearchListDB = (food, sort = "recent") => {
   return function (dispatch, getState, { history }) {
     // const username = getState().user.user.username;
     dispatch(food_check(true));
     axiosModule
-      .get(`/search?keyword=${food}`)
+      .get(`/search?keyword=${food}&sort=${sort}`)
       .then((res) => {
         let search_list = [];
 
