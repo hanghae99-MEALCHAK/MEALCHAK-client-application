@@ -40,7 +40,7 @@ const AddressGrid = (props) => {
 };
 
 const GridTop = styled.div`
-  @media (min-width: 414px) {
+  @media (min-width: 415px) {
     min-height: ${(props) => (props.is_home ? "100vh" : "")};
     max-width: "36rem";
     width: ${(props) => (props.is_home ? "36rem" : "")};

@@ -134,7 +134,7 @@ const UploadInput = React.memo((props) => {
                   className={`menu ${isActive ? "active" : "inactive"}`}
                   style={{
                     // minWidth: "36rem",
-                    
+
                     backgroundColor: "transparent",
                     cursor: "pointer",
                     zIndex: "1",
@@ -164,18 +164,18 @@ const UploadInput = React.memo((props) => {
               </Text>
             </Grid>
             <FocusWithin>
-              <Input
-                border={border.bg40}
-                padding="1.5rem 1.3rem"
-                size={fontSize.base}
-                color={color.bg80}
-                placeholder="상세 주소 입력란"
-                value={post_info.detail_place}
-                _onChange={(e) => {
-                  setPostInfo({ ...post_info, detail_place: e.target.value });
-                  props.onChange({ detail_place: e.target.value });
-                }}
-              ></Input>
+                <Input
+                  border={border.bg40}
+                  padding="1.5rem 1.3rem"
+                  size={fontSize.base}
+                  color={color.bg80}
+                  placeholder="상세 주소 입력란"
+                  value={post_info.detail_place}
+                  _onChange={(e) => {
+                    setPostInfo({ ...post_info, detail_place: e.target.value });
+                    props.onChange({ detail_place: e.target.value });
+                  }}
+                ></Input>
               <Button
                 height="5rem"
                 border={border.bg40}
@@ -250,7 +250,7 @@ const UploadInput = React.memo((props) => {
             </Text>
           </Grid>
 
-          <Grid width="31.8rem" margin="0">
+          <Grid margin="0">
             <FocusWithin>
               <Text
                 padding="2.4rem 0 0.8rem"
@@ -261,13 +261,10 @@ const UploadInput = React.memo((props) => {
                 배달 주문 예정 시간
               </Text>
 
-              <Grid
-                width="31.8rem"
-                is_flex4="t"
-                flex_direction="row"
-                justify_content="space-between"
+              <Grid display_grid="t"
               >
                 <SDatePicker
+                  onFocus={(e) => (e.target.readOnly = true)}
                   showDisabledMonthNavigation
                   theme={theme}
                   minDate={new Date()}
@@ -298,9 +295,10 @@ const UploadInput = React.memo((props) => {
                 />
 
                 <TDatePicker
+                  onFocus={(e) => (e.target.readOnly = true)}
                   timeCaption="Time"
                   dateFormat="p"
-                  timeIntervals={1}
+                  timeIntervals={15}
                   showTimeSelectOnly
                   showTimeSelect
                   theme={theme}
@@ -401,7 +399,7 @@ const FocusWithinSelect = styled.div`
 `;
 
 const SDatePicker = styled(DatePicker)`
-  width: 18rem;
+  width: 100%;
   height: 5rem;
   padding: 1.4rem 1.6rem;
   font-size: 1.4rem;
@@ -419,7 +417,7 @@ const SDatePicker = styled(DatePicker)`
 `;
 
 const TDatePicker = styled(DatePicker)`
-  width: 12rem;
+  width: 100%;
   height: 5rem;
   padding: 1.4rem 1.6rem;
   font-size: 1.4rem;

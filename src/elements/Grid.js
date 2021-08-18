@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const Grid = (props) => {
   const {
+    display_grid,
     is_flex,
     is_flex2,
     is_flex3,
@@ -62,6 +63,7 @@ const Grid = (props) => {
   } = props;
 
   const styles = {
+    display_grid: display_grid,
     fix_center: fix_center,
     is_flex: is_flex,
     is_flex2: is_flex2,
@@ -160,6 +162,7 @@ const Grid = (props) => {
 };
 
 Grid.defaultProps = {
+  display_grid: "",
   fix_center: false,
   fix_left: false,
   children: null,
@@ -212,103 +215,106 @@ Grid.defaultProps = {
 };
 
 const GridBox = styled.div`
+  ${(props) =>
+    (props.display_grid
+      ? `display: grid; grid-template-columns: 2fr 1fr; column-gap: 1.6rem;`
+      : "")};
   ${(props) => (props.width ? `width: ${props.width};` : "")};
   ${(props) => (props.height ? `height: ${props.height};` : "")};
   box-sizing: border-box;
-  ${(props) => (props.maxWidth ? `max-width: ${props.maxWidth};` : "")}
-  ${(props) => (props.minWidth ? `min-width: ${props.minWidth};` : "")}
-  ${(props) => (props.minHeight ? `min-height: ${props.minHeight};` : "")}
-  ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
-  ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
-  ${(props) => (props.center ? `text-align: ${props.center};` : "")}
+  ${(props) => (props.maxWidth ? `max-width: ${props.maxWidth};` : "")};
+  ${(props) => (props.minWidth ? `min-width: ${props.minWidth};` : "")};
+  ${(props) => (props.minHeight ? `min-height: ${props.minHeight};` : "")};
+  ${(props) => (props.padding ? `padding: ${props.padding};` : "")};
+  ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : "")};
+  ${(props) => (props.center ? `text-align: ${props.center};` : "")};
   ${(props) =>
-    props.is_fixed ? `position: fixed; bottom: 0; z-index: 1;` : ""}
-  ${(props) => (props.is_fixed_top ? `position: fixed; top: 0;` : "")}
+    props.is_fixed ? `position: fixed; bottom: 0; z-index: 1;` : ""};
+  ${(props) => (props.is_fixed_top ? `position: fixed; top: 0;` : "")};
 
-  ${(props) => (props.bottom ? `bottom: ${props.bottom};` : "")}
+  ${(props) => (props.bottom ? `bottom: ${props.bottom};` : "")};
   ${(props) =>
-    props.borderBottom ? `border-bottom: ${props.borderBottom};` : ""}
-  ${(props) => (props.borderTop ? `border-top: ${props.borderTop};` : "")}
-  ${(props) => (props.radius ? `border-radius: ${props.radius};` : "")}
+    props.borderBottom ? `border-bottom: ${props.borderBottom};` : ""};
+  ${(props) => (props.borderTop ? `border-top: ${props.borderTop};` : "")};
+  ${(props) => (props.radius ? `border-radius: ${props.radius};` : "")};
   ${(props) =>
-    props.shadow ? `box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.06);` : ""}
+    props.shadow ? `box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.06);` : ""};
   ${(props) =>
     props.is_flex
       ? `display: flex; align-items: center; justify-content: space-between;`
-      : ""}
+      : ""};
   ${(props) =>
     props.is_flex2
       ? `display: flex; align-items: center; justify-content: center;`
-      : ""}
+      : ""};
   ${(props) =>
-    props.is_flex3 ? `display: flex; justify-content: center;` : ""}
-      ${(props) =>
-    props.is_flex4 ? `display: flex; align-items: center;` : ""}
+    props.is_flex3 ? `display: flex; justify-content: center;` : ""};
+  ${(props) => (props.is_flex4 ? `display: flex; align-items: center;` : "")};
   ${(props) =>
     props.is_flex_column
       ? `display: flex; flex-direction: column; align-items: center;`
-      : ""}  
+      : ""};
   ${(props) =>
-    props.position ? `position: ${props.position}; bottom: 0;` : ""}
-  ${(props) => (props.top ? `top: ${props.top};` : "")}
-  ${(props) => (props.left ? `left: ${props.left};` : "")}
-  ${(props) => (props.right ? `right: ${props.right};` : "")}
-  ${(props) => (props.maxHeight ? `max-height: ${props.maxHeight};` : "")}
-  ${(props) => (props.flex ? `display: flex; ` : "")}
+    props.position ? `position: ${props.position}; bottom: 0;` : ""};
+  ${(props) => (props.top ? `top: ${props.top};` : "")};
+  ${(props) => (props.left ? `left: ${props.left};` : "")};
+  ${(props) => (props.right ? `right: ${props.right};` : "")};
+  ${(props) => (props.maxHeight ? `max-height: ${props.maxHeight};` : "")};
+  ${(props) => (props.flex ? `display: flex; ` : "")};
   ${(props) =>
-    props.card_flex ? `display: flex; justify-content: center;` : ""}
-  ${(props) => (props.wrap ? `flex-wrap: wrap;` : "")}  
-  ${(props) => (props.border ? `border: ${props.border};` : "")}
-  ${(props) => (props.is_border ? `border: ${props.is_border};` : "")}
+    props.card_flex ? `display: flex; justify-content: center;` : ""};
+  ${(props) => (props.wrap ? `flex-wrap: wrap;` : "")};
+  ${(props) => (props.border ? `border: ${props.border};` : "")};
+  ${(props) => (props.is_border ? `border: ${props.is_border};` : "")};
   ${(props) =>
     props.updownborder
       ? `border-top: ${props.updownborder}; border-bottom: ${props.updownborder}`
-      : ""}
+      : ""};
 
   ${(props) =>
     props.is_header ? `position: sticky; top: 0; z-index: 10;` : ""};
-  ${(props) => (props.is_float ? `float: ${props.is_float}; ` : "")}
-  ${(props) => (props.text_align ? `text-align: ${props.text_align}; ` : "")}
-  ${(props) => (props.cursor ? `cursor: pointer;` : "")}
+  ${(props) => (props.is_float ? `float: ${props.is_float}; ` : "")};
+  ${(props) => (props.text_align ? `text-align: ${props.text_align}; ` : "")};
+  ${(props) => (props.cursor ? `cursor: pointer;` : "")};
   ${(props) =>
-    props.flex_direction ? `flex-direction: ${props.flex_direction};` : ""}
-  ${(props) => (props.align_items ? `align-items: ${props.align_items};` : "")}
+    props.flex_direction ? `flex-direction: ${props.flex_direction};` : ""};
+  ${(props) => (props.align_items ? `align-items: ${props.align_items};` : "")};
   ${(props) =>
-    props.justify_content ? `justify-content: ${props.justify_content};` : ""}
-  ${(props) => (props.absolute ? `position: ${props.absolute};` : "")}
+    props.justify_content ? `justify-content: ${props.justify_content};` : ""};
+  ${(props) => (props.absolute ? `position: ${props.absolute};` : "")};
   ${(props) => (props.gap ? `gap: ${props.gap};` : "")}
   ${(props) =>
-    props.fix_center ? `left: 50%; transform: translateX(-50%);` : ""}
+    props.fix_center ? `left: 50%; transform: translateX(-50%);` : ""};
   ${(props) =>
-    props.fix_left ? `left: 50%; transform: translateX(-200%);` : ""}
-  ${(props) => (props.display ? `display: ${props.display};` : "")}
-  ${(props) => (props.opacity ? `opacity: ${props.opacity};` : "")}
-  ${(props) => (props.z_index ? `z-index: ${props.z_index};` : "")}
+    props.fix_left ? `left: 50%; transform: translateX(-200%);` : ""};
+  ${(props) => (props.display ? `display: ${props.display};` : "")};
+  ${(props) => (props.opacity ? `opacity: ${props.opacity};` : "")};
+  ${(props) => (props.z_index ? `z-index: ${props.z_index};` : "")};
 
   @media (min-width: 501px) {
     ${(props) =>
       props.review_flex
         ? `display: flex; align-items: center; justify-content: space-between;`
-        : ""}
+        : ""};
   }
 
   @media (min-width: 510px) {
     ${(props) =>
       props.post_flex
         ? `display: flex; align-items: center; justify-content: center;`
-        : ""}
+        : ""};
   }
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  ${(props) => (props.text_align ? `text-align: ${props.text_align}; ` : "")}
-  ${(props) => (props.align_items ? `align-items: ${props.align_items};` : "")}
-  ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
-  ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
-  ${(props) => (props.minWidth ? `min-width: ${props.minWidth};` : "")}
+  ${(props) => (props.text_align ? `text-align: ${props.text_align}; ` : "")};
+  ${(props) => (props.align_items ? `align-items: ${props.align_items};` : "")};
+  ${(props) => (props.padding ? `padding: ${props.padding};` : "")};
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : "")};
+  ${(props) => (props.minWidth ? `min-width: ${props.minWidth};` : "")};
 `;
 
 const EmptyImg = styled.div`
@@ -324,7 +330,7 @@ const EmptyImg = styled.div`
 `;
 
 const TopGrid = styled.div`
-  @media (min-width: 414px) {
+  @media (min-width: 415px) {
     border: ${(props) => props.theme.border.line1};
     max-width: 36rem;
   }

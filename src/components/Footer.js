@@ -181,7 +181,7 @@ const Footer = (props) => {
 };
 
 const GridTop = styled.div`
-  @media (min-width: 414px) {
+  @media (min-width: 415px) {
     max-width: 35.8rem;
   }
 

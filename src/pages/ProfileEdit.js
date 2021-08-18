@@ -249,15 +249,14 @@ const ProfileEdit = (props) => {
               </Grid>
             </FocusWithin>
             <Text
-              width="28.8rem"
+              width="32rem"
               height="2.2rem"
-              margin="0.4rem auto 0 2rem"
+              margin="0.4rem auto 0"
               color="#9A9896"
               size={fontSize.small}
               line_height="150%"
             >
-              {/* 20글자 이상 입력해주세요. */}
-              130자까지 입력 가능합니다.
+              20글자 이상 입력해주세요.
             </Text>
           </Grid>
 
@@ -352,10 +351,11 @@ const ProfileEdit = (props) => {
           </Grid>
 
           <Grid
+            width="32rem"
             height="auto"
             maxWidth="35.5rem"
-            margin="0 auto 0 0.1rem"
-            padding="2.8rem 2rem 2.7rem"
+            margin="0 auto 0.1rem"
+            padding="2.8rem 0 2.7rem"
           >
             <Button
               bg={disabled ? color.bg40 : color.brand100}

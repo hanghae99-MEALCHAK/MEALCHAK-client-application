@@ -8,35 +8,36 @@ import { token } from "../../shared/OAuth";
 import { actionCreators as userAction } from "./user";
 import logger from "../../shared/Console";
 import jwtDecode from "jwt-decode";
+import { history } from "../configureStore";
 
 // Action
 // 나만의 채팅 목록
-const SET_CHAT_LIST = 'SET_CHAT_LIST';
+const SET_CHAT_LIST = "SET_CHAT_LIST";
 // 옮겨가는 (입장하려고 클릭한) 현재 방정보 입력
-const MOVE_CHAT_ROOM = 'MOVE_CHAT_ROOM';
+const MOVE_CHAT_ROOM = "MOVE_CHAT_ROOM";
 // 뒤로가기 클릭시 현재방 정보 초기화
-const CLEAR_CHAT = 'CLEAR_CHAT';
+const CLEAR_CHAT = "CLEAR_CHAT";
 // 구독하면서 실행되는 액션
 // 새로입력되는 메세지(리스트 형태) 내용을 메세지에 추가
-const GET_MSG = 'GET_MSG';
+const GET_MSG = "GET_MSG";
 // 처음 방에 입장할때 이전 대화기록 DB에서 가져오기 (array)
-const SET_MSG = 'SET_MSG';
+const SET_MSG = "SET_MSG";
 // 메세지 내용 초기화 (방이동시)
-const CLEAR_MSG = 'CLEAR_MSG';
+const CLEAR_MSG = "CLEAR_MSG";
 // 사용자가 입력하는 메세지 내용
-const WRITE_MSG = 'WRITE_MSG';
+const WRITE_MSG = "WRITE_MSG";
 // 로딩 중 (false)
-const LOADING = 'LOADING';
+const LOADING = "LOADING";
 // 로딩 완료 (true)
-const LOADED = 'LOADED';
+const LOADED = "LOADED";
 // 실시간 메세지 시간 보여주기
-const SET_TIME = 'SET_TIME';
+const SET_TIME = "SET_TIME";
 // 입장 요청 리스트(방장용)
-const SET_REQ_LIST = 'SET_REQ_LIST';
+const SET_REQ_LIST = "SET_REQ_LIST";
 // 입장 대기 리스트(신청자용)
-const AWAIT_LIST = 'AWAIT_LIST';
+const AWAIT_LIST = "AWAIT_LIST";
 // 채팅 참여 user 정보
-const GET_CHAT_USER = 'GET_CHAT_USER';
+const GET_CHAT_USER = "GET_CHAT_USER";
 
 // ActionCreator
 const setChatList = createAction(SET_CHAT_LIST, (myChatList) => ({
@@ -101,7 +102,7 @@ const setChatListAX = () => {
   return function (dispatch, getState, { history }) {
     if (token) {
       axiosModule
-        .get('/chat/rooms/mine')
+        .get("/chat/rooms/mine")
         .then((res) => {
           logger("나의 채팅방 목록", res);
 
@@ -126,7 +127,7 @@ const setChatListAX = () => {
             ["메인페이지로 돌아갑니다."],
             "history"
           );
-          logger('나의 채팅방 목록 조회 에러', e);
+          logger("나의 채팅방 목록 조회 에러", e);
         });
     } else {
       dispatch(userAction.loginCheck());
@@ -143,8 +144,8 @@ const getChatMessagesAX = () => {
     axiosModule
       .get(`/chat/${room_id}/messages`)
       .then((res) => {
-        logger('채팅 메세지 목록 조회', res);
-        logger('채팅 메세지 room', room);
+        logger("채팅 메세지 목록 조회", res);
+        logger("채팅 메세지 room", room);
         let chatMassageArray = [];
         res.data.content.forEach((m) => {
           let one_msg_info = {
@@ -167,7 +168,7 @@ const getChatMessagesAX = () => {
           ["채팅방 메세지 불러오기에 실패했습니다."],
           ""
         );
-        logger('채팅 메세지 불러오기 실패', e);
+        logger("채팅 메세지 불러오기 실패", e);
       });
   };
 };
@@ -178,7 +179,7 @@ const chatAllowAX = (joinId, boolean) => {
     axiosModule
       .get(`/posts/join/request/accept/${joinId}?accept=${boolean}`)
       .then((res) => {
-        logger('승인 수락, 거절 res', res);
+        logger("승인 수락, 거절 res", res);
         if (boolean === true) {
           customAlert.sweetConfirmReload(
             "수락 완료",
@@ -194,7 +195,7 @@ const chatAllowAX = (joinId, boolean) => {
         }
       })
       .catch((e) => {
-        logger('채팅방 참여 승인 요청 에러', e);
+        logger("채팅방 참여 승인 요청 에러", e);
       });
   };
 };
@@ -204,9 +205,9 @@ const requestChatListAX = () => {
   return function (dispatch, getState, { history }) {
     if (token) {
       axiosModule
-        .get('/posts/join/request/list')
+        .get("/posts/join/request/list")
         .then((res) => {
-          logger('승인 요청 res', res);
+          logger("승인 요청 res", res);
           let request_list = [];
           res.data.forEach((req) => {
             let one_req = {
@@ -222,7 +223,7 @@ const requestChatListAX = () => {
           dispatch(setRequestList(request_list));
         })
         .catch((e) => {
-          logger('방장 승인 대기 목록 에러', e);
+          logger("방장 승인 대기 목록 에러", e);
           customAlert.sweetConfirmReload(
             "목록 조회 실패",
             ["승인 대기 목록 조회에 실패했습니다."],
@@ -242,9 +243,9 @@ const requestChatListAX = () => {
 const awaitChatListAX = () => {
   return function (dispatch, getState, { history }) {
     axiosModule
-      .get('/posts/join/request/await')
+      .get("/posts/join/request/await")
       .then((res) => {
-        logger('대기 목록', res);
+        logger("대기 목록", res);
         let await_list = [];
         res.data.forEach((l) => {
           let one_list = {
@@ -258,7 +259,7 @@ const awaitChatListAX = () => {
       })
       .catch((e) => {
         // chatlist 페이지에서 열려있는 채팅목록 아래에 비활성화 상태로 뜨도록 하는 것
-        logger('신청자 승인 요청 목록 에러', e);
+        logger("신청자 승인 요청 목록 에러", e);
         customAlert.sweetConfirmReload(
           "목록 조회 실패",
           ["승인 대기 목록 조회에 실패했습니다."],
@@ -281,7 +282,7 @@ const awaitChatOut = (join_id) => {
       })
       .catch((e) => {
         // chatlist 페이지에서 열려있는 채팅목록 아래에 비활성화 상태로 뜨도록 하는 것
-        logger('대기 취소 에러', e);
+        logger("대기 취소 에러", e);
         customAlert.sweetConfirmReload(
           "대기 승인 취소 실패",
           ["대기 승인 취소에 실패했습니다."],
@@ -309,12 +310,48 @@ const getChatUserAX = (roomId) => {
         dispatch(getChatUser(user_in_chat_list));
       })
       .catch((e) => {
-        logger('채팅 참여 유저 목록확인 에러', e);
+        logger("채팅 참여 유저 목록확인 에러", e);
         customAlert.sweetConfirmReload(
           "사용자 조회 실패",
           ["채팅에 참여중인 사용자를 조회하는 것에 실패했습니다."],
           "goBack"
         );
+      });
+  };
+};
+
+const leaveChatAX = (post_id) => {
+  return function (dispatch, getState, { history }) {
+    customAlert
+      .sweetPromise(
+        "채팅방 나가기",
+        "나가기를 하면 대화내용이 모두 삭제되고",
+        "채팅목록에서도 삭제됩니다.",
+        "나가기",
+        "취소"
+      )
+      .then((res) => {
+        if(res){
+          axiosModule
+          .delete(`/chat/quit/${post_id}`)
+          .then((res) => {
+            return customAlert.sweetConfirmReload(
+              "나가기 완료",
+              ["채팅방 나가기가 완료되었습니다."],
+              "/chatlist"
+            );
+          })
+          .catch((e) => {
+            logger("채팅방 나가기 요청 에러", e);
+            return customAlert.sweetConfirmReload(
+              "나가기 요청 에러",
+              ["채팅방 나가기 요청 중 에러가 발생했습니다"],
+              ""
+            );
+          });
+        } else {
+          return null;
+        }
       });
   };
 };
@@ -346,7 +383,7 @@ export default handleActions(
       produce(state, (draft) => {
         const user_id = jwtDecode(token).userId;
         const m = action.payload.newMessage;
-        if (m.type === 'BAN') {
+        if (m.type === "BAN") {
           // 강퇴 당한 사람의 경우 퇴장 알럿 표시
           if (user_id === parseInt(m.message)) {
             customAlert.sweetConfirmReload(
@@ -362,19 +399,23 @@ export default handleActions(
             if (idx !== -1) {
               draft.userInList.splice(idx, 1);
             }
+            return ;
           }
+
         }
 
         // 방장이 채팅방을 나간 경우 모든 사용자를 채팅방에서 내보낸다.
-        if (m.type === 'BREAK') {
+        else if (m.type === "BREAK") {
           if (user_id === m.sender.id) {
-            return window.location.replace('/chatlist');
+            return customAlert.sweetOK("나가기 완료", "채팅방 나가기가 완료되었습니다.").then((res) => {
+              return window.location.replace("/chatlist")
+            })
           } else {
-            return customAlert.sweetConfirmReload(
-              '채팅방 삭제 알림',
-              [`${m.message}`],
-              '/break'
-            );
+            return customAlert
+              .sweetOK("채팅방 삭제 알림", `${m.message}`)
+              .then(() => {
+                return window.location.replace("/chatlist");
+              });
           }
         } else {
           const one_msg = {
@@ -394,7 +435,7 @@ export default handleActions(
     [SET_MSG]: (state, action) =>
       produce(state, (draft) => {
         draft.messages = _.remove(action.payload.chatMassageArray.reverse(), {
-          type: 'TALK',
+          type: "TALK",
         });
       }),
     [CLEAR_MSG]: (state, action) =>
@@ -415,7 +456,7 @@ export default handleActions(
       }),
     [SET_TIME]: (state, action) =>
       produce(state, (draft) => {
-        const now_time = moment().format('hh:mm');
+        const now_time = moment().format("hh:mm");
         draft.now_time = now_time;
       }),
     [SET_REQ_LIST]: (state, action) =>
@@ -450,6 +491,7 @@ const actionCreators = {
   awaitChatListAX,
   getChatUserAX,
   awaitChatOut,
+  leaveChatAX,
 };
 
 export { actionCreators };

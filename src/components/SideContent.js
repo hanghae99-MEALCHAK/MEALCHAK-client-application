@@ -1,8 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import logger from "../shared/Console";
 import { ChatUserItem } from ".";
 import moment from "moment";
+import { actionCreators as chatActions } from "../redux/modules/chat";
 
 // style
 import { Grid, Text, Image } from "../elements";
@@ -14,6 +15,7 @@ import { IoClose } from "react-icons/io5";
 import { customAlert } from "./Sweet";
 
 const SideContent = (props) => {
+  const dispatch = useDispatch();
   const user_in_chat = useSelector((state) => state.chat.userInList);
   const my_id = useSelector((state) => state.user.user?.user_id);
   const own_user_id = props.own_user_id;
@@ -56,7 +58,8 @@ const SideContent = (props) => {
     if (my_id === own_user_id) {
       customAlert.SweetBreak(props.sendBreak, post_id);
     } else {
-      customAlert.SweetOutChat(post_id);
+      // customAlert.SweetOutChat(post_id);
+      dispatch(chatActions.leaveChatAX(post_id))
     }
   };
 
