@@ -42,7 +42,8 @@ const getSearchListDB = (food) => {
             headCount: p.headCount,
             orderTime: hour + ":" + minute,
             orderDate: p.orderTime.split(" ")[0],
-            address: p.address,
+            address: p.address.split("/")[0],
+            detail_address: p.address.split("/")[1],
             insert_dt: p.createdAt,
             username: p.username,
             user_id: p.userId,
@@ -80,7 +81,6 @@ export default handleActions(
         if (idx !== -1) {
           draft.list.splice(idx, 1);
         }
-        
       }),
   },
   initialState

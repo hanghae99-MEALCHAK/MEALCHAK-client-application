@@ -246,7 +246,7 @@ const Upload = React.memo((props) => {
   if (is_login) {
     return (
       <>
-       <PcSide {...props}/>
+        <PcSide {...props} />
         <Grid
           // maxWidth="36rem"
           minHeight="100vh"
@@ -268,40 +268,42 @@ const Upload = React.memo((props) => {
               onChange={(value) => setPostInfo({ ...post_info, ...value })}
             />
             {/* <Grid height="10rem" /> */}
-            <Grid
-              height="auto"
-              maxWidth="36rem"
-              margin="0 auto"
-              padding="2.8rem 2rem 2.7rem"
-              bg={color.bg0}
-            >
-              {is_edit ? (
-                <Button
-                  bg={color.brand100}
-                  height="5rem"
-                  border="none"
-                  radius={radius.button}
-                  cursor="t"
-                  _onClick={UploadEditBtn}
-                >
-                  <Text color={color.bg0} bold2="700" size={fontSize.base}>
-                    모집글 수정하기
-                  </Text>
-                </Button>
-              ) : (
-                <Button
-                  bg={color.brand100}
-                  height="5rem"
-                  border="none"
-                  radius={radius.button}
-                  cursor="t"
-                  _onClick={uploadBtn}
-                >
-                  <Text color={color.bg0} bold2="700" size={fontSize.base}>
-                    밀착할 사람 모집하기
-                  </Text>
-                </Button>
-              )}
+            <Grid padding="0 2rem">
+              <Grid
+                height="auto"
+                maxWidth="36rem"
+                margin="0"
+                padding="2.8rem 0 2.7rem"
+                bg={color.bg0}
+              >
+                {is_edit ? (
+                  <Button
+                    bg={color.brand100}
+                    height="5rem"
+                    border="none"
+                    radius={radius.button}
+                    cursor="t"
+                    _onClick={UploadEditBtn}
+                  >
+                    <Text color={color.bg0} bold2="700" size={fontSize.base}>
+                      모집글 수정하기
+                    </Text>
+                  </Button>
+                ) : (
+                  <Button
+                    bg={color.brand100}
+                    height="5rem"
+                    border="none"
+                    radius={radius.button}
+                    cursor="t"
+                    _onClick={uploadBtn}
+                  >
+                    <Text color={color.bg0} bold2="700" size={fontSize.base}>
+                      밀착할 사람 모집하기
+                    </Text>
+                  </Button>
+                )}
+              </Grid>
             </Grid>
           </Grid>
         </Grid>

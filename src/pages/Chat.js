@@ -105,10 +105,10 @@ const Chat = (props) => {
   }, [room_id ? room_id : null]);
 
   // 채팅방시작하기, 채팅방 클릭 시 room_id에 해당하는 방을 구독
-  const wsConnectSubscribe = () => {
+  const wsConnectSubscribe = async () => {
     try {
       ws.debug = null;
-      ws.connect(
+      await ws.connect(
         {
           token: token,
         },
@@ -181,9 +181,12 @@ const Chat = (props) => {
         // roomId : 방 번호
       };
       // 빈 텍스트일때 보내기 방지
-      if (new_message === "") {
-        customAlert.sweetConfirmReload("메세지를 입력해주세요.", null, "");
-        return;
+      if (new_message === "" || new_message === " ") {
+        return customAlert.sweetConfirmReload(
+          "메세지를 입력해주세요.",
+          null,
+          ""
+        );
       }
       // 로딩
       // dispatch(chatActions.loading());
@@ -225,9 +228,9 @@ const Chat = (props) => {
 
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
         logger("강퇴 메세지 상태", ws.ws.readyState);
-        customAlert.sweetConfirmReload(
+        customAlert.sweetOK(
           "퇴장 시키기 완료",
-          [`${other_user_name}님이 퇴장 되었습니다.`],
+          `${other_user_name}님이 퇴장 되었습니다.`,
           ""
         );
       });
@@ -247,7 +250,7 @@ const Chat = (props) => {
     try {
       // 토큰없으면 다시 로그인 시키기
       if (!token) {
-        customAlert.sweetNeedLogin("replace");
+        return customAlert.sweetNeedLogin("replace");
       }
       // send할 데이터
       const data = {

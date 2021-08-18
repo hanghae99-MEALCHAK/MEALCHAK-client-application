@@ -215,7 +215,7 @@ const sweetOK = (title, message1, message2, confirmText) => {
 };
 
 // 확인, 취소 필요한 알럿
-const sweetPromise = (title, message1, message2, confirmText) => {
+const sweetPromise = (title, message1, message2, confirmText, cancelText) => {
   return sweet
     .fire({
       customClass: {
@@ -242,7 +242,7 @@ const sweetPromise = (title, message1, message2, confirmText) => {
       cancelButtonColor: color.brand20,
       cancelButtonText: (
         <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
-          닫기
+          {cancelText ? cancelText : "닫기"}
         </Text>
       ),
       confirmButtonColor: color.brand100,
@@ -850,11 +850,6 @@ const SweetBreak = (sendBreak, post_id) => {
         axiosModule
           .delete(`/chat/quit/${post_id}`)
           .then((res) => {
-            sweetConfirmReload(
-              "나가기 완료",
-              ["채팅방 나가기가 완료되었습니다."],
-              "/chatlist"
-            );
             sendBreak();
           })
           .catch((e) => {
