@@ -1,20 +1,20 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Post, Header, PcSide } from "../components/";
-import { Grid, Input, Text } from "../elements";
+import { Post, Header, PcSide } from '../components/';
+import { Grid, Input, Text } from '../elements';
 
-import { actionCreators as searchActions } from "../redux/modules/search";
+import { actionCreators as searchActions } from '../redux/modules/search';
 
-import theme from "../styles/theme";
+import theme from '../styles/theme';
 
 const Search = (props) => {
   const { color, border } = theme;
 
   const dispatch = useDispatch();
-  const [food, setFood] = React.useState("");
+  const [food, setFood] = React.useState('');
   const [sort, setSort] = React.useState({
     recent: true,
     nearby: false,
@@ -27,11 +27,12 @@ const Search = (props) => {
   };
 
   const search = () => {
+    setSort({ ...{ sort: false }, recent: true });
     dispatch(searchActions.getSearchListDB(food));
   };
 
   const foodReset = () => {
-    setFood("");
+    setFood('');
     dispatch(searchActions.food_check(false));
   };
 
@@ -64,18 +65,18 @@ const Search = (props) => {
               _onChange={onChange}
               onSubmit={search}
               is_submit
-              style={{ margin: "1.6rem 0" }}
+              style={{ margin: '1.6rem 0' }}
             ></Input>
           </Grid>
 
           {food ? (
             <svg
               style={{
-                marginTop: "0.5rem",
-                marginLeft: "27.5rem",
-                fontSize: "1.9rem",
-                position: "absolute",
-                cursor: "pointer",
+                marginTop: '0.5rem',
+                marginLeft: '27.5rem',
+                fontSize: '1.9rem',
+                position: 'absolute',
+                cursor: 'pointer',
               }}
               width="2rem"
               height="2rem"
@@ -106,11 +107,11 @@ const Search = (props) => {
 
           <svg
             style={{
-              marginTop: "0.5rem",
-              marginLeft: "30.5rem",
-              fontSize: "1.9rem",
-              position: "absolute",
-              cursor: "pointer",
+              marginTop: '0.5rem',
+              marginLeft: '30.5rem',
+              fontSize: '1.9rem',
+              position: 'absolute',
+              cursor: 'pointer',
             }}
             width="2.4rem"
             height="2.4rem"
@@ -145,6 +146,7 @@ const Search = (props) => {
               cursor="t"
               _onClick={() => {
                 setSort({ ...{ sort: false }, recent: true });
+                dispatch(searchActions.getSearchListDB(food));
               }}
             >
               마감임박순
@@ -157,6 +159,7 @@ const Search = (props) => {
               cursor="t"
               _onClick={() => {
                 setSort({ ...{ sort: false }, nearby: true });
+                dispatch(searchActions.getSearchListDB(food, 'nearBy'));
               }}
             >
               거리순
@@ -193,7 +196,7 @@ const SearchLogoImg = styled.div`
   width: 28rem;
   height: 25.8rem;
   border-radius: 2rem;
-  background-image: url("/illust/whatDoIeat_3x.png");
+  background-image: url('/illust/whatDoIeat_3x.png');
   background-size: 28rem 25.8rem;
   margin: 0 auto;
 `;
@@ -202,7 +205,7 @@ const ZeroImg = styled.div`
   width: 14.3rem;
   height: 26.4rem;
   border-radius: 2rem;
-  background-image: url("/illust/Group182_3x.png");
+  background-image: url('/illust/Group182_3x.png');
   background-size: 14.3rem 26.4rem;
   margin: 0 auto;
 `;
