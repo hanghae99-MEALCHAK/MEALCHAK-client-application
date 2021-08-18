@@ -56,7 +56,7 @@ const Map = (props) => {
       "           </div>" +
       '            <div class="desc">' +
       `                <div class="ellipsis">${props?.address}</div>` +
-      `                <div class="jibun ellipsis">${props?.detail_address}</div>` +
+      `                <div class="jibun ellipsis">${props?.detail_address ? props?.detail_address : ""}</div>` +
       "            </div>" +
       "        </div>" +
       "    </div>" +

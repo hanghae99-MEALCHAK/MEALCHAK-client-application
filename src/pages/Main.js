@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Grid, Text, Button } from '../elements';
-import { Post, Footer, Header, MainBanner, PcSide } from '../components';
+import { Grid, Text, Button } from "../elements";
+import { Post, Footer, Header, MainBanner, PcSide } from "../components";
 import { emptyHome_3x } from "../styles/img/index";
 
 import { actionCreators as postActions } from "../redux/modules/post";
@@ -56,10 +56,9 @@ const Main = (props) => {
     dispatch(postActions.getRankDB());
   }, [dispatch, user?.user_address]);
 
-
   return (
     <React.Fragment>
-      <PcSide {...props}/>
+      <PcSide {...props} />
       <Grid
         minHeight="100vh"
         // maxWidth="36rem"
@@ -73,7 +72,7 @@ const Main = (props) => {
           </Header>
           <Footer {...props}></Footer>
         </Grid>
-        <Grid width="36rem" margin="0 0 1rem 0">
+        <Grid width="36rem" margin="0 auto">
           <Button
             width="32rem"
             height="4.4rem"
@@ -82,6 +81,7 @@ const Main = (props) => {
             bg={color.bg0}
             border={btn_border.bg40}
             radius="1.2rem"
+            cursor="t"
             _onClick={() => {
               history.push("/search");
             }}
@@ -100,11 +100,11 @@ const Main = (props) => {
             <svg
               style={{
                 position: "absolute",
-                top: "6.5rem",
-                margin: "0.1rem 0 0 12rem",
+                top: "6.4rem",
+                margin: "0 0 0 12rem",
               }}
-              width="24"
-              height="24"
+              width="2rem"
+              height="2rem"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -162,12 +162,14 @@ const Main = (props) => {
                 width="3rem"
                 height="2.4rem"
                 size={fontSize.base}
+                color={category.all ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
                 margin="-0.4rem 0rem 0.1rem 0.5rem"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.all ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
+                  console.log(e);
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, all: true });
                   setCtg(e.target.innerText);
@@ -181,6 +183,7 @@ const Main = (props) => {
                 width="3rem"
                 height="2.4rem"
                 size="1.6rem"
+                color={category.kr ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
@@ -201,6 +204,7 @@ const Main = (props) => {
                 width="3rem"
                 height="2.4rem"
                 size="1.6rem"
+                color={category.bunsik ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
@@ -221,6 +225,7 @@ const Main = (props) => {
                 width="3rem"
                 height="2.4rem"
                 size="1.6rem"
+                color={category.cn ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
@@ -241,6 +246,7 @@ const Main = (props) => {
                 width="3rem"
                 height="2.4rem"
                 size="1.6rem"
+                color={category.jp ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
@@ -261,6 +267,7 @@ const Main = (props) => {
                 width="3rem"
                 height="2.4rem"
                 size="1.6rem"
+                color={category.west ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
@@ -281,6 +288,7 @@ const Main = (props) => {
                 width="3rem"
                 height="2.4rem"
                 size="1.6rem"
+                color={category.cafe ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"
@@ -301,6 +309,7 @@ const Main = (props) => {
                 width="3rem"
                 height="2.4rem"
                 size="1.6rem"
+                color={category.etc ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
                 margin="-0.4rem 0rem 0 0.7rem"

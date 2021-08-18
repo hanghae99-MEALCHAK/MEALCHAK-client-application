@@ -37,50 +37,45 @@ const Header = (props) => {
   // 상위 컴포넌트에서 children 으로 주소 보여줄 수 있을 것 같음
   if (props.shape === "홈") {
     return (
-        <Grid
-          is_flex2="t"
-          height="4.4rem"
-          margin="0rem auto 0.8rem"
-          bg="#ffffff"
+      <Grid is_flex2="t" height="4.4rem" margin="0rem auto 0.8rem" bg="#ffffff">
+        {/* <Grid width="24px" margin="0 0 0 1.3rem" /> */}
+        <Text
+          margin="0 1rem 0 0"
+          size={fontSize.small}
+          bold2="700"
+          cursor="t"
+          _onClick={() => {
+            if (!is_login) {
+              return customAlert.sweetNeedLogin("replace");
+            }
+            history.replace("/address");
+          }}
         >
-          {/* <Grid width="24px" margin="0 0 0 1.3rem" /> */}
-          <Text
-            margin="0 1rem 0 0"
-            size={fontSize.small}
-            bold2="700"
-            cursor="t"
-            _onClick={() => {
-              if (!is_login) {
-                return customAlert.sweetNeedLogin("replace");
-              }
-              history.replace("/address");
-            }}
-          >
-            {is_login ? props.children : "여기를 클릭해서 주소를 설정하세요!"}
-          </Text>
-          <svg
-            style={{ cursor: "pointer" }}
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            onClick={() => {
-              if (!is_login) {
-                customAlert.sweetNeedLogin();
-              }
-              history.replace("/address");
-            }}
-          >
-            <path
-              d="M4 7L10 13L16 7"
-              stroke="#36373C"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Grid>
+          {is_login ? props.children : "여기를 클릭해서 주소를 설정하세요!"}
+        </Text>
+        <svg
+          style={{ cursor: "pointer" }}
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          onClick={() => {
+            if (!is_login) {
+              customAlert.sweetNeedLogin();
+            }
+            history.replace("/address");
+          }}
+        >
+          <path
+            d="M4 7L10 13L16 7"
+            stroke="#36373C"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </Grid>
     );
   }
 
@@ -260,18 +255,14 @@ const Header = (props) => {
   // 타 유저가 보는 내 프로필
   if (props.shape === "프로필") {
     return (
-      <GridTop
-        onClick={() => {
-          history.goBack();
-        }}
-      >
+      <GridTop>
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
           src={arrowLeft}
           cursor="pointer"
           _onClick={() => {
-            history.replace("/mypage");
+            history.goBack();
           }}
         />
         <Text margin="0 auto" size="1.6rem" bold2="700">

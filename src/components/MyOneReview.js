@@ -52,13 +52,13 @@ const MyOneReview = React.memo((props) => {
               if (props.userId) {
                 return history.push({
                   pathname: `/userprofile/${props.userId}`,
-                  state: {...props},
+                  state: { ...props },
                 });
               }
               if (props.user_id) {
                 return history.push({
                   pathname: `/userprofile/${props.user_id}`,
-                  state: {...props},
+                  state: { ...props },
                 });
               }
             } else {
@@ -72,7 +72,7 @@ const MyOneReview = React.memo((props) => {
           </Text>
         </Grid>
         <Grid
-          width="24.1rem"
+          width="fit-content"
           bg="#F4F4F3"
           margin="0 0 0 5rem"
           padding="0.8rem 0.5rem"
@@ -85,7 +85,12 @@ const MyOneReview = React.memo((props) => {
           </Text>
         </Grid>
         <Grid height="1.5rem" padding="0 0 0 5rem">
-          <Text size={fontSize.tiny} line_height="150%" color="#9A9896">
+          <Text
+            size={fontSize.tiny}
+            line_height="150%"
+            color="#9A9896"
+            margin="0.8rem 0 0 0"
+          >
             {ym[0]}년 {ym[1]}월 {day[0]}일 {hm[0]}:{hm[1]}에 남긴 리뷰에요.
           </Text>
         </Grid>

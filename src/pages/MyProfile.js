@@ -101,6 +101,16 @@ const MyProfile = (props) => {
               </Button>
             </Grid>
             <Grid height="1.6rem" />
+            <Grid padding="0 0 0 2rem" margin="0">
+              <Text
+                bold2="700"
+                size={fontSize.base}
+                line_height="150%"
+                color={color.bg100}
+              >
+                함께 밀착한 사용자들이 남긴 리뷰
+              </Text>
+            </Grid>
             {other_user?.user_review.length !== 0 ? (
               other_user?.user_review.map((p, idx) => {
                 return <MyOneReview other_user {...p} key={idx} />;

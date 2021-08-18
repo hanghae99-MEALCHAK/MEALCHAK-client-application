@@ -150,47 +150,47 @@ const ProfileEdit = (props) => {
           <Grid shape="container" minWidth="32rem">
             <Header {...props} shape="프로필수정" />
 
-            <Grid margin="3.6rem auto 2rem">
+            <Grid is_flex2 margin="3.6rem auto 2rem">
               <Profile
                 user_profile={preview ? preview : user_info?.user_profile}
               />
-            </Grid>
-            <ProfileCover>
-              <input
-                type="file"
-                id="input-file"
-                ref={fileInput}
-                onChange={selectFile}
-                style={{ display: "none" }}
-              />
-              <label
-                htmlFor="input-file"
-                value={editProfile.image || ""}
-                style={{ cursor: "pointer" }}
-              >
-                <svg
-                  width="2.5rem"
-                  height="2.5rem"
-                  viewBox="0 0 30 30"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ margin: "3.6rem 0 0 3.8rem" }}
+              <ProfileCover>
+                <input
+                  type="file"
+                  id="input-file"
+                  ref={fileInput}
+                  onChange={selectFile}
+                  style={{ display: "none" }}
+                />
+                <label
+                  htmlFor="input-file"
+                  value={editProfile.image || ""}
+                  style={{ cursor: "pointer" }}
                 >
-                  <path
-                    d="M5 12.5558C5 11.4204 5.9204 10.5 7.05576 10.5V10.5C7.83809 10.5 8.55262 10.056 8.89902 9.35449L9.81482 7.5C9.99871 7.12761 10.0907 6.94142 10.2076 6.78792C10.5048 6.39791 10.9348 6.13064 11.4161 6.03689C11.6055 6 11.8132 6 12.2285 6H17.7715C18.1868 6 18.3945 6 18.5839 6.03689C19.0652 6.13064 19.4952 6.39791 19.7924 6.78792C19.9093 6.94142 20.0013 7.12761 20.1852 7.5L21.101 9.35449C21.4474 10.056 22.1619 10.5 22.9442 10.5V10.5C24.0796 10.5 25 11.4204 25 12.5558V18.2143C25 20.8349 25 22.1452 24.2369 22.999C24.1621 23.0827 24.0827 23.1621 23.999 23.2369C23.1452 24 21.8349 24 19.2143 24H10.7857C8.16513 24 6.85484 24 6.00096 23.2369C5.91728 23.1621 5.83786 23.0827 5.76307 22.999C5 22.1452 5 20.8349 5 18.2143V12.5558Z"
-                    stroke="white"
-                    strokeWidth="2"
-                  />
-                  <circle
-                    cx="15"
-                    cy="16"
-                    r="4"
-                    stroke="white"
-                    strokeWidth="2"
-                  />
-                </svg>
-              </label>
-            </ProfileCover>
+                  <svg
+                    width="2.5rem"
+                    height="2.5rem"
+                    viewBox="0 0 30 30"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ margin: "3.6rem 0 0 3.8rem" }}
+                  >
+                    <path
+                      d="M5 12.5558C5 11.4204 5.9204 10.5 7.05576 10.5V10.5C7.83809 10.5 8.55262 10.056 8.89902 9.35449L9.81482 7.5C9.99871 7.12761 10.0907 6.94142 10.2076 6.78792C10.5048 6.39791 10.9348 6.13064 11.4161 6.03689C11.6055 6 11.8132 6 12.2285 6H17.7715C18.1868 6 18.3945 6 18.5839 6.03689C19.0652 6.13064 19.4952 6.39791 19.7924 6.78792C19.9093 6.94142 20.0013 7.12761 20.1852 7.5L21.101 9.35449C21.4474 10.056 22.1619 10.5 22.9442 10.5V10.5C24.0796 10.5 25 11.4204 25 12.5558V18.2143C25 20.8349 25 22.1452 24.2369 22.999C24.1621 23.0827 24.0827 23.1621 23.999 23.2369C23.1452 24 21.8349 24 19.2143 24H10.7857C8.16513 24 6.85484 24 6.00096 23.2369C5.91728 23.1621 5.83786 23.0827 5.76307 22.999C5 22.1452 5 20.8349 5 18.2143V12.5558Z"
+                      stroke="white"
+                      strokeWidth="2"
+                    />
+                    <circle
+                      cx="15"
+                      cy="16"
+                      r="4"
+                      stroke="white"
+                      strokeWidth="2"
+                    />
+                  </svg>
+                </label>
+              </ProfileCover>
+            </Grid>
             <FocusWithin>
               <Grid
                 width="32rem"
@@ -401,7 +401,6 @@ const Profile = styled.div`
 
 const ProfileCover = styled.div`
   position: absolute;
-  margin-left: 12.9rem;
   top: 4.7rem;
   width: 10rem;
   height: 10rem;
