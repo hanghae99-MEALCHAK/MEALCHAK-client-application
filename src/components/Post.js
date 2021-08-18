@@ -103,7 +103,10 @@ const Post = React.memo((props) => {
         border="0.1rem solid #EBE9E8"
         radius={fontSize.base}
       >
-        <Grid is_float="left" margin="0.5rem 1.5rem 1.5rem 1.5rem">
+        <Grid is_float="left" 
+        // margin="0.5rem 1.5rem 0 1.5rem"
+        margin="0.5rem 1.5rem 0.8rem 1.5rem"
+        >
           <Grid is_flex>
             <UserProfile
               src={props.userImg}
@@ -175,13 +178,15 @@ const Post = React.memo((props) => {
               line_height="150%"
               color={color.bg100}
               bold
+              // margin="0"
               margin="0 0 0.8rem 0"
             >
               {props.title}
             </Text>
             <Text
               width="28.8rem"
-              margin="0 0 1.6rem 0"
+              // margin="0 0 0.6rem 0"
+              margin="0 0 0.8rem 0"
               size={fontSize.small}
               line_height="150%"
               color={color.bg100}
@@ -358,7 +363,7 @@ const UserProfile = styled.div`
 
 const Hr = styled.hr`
   width: 29rem;
-  height: 0.1rem;
+  height: 0.01rem;
   background-color: #f4f4f3;
   border: none;
   margin: 0;

@@ -323,7 +323,8 @@ const getMyReviewAX = () => {
           if (res.data.length !== 0) {
             res.data.forEach((p) => {
               const my_review = {
-                user_id: p.id,
+                user_id: p.userId,
+                review_id: p.id,
                 user_profile: p.profileImg,
                 user_nickname: p.username,
                 my_manner: p.manner,
