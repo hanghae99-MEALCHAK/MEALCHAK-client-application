@@ -59,8 +59,12 @@ const initialState = {
 const kakaoLogin = (code) => {
   return function (dispatch, getState, { history }) {
     // axiosModule
-    axios
-      .get(`https://gorokke.shop/user/kakao/callback?code=${code}`)
+    const headers= {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Content-Type': 'application/json',
+    };
+    axios.get(`https://gorokke.shop/user/kakao/callback?code=${code}`, {headers: headers})
       .then((res) => {
         // 인가코드에 관한 응답으로 jwt token 받음
         logger("user모듈 - 36", res);
