@@ -10,7 +10,7 @@ import withReactContent from "sweetalert2-react-content";
 import { history } from "../redux/configureStore";
 
 // style
-import { Text, Button, Grid } from "../elements";
+import { Text, Grid } from "../elements";
 import theme from "../styles/theme";
 import "./sweet.css";
 

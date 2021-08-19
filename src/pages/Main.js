@@ -100,7 +100,7 @@ const Main = (props) => {
               color={color.bg80}
               text_align="left"
             >
-              오늘은 어떤 음식을 배달 시키지말까?
+              오늘은 어떤 음식을 배달 시킬까?
             </Text>
             <svg
               style={{
@@ -174,7 +174,6 @@ const Main = (props) => {
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.all ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
-                  console.log(e);
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, all: true });
                   setCtg(e.target.innerText);

@@ -5,9 +5,6 @@ import jwtDecode from "jwt-decode";
 import { customAlert } from "../../components/Sweet";
 import { Text } from "../../elements";
 
-// temp
-import axios from "axios";
-
 import { actionCreators as imageActions } from "./image";
 
 // 개발환경 console.log() 관리용
@@ -58,13 +55,8 @@ const initialState = {
 // 카카오 회원가입 및 자동로그인
 const kakaoLogin = (code) => {
   return function (dispatch, getState, { history }) {
-    // axiosModule
-    const headers= {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Content-Type': 'application/json',
-    };
-    axios.get(`https://gorokke.shop/user/kakao/callback?code=${code}`, {headers: headers})
+    axiosModule
+      .get(`/user/kakao/callback?code=${code}`)
       .then((res) => {
         // 인가코드에 관한 응답으로 jwt token 받음
         logger("user모듈 - 36", res);
@@ -166,13 +158,17 @@ const loginCheck = (path) => {
             return;
           } else {
             if (!res.data.age || !res.data.gender) {
-              if(path === "/upload"){
-                return customAlert.sweetOK(
-                  "성별/연령 정보가 필요해요!", 
-                  "해당 서비스를 사용하려면",
-                  "성별과 연령 정보가 있어야해요.", "입력하러 가기").then((res) => {
+              if (path === "/upload") {
+                return customAlert
+                  .sweetOK(
+                    "성별/연령 정보가 필요해요!",
+                    "해당 서비스를 사용하려면",
+                    "성별과 연령 정보가 있어야해요.",
+                    "입력하러 가기"
+                  )
+                  .then((res) => {
                     return history.push("/profile");
-                  })
+                  });
               }
               customAlert.sweetAddCheck();
             }

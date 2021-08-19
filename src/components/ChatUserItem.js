@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Image, Text, Button } from "../elements";
+import { Grid, Image, Text } from "../elements";
 import theme from "../styles/theme";
 import { history } from "../redux/configureStore";
 import { IoIosCloseCircle } from "react-icons/io";
@@ -8,7 +8,7 @@ import logger from "../shared/Console";
 import { useSelector } from "react-redux";
 
 const ChatUserItem = (props) => {
-  const { fontSize, color, radius } = theme;
+  const { fontSize, color } = theme;
   const user_info = props.user_info;
   const shape = props.shape;
   const owner = props.owner;

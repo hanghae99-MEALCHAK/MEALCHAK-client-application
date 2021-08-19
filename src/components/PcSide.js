@@ -48,7 +48,13 @@ const PcSide = (props) => {
   return (
     <SideGrid is_tutorial={path}>
       <Grid shape="container" maxWidth="16rem">
-        <SideLogo src={mainLogo} alt="side-menu-logo"/>
+        <SideLogo
+          src={mainLogo}
+          alt="side-menu-logo"
+          onClick={() => {
+            history.push("/home");
+          }}
+        />
 
         <Grid
           is_flex4="t"
@@ -268,6 +274,7 @@ const SideGrid = styled.div`
 const SideLogo = styled.img`
   width: 12.5rem;
   margin-bottom: 1.65rem;
+  cursor: pointer;
 `;
 
 export default PcSide;

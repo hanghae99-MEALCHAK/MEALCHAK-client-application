@@ -1,9 +1,8 @@
 // MyReview map 함수 하위 컴포넌트
 import React from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
-import { actionCreators as userActions } from "../redux/modules/user";
 
 import { Grid, Text } from "../elements";
 import { customAlert } from "./Sweet";
@@ -13,10 +12,7 @@ import logger from "../shared/Console";
 const MyOneReview = React.memo((props) => {
   const { color, fontSize } = theme;
 
-  const dispatch = useDispatch();
-
   const is_login = useSelector((state) => state.user.is_login);
-  const other_user = useSelector((state) => state.user?.anotherUser);
   const user_info = useSelector((state) => state.user.user);
 
   // 연, 월

@@ -6,10 +6,8 @@ import { Header } from "../components";
 // style
 import styled from "styled-components";
 import { Grid } from "../elements";
-import theme from "../styles/theme";
 
 const AddressGrid = (props) => {
-  const { border } = theme;
 
   return (
     <GridTop is_home={props.is_home} is_post={props.is_post}>
