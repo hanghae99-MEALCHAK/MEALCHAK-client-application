@@ -21,7 +21,7 @@ const MyProfile = (props) => {
   const user_id = props.location.state.user_id
     ? props.location.state.user_id
     : props.location.state.userId;
-  const { color, border, fontSize, radius } = theme;
+  const { color, fontSize, radius } = theme;
 
   React.useEffect(() => {
     document

@@ -11,7 +11,7 @@ import { actionCreators as searchActions } from '../redux/modules/search';
 import theme from '../styles/theme';
 
 const Search = (props) => {
-  const { color, border } = theme;
+  const { color } = theme;
 
   const dispatch = useDispatch();
   const [food, setFood] = React.useState('');

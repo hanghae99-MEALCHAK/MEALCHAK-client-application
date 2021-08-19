@@ -6,7 +6,7 @@ import { history } from "../redux/configureStore";
 // style
 import styled from "styled-components";
 import { Header, Footer, AllowList, PcSide } from "../components";
-import { Button, Grid, Image, Text } from "../elements";
+import { Grid, Text } from "../elements";
 import { emptyBubbles } from "../styles/img/index";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
@@ -19,7 +19,7 @@ const AllowChat = (props) => {
 
   // 현재 room_id 필요
 
-  const { color, border, radius, fontSize } = theme;
+  const { color, border, fontSize } = theme;
 
   // 채팅 승인 목록
   const allow_list = useSelector((state) => state.chat.requestList);
