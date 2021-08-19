@@ -100,7 +100,7 @@ const Main = (props) => {
               color={color.bg80}
               text_align="left"
             >
-              오늘은 어떤 음식을 배달 시킬까?
+              오늘은 어떤 음식을 배달 시키지말까?
             </Text>
             <svg
               style={{
