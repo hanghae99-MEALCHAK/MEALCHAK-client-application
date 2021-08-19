@@ -53,11 +53,6 @@ const Post = React.memo((props) => {
 
   const requestJoin = () => {
     if (is_login) {
-      // customAlert.SweetChatRequest(
-      //   user_info?.user_id,
-      //   props.user_id,
-      //   props.post_id
-      // );
       dispatch(
         postActions.requestChatPostAX(
           user_info?.user_id,

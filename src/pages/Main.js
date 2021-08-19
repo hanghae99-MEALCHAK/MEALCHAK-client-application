@@ -1,16 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Grid, Text, Button } from "../elements";
+import { Grid, Text, Button, Image } from "../elements";
 import { Post, Footer, Header, MainBanner, PcSide } from "../components";
 import { emptyHome_3x } from "../styles/img/index";
 
 import { actionCreators as postActions } from "../redux/modules/post";
-import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { history } from "../redux/configureStore";
 import logger from "../shared/Console";
 
 import theme from "../styles/theme";
+import { search } from "../styles/img/index";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.scss";
@@ -82,7 +84,6 @@ const Main = (props) => {
             width="32rem"
             height="4.4rem"
             margin="0 1.8rem"
-            padding="0 0 0 1.5rem"
             bg={color.bg0}
             border={btn_border.bg40}
             radius="1.2rem"
@@ -91,18 +92,26 @@ const Main = (props) => {
               history.push("/search");
             }}
           >
-            <Text
-              minWidth="17rem"
-              height="2rem"
-              size={fontSize.small}
-              bold2="400"
-              line_height="150%"
-              color={color.bg80}
-              text_align="left"
+            <Grid
+              is_flex4="t"
+              flex_direction="row"
+              justify_content="space-between"
+              padding="0.2rem 1.4rem 0"
             >
-              오늘은 어떤 음식을 배달 시킬까?
-            </Text>
-            <svg
+              <Text
+                minWidth="17rem"
+                height="2rem"
+                size={fontSize.small}
+                bold2="400"
+                line_height="150%"
+                color={color.bg80}
+                text_align="left"
+              >
+                오늘은 어떤 음식을 배달 시킬까?
+              </Text>
+              <Image size="2.4" src={search} margin="0 0 0.4rem" />
+            </Grid>
+            {/* <svg
               style={{
                 position: "absolute",
                 top: "6.4rem",
@@ -122,7 +131,7 @@ const Main = (props) => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
-            </svg>
+            </svg> */}
           </Button>
         </Grid>
         <Grid is_float="left">
@@ -130,7 +139,7 @@ const Main = (props) => {
             <Text
               size="1.6rem"
               color={color.bg100}
-              padding="0.8rem 0 0 0"
+              padding="2.4rem 0 0 0"
               margin="0 0 0 2.1rem"
               bold
             >

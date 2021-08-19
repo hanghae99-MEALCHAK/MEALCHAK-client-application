@@ -371,7 +371,7 @@ const Header = (props) => {
           _onClick={() => {
             // history.goBack();
             history.push("/home");
-            dispatch(postActions.getPostAX("전체"));
+            // dispatch(postActions.getPostAX("전체"));
             dispatch(searchActions.food_check(false));
           }}
         />

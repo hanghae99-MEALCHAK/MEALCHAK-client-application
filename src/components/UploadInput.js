@@ -165,7 +165,6 @@ const UploadInput = React.memo((props) => {
             </Grid>
             <FocusWithin>
               <Input
-                width="inherit"
                 border={border.bg40}
                 padding="1.5rem 1.3rem"
                 size={fontSize.base}

@@ -295,28 +295,41 @@ const awaitChatOut = (join_id) => {
 // 채팅방 안에 들어와있는 사용자 정보
 const getChatUserAX = (roomId) => {
   return function (dispatch, getState, { history }) {
-    axiosModule
-      .get(`/chat/user/${roomId}`)
-      .then((res) => {
-        let user_in_chat_list = [];
-        res.data.forEach((u) => {
-          let one_user = {
-            user_id: u.id,
-            user_name: u.username,
-            user_img: u.profileImg,
-          };
-          user_in_chat_list.push(one_user);
+    if (roomId) {
+      return axiosModule
+        .get(`/chat/user/${roomId}`)
+        .then((res) => {
+          let user_in_chat_list = [];
+          res.data.forEach((u) => {
+            let one_user = {
+              user_id: u.id,
+              user_name: u.username,
+              user_img: u.profileImg,
+            };
+            user_in_chat_list.push(one_user);
+          });
+          dispatch(getChatUser(user_in_chat_list));
+        })
+        .catch((e) => {
+          logger("채팅 참여 유저 목록확인 에러", e);
+          customAlert.sweetConfirmReload(
+            "사용자 조회 실패",
+            ["채팅에 참여중인 사용자를 조회하는 것에 실패했습니다."],
+            "goBack"
+          );
         });
-        dispatch(getChatUser(user_in_chat_list));
-      })
-      .catch((e) => {
-        logger("채팅 참여 유저 목록확인 에러", e);
-        customAlert.sweetConfirmReload(
-          "사용자 조회 실패",
-          ["채팅에 참여중인 사용자를 조회하는 것에 실패했습니다."],
-          "goBack"
-        );
-      });
+    } else {
+      return customAlert
+        .sweetOK(
+          "잘못된 접근입니다.",
+          "홈으로 돌아갑니다.",
+          "채팅 신청 후 채팅탭을 이용해주세요.",
+          "확인"
+        )
+        .then((res) => {
+          return history.replace("/home");
+        });
+    }
   };
 };
 

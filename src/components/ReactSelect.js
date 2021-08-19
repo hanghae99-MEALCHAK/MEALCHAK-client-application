@@ -42,7 +42,7 @@ const customTheme = (theme) => {
     colors: {
       ...theme.colors,
       primary25: color.brand20,
-      primary: color.bg100,
+      primary: color.bg40,
     },
   };
 };

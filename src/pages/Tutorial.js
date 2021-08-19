@@ -7,8 +7,12 @@ import { Kakao_auth_url } from "../shared/OAuth";
 
 // style
 import { mainLogo } from "../styles/img/index";
+import { mainLogoWebp } from "../styles/img/webp/index";
+
 import { Button, Grid, Text } from "../elements";
 import theme from "../styles/theme";
+import {isWebpSupported} from 'react-image-webp/dist/utils';
+
 
 import { TutorialSwiper } from "../components";
 import { customAlert } from "../components/Sweet";
@@ -39,7 +43,7 @@ const Tutorial = (props) => {
     <React.Fragment>
       {loading ? (
         <Grid is_flex4 height="100vh">
-          <LogoImg src={mainLogo}></LogoImg>
+          {isWebpSupported() ? <LogoImg src={mainLogoWebp}></LogoImg>  : <LogoImg src={mainLogo}></LogoImg> }
         </Grid>
       ) : (
         <Grid
@@ -51,7 +55,7 @@ const Tutorial = (props) => {
           text_align="center"
         >
           {/* 패딩 빼보자 */}
-          <Grid shape="container">
+          <GridMedia>
             <Grid margin="2rem auto">
               <TutorialSwiper></TutorialSwiper>
             </Grid>
@@ -107,7 +111,7 @@ const Tutorial = (props) => {
                 </Grid>
               </Button>
             </DisplayGrid>
-          </Grid>
+          </GridMedia>
         </Grid>
       )}
     </React.Fragment>
@@ -133,6 +137,36 @@ const DisplayGrid = styled.div`
   position: fixed;
   bottom: 0;
   z-index: 1;
+`;
+
+const GridMedia = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media (max-aspect-ratio: 3/4) {
+    margin-top: 0rem;
+  }
+  @media (max-aspect-ratio: 3/4) and (min-height: 1000px) {
+    margin-top: 10rem;
+  }
+  @media (max-aspect-ratio: 3/4) and (min-height: 1300px) {
+    margin-top: 20rem;
+  }
+  @media (max-aspect-ratio: 5/8) and (min-height: 1200px) {
+    margin-top: 20rem;
+  }
+  @media (max-aspect-ratio: 3/5) and (max-height: 900px) {
+    margin-top: 5rem;
+  }
+  @media (max-aspect-ratio: 3/5) and (min-height: 900px) {
+    margin-top: 5rem;
+  }
+  @media (max-aspect-ratio: 1/2) and (max-height: 900px) {
+    margin-top: 10rem;
+  }
+  @media (max-aspect-ratio: 28/65) {
+    margin-top: 15rem;
+  }
 `;
 
 export default Tutorial;

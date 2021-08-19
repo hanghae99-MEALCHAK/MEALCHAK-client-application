@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { Grid, Text } from "../elements";
 import theme from "../styles/theme";
+import { customAlert } from "../components/Sweet";
 import { Header, PcSide } from "../components";
 
 const Settings = (props) => {
@@ -76,7 +77,9 @@ const Settings = (props) => {
             borderBottom={border.bg20}
             cursor="t"
             _onClick={() => {
-              window.alert("구현되지 않은 기능입니다.");
+              customAlert.sweetOK("밀착 알림", "아직 구현되지 않은 기능입니다.").then(() => {
+                return ;
+              })
             }}
           >
             <svg

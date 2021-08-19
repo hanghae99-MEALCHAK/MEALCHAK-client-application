@@ -273,6 +273,7 @@ const SideGrid = styled.div`
 
 const SideLogo = styled.img`
   width: 12.5rem;
+  height: 4.034rem;
   margin-bottom: 1.65rem;
   cursor: pointer;
 `;
