@@ -15,7 +15,6 @@ import theme from "../styles/theme";
 import { search } from "../styles/img/index";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination, Navigation } from "swiper";
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
@@ -184,7 +183,6 @@ const Main = (props) => {
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.all ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
-                  console.log(e);
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, all: true });
                   setCtg(e.target.innerText);

@@ -8,11 +8,10 @@ import theme from "../styles/theme";
 import logger from "../shared/Console";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
-import { customAlert } from "../components/Sweet";
 
 import Select from "../components/ReactSelect";
 
-const { color, border, fontSize } = theme;
+const { color, fontSize } = theme;
 // select options
 const options = [
   { value: "chocolate", label: "최고예요!" },

@@ -57,7 +57,7 @@ const initialState = {
 const kakaoLogin = (code) => {
   return function (dispatch, getState, { history }) {
     axiosModule
-      .get(`user/kakao/callback?code=${code}`)
+      .get(`/user/kakao/callback?code=${code}`)
       .then((res) => {
         // 인가코드에 관한 응답으로 jwt token 받음
         logger("user모듈 - 36", res);

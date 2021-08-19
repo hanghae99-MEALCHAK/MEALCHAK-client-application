@@ -9,9 +9,9 @@ import { actionCreators as chatActions } from "../redux/modules/chat";
 import { Grid, Text, Image } from "../elements";
 import { exit } from "../styles/img/index";
 import theme from "../styles/theme";
-import { FiLogOut } from "react-icons/fi";
-import styled from "styled-components";
-import { IoClose } from "react-icons/io5";
+// import { FiLogOut } from "react-icons/fi";
+// import styled from "styled-components";
+// import { IoClose } from "react-icons/io5";
 import { customAlert } from "./Sweet";
 
 const SideContent = (props) => {
@@ -24,7 +24,7 @@ const SideContent = (props) => {
   // 시간
   const today = moment().format("YYYY-MM-DD");
   const tomorrow = moment().add(1, "d").format("YYYY-MM-DD");
-  const pass_day = parseInt(today.split("-").join(""));
+  // const pass_day = parseInt(today.split("-").join(""));
   const is_today = today === order_time.split(" ")[0] ? true : false;
   const is_tomorrow = tomorrow === order_time.split(" ")[0] ? true : false;
 

@@ -1,6 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as chatActions } from "../redux/modules/chat";
+import { useSelector } from "react-redux";
 
 import { Grid } from "../elements";
 import { Message } from ".";

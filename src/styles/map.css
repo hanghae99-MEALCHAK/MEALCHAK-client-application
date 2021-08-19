@@ -88,7 +88,7 @@
   position: absolute;
   margin-left: -12px;
   left: 50%;
-  bottom: 1rem;
+  /* bottom: 1rem; */
   width: 22px;
   height: 12px;
   background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");

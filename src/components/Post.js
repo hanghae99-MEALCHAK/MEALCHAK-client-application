@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 
 // style
-import { Grid, Image, Text, Button } from "../elements";
+import { Grid, Text, Button } from "../elements";
 import { customAlert } from "./Sweet";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
@@ -13,7 +13,7 @@ import logger from "../shared/Console";
 import moment from "moment";
 
 const Post = React.memo((props) => {
-  logger("포스트 리렌더링이 되었습니다.")
+  logger("포스트 리렌더링이 되었습니다.");
   const { color, fontSize } = theme;
 
   // 글 생성 시간
@@ -98,9 +98,10 @@ const Post = React.memo((props) => {
         border="0.1rem solid #EBE9E8"
         radius={fontSize.base}
       >
-        <Grid is_float="left" 
-        // margin="0.5rem 1.5rem 0 1.5rem"
-        margin="0.5rem 1.5rem 0.8rem 1.5rem"
+        <Grid
+          is_float="left"
+          // margin="0.5rem 1.5rem 0 1.5rem"
+          margin="0.5rem 1.5rem 0.8rem 1.5rem"
         >
           <Grid is_flex>
             <UserProfile

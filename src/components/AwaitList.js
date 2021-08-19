@@ -5,7 +5,7 @@ import { actionCreators as chatActions } from "../redux/modules/chat";
 import { IoIosCloseCircle } from "react-icons/io";
 
 import theme from "../styles/theme";
-import { Button, Grid, Text } from "../elements";
+import { Grid, Text } from "../elements";
 import logger from "../shared/Console";
 import { customAlert } from "./Sweet";
 

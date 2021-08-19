@@ -173,8 +173,8 @@ const getDetailPostUserListAX = (postId) => {
     axiosModule
       .get(`/posts/${postId}`)
       .then((res) => {
+        logger("getDtailPostUserListAX : ", res);
         let user_list = [];
-        console.log(res);
         res.data.userList.forEach((p) => {
           let user = {
             user_id: p.id,
@@ -497,6 +497,14 @@ const deletePostAX = (post_id) => {
             .delete(`/posts/${post_id}`)
             .then(() => {
               dispatch(deletePost(post_id));
+              // if (path === "is_profile") {
+              //   customAlert.sweetConfirmReload(
+              //     "삭제가 완료 됐어요",
+              //     ["선택하신 게시글이 삭제되었어요."],
+              //     "/mypost"
+              //   );
+              //   return;
+              // }
               customAlert.sweetConfirmReload(
                 "삭제가 완료 됐어요",
                 ["선택하신 게시글이 삭제되었어요."],

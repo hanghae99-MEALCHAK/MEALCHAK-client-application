@@ -23,6 +23,7 @@ import emptyHome_3x from "./emptyHome_3x.png"
 import emptyMeal_3x from "./emptyMeal_3x.png"
 import inviteBg100 from "./inviteBg100.png"
 import search from "./search.png"
+import frontError from "./frontError.png";
 
 export {
     mainLogo,
@@ -50,4 +51,5 @@ export {
     emptyMeal_3x,
     inviteBg100,
     search,
+    frontError,
 }

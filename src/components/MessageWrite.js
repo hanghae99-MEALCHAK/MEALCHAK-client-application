@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import logger from "../shared/Console";
 import { useDispatch } from "react-redux";
-import { actionCreators as chatActions } from "../redux/modules/chat";
 import { useRef } from "react";
 import _ from "lodash";
 

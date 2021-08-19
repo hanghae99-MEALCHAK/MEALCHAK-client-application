@@ -77,11 +77,7 @@ function App() {
               <Route path="/home" exact component={Main} />
               <Route path="/post/:id" exact component={DetailPage} />
               <Route path="/address" exact component={RoadAddress} />
-              <Route
-                path="/user/kakao/callback"
-                exact
-                component={LoginRedirect}
-              />
+              <Route path="/user/kakao/callback" exact component={LoginRedirect}/>
               <Route path="/upload" exact component={Upload} />
               <Route path="/upload/:id" exact component={Upload} />
               <Route path="/search" exact component={Search} />

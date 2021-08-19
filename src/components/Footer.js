@@ -1,8 +1,7 @@
 import React from "react";
 import logger from "../shared/Console";
 import { history } from "../redux/configureStore";
-import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as postActions } from "../redux/modules/post";
+import { useSelector } from "react-redux";
 
 import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
@@ -20,7 +19,6 @@ import {
 import { customAlert } from "./Sweet";
 
 const Footer = (props) => {
-  const dispatch = useDispatch();
   const { color, fontSize } = theme;
 
   const path = props.match.path;
@@ -47,18 +45,13 @@ const Footer = (props) => {
           text_align="center"
           maxWidth="9rem"
           _onClick={() => {
-            // dispatch(postActions.getPostAX("전체"));
-            // dispatch(postActions.clearPost());
             history.push("/home");
           }}
         >
           <Grid is_flex4="t" justify_content="center">
             <Image
-              src={
-                path === "/home"
-                  ? homeBrand100
-                  : homeback60
-              }
+              cursor="t"
+              src={path === "/home" ? homeBrand100 : homeback60}
               size="3"
               margin="0"
             />
@@ -86,11 +79,8 @@ const Footer = (props) => {
         >
           <Grid is_flex4="t" justify_content="center">
             <Image
-              src={
-                path === "/upload"
-                  ? friendsBrand100
-                  : friends
-              }
+              cursor="t"
+              src={path === "/upload" ? friendsBrand100 : friends}
               size="3"
               margin="0"
             />
@@ -117,6 +107,7 @@ const Footer = (props) => {
         >
           <Grid is_flex4="t" justify_content="center">
             <Image
+              cursor="t"
               src={
                 path === "/chatlist" || path === "/allowchat"
                   ? chatBrand100
@@ -155,11 +146,8 @@ const Footer = (props) => {
         >
           <Grid is_flex4="t" justify_content="center">
             <Image
-              src={
-                path === "/mypage"
-                  ? mypageBrand100
-                  : mypageback60
-              }
+              cursor="t"
+              src={path === "/mypage" ? mypageBrand100 : mypageback60}
               size="3"
               margin="0"
             />
