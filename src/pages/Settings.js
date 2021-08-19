@@ -2,13 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import logger from "../shared/Console";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postActions } from "../redux/modules/post";
+import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { Kakao_auth_url } from "../shared/OAuth";
-import Spinner from "../shared/Spinner";
 import { Grid, Text } from "../elements";
 import theme from "../styles/theme";
+import { customAlert } from "../components/Sweet";
 import { Header, PcSide } from "../components";
 
 const Settings = (props) => {
@@ -79,7 +77,9 @@ const Settings = (props) => {
             borderBottom={border.bg20}
             cursor="t"
             _onClick={() => {
-              window.alert("구현되지 않은 기능입니다.");
+              customAlert.sweetOK("밀착 알림", "아직 구현되지 않은 기능입니다.").then(() => {
+                return ;
+              })
             }}
           >
             <svg

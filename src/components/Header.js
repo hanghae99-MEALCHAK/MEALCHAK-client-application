@@ -19,13 +19,13 @@ const Header = (props) => {
 
   const is_login = useSelector((state) => state.user.is_login);
 
-  const loginCheck = (path) => {
-    if (is_login) {
-      history.push(`/${path}`);
-    } else {
-      customAlert.sweetNeedLogin();
-    }
-  };
+  // const loginCheck = (path) => {
+  //   if (is_login) {
+  //     history.push(`/${path}`);
+  //   } else {
+  //     customAlert.sweetNeedLogin();
+  //   }
+  // };
   const { color, fontSize } = theme;
 
   React.useEffect(() => {
@@ -371,7 +371,7 @@ const Header = (props) => {
           _onClick={() => {
             // history.goBack();
             history.push("/home");
-            dispatch(postActions.getPostAX("전체"));
+            // dispatch(postActions.getPostAX("전체"));
             dispatch(searchActions.food_check(false));
           }}
         />

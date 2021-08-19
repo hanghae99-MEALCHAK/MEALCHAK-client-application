@@ -1,18 +1,16 @@
 // 마이페이지 - 내가 받은 리뷰
 import React from "react";
 import styled from "styled-components";
-import logger from "../shared/Console";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as userActions } from "../redux/modules/user";
 import Spinner from "../shared/Spinner";
-import { history } from "../redux/configureStore";
 import { MyOneReview, PcSide } from "../components";
 
 // style
-import { Button, Grid, Input, Text } from "../elements";
+import { Grid} from "../elements";
 import { emptyMeal_3x } from "../styles/img/index";
 import { Header } from "../components";
+import logger from "../shared/Console";
 import theme from "../styles/theme";
 
 const MyReview = (props) => {
@@ -20,7 +18,6 @@ const MyReview = (props) => {
 
   const is_login = useSelector((state) => state.user?.is_login);
   const my_review = useSelector((state) => state.user?.myReview);
-  const { color, border, fontSize } = theme;
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -47,7 +44,7 @@ const MyReview = (props) => {
             <Grid height="1.6rem" />
             {my_review?.length !== 0 ? (
               my_review.map((p, idx) => {
-                return <MyOneReview {...p} key={idx} />;
+                return <MyOneReview is_me {...p} key={idx} />;
               })
             ) : (
               <Grid>

@@ -9,6 +9,7 @@ const axiosModule = axios.create({
   },
   baseURL: 'http://115.85.182.57',
   // baseURL: "http://52.78.204.238",
+  // baseURL: "https://gorokke.shop",
 });
 
 axiosModule.interceptors.request.use((config) => {

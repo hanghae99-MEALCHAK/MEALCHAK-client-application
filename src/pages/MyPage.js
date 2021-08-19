@@ -7,8 +7,7 @@ import { history } from "../redux/configureStore";
 
 // style
 import { Header, Footer, ProfileTab, PcSide } from "../components";
-import { inviteBg100 } from "../styles/img/index";
-import { Grid, Text, Image } from "../elements";
+import { Grid, Text } from "../elements";
 import Spinner from "../shared/Spinner";
 import theme from "../styles/theme";
 import logger from "../shared/Console";

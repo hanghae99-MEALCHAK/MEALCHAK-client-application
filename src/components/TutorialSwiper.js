@@ -3,7 +3,11 @@ import styled from 'styled-components';
 
 import { Grid, Text } from '../elements';
 import { introA_3x, introB_3x, introC_3x } from '../styles/img/index';
+import { introA_3xWebp, introB_3xWebp, introC_3xWebp } from '../styles/img/webp/index';
+
 import theme from '../styles/theme';
+import {isWebpSupported} from 'react-image-webp/dist/utils';
+
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination, Navigation } from 'swiper';
@@ -31,7 +35,7 @@ const TutorialSwiper = (props) => {
           <SwiperSlide>
             <Grid shape="container">              
               <Grid maxWidth="36rem">              
-                <ElIntro src={introA_3x} alt="intro"></ElIntro>                
+              {isWebpSupported() ? <ElIntro src={introA_3xWebp} alt="intro"></ElIntro>  : <ElIntro src={introA_3x} alt="intro"></ElIntro> }              
               </Grid>              
               <Grid>
                 <Text
@@ -55,7 +59,7 @@ const TutorialSwiper = (props) => {
           <SwiperSlide>
             <Grid shape="container">
               <Grid maxWidth="36rem">
-                <ElIntro src={introB_3x} alt="intro"></ElIntro>
+              {isWebpSupported() ? <ElIntro src={introB_3xWebp} alt="intro"></ElIntro>  : <ElIntro src={introB_3x} alt="intro"></ElIntro> }              
               </Grid>
               <Grid>
                 <Text
@@ -79,7 +83,7 @@ const TutorialSwiper = (props) => {
           <SwiperSlide>
             <Grid shape="container">
               <Grid>
-                <ElIntro src={introC_3x} alt="intro"></ElIntro>
+              {isWebpSupported() ? <ElIntro src={introC_3xWebp} alt="intro"></ElIntro>  : <ElIntro src={introC_3x} alt="intro"></ElIntro> }              
               </Grid>
               <Grid>
                 <Text
@@ -108,7 +112,21 @@ TutorialSwiper.defaultProps = {};
 
 const ElIntro = styled.img`
   max-width: 32rem;
+  width: 32rem;
+  height: 32rem;
   /* vertical-align: middle; */
+  @media (min-aspect-ratio: 5/7) and (max-height: 780px) and (max-width: 600px) {
+    width: 27rem;
+    height: 27rem;
+  }
+  @media (min-aspect-ratio: 5/7) and (max-height: 780px) and (max-width: 800px) {
+    width: 24rem;
+    height: 24rem;
+  }
+  @media (min-aspect-ratio: 5/7) and (max-height: 780px) and (min-width: 800px) {
+    width: 23rem;
+    height: 23rem;
+  }
 `;
 
 export default TutorialSwiper;

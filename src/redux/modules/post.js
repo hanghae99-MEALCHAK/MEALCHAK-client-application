@@ -95,7 +95,7 @@ const getPostAX = (category, sort = "recent") => {
               nowHeadCount: p.nowHeadCount,
               valid: p.valid,
             };
-            logger("post", post);
+            // logger("post", post);
             post_list.push(post);
           });
         } else {
@@ -173,6 +173,7 @@ const getDetailPostUserListAX = (postId) => {
     axiosModule
       .get(`/posts/${postId}`)
       .then((res) => {
+        logger("getDtailPostUserListAX : ", res);
         let user_list = [];
         res.data.userList.forEach((p) => {
           let user = {
@@ -330,7 +331,8 @@ const requestChatPostAX = (user_id, post_user_id, post_id, detail_path) => {
           "채팅방에 참여하시겠어요?",
           "참여하기를 누르면, 방장에게",
           "승인 요청을 보낼게요!",
-          "참여하기"
+          "참여하기",
+          "취소"
         )
         .then((res) => {
           if (res) {
@@ -495,6 +497,14 @@ const deletePostAX = (post_id) => {
             .delete(`/posts/${post_id}`)
             .then(() => {
               dispatch(deletePost(post_id));
+              // if (path === "is_profile") {
+              //   customAlert.sweetConfirmReload(
+              //     "삭제가 완료 됐어요",
+              //     ["선택하신 게시글이 삭제되었어요."],
+              //     "/mypost"
+              //   );
+              //   return;
+              // }
               customAlert.sweetConfirmReload(
                 "삭제가 완료 됐어요",
                 ["선택하신 게시글이 삭제되었어요."],

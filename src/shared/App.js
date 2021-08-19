@@ -1,15 +1,15 @@
-import './App.css';
-import React from 'react';
-import GlobalStyle from './GlobalStyle';
+import "./App.css";
+import React from "react";
+import GlobalStyle from "./GlobalStyle";
 
-import { Route, Switch } from 'react-router-dom';
-import { ConnectedRouter } from 'connected-react-router';
-import { history } from '../redux/configureStore';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as userAction } from '../redux/modules/user';
+import { Route, Switch } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "../redux/configureStore";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as userAction } from "../redux/modules/user";
 
-import Spinner from './Spinner';
-import { Grid } from '../elements';
+import Spinner from "./Spinner";
+import { Grid } from "../elements";
 
 import {
   Main,
@@ -30,18 +30,18 @@ import {
   MyProfile,
   UserProfile,
   AllowChat,
-} from '../pages';
+} from "../pages";
 
-import ReviewWrite from '../pages/ReviewWrite';
+import ReviewWrite from "../pages/ReviewWrite";
 
 // 사용자 token 여부
-import { token } from './OAuth';
-import logger from './Console';
+import { token } from "./OAuth";
+import logger from "./Console";
 
 function App() {
   const dispatch = useDispatch();
 
-  const path = document.location.href.split('/')[3];
+  const path = document.location.href.split("/")[3];
 
   const user_info = useSelector((state) => state.user.user);
   const is_loading = useSelector((state) => state.user.is_loading);
@@ -51,11 +51,11 @@ function App() {
   React.useEffect(() => {
     if (token) {
       dispatch(userAction.loginCheck(`/${path}`));
-      logger('app.js user 정보', user_info);
+      logger("app.js user 정보", user_info);
     }
-    logger('app.js token 정보', token);
-    logger('is_loading', is_loading);
-    logger('path', path);
+    logger("app.js token 정보", token);
+    logger("is_loading", is_loading);
+    logger("path", path);
   }, []);
 
   if (is_loading) {
@@ -69,14 +69,14 @@ function App() {
   return (
     <React.Fragment>
         <ConnectedRouter history={history}>
-          <GlobalStyle/>
+          <GlobalStyle />
           <Grid shape="topGrid">
             <Switch>
               <Route path="/" exact component={Tutorial} />
               <Route path="/home" exact component={Main} />
               <Route path="/post/:id" exact component={DetailPage} />
               <Route path="/address" exact component={RoadAddress} />
-              <Route path="/user/kakao/callback" exact component={LoginRedirect} />
+              <Route path="/user/kakao/callback" exact component={LoginRedirect}/>
               <Route path="/upload" exact component={Upload} />
               <Route path="/upload/:id" exact component={Upload} />
               <Route path="/search" exact component={Search} />
@@ -90,10 +90,10 @@ function App() {
               <Route path="/chatlist" exact component={ChatRoomList} />
               <Route path="/chatting" exact component={Chat} />
               <Route path="/allowchat" exact component={AllowChat} />
-              <Route path="*" component={NotFound} />
               <Route path="/write" exact component={ReviewWrite} />
+              <Route component={NotFound} />
             </Switch>
-          </Grid>          
+          </Grid>
         </ConnectedRouter>
     </React.Fragment>
   );

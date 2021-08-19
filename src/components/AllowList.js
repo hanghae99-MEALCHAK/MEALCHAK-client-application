@@ -7,7 +7,7 @@ import { history } from "../redux/configureStore";
 
 const AllowList = (props) => {
   const { color, border, fontSize } = theme;
-  const { roomName, join_id, user_id, user_img, username } = props;
+  const { roomName, join_id, user_img, username } = props;
 
   React.useEffect(() => {
     logger("승인요청대기 페이지", props);

@@ -1,12 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { history } from "../redux/configureStore";
 import moment from "moment";
 
 import { actionCreators as postAction } from "../redux/modules/post";
 import { actionCreators as userAction } from "../redux/modules/user";
-import { Kakao_auth_url } from "../shared/OAuth";
 import logger from "../shared/Console";
 
 // style

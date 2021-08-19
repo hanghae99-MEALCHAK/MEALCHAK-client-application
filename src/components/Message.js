@@ -1,14 +1,13 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import logger from "../shared/Console";
 import Spinner from "../shared/Spinner";
-import moment from "moment";
 
 import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
 
 const Message = (props) => {
-  const { color, border, fontSize } = theme;
+  const { color, fontSize } = theme;
   const { messagesInfo } = props;
 
   // 사용자 이름, 이미지

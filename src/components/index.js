@@ -17,7 +17,6 @@ import AllowList from "./AllowList";
 import MyOneReview from "./MyOneReview";
 import SideContent from "./SideContent";
 import ChatUserItem from "./ChatUserItem";
-import ScrollTop from "./ScrollTop";
 import ProfileTab from "./ProfileTab";
 import PcSide from "./PcSide";
 
@@ -42,6 +41,5 @@ export {
   MyOneReview,
   SideContent,
   ChatUserItem,
-  ScrollTop,
   ProfileTab,
 };

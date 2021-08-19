@@ -6,10 +6,8 @@ import { Header } from "../components";
 // style
 import styled from "styled-components";
 import { Grid } from "../elements";
-import theme from "../styles/theme";
 
 const AddressGrid = (props) => {
-  const { border } = theme;
 
   return (
     <GridTop is_home={props.is_home} is_post={props.is_post}>
@@ -24,7 +22,7 @@ const AddressGrid = (props) => {
         <Grid shape="container">
           {props.is_post ? (
             <Header {...props} shape="주소입력" close={props?.close}>
-              만날 장소 입력
+              만날 장소
             </Header>
           ) : (
             <Header {...props} shape="주소입력" close={props?.close}>

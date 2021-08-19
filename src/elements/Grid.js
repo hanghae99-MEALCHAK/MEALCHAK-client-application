@@ -315,6 +315,8 @@ const Container = styled.div`
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")};
   ${(props) => (props.bg ? `background-color: ${props.bg};` : "")};
   ${(props) => (props.minWidth ? `min-width: ${props.minWidth};` : "")};
+  ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
+
 `;
 
 const EmptyImg = styled.div`

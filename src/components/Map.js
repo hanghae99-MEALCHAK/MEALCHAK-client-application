@@ -1,20 +1,14 @@
 /*global kakao */
 import React from "react";
-import styled from "styled-components";
-import { history } from "../redux/configureStore";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postAction } from "../redux/modules/post";
-import { actionCreators as chatActions } from "../redux/modules/chat";
+import { useSelector } from "react-redux";
+
 import "../styles/map.css";
 
-import { Grid, Button, Text, Image } from "../elements";
-
+import { Grid, Text } from "../elements";
 import theme from "../styles/theme";
-import logger from "../shared/Console";
-import { customAlert } from "./Sweet";
 
 const Map = (props) => {
-  const { color, radius, fontSize } = theme;
+  const { radius } = theme;
 
   const latitude = useSelector((state) => state.post.post_lat_lng?.latitude);
   const longitude = useSelector((state) => state.post.post_lat_lng?.longitude);
@@ -55,7 +49,9 @@ const Map = (props) => {
       "           </div>" +
       '            <div class="desc">' +
       `                <div class="ellipsis">${props?.address}</div>` +
-      `                <div class="jibun ellipsis">${props?.detail_address ? props?.detail_address : ""}</div>` +
+      `                <div class="jibun ellipsis">${
+        props?.detail_address ? props?.detail_address : ""
+      }</div>` +
       "            </div>" +
       "        </div>" +
       "    </div>" +
@@ -82,6 +78,19 @@ const Map = (props) => {
 
   return (
     <React.Fragment>
+      {/* {!latitude && !longitude ? (
+        ""
+      ) : (
+        <Grid
+          id="map"
+          width="32rem"
+          height="25rem"
+          margin="1.6rem auto"
+          padding="1.6rem 1.6rem 0.8rem 1.6rem"
+          is_border="0.1rem solid #EBE9E8"
+          radius={radius.postBox}
+        ></Grid>
+      )} */}
       <Grid
         id="map"
         width="32rem"

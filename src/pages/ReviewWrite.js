@@ -8,11 +8,10 @@ import theme from "../styles/theme";
 import logger from "../shared/Console";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
-import { customAlert } from "../components/Sweet";
 
 import Select from "../components/ReactSelect";
 
-const { color, border, fontSize } = theme;
+const { color, fontSize } = theme;
 // select options
 const options = [
   { value: "chocolate", label: "최고예요!" },
@@ -56,8 +55,9 @@ const ReviewWrite = (props) => {
 
   const changeDisabled = (e) => {
     if (e.target.value.length === 150) {
-      // customAlert 변경
-      window.alert("리뷰 작성 시 150자 이상 입력할 수 없습니다.");
+      customAlert.sweetOK("리뷰 알림", "리뷰 작성 시 150자 이상 입력할 수 없습니다.").then(() => {
+        return ;
+      })
     }
     setReview(e.target.value);
     setDisabled(false);

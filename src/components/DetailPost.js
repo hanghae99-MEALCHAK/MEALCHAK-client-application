@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postAction } from "../redux/modules/post";
-import { actionCreators as chatActions } from "../redux/modules/chat";
 import Map from "../components/Map";
 
 import { Grid, Button, Text, Image } from "../elements";
@@ -19,13 +18,10 @@ const DetailPost = React.memo((props) => {
   const {
     address,
     detail_address,
-    category,
     contents,
     distance,
     headCount,
     nowHeadCount,
-    insert_dt,
-    is_me,
     orderDate,
     orderTime,
     post_id,
@@ -34,10 +30,7 @@ const DetailPost = React.memo((props) => {
     userImg,
     user_id,
     username,
-    room_id,
     valid,
-    latitude,
-    longitude,
     chat_user_list,
   } = props;
 
@@ -79,6 +72,7 @@ const DetailPost = React.memo((props) => {
   };
 
   React.useEffect(() => {
+    logger("DetailPost : ", props);
     if (valid === false) {
       return setDisabled(true);
     }
@@ -90,7 +84,9 @@ const DetailPost = React.memo((props) => {
   }, [disabled ? disabled : null]);
 
   const deleteBtn = () => {
-    dispatch(postAction.deletePostAX(post_id));
+    dispatch(
+      postAction.deletePostAX(post_id, props?.is_profile ? "is_profile" : null)
+    );
   };
 
   const requestJoin = () => {

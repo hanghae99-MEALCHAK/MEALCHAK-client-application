@@ -1,22 +1,18 @@
 // 마이페이지 - 내가 쓴 글
 import React from "react";
 import styled from "styled-components";
-import logger from "../shared/Console";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as userActions } from "../redux/modules/user";
 import Spinner from "../shared/Spinner";
-import { history } from "../redux/configureStore";
-import { Post, DetailPost, PcSide } from "../components";
+import {  DetailPost, PcSide } from "../components";
 
 // style
-import { Button, Grid, Input, Text } from "../elements";
+import { Grid } from "../elements";
 import { emptyMeal_3x } from "../styles/img/index";
 import { Header } from "../components";
-import theme from "../styles/theme";
+import logger from "../shared/Console";
 
 const MyPost = (props) => {
-  const { color, border, fontSize } = theme;
 
   const dispatch = useDispatch();
 
