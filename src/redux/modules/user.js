@@ -1,4 +1,5 @@
 import { createAction, handleActions } from "redux-actions";
+import { useMemo } from "react";
 import { produce } from "immer";
 import axiosModule from "../axios_module";
 import jwtDecode from "jwt-decode";
@@ -83,7 +84,11 @@ const kakaoLogin = (code) => {
 
         customAlert.sweetConfirmReload(
           "로그인 성공",
-          [`${user_nickname}님 환영합니다.`],
+          [
+            `${user_nickname}님 반가워요!`,
+            `밀착에서 사람도, 환경도`,
+            `한 걸음 더 가까워져봐요!`,
+          ],
           "/home"
         );
       })
@@ -158,13 +163,17 @@ const loginCheck = (path) => {
             return;
           } else {
             if (!res.data.age || !res.data.gender) {
-              if(path === "/upload"){
-                return customAlert.sweetOK(
-                  "성별/연령 정보가 필요해요!", 
-                  "해당 서비스를 사용하려면",
-                  "성별과 연령 정보가 있어야해요.", "입력하러 가기").then((res) => {
+              if (path === "/upload") {
+                return customAlert
+                  .sweetOK(
+                    "성별/연령 정보가 필요해요!",
+                    "해당 서비스를 사용하려면",
+                    "성별과 연령 정보가 있어야해요.",
+                    "입력하러 가기"
+                  )
+                  .then((res) => {
                     return history.push("/profile");
-                  })
+                  });
               }
               customAlert.sweetAddCheck();
             }
@@ -220,6 +229,7 @@ const editUserAddressAX = (address) => {
       });
   };
 };
+
 
 // 타 유저 프로필 페이지 - 해당 유저 정보 가져오기
 const findUserProfileAX = (user_id) => {

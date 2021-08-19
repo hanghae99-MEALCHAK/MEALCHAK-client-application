@@ -164,18 +164,18 @@ const UploadInput = React.memo((props) => {
               </Text>
             </Grid>
             <FocusWithin>
-                <Input
-                  border={border.bg40}
-                  padding="1.5rem 1.3rem"
-                  size={fontSize.base}
-                  color={color.bg80}
-                  placeholder="상세 주소 입력란"
-                  value={post_info.detail_place}
-                  _onChange={(e) => {
-                    setPostInfo({ ...post_info, detail_place: e.target.value });
-                    props.onChange({ detail_place: e.target.value });
-                  }}
-                ></Input>
+              <Input
+                border={border.bg40}
+                padding="1.5rem 1.3rem"
+                size={fontSize.base}
+                color={color.bg80}
+                placeholder="상세 주소 입력란"
+                value={post_info.detail_place}
+                _onChange={(e) => {
+                  setPostInfo({ ...post_info, detail_place: e.target.value });
+                  props.onChange({ detail_place: e.target.value });
+                }}
+              ></Input>
               <Button
                 height="5rem"
                 border={border.bg40}
@@ -261,8 +261,7 @@ const UploadInput = React.memo((props) => {
                 배달 주문 예정 시간
               </Text>
 
-              <Grid display_grid="t"
-              >
+              <Grid display_grid="t">
                 <SDatePicker
                   onFocus={(e) => (e.target.readOnly = true)}
                   showDisabledMonthNavigation

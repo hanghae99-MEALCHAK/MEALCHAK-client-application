@@ -58,7 +58,6 @@ const SideContent = (props) => {
     if (my_id === own_user_id) {
       customAlert.SweetBreak(props.sendBreak, post_id);
     } else {
-      // customAlert.SweetOutChat(post_id);
       dispatch(chatActions.leaveChatAX(post_id))
     }
   };

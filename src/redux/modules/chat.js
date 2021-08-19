@@ -295,28 +295,41 @@ const awaitChatOut = (join_id) => {
 // 채팅방 안에 들어와있는 사용자 정보
 const getChatUserAX = (roomId) => {
   return function (dispatch, getState, { history }) {
-    axiosModule
-      .get(`/chat/user/${roomId}`)
-      .then((res) => {
-        let user_in_chat_list = [];
-        res.data.forEach((u) => {
-          let one_user = {
-            user_id: u.id,
-            user_name: u.username,
-            user_img: u.profileImg,
-          };
-          user_in_chat_list.push(one_user);
+    if (roomId) {
+      return axiosModule
+        .get(`/chat/user/${roomId}`)
+        .then((res) => {
+          let user_in_chat_list = [];
+          res.data.forEach((u) => {
+            let one_user = {
+              user_id: u.id,
+              user_name: u.username,
+              user_img: u.profileImg,
+            };
+            user_in_chat_list.push(one_user);
+          });
+          dispatch(getChatUser(user_in_chat_list));
+        })
+        .catch((e) => {
+          logger("채팅 참여 유저 목록확인 에러", e);
+          customAlert.sweetConfirmReload(
+            "사용자 조회 실패",
+            ["채팅에 참여중인 사용자를 조회하는 것에 실패했습니다."],
+            "goBack"
+          );
         });
-        dispatch(getChatUser(user_in_chat_list));
-      })
-      .catch((e) => {
-        logger("채팅 참여 유저 목록확인 에러", e);
-        customAlert.sweetConfirmReload(
-          "사용자 조회 실패",
-          ["채팅에 참여중인 사용자를 조회하는 것에 실패했습니다."],
-          "goBack"
-        );
-      });
+    } else {
+      return customAlert
+        .sweetOK(
+          "잘못된 접근입니다.",
+          "홈으로 돌아갑니다.",
+          "채팅 신청 후 채팅탭을 이용해주세요.",
+          "확인"
+        )
+        .then((res) => {
+          return history.replace("/home");
+        });
+    }
   };
 };
 
@@ -331,24 +344,24 @@ const leaveChatAX = (post_id) => {
         "취소"
       )
       .then((res) => {
-        if(res){
+        if (res) {
           axiosModule
-          .delete(`/chat/quit/${post_id}`)
-          .then((res) => {
-            return customAlert.sweetConfirmReload(
-              "나가기 완료",
-              ["채팅방 나가기가 완료되었습니다."],
-              "/chatlist"
-            );
-          })
-          .catch((e) => {
-            logger("채팅방 나가기 요청 에러", e);
-            return customAlert.sweetConfirmReload(
-              "나가기 요청 에러",
-              ["채팅방 나가기 요청 중 에러가 발생했습니다"],
-              ""
-            );
-          });
+            .delete(`/chat/quit/${post_id}`)
+            .then((res) => {
+              return customAlert.sweetConfirmReload(
+                "나가기 완료",
+                ["채팅방 나가기가 완료되었습니다."],
+                "/chatlist"
+              );
+            })
+            .catch((e) => {
+              logger("채팅방 나가기 요청 에러", e);
+              return customAlert.sweetConfirmReload(
+                "나가기 요청 에러",
+                ["채팅방 나가기 요청 중 에러가 발생했습니다"],
+                ""
+              );
+            });
         } else {
           return null;
         }
@@ -386,11 +399,15 @@ export default handleActions(
         if (m.type === "BAN") {
           // 강퇴 당한 사람의 경우 퇴장 알럿 표시
           if (user_id === parseInt(m.message)) {
-            customAlert.sweetConfirmReload(
-              "강퇴알림",
-              ["현재 방에서 강퇴당하셨습니다.", "채팅목록으로 돌아갑니다."],
-              "/chatlist"
-            );
+            customAlert
+              .sweetOK(
+                "강퇴알림",
+                "현재 방에서 강퇴당하셨습니다.",
+                "채팅목록으로 돌아갑니다."
+              )
+              .then(() => {
+                return window.location.replace("/chatlist");
+              });
           } else {
             // 그 외 사용자들은 리스트에서 강퇴 유저 삭제시킴
             let idx = draft.userInList.findIndex(
@@ -399,17 +416,18 @@ export default handleActions(
             if (idx !== -1) {
               draft.userInList.splice(idx, 1);
             }
-            return ;
+            return;
           }
-
         }
 
         // 방장이 채팅방을 나간 경우 모든 사용자를 채팅방에서 내보낸다.
         else if (m.type === "BREAK") {
           if (user_id === m.sender.id) {
-            return customAlert.sweetOK("나가기 완료", "채팅방 나가기가 완료되었습니다.").then((res) => {
-              return window.location.replace("/chatlist")
-            })
+            return customAlert
+              .sweetOK("나가기 완료", "채팅방 나가기가 완료되었습니다.")
+              .then((res) => {
+                return window.location.replace("/chatlist");
+              });
           } else {
             return customAlert
               .sweetOK("채팅방 삭제 알림", `${m.message}`)

@@ -48,6 +48,7 @@ const Footer = (props) => {
           maxWidth="9rem"
           _onClick={() => {
             // dispatch(postActions.getPostAX("전체"));
+            // dispatch(postActions.clearPost());
             history.push("/home");
           }}
         >

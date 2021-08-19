@@ -56,8 +56,9 @@ const ReviewWrite = (props) => {
 
   const changeDisabled = (e) => {
     if (e.target.value.length === 150) {
-      // customAlert 변경
-      window.alert("리뷰 작성 시 150자 이상 입력할 수 없습니다.");
+      customAlert.sweetOK("리뷰 알림", "리뷰 작성 시 150자 이상 입력할 수 없습니다.").then(() => {
+        return ;
+      })
     }
     setReview(e.target.value);
     setDisabled(false);

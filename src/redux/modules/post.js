@@ -95,7 +95,7 @@ const getPostAX = (category, sort = "recent") => {
               nowHeadCount: p.nowHeadCount,
               valid: p.valid,
             };
-            logger("post", post);
+            // logger("post", post);
             post_list.push(post);
           });
         } else {
@@ -331,7 +331,8 @@ const requestChatPostAX = (user_id, post_user_id, post_id, detail_path) => {
           "채팅방에 참여하시겠어요?",
           "참여하기를 누르면, 방장에게",
           "승인 요청을 보낼게요!",
-          "참여하기"
+          "참여하기",
+          "취소"
         )
         .then((res) => {
           if (res) {
