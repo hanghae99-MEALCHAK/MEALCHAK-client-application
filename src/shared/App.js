@@ -68,7 +68,6 @@ function App() {
 
   return (
     <React.Fragment>
-      <Grid>
         <ConnectedRouter history={history}>
           <GlobalStyle />
           <Grid shape="topGrid">
@@ -96,7 +95,6 @@ function App() {
             </Switch>
           </Grid>
         </ConnectedRouter>
-      </Grid>
     </React.Fragment>
   );
 }

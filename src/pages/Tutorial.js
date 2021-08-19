@@ -54,7 +54,6 @@ const Tutorial = (props) => {
           minHeight="100vh"
           text_align="center"
         >
-          {/* 패딩 빼보자 */}
           <GridMedia>
             <Grid margin="2rem auto">
               <TutorialSwiper></TutorialSwiper>
@@ -168,5 +167,11 @@ const GridMedia = styled.div`
     margin-top: 15rem;
   }
 `;
+
+const RatioGrid = styled.div`
+  display: flex;
+  flex-direction: column;  
+`;
+
 
 export default Tutorial;
