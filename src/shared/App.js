@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 import GlobalStyle from './GlobalStyle';
 
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from '../redux/configureStore';
 import { useDispatch, useSelector } from 'react-redux';
@@ -68,33 +68,33 @@ function App() {
 
   return (
     <React.Fragment>
-      <Grid>
         <ConnectedRouter history={history}>
           <GlobalStyle/>
           <Grid shape="topGrid">
-            <Route path="/" exact component={Tutorial} />
-            <Route path="/home" exact component={Main} />
-            <Route path="/post/:id" exact component={DetailPage} />
-            <Route path="/address" exact component={RoadAddress} />
-            <Route path="/user/kakao/callback" exact component={LoginRedirect} />
-            <Route path="/upload" exact component={Upload} />
-            <Route path="/upload/:id" exact component={Upload} />
-            <Route path="/search" component={Search} />
-            <Route path="/mypage" component={MyPage} />
-            <Route path="/mypost" component={MyPost} />
-            <Route path="/myprofile" component={MyProfile} />
-            <Route path="/userprofile/:id" exact component={UserProfile} />
-            <Route path="/profile" component={ProfileEdit} />
-            <Route path="/myreview" component={MyReview} />
-            <Route path="/settings" component={Settings} />
-            <Route path="/chatlist" component={ChatRoomList} />
-            <Route path="/chatting" component={Chat} />
-            <Route path="/allowchat" component={AllowChat} />
-            {/* <Route path="*" component={NotFound}></Route> */}
-            <Route path="/write" component={ReviewWrite} />
-          </Grid>
+            <Switch>
+              <Route path="/" exact component={Tutorial} />
+              <Route path="/home" exact component={Main} />
+              <Route path="/post/:id" exact component={DetailPage} />
+              <Route path="/address" exact component={RoadAddress} />
+              <Route path="/user/kakao/callback" exact component={LoginRedirect} />
+              <Route path="/upload" exact component={Upload} />
+              <Route path="/upload/:id" exact component={Upload} />
+              <Route path="/search" exact component={Search} />
+              <Route path="/mypage" exact component={MyPage} />
+              <Route path="/mypost" exact component={MyPost} />
+              <Route path="/myprofile" exact component={MyProfile} />
+              <Route path="/userprofile/:id" exact component={UserProfile} />
+              <Route path="/profile" exact component={ProfileEdit} />
+              <Route path="/myreview" exact component={MyReview} />
+              <Route path="/settings" exact component={Settings} />
+              <Route path="/chatlist" exact component={ChatRoomList} />
+              <Route path="/chatting" exact component={Chat} />
+              <Route path="/allowchat" exact component={AllowChat} />
+              <Route path="*" component={NotFound} />
+              <Route path="/write" exact component={ReviewWrite} />
+            </Switch>
+          </Grid>          
         </ConnectedRouter>
-      </Grid>
     </React.Fragment>
   );
 }

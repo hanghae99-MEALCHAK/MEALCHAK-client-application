@@ -49,12 +49,19 @@ const Main = (props) => {
     document
       .querySelector("body")
       .scrollTo({ top: 0, left: 0, behavior: "instant" });
-    if (post_list.length === 0 || is_loading === false) {
+    if (post_list.length === 0) {
       dispatch(postActions.getPostAX("전체"));
       setCtg("전체");
+      dispatch(postActions.getRankDB());
+      return;
     }
-    dispatch(postActions.getRankDB());
-  }, [dispatch, user?.user_address]);
+    if (user?.user_address) {
+      dispatch(postActions.getPostAX("전체"));
+      setCtg("전체");
+      dispatch(postActions.getRankDB());
+      return;
+    }
+  }, []);
 
   return (
     <React.Fragment>
@@ -169,7 +176,6 @@ const Main = (props) => {
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.all ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
-                  console.log(e);
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, all: true });
                   setCtg(e.target.innerText);

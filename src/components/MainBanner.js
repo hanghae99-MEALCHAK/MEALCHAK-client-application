@@ -131,6 +131,7 @@ const MainBannerBtn = styled.div`
   /* background-image: url('https://cdn.pixabay.com/photo/2016/06/06/18/29/meat-skewer-1440105__340.jpg'); */
   background-image: url("${(props) => props.src}");
   background-size: cover;
+  background-position: center;
   filter: drop-shadow(0px 0px 0.5rem rgba(0, 0, 0, 0.2));
 `;
 

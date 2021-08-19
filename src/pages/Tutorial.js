@@ -51,7 +51,7 @@ const Tutorial = (props) => {
           text_align="center"
         >
           {/* 패딩 빼보자 */}
-          <Grid shape="container">
+          <RatioGrid>
             <Grid margin="2rem auto">
               <TutorialSwiper></TutorialSwiper>
             </Grid>
@@ -107,7 +107,7 @@ const Tutorial = (props) => {
                 </Grid>
               </Button>
             </DisplayGrid>
-          </Grid>
+          </RatioGrid>
         </Grid>
       )}
     </React.Fragment>
@@ -132,6 +132,13 @@ const DisplayGrid = styled.div`
   height: auto;
   position: fixed;
   bottom: 0;
+  z-index: 1;
 `;
+
+const RatioGrid = styled.div`
+  display: flex;
+  flex-direction: column;  
+`;
+
 
 export default Tutorial;

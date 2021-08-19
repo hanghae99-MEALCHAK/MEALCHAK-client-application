@@ -386,11 +386,13 @@ export default handleActions(
         if (m.type === "BAN") {
           // 강퇴 당한 사람의 경우 퇴장 알럿 표시
           if (user_id === parseInt(m.message)) {
-            customAlert.sweetConfirmReload(
+            customAlert.sweetOK(
               "강퇴알림",
-              ["현재 방에서 강퇴당하셨습니다.", "채팅목록으로 돌아갑니다."],
-              "/chatlist"
-            );
+              "현재 방에서 강퇴당하셨습니다.", 
+              "채팅목록으로 돌아갑니다.",
+            ).then(() => {
+              return window.location.replace("/chatlist")
+            });
           } else {
             // 그 외 사용자들은 리스트에서 강퇴 유저 삭제시킴
             let idx = draft.userInList.findIndex(

@@ -174,7 +174,6 @@ const getDetailPostUserListAX = (postId) => {
       .get(`/posts/${postId}`)
       .then((res) => {
         let user_list = [];
-        console.log(res);
         res.data.userList.forEach((p) => {
           let user = {
             user_id: p.id,

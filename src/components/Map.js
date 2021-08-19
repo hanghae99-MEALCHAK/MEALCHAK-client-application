@@ -20,7 +20,6 @@ const Map = (props) => {
   const longitude = useSelector((state) => state.post.post_lat_lng?.longitude);
 
   React.useEffect(() => {
-    console.log(props);
     const container = document.getElementById("map");
     const options = {
       center: new kakao.maps.LatLng(latitude, longitude),
