@@ -331,24 +331,24 @@ const leaveChatAX = (post_id) => {
         "취소"
       )
       .then((res) => {
-        if(res){
+        if (res) {
           axiosModule
-          .delete(`/chat/quit/${post_id}`)
-          .then((res) => {
-            return customAlert.sweetConfirmReload(
-              "나가기 완료",
-              ["채팅방 나가기가 완료되었습니다."],
-              "/chatlist"
-            );
-          })
-          .catch((e) => {
-            logger("채팅방 나가기 요청 에러", e);
-            return customAlert.sweetConfirmReload(
-              "나가기 요청 에러",
-              ["채팅방 나가기 요청 중 에러가 발생했습니다"],
-              ""
-            );
-          });
+            .delete(`/chat/quit/${post_id}`)
+            .then((res) => {
+              return customAlert.sweetConfirmReload(
+                "나가기 완료",
+                ["채팅방 나가기가 완료되었습니다."],
+                "/chatlist"
+              );
+            })
+            .catch((e) => {
+              logger("채팅방 나가기 요청 에러", e);
+              return customAlert.sweetConfirmReload(
+                "나가기 요청 에러",
+                ["채팅방 나가기 요청 중 에러가 발생했습니다"],
+                ""
+              );
+            });
         } else {
           return null;
         }
@@ -386,11 +386,15 @@ export default handleActions(
         if (m.type === "BAN") {
           // 강퇴 당한 사람의 경우 퇴장 알럿 표시
           if (user_id === parseInt(m.message)) {
-            customAlert.sweetConfirmReload(
-              "강퇴알림",
-              ["현재 방에서 강퇴당하셨습니다.", "채팅목록으로 돌아갑니다."],
-              "/chatlist"
-            );
+            customAlert
+              .sweetOK(
+                "강퇴알림",
+                "현재 방에서 강퇴당하셨습니다.",
+                "채팅목록으로 돌아갑니다."
+              )
+              .then(() => {
+                return window.location.replace("/chatlist");
+              });
           } else {
             // 그 외 사용자들은 리스트에서 강퇴 유저 삭제시킴
             let idx = draft.userInList.findIndex(
@@ -399,17 +403,18 @@ export default handleActions(
             if (idx !== -1) {
               draft.userInList.splice(idx, 1);
             }
-            return ;
+            return;
           }
-
         }
 
         // 방장이 채팅방을 나간 경우 모든 사용자를 채팅방에서 내보낸다.
         else if (m.type === "BREAK") {
           if (user_id === m.sender.id) {
-            return customAlert.sweetOK("나가기 완료", "채팅방 나가기가 완료되었습니다.").then((res) => {
-              return window.location.replace("/chatlist")
-            })
+            return customAlert
+              .sweetOK("나가기 완료", "채팅방 나가기가 완료되었습니다.")
+              .then((res) => {
+                return window.location.replace("/chatlist");
+              });
           } else {
             return customAlert
               .sweetOK("채팅방 삭제 알림", `${m.message}`)

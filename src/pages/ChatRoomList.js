@@ -8,7 +8,7 @@ import { token } from "../shared/OAuth";
 // style
 import { Header, Footer, ChatListItem, AwaitList, PcSide } from "../components";
 import { emptyBubbles } from "../styles/img/index";
-import { Button, Grid, Input, Text } from "../elements";
+import { Grid, Text } from "../elements";
 import theme from "../styles/theme";
 import styled from "styled-components";
 

@@ -8,9 +8,9 @@ import { MyOneReview } from "../components";
 import Spinner from "../shared/Spinner";
 
 // style
-import { Button, Grid, Input, Text } from "../elements";
+import { Button, Grid, Text } from "../elements";
 import { emptyMeal_3x } from "../styles/img/index";
-import { Header, Footer, ProfileTab, PcSide } from "../components";
+import { Header, ProfileTab, PcSide } from "../components";
 import styled from "styled-components";
 import theme from "../styles/theme";
 import logger from "../shared/Console";

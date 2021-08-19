@@ -24,7 +24,7 @@ const AddressGrid = (props) => {
         <Grid shape="container">
           {props.is_post ? (
             <Header {...props} shape="주소입력" close={props?.close}>
-              배달 주소 입력
+              만날 장소
             </Header>
           ) : (
             <Header {...props} shape="주소입력" close={props?.close}>

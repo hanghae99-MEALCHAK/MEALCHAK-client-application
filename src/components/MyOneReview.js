@@ -66,10 +66,34 @@ const MyOneReview = React.memo((props) => {
             }
           }}
         />
-        <Grid minWidth="3.6rem" height="2rem" padding="0 0 0 5rem">
+        <Grid
+          display="flex"
+          justify_content="flex-start"
+          align_items="center"
+          minWidth="3.6rem"
+          height="2rem"
+          padding="0 0 0 5rem"
+        >
           <Text size={fontSize.small} line_height="150%" color={color.bg100}>
             {props.other_user ? props.username : props.user_nickname}
           </Text>
+          {props?.is_me && (
+            <Text
+              width="5.7rem"
+              height="1.9rem"
+              bg={color.brand20}
+              color={color.brand100}
+              size={fontSize.tiny}
+              bold
+              line_height="150%"
+              text_align="center"
+              radius="0.8rem"
+              padding="0.2rem"
+              margin="0 0 0 0.6rem"
+            >
+              {props?.my_manner}
+            </Text>
+          )}
         </Grid>
         <Grid
           width="fit-content"

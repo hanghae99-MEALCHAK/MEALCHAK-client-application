@@ -6,7 +6,6 @@ import { Post, Footer, Header, MainBanner, PcSide } from "../components";
 import { emptyHome_3x } from "../styles/img/index";
 
 import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import logger from "../shared/Console";
@@ -14,7 +13,6 @@ import logger from "../shared/Console";
 import theme from "../styles/theme";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination, Navigation } from "swiper";
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
@@ -49,12 +47,19 @@ const Main = (props) => {
     document
       .querySelector("body")
       .scrollTo({ top: 0, left: 0, behavior: "instant" });
-    if (post_list.length === 0 || is_loading === false) {
+    if (post_list.length === 0) {
       dispatch(postActions.getPostAX("전체"));
       setCtg("전체");
+      dispatch(postActions.getRankDB());
+      return;
     }
-    dispatch(postActions.getRankDB());
-  }, [dispatch, user?.user_address]);
+    if (user?.user_address) {
+      dispatch(postActions.getPostAX("전체"));
+      setCtg("전체");
+      dispatch(postActions.getRankDB());
+      return;
+    }
+  }, []);
 
   return (
     <React.Fragment>
