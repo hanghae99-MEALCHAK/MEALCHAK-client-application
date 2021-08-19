@@ -5,6 +5,9 @@ import jwtDecode from "jwt-decode";
 import { customAlert } from "../../components/Sweet";
 import { Text } from "../../elements";
 
+// temp
+import axios from "axios";
+
 import { actionCreators as imageActions } from "./image";
 
 // 개발환경 console.log() 관리용
@@ -55,8 +58,9 @@ const initialState = {
 // 카카오 회원가입 및 자동로그인
 const kakaoLogin = (code) => {
   return function (dispatch, getState, { history }) {
-    axiosModule
-      .get(`user/kakao/callback?code=${code}`)
+    // axiosModule
+    axios
+      .get(`https://gorokke.shop/user/kakao/callback?code=${code}`)
       .then((res) => {
         // 인가코드에 관한 응답으로 jwt token 받음
         logger("user모듈 - 36", res);
