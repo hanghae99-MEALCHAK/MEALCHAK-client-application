@@ -7,12 +7,13 @@ import { actionCreators as chatActions } from "../redux/modules/chat";
 
 // style
 import { Grid, Text, Image } from "../elements";
-import { exit } from "../styles/img/index";
 import theme from "../styles/theme";
-// import { FiLogOut } from "react-icons/fi";
-// import styled from "styled-components";
-// import { IoClose } from "react-icons/io5";
 import { customAlert } from "./Sweet";
+
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from '../styles/img/webp/index';
+import {isWebpSupported} from 'react-image-webp/dist/utils';
 
 const SideContent = (props) => {
   const dispatch = useDispatch();
@@ -168,7 +169,7 @@ const SideContent = (props) => {
         <Grid width="auto" height="auto">
           <Image
             size="2.4"
-            src={exit}
+            src={isWebpSupported()? webp.exitWebp : png.exit}
             cursor="pointer"
             _onClick={() => {
               get_out_chat(props.post_id);

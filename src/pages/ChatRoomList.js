@@ -7,10 +7,14 @@ import { token } from "../shared/OAuth";
 
 // style
 import { Header, Footer, ChatListItem, AwaitList, PcSide } from "../components";
-import { emptyBubbles } from "../styles/img/index";
 import { Grid, Text } from "../elements";
 import theme from "../styles/theme";
 import styled from "styled-components";
+
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from '../styles/img/webp/index';
+import {isWebpSupported} from 'react-image-webp/dist/utils';
 
 import logger from "../shared/Console";
 
@@ -118,6 +122,7 @@ const ChatRoomList = (props) => {
           return (
             <ChatListItem
               key={idx}
+              new_msg={info.new_msg}
               live_chat={info.live_chat}
               room_id={info.room_id}
               roomName={info.roomName}
@@ -144,7 +149,7 @@ const ChatRoomList = (props) => {
 
         {await_list?.length === 0 && chat_list?.length === 0 && (
           <>
-            <Grid shape="empty" src={emptyBubbles}>
+            <Grid shape="empty" src={isWebpSupported()? webp.emptyBubblesWebp : png.emptyBubbles}>
               <EmptyText theme={theme}>아직 채팅 내용이 없어요.</EmptyText>
             </Grid>
             <Grid height="20rem"></Grid>

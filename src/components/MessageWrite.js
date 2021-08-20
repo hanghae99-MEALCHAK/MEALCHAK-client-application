@@ -31,7 +31,7 @@ const MessageWrite = (props) => {
 
   const sendMessageBtn = () => {
     if (new_message === "") {
-      return customAlert.sweetConfirmReload("메세지를 입력해주세요.", null, "");
+      return customAlert.sweetConfirmReload("메세지를 입력해주세요", ["무엇을 먹을지, 어디서 배달시킬지", "이야기해봐요 :)"], "");
     }
     logger("보낼 메세지 내용", typeof msg.defaultValue);
     sendMessage(msg.defaultValue);
@@ -76,7 +76,6 @@ const MessageWrite = (props) => {
 const GridTop = styled.div`
   @media (min-width: 415px) {
     max-width: 36rem;
-    margin: 0 auto 0 -0.1rem;
   }
   height: 5rem;
   width: 100%;
