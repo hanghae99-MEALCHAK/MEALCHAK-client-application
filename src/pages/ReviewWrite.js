@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { customAlert } from "../components/Sweet";
 
 import { Grid, Button, Text, Input } from "../elements";
 import { Header, PcSide } from "../components";
@@ -10,7 +11,6 @@ import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 
 import Select from "../components/ReactSelect";
-
 const { color, fontSize } = theme;
 // select options
 const options = [

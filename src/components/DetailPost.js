@@ -10,6 +10,7 @@ import { Grid, Button, Text, Image } from "../elements";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
 import { customAlert } from "./Sweet";
+import { emptyHome_3x } from "../styles/img/index";
 
 import moment from "moment";
 
@@ -42,6 +43,10 @@ const DetailPost = React.memo((props) => {
 
   const [disabled, setDisabled] = React.useState(false);
 
+  // 지도 표시 위도, 경도
+  const latitude = useSelector((state) => state.post.post_lat_lng?.latitude);
+  const longitude = useSelector((state) => state.post.post_lat_lng?.longitude);
+
   // 연, 월
   const ym = props?.insert_dt.split("-");
   // 일
@@ -72,7 +77,6 @@ const DetailPost = React.memo((props) => {
   };
 
   React.useEffect(() => {
-    logger("DetailPost : ", props);
     if (valid === false) {
       return setDisabled(true);
     }
@@ -85,7 +89,10 @@ const DetailPost = React.memo((props) => {
 
   const deleteBtn = () => {
     dispatch(
-      postAction.deletePostAX(post_id, props?.is_profile ? "is_profile" : null)
+      postAction.deletePostAX(
+        props?.post_id,
+        props?.is_profile ? "is_profile" : null
+      )
     );
   };
 
@@ -393,7 +400,28 @@ const DetailPost = React.memo((props) => {
             })}
           </Grid>
           {/* 자세히 보기 - 지도 */}
-          <Map {...props} />
+          {!latitude && !longitude ? (
+            <Grid
+              width="32rem"
+              height="25rem"
+              bg="white"
+              margin="1.6rem auto"
+              padding="0.5rem 1.6rem 0.8rem 1.6rem"
+              is_border="0.1rem solid #EBE9E8"
+              radius={radius.postBox}
+            >
+              <LogoImg src={emptyHome_3x} />
+              <Text size={fontSize.small} color={color.bg80} text_align="center">
+                주소를 불러올 수 없습니다
+              </Text>
+              <Text size={fontSize.base} color={color.bg80} text_align="center">
+                잠시 후 다시 시도해주세요.
+              </Text>
+            </Grid>
+          ) : (
+            <Map {...props} />
+          )}
+
           <Grid
             maxWidth="32rem"
             margin="0 auto"
@@ -494,4 +522,12 @@ const GridGap = styled.div`
   gap: 0 2rem;
 `;
 
+const LogoImg = styled.div`
+  margin: 1rem auto 1rem auto;
+  background-image: url("${(props) => props.src}");
+  width: 18.4rem;
+  height: 16.7rem;
+  background-size: cover;
+  background-position: center;
+`;
 export default DetailPost;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import Spinner from "../shared/Spinner";
-import {  DetailPost, PcSide } from "../components";
+import { DetailPost, PcSide } from "../components";
 
 // style
 import { Grid } from "../elements";
@@ -13,23 +13,26 @@ import { Header } from "../components";
 import logger from "../shared/Console";
 
 const MyPost = (props) => {
-
   const dispatch = useDispatch();
 
+  const is_loaded = useSelector((state) => state.user?.is_loaded);
   const is_login = useSelector((state) => state.user.is_login);
   const my_post = useSelector((state) => state.user?.myPost);
 
   React.useEffect(() => {
     document.querySelector("body").scrollTo(0, 0);
-    dispatch(userActions.loginCheck());
-    if (my_post.length === 0) {
-      dispatch(userActions.getMyPostAX());
+    dispatch(userActions.loaded(false));
+    if(my_post.length !== 0){
+      dispatch(userActions.loaded(true));
     }
+    dispatch(userActions.loginCheck());
+    dispatch(userActions.getMyPostAX());
   }, []);
 
   if (is_login) {
     return (
       <>
+        {!is_loaded && !my_post ? <Spinner /> : ""}
         <PcSide {...props} />
         <Grid
           // maxWidth="36rem"
@@ -42,7 +45,7 @@ const MyPost = (props) => {
             <Header {...props} shape="내가쓴글" />
             <Grid height="4.4rem" />
             {my_post?.length !== 0 ? (
-              my_post.map((p, idx) => {
+              my_post?.map((p, idx) => {
                 return <DetailPost {...p} is_profile key={idx} />;
               })
             ) : (
