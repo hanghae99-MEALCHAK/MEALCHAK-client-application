@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { actionCreators as userActions } from "../redux/modules/user";
-
+import { customAlert } from "../components/Sweet";
 import { Grid, Button, Text, Input } from "../elements";
 import { Header, PcSide } from "../components";
 import theme from "../styles/theme";
