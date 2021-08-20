@@ -169,10 +169,4 @@ const GridMedia = styled.div`
   }
 `;
 
-const RatioGrid = styled.div`
-  display: flex;
-  flex-direction: column;  
-`;
-
-
 export default Tutorial;
