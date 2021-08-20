@@ -21,8 +21,10 @@ const SET_MYREVIEW = "SET_MYREVIEW";
 const SET_MYPOST = "SET_MYPOST";
 const LOG_OUT = "LOG_OUT";
 const LOADING = "LOADING";
+const LOADED = "LOADED";
 const EDIT_PROFILE = "EDIT_PROFILE";
 const EDIT_ADDRESS = "EDIT_ADDRESS";
+const CLEAR_POST = "CLEAR_POST";
 
 // Action Creator
 const setUser = createAction(SET_USER, (user_info) => ({ user_info }));
@@ -31,8 +33,10 @@ const setAnotherUser = createAction(SET_ANOTHER_USER, (user_info) => ({
 }));
 const setMyReview = createAction(SET_MYREVIEW, (my_review) => ({ my_review }));
 const setMyPost = createAction(SET_MYPOST, (my_post) => ({ my_post }));
+const clearPost = createAction(CLEAR_POST, () => ({}));
 const logOut = createAction(LOG_OUT, () => {});
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+const loaded = createAction(LOADED, (is_loaded) => ({ is_loaded }));
 const editProfile = createAction(EDIT_PROFILE, (profile) => ({
   profile,
 }));
@@ -49,6 +53,7 @@ const initialState = {
   myPost: [],
   is_login: false,
   is_loading: false,
+  is_loaded: true,
 };
 
 // middleware
@@ -95,8 +100,8 @@ const kakaoLogin = (code) => {
       .catch((err) => {
         logger("user 모듈 74 - 소셜로그인 에러", err);
         customAlert.sweetConfirmReload(
-          "로그인 오류",
-          ["로그인에 실패하였습니다."],
+          "로그인 실패",
+          ["로그인에 실패했어요.", "잠시 후 다시 시도해주세요."],
           "/"
         ); // 로그인 실패하면 로그인화면으로 돌려보냄
       });
@@ -230,7 +235,6 @@ const editUserAddressAX = (address) => {
   };
 };
 
-
 // 타 유저 프로필 페이지 - 해당 유저 정보 가져오기
 const findUserProfileAX = (user_id) => {
   return function (dispatch, getState, { history }) {
@@ -279,6 +283,7 @@ const getMyPostAX = () => {
         .get("/posts/myPosts")
         .then((res) => {
           logger("내가 쓴 글 res", res);
+          dispatch(clearPost());
           let posts = [];
 
           if (res.data.length !== 0) {
@@ -378,8 +383,8 @@ const reviewWriteAX = (manner, review, user_id, nickname) => {
         .catch((e) => {
           logger("내가 받은 리뷰 에러", e);
           customAlert.sweetConfirmReload(
-            "이미 리뷰를 작성하셨습니다!",
-            ["이전 페이지로 돌아갑니다."],
+            "이미 리뷰를 남겼어요",
+            ["이미 리뷰를 남겨주셨네요.", "이전 페이지로 돌아갈게요."],
             "goBack"
           );
         });
@@ -413,6 +418,10 @@ export default handleActions(
         draft.myPost.push(...action.payload.my_post);
         logger("set_my_post 리듀서", draft.myPost);
       }),
+    [CLEAR_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.myPost = [];
+      }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
         sessionStorage.removeItem("token");
@@ -421,7 +430,7 @@ export default handleActions(
         draft.is_loading = false;
 
         customAlert
-          .sweetOK("로그아웃 되었습니다.", "또 만나요!", "")
+          .sweetOK("로그아웃 완료", "다음 밀착을 기다릴게요!", "또 만나요 :)")
           .then((res) => {
             return window.location.replace("/");
           });
@@ -429,6 +438,10 @@ export default handleActions(
     [LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
+      }),
+    [LOADED]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loaded = action.payload.is_loaded;
       }),
     [EDIT_PROFILE]: (state, action) =>
       produce(state, (draft) => {
@@ -451,6 +464,7 @@ const actionCreators = {
   loginCheck,
   logOut,
   loading,
+  loaded,
   setAnotherUser,
   editUserProfileAX,
   editUserAddressAX,

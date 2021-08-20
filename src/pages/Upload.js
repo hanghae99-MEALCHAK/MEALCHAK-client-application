@@ -18,6 +18,7 @@ const Upload = React.memo((props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const post_list = useSelector((state) => state.post.list);
+  const my_post = useSelector((state) => state.user?.myPost);
   logger("Upload:19: ", props);
   // style
   const { color, border, radius, fontSize } = theme;
@@ -32,7 +33,10 @@ const Upload = React.memo((props) => {
   const post_idx = is_edit
     ? post_list.findIndex((p) => p.post_id === parseInt(post_id))
     : null;
-  let _post = post_list[post_idx];
+  const my_post_idx = is_edit
+    ? my_post.findIndex((p) => p.post_id === parseInt(post_id))
+    : null;
+  let _post = post_list.length > 0 ? post_list[post_idx] : my_post[my_post_idx];
 
   React.useEffect(() => {
     document
@@ -46,6 +50,7 @@ const Upload = React.memo((props) => {
       );
       return;
     }
+
     logger("post 수정 전 내용", _post);
     logger("post 수정 전 내용", is_edit);
   }, []);
@@ -139,8 +144,8 @@ const Upload = React.memo((props) => {
       // 선택시간이 과거인 경우
       if (time_now > select_time) {
         return customAlert.sweetConfirmReload(
-          "모집 예정시간을 확인해주세요",
-          ["현재시간보다 과거로 설정되었습니다."],
+          "시간을 확인해주세요",
+          ["현재시간보다 과거로 설정되어있어요."],
           ""
         );
       }
@@ -223,8 +228,8 @@ const Upload = React.memo((props) => {
       // 선택시간이 과거인 경우
       if (time_now > select_time) {
         return customAlert.sweetConfirmReload(
-          "모집 예정시간을 확인해주세요",
-          ["현재시간보다 과거로 설정되었습니다."],
+          "시간을 확인해주세요",
+          ["현재시간보다 과거로 설정되어있어요."],
           ""
         );
       }
@@ -238,7 +243,7 @@ const Upload = React.memo((props) => {
       return;
     }
 
-    dispatch(postAction.editPostAX(post_id, post_info));
+    dispatch(postAction.editPostAX(post_id, post_info, (my_post ? "/mypost" : null)));
   };
 
   if (is_login) {

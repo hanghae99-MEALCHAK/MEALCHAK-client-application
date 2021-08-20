@@ -4,7 +4,10 @@ import { Button, Grid, Text } from "../elements";
 import { history } from "../redux/configureStore";
 import theme from "../styles/theme";
 
-import { frontError } from "../styles/img";
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from '../styles/img/webp/index';
+import {isWebpSupported} from 'react-image-webp/dist/utils';
 
 const NotFound = (props) => {
   const { color, fontSize, radius } = theme;
@@ -12,7 +15,7 @@ const NotFound = (props) => {
   return (
     <React.Fragment>
       <Grid margin="12.9rem auto">
-        <NotFoundImg />
+        <NotFoundImg src={isWebpSupported()? webp.frontErrorWebp : png.frontError}/>
         <Text
           width="100%"
           height="2.4rem"
@@ -56,7 +59,7 @@ const NotFound = (props) => {
 const NotFoundImg = styled.div`
   width: 21.8rem;
   height: 27.7rem;
-  background-image: url(${frontError});
+  background-image: url("${(props) => props.src}");
   background-position: center;
   background-size: cover;
   margin: 0 auto;

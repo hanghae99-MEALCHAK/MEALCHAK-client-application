@@ -77,7 +77,7 @@ const Settings = (props) => {
             borderBottom={border.bg20}
             cursor="t"
             _onClick={() => {
-              customAlert.sweetOK("밀착 알림", "아직 구현되지 않은 기능입니다.").then(() => {
+              customAlert.sweetOK("아직 개발 중인 기능이에요.", "열심히 개발하고 있으니", "조금만 기다려주세요.").then(() => {
                 return ;
               })
             }}

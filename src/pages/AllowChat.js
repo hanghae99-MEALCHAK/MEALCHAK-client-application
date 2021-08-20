@@ -7,9 +7,13 @@ import { history } from "../redux/configureStore";
 import styled from "styled-components";
 import { Header, Footer, AllowList, PcSide } from "../components";
 import { Grid, Text } from "../elements";
-import { emptyBubbles } from "../styles/img/index";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
+
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from '../styles/img/webp/index';
+import {isWebpSupported} from 'react-image-webp/dist/utils';
 
 const AllowChat = (props) => {
   const dispatch = useDispatch();
@@ -88,7 +92,7 @@ const AllowChat = (props) => {
 
           {allow_list.length === 0 && (
             <>
-              <Grid shape="empty" src={emptyBubbles}>
+              <Grid shape="empty" src={isWebpSupported()? webp.emptyBubblesWebp : png.emptyBubbles}>
                 <EmptyText theme={theme}>아직 들어온 요청이 없어요.</EmptyText>
               </Grid>
               <Grid height="20rem"></Grid>

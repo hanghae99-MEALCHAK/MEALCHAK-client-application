@@ -7,11 +7,15 @@ import { actionCreators as userAction } from "../redux/modules/user";
 // style
 import { Button, Grid, Text } from "../elements";
 import { Header, ProfileTab, PcSide } from "../components";
-import { emptyMeal_3x } from "../styles/img/index";
 import theme from "../styles/theme";
 import { MyOneReview } from "../components";
 import Spinner from "../shared/Spinner";
 import logger from "../shared/Console";
+
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from '../styles/img/webp/index';
+import {isWebpSupported} from 'react-image-webp/dist/utils';
 
 const MyProfile = (props) => {
   const dispatch = useDispatch();
@@ -117,7 +121,7 @@ const MyProfile = (props) => {
               })
             ) : (
               <Grid width="36rem" margin="0 auto">
-                <MyReviewImg src={emptyMeal_3x}></MyReviewImg>
+                <MyReviewImg src={isWebpSupported()? webp.emptyMeal_3xWebp : png.emptyMeal_3x}></MyReviewImg>
                 <MyReviewText>아직 받은 리뷰가 없어요.</MyReviewText>
               </Grid>
             )}
