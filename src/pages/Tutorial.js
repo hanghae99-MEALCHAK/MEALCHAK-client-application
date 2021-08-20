@@ -6,16 +6,15 @@ import { useSelector } from "react-redux";
 import { Kakao_auth_url } from "../shared/OAuth";
 
 // style
-import { mainLogo } from "../styles/img/index";
-import { mainLogoWebp } from "../styles/img/webp/index";
-
 import { Button, Grid, Text } from "../elements";
 import theme from "../styles/theme";
-import {isWebpSupported} from 'react-image-webp/dist/utils';
-
-
 import { TutorialSwiper } from "../components";
 import { customAlert } from "../components/Sweet";
+
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from '../styles/img/webp/index';
+import {isWebpSupported} from 'react-image-webp/dist/utils';
 
 const Tutorial = (props) => {
   const { color, border, fontSize, radius } = theme;
@@ -32,8 +31,8 @@ const Tutorial = (props) => {
     // 로그인 한 사용자가 로딩 시간때문인지 일정시간이 지나야 아래 부분실행됨
     if (is_login) {
       customAlert.sweetConfirmReload(
-        "로그인 한 사용자입니다.",
-        ["홈으로 돌아갑니다."],
+        "앗 이미 로그인 중이에요",
+        ["홈 화면으로 이동할게요."],
         "history"
       );
     }
@@ -43,7 +42,7 @@ const Tutorial = (props) => {
     <React.Fragment>
       {loading ? (
         <Grid is_flex4 height="100vh">
-          {isWebpSupported() ? <LogoImg src={mainLogoWebp}></LogoImg>  : <LogoImg src={mainLogo}></LogoImg> }
+          <LogoImg src={isWebpSupported() ? webp.mainLogoWebp : png.mainLogo}/>
         </Grid>
       ) : (
         <Grid

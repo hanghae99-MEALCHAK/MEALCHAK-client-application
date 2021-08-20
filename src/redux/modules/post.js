@@ -133,7 +133,7 @@ const getOnePostAX = (post_id) => {
         if (now_time_int > post_time_int) {
           return customAlert
             .sweetOK(
-              "마감 기한이 끝난 글입니다.",
+              "이미 모집 마감된 글이에요",
               "새로운 모집글을 확인해주세요."
             )
             .then((res) => {
@@ -221,8 +221,8 @@ const addPostAX = (post_info) => {
         dispatch(chatActions.setChatListAX());
 
         customAlert.sweetConfirmReload(
-          "작성 완료",
-          ["모집글 작성이 완료되었습니다."],
+          "밀착 준비 완료",
+          ["모임 만들기 작성글을 성공적으로 작성했어요.", "이제 채팅을 기다려볼까요?"],
           "/home"
         );
 
@@ -230,15 +230,15 @@ const addPostAX = (post_info) => {
       })
       .catch((e) => {
         logger("모집글 작성 모듈 에러", e);
-        if (
-          window.confirm(
-            "모집글 작성에 에러가 발생했습니다.\n홈 화면으로 돌아가시겠습니까?"
+        customAlert
+          .sweetOK(
+            "모집글 작성 실패",
+            "모임 모집글을 작성하는데 실패했어요.",
+            "잠시 후 다시 시도해주세요."
           )
-        ) {
-          history.replace("/home");
-        } else {
-          history.push("/upload");
-        }
+          .then(() => {
+            window.location.replace("/home");
+          });
       });
   };
 };
@@ -296,8 +296,8 @@ const editPostAX = (post_id, post_info, path) => {
           return;
         }
         customAlert.sweetConfirmReload(
-          "수정 완료",
-          ["모집글 수정이 완료되었습니다."],
+          "모집글 수정 완료",
+          ["성공적으로 모집글 수정이 완료되었어요."],
           `/post/${post_id}`
         );
         // customAlert.sweetConfirmReload("수정 완료", '모집글 수정이 완료되었습니다.', `/home`);
@@ -306,7 +306,7 @@ const editPostAX = (post_id, post_info, path) => {
         logger("모집글 수정 모듈 에러", e);
         customAlert
           .sweetOK(
-            "마감 기한이 끝난 글입니다.",
+            "이미 모집 마감된 글이에요",
             "새로운 모집글을 확인해주세요."
           )
           .then(() => {
@@ -322,8 +322,10 @@ const requestChatPostAX = (user_id, post_user_id, post_id, detail_path) => {
     if (user_id === post_user_id) {
       return customAlert
         .sweetPromise(
-          "본인이 작성한 글입니다.",
-          "채팅 탭으로 이동하시겠습니까?"
+          "이미 참여 중인 채팅이에요",
+          "참여 중인 채팅은 채팅 탭에서",
+          "확인할 수 있어요. 채팅 탭으로 이동할까요?",
+          "이동하기"
         )
         .then((res) => {
           if (res) {
@@ -349,17 +351,26 @@ const requestChatPostAX = (user_id, post_user_id, post_id, detail_path) => {
                 logger("채팅 신청", res);
                 if (res.data === "이미 신청한 글입니다") {
                   return customAlert.sweetConfirmReload(
-                    "이미 신청한 방입니다.",
-                    ["승인 대기 중이니 기다려주세요."],
+                    "이미 신청한 방이에요",
+                    ["참여 승인이 수락될 때까지", "기다려주세요."],
                     ""
                   );
                 }
                 if (res.data === "이미 속해있는 채팅방입니다") {
-                  return customAlert.sweetConfirmReload(
-                    "이미 참여중인 채팅입니다.",
-                    ["채팅탭에서 확인해주세요"],
-                    ""
-                  );
+                  return customAlert
+                    .sweetPromise(
+                      "이미 참여 중인 채팅이에요",
+                      "참여 중인 채팅은 채팅 탭에서",
+                      "확인할 수 있어요. 채팅 탭으로 이동할까요?",
+                      "이동하기"
+                    )
+                    .then((res) => {
+                      if (res) {
+                        return history.push("/chatlist");
+                      } else {
+                        return;
+                      }
+                    });
                 } else {
                   return customAlert.sweetConfirmReload(
                     "방장에게 승인 요청을 보냈어요",
@@ -377,7 +388,7 @@ const requestChatPostAX = (user_id, post_user_id, post_id, detail_path) => {
                 if (detail_path === "post") {
                   return customAlert
                     .sweetOK(
-                      "마감 기한이 끝난 글입니다.",
+                      "이미 모집 마감된 글이에요",
                       "새로운 모집글을 확인해주세요."
                     )
                     .then((res) => {
@@ -412,7 +423,7 @@ const requestChatPostAX = (user_id, post_user_id, post_id, detail_path) => {
                   logger("채팅 마감 검색 경로", path);
                   return customAlert
                     .sweetOK(
-                      "마감 기한이 끝난 글입니다.",
+                      "이미 모집 마감된 글이에요",
                       "새로운 모집글을 확인해주세요."
                     )
                     .then((res) => {
@@ -432,7 +443,7 @@ const requestChatPostAX = (user_id, post_user_id, post_id, detail_path) => {
                 if (path === "home") {
                   return customAlert
                     .sweetOK(
-                      "마감 기한이 끝난 글입니다.",
+                      "이미 모집 마감된 글이에요",
                       "새로운 모집글을 확인해주세요."
                     )
                     .then((res) => {

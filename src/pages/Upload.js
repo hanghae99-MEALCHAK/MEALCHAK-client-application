@@ -144,8 +144,8 @@ const Upload = React.memo((props) => {
       // 선택시간이 과거인 경우
       if (time_now > select_time) {
         return customAlert.sweetConfirmReload(
-          "모집 예정시간을 확인해주세요",
-          ["현재시간보다 과거로 설정되었습니다."],
+          "시간을 확인해주세요",
+          ["현재시간보다 과거로 설정되어있어요."],
           ""
         );
       }
@@ -228,8 +228,8 @@ const Upload = React.memo((props) => {
       // 선택시간이 과거인 경우
       if (time_now > select_time) {
         return customAlert.sweetConfirmReload(
-          "모집 예정시간을 확인해주세요",
-          ["현재시간보다 과거로 설정되었습니다."],
+          "시간을 확인해주세요",
+          ["현재시간보다 과거로 설정되어있어요."],
           ""
         );
       }

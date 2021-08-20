@@ -6,16 +6,12 @@ import { useSelector } from "react-redux";
 import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
 import styled from "styled-components";
-import {
-  homeBrand100,
-  homeback60,
-  friendsBrand100,
-  friends,
-  chatBrand100,
-  chatback60,
-  mypageBrand100,
-  mypageback60,
-} from "../styles/img/index";
+
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from "../styles/img/webp/index";
+import { isWebpSupported } from "react-image-webp/dist/utils";
+
 import { customAlert } from "./Sweet";
 
 const Footer = (props) => {
@@ -49,12 +45,23 @@ const Footer = (props) => {
           }}
         >
           <Grid is_flex4="t" justify_content="center">
-            <Image
-              cursor="t"
-              src={path === "/home" ? homeBrand100 : homeback60}
-              size="3"
-              margin="0"
-            />
+            {isWebpSupported() ? (
+              <Image
+                cursor="t"
+                src={
+                  path === "/home" ? webp.homeBrand100Webp : webp.homeback60Webp
+                }
+                size="3"
+                margin="0"
+              />
+            ) : (
+              <Image
+                cursor="t"
+                src={path === "/home" ? png.homeBrand100 : png.homeback60}
+                size="3"
+                margin="0"
+              />
+            )}
           </Grid>
           <Grid is_flex4="t" justify_content="center">
             <Text
@@ -78,12 +85,25 @@ const Footer = (props) => {
           }}
         >
           <Grid is_flex4="t" justify_content="center">
-            <Image
-              cursor="t"
-              src={path === "/upload" ? friendsBrand100 : friends}
-              size="3"
-              margin="0"
-            />
+            {isWebpSupported() ? (
+              <Image
+                cursor="t"
+                src={
+                  path === "/upload"
+                    ? webp.friendsBrand100Webp
+                    : webp.friendsWebp
+                }
+                size="3"
+                margin="0"
+              />
+            ) : (
+              <Image
+                cursor="t"
+                src={path === "/upload" ? png.friendsBrand100 : png.friends}
+                size="3"
+                margin="0"
+              />
+            )}
           </Grid>
           <Grid is_flex4="t" justify_content="center">
             <Text
@@ -106,16 +126,29 @@ const Footer = (props) => {
           }}
         >
           <Grid is_flex4="t" justify_content="center">
-            <Image
-              cursor="t"
-              src={
-                path === "/chatlist" || path === "/allowchat"
-                  ? chatBrand100
-                  : chatback60
-              }
-              size="3"
-              margin="0"
-            />
+            {isWebpSupported() ? (
+              <Image
+                cursor="t"
+                src={
+                  path === "/chatlist" || path === "/allowchat"
+                    ? webp.chatBrand100Webp
+                    : webp.chatback60Webp
+                }
+                size="3"
+                margin="0"
+              />
+            ) : (
+              <Image
+                cursor="t"
+                src={
+                  path === "/chatlist" || path === "/allowchat"
+                    ? png.chatBrand100
+                    : png.chatback60
+                }
+                size="3"
+                margin="0"
+              />
+            )}
           </Grid>
           <Grid is_flex4="t" justify_content="center">
             <Text
@@ -145,12 +178,25 @@ const Footer = (props) => {
           }}
         >
           <Grid is_flex4="t" justify_content="center">
-            <Image
-              cursor="t"
-              src={path === "/mypage" ? mypageBrand100 : mypageback60}
-              size="3"
-              margin="0"
-            />
+            {isWebpSupported() ? (
+              <Image
+                cursor="t"
+                src={
+                  path === "/mypage"
+                    ? webp.mypageBrand100Webp
+                    : webp.mypageback60Webp
+                }
+                size="3"
+                margin="0"
+              />
+            ) : (
+              <Image
+                cursor="t"
+                src={path === "/mypage" ? png.mypageBrand100 : png.mypageback60}
+                size="3"
+                margin="0"
+              />
+            )}
           </Grid>
           <Grid is_flex4="t" justify_content="center">
             <Text

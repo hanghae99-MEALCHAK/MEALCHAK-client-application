@@ -100,8 +100,8 @@ const kakaoLogin = (code) => {
       .catch((err) => {
         logger("user 모듈 74 - 소셜로그인 에러", err);
         customAlert.sweetConfirmReload(
-          "로그인 오류",
-          ["로그인에 실패하였습니다."],
+          "로그인 실패",
+          ["로그인에 실패했어요.", "잠시 후 다시 시도해주세요."],
           "/"
         ); // 로그인 실패하면 로그인화면으로 돌려보냄
       });
@@ -383,8 +383,8 @@ const reviewWriteAX = (manner, review, user_id, nickname) => {
         .catch((e) => {
           logger("내가 받은 리뷰 에러", e);
           customAlert.sweetConfirmReload(
-            "이미 리뷰를 작성하셨습니다!",
-            ["이전 페이지로 돌아갑니다."],
+            "이미 리뷰를 남겼어요",
+            ["이미 리뷰를 남겨주셨네요.", "이전 페이지로 돌아갈게요."],
             "goBack"
           );
         });
@@ -430,7 +430,7 @@ export default handleActions(
         draft.is_loading = false;
 
         customAlert
-          .sweetOK("로그아웃 되었습니다.", "또 만나요!", "")
+          .sweetOK("로그아웃 완료", "다음 밀착을 기다릴게요!", "또 만나요 :)")
           .then((res) => {
             return window.location.replace("/");
           });

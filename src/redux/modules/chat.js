@@ -116,6 +116,7 @@ const setChatListAX = () => {
               order_time: c.orderTime,
               headCountChat: c.headCountChat,
               live_chat: c.chatValid,
+              new_msg: c.newMessage,
             };
             my_chat_list.push(one_chat_info);
           });
@@ -123,8 +124,8 @@ const setChatListAX = () => {
         })
         .catch((e) => {
           customAlert.sweetConfirmReload(
-            "채팅방 목록조회에 실패했습니다.",
-            ["메인페이지로 돌아갑니다."],
+            "채팅방을 불러올 수 없어요",
+            ["채팅방을 불러오는 데 실패했어요.", "홈 탭으로 돌아간 후에 다시 시도해주세요."],
             "history"
           );
           logger("나의 채팅방 목록 조회 에러", e);
@@ -165,7 +166,7 @@ const getChatMessagesAX = () => {
       .catch((e) => {
         customAlert.sweetConfirmReload(
           "불러오기 실패",
-          ["채팅방 메세지 불러오기에 실패했습니다."],
+          ["채팅방 메세지를 불러오는데 실패했어요.", "잠시 후 다시 시도해주세요."],
           ""
         );
         logger("채팅 메세지 불러오기 실패", e);
@@ -174,31 +175,31 @@ const getChatMessagesAX = () => {
 };
 
 // 채팅 수락, 거절 요청
-const chatAllowAX = (joinId, boolean) => {
-  return function (dispatch, getState, { history }) {
-    axiosModule
-      .get(`/posts/join/request/accept/${joinId}?accept=${boolean}`)
-      .then((res) => {
-        logger("승인 수락, 거절 res", res);
-        if (boolean === true) {
-          customAlert.sweetConfirmReload(
-            "수락 완료",
-            ["수락이 완료되었습니다."],
-            ""
-          );
-        } else {
-          customAlert.sweetConfirmReload(
-            "거절 완료",
-            ["수락 거절이 완료되었습니다."],
-            ""
-          );
-        }
-      })
-      .catch((e) => {
-        logger("채팅방 참여 승인 요청 에러", e);
-      });
-  };
-};
+// const chatAllowAX = (joinId, boolean) => {
+//   return function (dispatch, getState, { history }) {
+//     axiosModule
+//       .get(`/posts/join/request/accept/${joinId}?accept=${boolean}`)
+//       .then((res) => {
+//         logger("승인 수락, 거절 res", res);
+//         if (boolean === true) {
+//           customAlert.sweetConfirmReload(
+//             "수락 완료",
+//             ["수락이 완료되었습니다."],
+//             ""
+//           );
+//         } else {
+//           customAlert.sweetConfirmReload(
+//             "거절 완료",
+//             ["수락 거절이 완료되었습니다."],
+//             ""
+//           );
+//         }
+//       })
+//       .catch((e) => {
+//         logger("채팅방 참여 승인 요청 에러", e);
+//       });
+//   };
+// };
 
 // 채팅 승인 대기 목록
 const requestChatListAX = () => {
@@ -225,8 +226,8 @@ const requestChatListAX = () => {
         .catch((e) => {
           logger("방장 승인 대기 목록 에러", e);
           customAlert.sweetConfirmReload(
-            "목록 조회 실패",
-            ["승인 대기 목록 조회에 실패했습니다."],
+            "불러오기 실패",
+            ["승인 대기 목록을 불러오는데 실패했어요.", "잠시 후 다시 시도해주세요."],
             "/chatlist"
           );
         });
@@ -261,8 +262,8 @@ const awaitChatListAX = () => {
         // chatlist 페이지에서 열려있는 채팅목록 아래에 비활성화 상태로 뜨도록 하는 것
         logger("신청자 승인 요청 목록 에러", e);
         customAlert.sweetConfirmReload(
-          "목록 조회 실패",
-          ["승인 대기 목록 조회에 실패했습니다."],
+          "불러오기 실패",
+          ["승인 요청 목록을 불러오는데 실패했어요.", "잠시 후 다시 시도해주세요."],
           "/home"
         );
       });
@@ -284,8 +285,8 @@ const awaitChatOut = (join_id) => {
         // chatlist 페이지에서 열려있는 채팅목록 아래에 비활성화 상태로 뜨도록 하는 것
         logger("대기 취소 에러", e);
         customAlert.sweetConfirmReload(
-          "대기 승인 취소 실패",
-          ["대기 승인 취소에 실패했습니다."],
+          "승인 요청 취소 실패",
+          ["승인 요청한 채팅을 취소하는데 실패했어요.", "잠시 후 다시 시도해주세요."],
           ""
         );
       });
@@ -313,8 +314,8 @@ const getChatUserAX = (roomId) => {
         .catch((e) => {
           logger("채팅 참여 유저 목록확인 에러", e);
           customAlert.sweetConfirmReload(
-            "사용자 조회 실패",
-            ["채팅에 참여중인 사용자를 조회하는 것에 실패했습니다."],
+            "앗! 잠시 볼 수 없어요",
+            ["채팅에 참여 중인 사용자를 조회하는 데", "실패했어요. 잠시 후 다시 시도해주세요."],
             "goBack"
           );
         });
@@ -350,15 +351,15 @@ const leaveChatAX = (post_id) => {
             .then((res) => {
               return customAlert.sweetConfirmReload(
                 "나가기 완료",
-                ["채팅방 나가기가 완료되었습니다."],
+                ["성공적으로 채팅방에서 나왔어요."],
                 "/chatlist"
               );
             })
             .catch((e) => {
               logger("채팅방 나가기 요청 에러", e);
               return customAlert.sweetConfirmReload(
-                "나가기 요청 에러",
-                ["채팅방 나가기 요청 중 에러가 발생했습니다"],
+                "나가기 실패",
+                ["채팅방 나가기에 실패했어요.", "잠시 후 다시 시도해주세요."],
                 ""
               );
             });
@@ -401,9 +402,9 @@ export default handleActions(
           if (user_id === parseInt(m.message)) {
             customAlert
               .sweetOK(
-                "강퇴알림",
-                "현재 방에서 강퇴당하셨습니다.",
-                "채팅목록으로 돌아갑니다."
+                "접근이 불가한 채팅이에요",
+                "해당 채팅방에서 퇴장처리되었어요.",
+                "채팅방목록으로 돌아갈게요."
               )
               .then(() => {
                 return window.location.replace("/chatlist");
@@ -430,7 +431,7 @@ export default handleActions(
               });
           } else {
             return customAlert
-              .sweetOK("채팅방 삭제 알림", `${m.message}`)
+              .sweetOK("앗 사라진 채팅방이에요", "방장이 삭제한 채팅방이에요.", "다른 밀착을 시작해볼까요?")
               .then(() => {
                 return window.location.replace("/chatlist");
               });
@@ -504,7 +505,7 @@ const actionCreators = {
   loading,
   loaded,
   setTime,
-  chatAllowAX,
+  // chatAllowAX,
   requestChatListAX,
   awaitChatListAX,
   getChatUserAX,

@@ -9,11 +9,15 @@ import Spinner from "../shared/Spinner";
 
 // style
 import { Button, Grid, Text } from "../elements";
-import { emptyMeal_3x } from "../styles/img/index";
 import { Header, ProfileTab, PcSide } from "../components";
 import styled from "styled-components";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
+
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from '../styles/img/webp/index';
+import {isWebpSupported} from 'react-image-webp/dist/utils';
 
 const UserProfile = (props) => {
   const dispatch = useDispatch();
@@ -139,7 +143,7 @@ const UserProfile = (props) => {
               })
             ) : (
               <Grid width="36rem" margin="0 auto">
-                <MyReviewImg src={emptyMeal_3x}></MyReviewImg>
+                <MyReviewImg src={isWebpSupported()? webp.emptyMeal_3xWebp : png.emptyMeal_3x}></MyReviewImg>
                 <MyReviewText>아직 받은 리뷰가 없어요.</MyReviewText>
               </Grid>
             )}

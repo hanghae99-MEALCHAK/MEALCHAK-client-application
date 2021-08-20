@@ -94,7 +94,7 @@ const MyOneReview = React.memo((props) => {
         <Grid
           width="fit-content"
           bg="#F4F4F3"
-          margin="0 0 0 5rem"
+          margin="0.4rem 0 0 5rem"
           padding="0.8rem 0.5rem"
           flex
           align_items="flex-start"

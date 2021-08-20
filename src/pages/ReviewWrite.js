@@ -55,7 +55,7 @@ const ReviewWrite = (props) => {
 
   const changeDisabled = (e) => {
     if (e.target.value.length === 150) {
-      customAlert.sweetOK("리뷰 알림", "리뷰 작성 시 150자 이상 입력할 수 없습니다.").then(() => {
+      customAlert.sweetOK("입력 가능한 글자수를 초과했어요", "리뷰 작성 시 150자 이내로 작성해주세요.").then(() => {
         return ;
       })
     }
