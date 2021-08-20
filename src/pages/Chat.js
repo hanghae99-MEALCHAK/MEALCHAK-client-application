@@ -184,8 +184,8 @@ const Chat = (props) => {
       // 빈 텍스트일때 보내기 방지
       if (new_message === "" || new_message === " ") {
         return customAlert.sweetConfirmReload(
-          "메세지를 입력해주세요.",
-          null,
+          "메세지를 입력해주세요",
+          ["무엇을 먹을지, 어디서 배달시킬지", "이야기해봐요 :)"],
           ""
         );
       }
@@ -230,15 +230,16 @@ const Chat = (props) => {
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
         logger("강퇴 메세지 상태", ws.ws.readyState);
         customAlert.sweetOK(
-          "퇴장 시키기 완료",
-          `${other_user_name}님이 퇴장 되었습니다.`,
+          "퇴장 처리가 완료되었어요",
+          `${other_user_name}님을`,
+          `채팅에서 내보냈어요.`,
           ""
         );
       });
     } catch (e) {
       customAlert.sweetConfirmReload(
-        "퇴장 에러",
-        ["퇴장 요청중 에러 발생"],
+        "퇴장 처리 실패",
+        ["채팅에서 내보내는 데 실패했어요.", "잠시 후 다시 시도해주세요."],
         ""
       );
       logger("message 소켓 함수 에러", e);
@@ -258,7 +259,7 @@ const Chat = (props) => {
         type: "BREAK",
         roomId: room_id,
         senderId: sender_id,
-        message: "방장이 방을 폭파시켰습니다. 안녕히가세요 :)",
+        message: "방장이 삭제한 채팅방이에요.",
       };
 
       // 로딩
@@ -267,12 +268,12 @@ const Chat = (props) => {
         ws.debug = null;
 
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
-        logger("강퇴 메세지 상태", ws.ws.readyState);
+        logger("방폭 메세지 상태", ws.ws.readyState);
       });
     } catch (e) {
       customAlert.sweetConfirmReload(
-        "방폭 에러",
-        ["방폭 요청중 에러 발생"],
+        "방 삭제 실패",
+        ["방 삭제 요청에 실패했어요."],
         ""
       );
       logger("message 소켓 함수 에러", e);

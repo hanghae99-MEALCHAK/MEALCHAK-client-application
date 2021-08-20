@@ -8,10 +8,14 @@ import { MyOneReview, PcSide } from "../components";
 
 // style
 import { Grid} from "../elements";
-import { emptyMeal_3x } from "../styles/img/index";
 import { Header } from "../components";
 import logger from "../shared/Console";
 import theme from "../styles/theme";
+
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from '../styles/img/webp/index';
+import {isWebpSupported} from 'react-image-webp/dist/utils';
 
 const MyReview = (props) => {
   const dispatch = useDispatch();
@@ -48,7 +52,7 @@ const MyReview = (props) => {
               })
             ) : (
               <Grid>
-                <MyReviewImg src={emptyMeal_3x}></MyReviewImg>
+                <MyReviewImg src={isWebpSupported()? webp.emptyMeal_3xWebp : png.emptyMeal_3x}></MyReviewImg>
                 <MyReviewText>아직 받은 리뷰가 없어요.</MyReviewText>
               </Grid>
             )}

@@ -181,7 +181,7 @@ const sweetOK = (title, message1, message2, confirmText) => {
     .fire({
       customClass: {
         popup: "border",
-        confirmButton: "confirmButton",
+        confirmButton: "confirm",
       },
       width: "auto",
       padding: "0 1rem 1rem",
@@ -566,11 +566,11 @@ const SweetAllowChat = (join_id) => {
       title: (
         <Grid>
           <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
-            수락하시겠습니까?
+            승인하시겠어요?
           </Text>
         </Grid>
       ),
-      text: "수락을 누르면 채팅방으로 초대됩니다.",
+      text: "승인을 누르면 채팅방으로 초대돼요.",
       showDenyButton: true,
       denyButtonText: (
         <Grid width="9rem" is_flex2 margin="auto">
@@ -584,7 +584,7 @@ const SweetAllowChat = (join_id) => {
       confirmButtonText: (
         <Grid width="9rem" is_flex2 margin="auto">
           <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
-            수락
+            승인하기
           </Text>
         </Grid>
       ),
@@ -598,8 +598,8 @@ const SweetAllowChat = (join_id) => {
           .then((res) => {
             logger("승인 수락 res", res);
             sweetConfirmReload(
-              "수락 완료",
-              ["수락이 완료되었습니다."],
+              "승인 완료",
+              ["성공적으로 요청 받은 승인을 수락했어요."],
               "/allowchat"
             );
           })
@@ -634,11 +634,11 @@ const SweetDenyChat = (join_id) => {
       title: (
         <Grid>
           <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
-            수락 거절하시겠습니까?
+            승인을 거절할까요?
           </Text>
         </Grid>
       ),
-      text: "거절을 누르면 요청이 삭제됩니다.",
+      text: "거절을 누르면 승인 요청이 삭제돼요.",
       showDenyButton: true,
       denyButtonText: (
         <Grid width="9rem" is_flex2 margin="auto">
@@ -652,7 +652,7 @@ const SweetDenyChat = (join_id) => {
       confirmButtonText: (
         <Grid width="9rem" is_flex2 margin="auto">
           <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
-            거절
+            거절하기
           </Text>
         </Grid>
       ),
@@ -667,7 +667,7 @@ const SweetDenyChat = (join_id) => {
             logger("승인 거절 res", res);
             sweetConfirmReload(
               "거절 완료",
-              ["수락 거절이 완료되었습니다."],
+              ["성공적으로 승인 요청이 삭제됐어요."],
               "/allowchat"
             );
           })
@@ -687,72 +687,72 @@ const SweetDenyChat = (join_id) => {
     });
 };
 
-const SweetOutChat = (post_id) => {
-  sweet
-    .fire({
-      customClass: {
-        popup: "border",
-        confirmButton: "confirmButton",
-        cancelButton: "cancelButton",
-        denyButton: "denyButton",
-        actions: "meal-action-class",
-      },
-      width: "auto",
-      padding: "0 1rem 1rem",
-      title: (
-        <Grid>
-          <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
-            채팅방 나가기
-          </Text>
-        </Grid>
-      ),
-      text: "나가기를 하면 대화내용이 모두 삭제되고 채팅목록에서도 삭제됩니다.",
-      showDenyButton: true,
-      denyButtonText: (
-        <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
-            취소
-          </Text>
-        </Grid>
-      ),
-      denyButtonColor: color.brand20,
-      confirmButtonColor: color.brand100,
-      confirmButtonText: (
-        <Grid width="9rem" is_flex2 margin="auto">
-          <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
-            나가기
-          </Text>
-        </Grid>
-      ),
-      focusConfirm: false,
-      reverseButtons: true,
-    })
-    .then((res) => {
-      if (res.isConfirmed) {
-        axiosModule
-          .delete(`/chat/quit/${post_id}`)
-          .then((res) => {
-            sweetConfirmReload(
-              "나가기 완료",
-              ["채팅방 나가기가 완료되었습니다."],
-              "/chatlist"
-            );
-          })
-          .catch((e) => {
-            logger("채팅방 나가기 요청 에러", e);
-            sweetConfirmReload(
-              "나가기 요청 에러",
-              ["채팅방 나가기 요청 중 에러가 발생했습니다"],
-              ""
-            );
-          });
-      } else if (res.isDenied) {
-        return;
-      } else {
-        return;
-      }
-    });
-};
+// const SweetOutChat = (post_id) => {
+//   sweet
+//     .fire({
+//       customClass: {
+//         popup: "border",
+//         confirmButton: "confirmButton",
+//         cancelButton: "cancelButton",
+//         denyButton: "denyButton",
+//         actions: "meal-action-class",
+//       },
+//       width: "auto",
+//       padding: "0 1rem 1rem",
+//       title: (
+//         <Grid>
+//           <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
+//             채팅방 나가기
+//           </Text>
+//         </Grid>
+//       ),
+//       text: "나가기를 하면 대화내용이 모두 삭제되고 채팅목록에서도 삭제됩니다.",
+//       showDenyButton: true,
+//       denyButtonText: (
+//         <Grid width="9rem" is_flex2 margin="auto">
+//           <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
+//             취소
+//           </Text>
+//         </Grid>
+//       ),
+//       denyButtonColor: color.brand20,
+//       confirmButtonColor: color.brand100,
+//       confirmButtonText: (
+//         <Grid width="9rem" is_flex2 margin="auto">
+//           <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
+//             나가기
+//           </Text>
+//         </Grid>
+//       ),
+//       focusConfirm: false,
+//       reverseButtons: true,
+//     })
+//     .then((res) => {
+//       if (res.isConfirmed) {
+//         axiosModule
+//           .delete(`/chat/quit/${post_id}`)
+//           .then((res) => {
+//             sweetConfirmReload(
+//               "나가기 완료",
+//               ["성공적으로 채팅방에서 나왔어요."],
+//               "/chatlist"
+//             );
+//           })
+//           .catch((e) => {
+//             logger("채팅방 나가기 요청 에러", e);
+//             sweetConfirmReload(
+//               "나가기 요청 에러",
+//               ["채팅방 나가기 요청 중 에러가 발생했습니다"],
+//               ""
+//             );
+//           });
+//       } else if (res.isDenied) {
+//         return;
+//       } else {
+//         return;
+//       }
+//     });
+// };
 
 const SweetBen = (sendBen, other_user_id, other_user_name) => {
   sweet
@@ -820,11 +820,11 @@ const SweetBreak = (sendBreak, post_id) => {
       title: (
         <Grid>
           <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
-            채팅방 나가기
+            채팅방을 삭제하시겠어요?
           </Text>
         </Grid>
       ),
-      text: "방장이 나가면 게시글 및 채팅방이 사라집니다.",
+      text: "방장이 채팅방을 나갈 경우 해당 채팅방이 사라져요.",
       showDenyButton: true,
       denyButtonText: (
         <Grid width="9rem" is_flex2 margin="auto">
@@ -876,7 +876,7 @@ const customAlert = {
   // sweetEditError,
   SweetAllowChat,
   SweetDenyChat,
-  SweetOutChat,
+  // SweetOutChat,
   SweetBen,
   SweetBreak,
   sweetAddCheck,

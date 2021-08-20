@@ -11,8 +11,12 @@ import { actionCreators as postActions } from "../redux/modules/post";
 // styles
 import { HiOutlineMenu } from "react-icons/hi";
 import { Grid, Text, Image } from "../elements";
-import { deleteLogo, arrowLeft } from "../styles/img/index";
 import theme from "../styles/theme";
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from '../styles/img/webp/index';
+import {isWebpSupported} from 'react-image-webp/dist/utils';
+
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -86,7 +90,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src={deleteLogo}
+          src={isWebpSupported() ? webp.deleteLogoWebp : png.deleteLogo}
           cursor="pointer"
           _onClick={() => {
             // history.replace('/home');
@@ -108,7 +112,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src={arrowLeft}
+          src={isWebpSupported() ? webp.arrowLeftWebp : png.arrowLeft}
           cursor="pointer"
           _onClick={() => {
             // history.replace('/home');
@@ -237,7 +241,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src={arrowLeft}
+          src={isWebpSupported() ? webp.arrowLeftWebp : png.arrowLeft}
           cursor="pointer"
           _onClick={() => {
             dispatch(imageActions.setPreview(null));
@@ -259,7 +263,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src={arrowLeft}
+          src={isWebpSupported() ? webp.arrowLeftWebp : png.arrowLeft}
           cursor="pointer"
           _onClick={() => {
             history.goBack();
@@ -280,7 +284,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src={arrowLeft}
+          src={isWebpSupported() ? webp.arrowLeftWebp : png.arrowLeft}
           cursor="pointer"
           _onClick={() => {
             history.replace("/mypage");
@@ -301,7 +305,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src={arrowLeft}
+          src={isWebpSupported() ? webp.arrowLeftWebp : png.arrowLeft}
           cursor="pointer"
           _onClick={() => {
             history.replace("/mypage");
@@ -322,7 +326,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src={arrowLeft}
+          src={isWebpSupported() ? webp.arrowLeftWebp : png.arrowLeft}
           cursor="pointer"
           _onClick={() => {
             history.replace("/mypage");
@@ -343,7 +347,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src={arrowLeft}
+          src={isWebpSupported() ? webp.arrowLeftWebp : png.arrowLeft}
           cursor="pointer"
           _onClick={() => {
             // history.push('/home');
@@ -366,7 +370,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src={arrowLeft}
+          src={isWebpSupported() ? webp.arrowLeftWebp : png.arrowLeft}
           cursor="pointer"
           _onClick={() => {
             // history.goBack();
@@ -391,7 +395,7 @@ const Header = (props) => {
         <Image
           size="2.4"
           margin="0 0 0 1.6rem"
-          src={deleteLogo}
+          src={isWebpSupported() ? webp.deleteLogoWebp : png.deleteLogo}
           cursor="pointer"
           _onClick={() => {
             if (props?.is_home) {
@@ -436,7 +440,7 @@ Header.defaultProps = {
 
 const GridTop = styled.div`
   @media (min-width: 415px) {
-    max-width: 35.8rem;
+    max-width: 35.92rem;
     margin: 0 auto;
   }
   width: 100%;

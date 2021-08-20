@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import { Grid, Text, Button, Image } from "../elements";
 import { Post, Footer, Header, MainBanner, PcSide } from "../components";
-import { emptyHome_3x } from "../styles/img/index";
 
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as userActions } from "../redux/modules/user";
@@ -12,7 +11,11 @@ import { history } from "../redux/configureStore";
 import logger from "../shared/Console";
 
 import theme from "../styles/theme";
-import { search } from "../styles/img/index";
+
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from '../styles/img/webp/index';
+import {isWebpSupported} from 'react-image-webp/dist/utils';
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.scss";
@@ -109,7 +112,7 @@ const Main = (props) => {
               >
                 오늘은 어떤 음식을 배달 시킬까?
               </Text>
-              <Image size="2.4" src={search} margin="0 0 0.4rem" />
+              <Image size="2.4" src={isWebpSupported()? webp.searchWebp : png.search} margin="0 0 0.4rem" />
             </Grid>
             {/* <svg
               style={{
@@ -409,7 +412,7 @@ const Main = (props) => {
             <React.Fragment>
               <Grid>
                 <Grid is_flex_column height="20rem" margin="3.2rem 0 0 0">
-                  <LogoImg src={emptyHome_3x}></LogoImg>
+                  <LogoImg src={isWebpSupported()? webp.emptyHome_3xWebp : png.emptyHome_3x}></LogoImg>
                 </Grid>
                 <Text
                   size={fontSize.base}

@@ -4,23 +4,16 @@ import { history } from "../redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { token } from "../shared/OAuth";
-import {
-  mainLogo,
-  homeBrand100,
-  homeBg100,
-  friendsBrand100,
-  friendsBg100,
-  chatBrand100,
-  chatback100,
-  mypageBrand100,
-  mypageback100,
-  exitGray,
-} from "../styles/img/index";
 
 import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
 import styled from "styled-components";
 import { customAlert } from "./Sweet";
+
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from "../styles/img/webp/index";
+import { isWebpSupported } from "react-image-webp/dist/utils";
 
 const PcSide = (props) => {
   const dispatch = useDispatch();
@@ -49,7 +42,7 @@ const PcSide = (props) => {
     <SideGrid is_tutorial={path}>
       <Grid shape="container" maxWidth="16rem">
         <SideLogo
-          src={mainLogo}
+          src={isWebpSupported() ? webp.mainLogoWebp : png.mainLogo}
           alt="side-menu-logo"
           onClick={() => {
             history.push("/home");
@@ -64,15 +57,27 @@ const PcSide = (props) => {
             history.push("/home");
           }}
         >
-          <Image
-            src={
-              path === "/home" || path === "/address" || path === "/post/:id"
-                ? homeBrand100
-                : homeBg100
-            }
-            size="2.06"
-            margin="0 1.6rem 0 0"
-          />
+          {isWebpSupported() ? (
+            <Image
+              src={
+                path === "/home" || path === "/address" || path === "/post/:id"
+                  ? webp.homeBrand100Webp
+                  : webp.homeBg100Webp
+              }
+              size="2.74"
+              margin="0 1.6rem 0 0"
+            />
+          ) : (
+            <Image
+              src={
+                path === "/home" || path === "/address" || path === "/post/:id"
+                  ? png.homeBrand100
+                  : png.homeBg100
+              }
+              size="2.74"
+              margin="0 1.6rem 0 0"
+            />
+          )}
           <Text
             text_align="center"
             size={fontSize.small}
@@ -100,15 +105,27 @@ const PcSide = (props) => {
             loginCheck("upload");
           }}
         >
-          <Image
-            src={
-              path === "/upload" || path === "/upload/:id"
-                ? friendsBrand100
-                : friendsBg100
-            }
-            size="2.06"
-            margin="0 1.6rem 0 0"
-          />
+          {isWebpSupported() ? (
+            <Image
+              src={
+                path === "/upload" || path === "/upload/:id"
+                  ? webp.friendsBrand100Webp
+                  : webp.friendsBg100Webp
+              }
+              size="2.74"
+              margin="0 1.6rem 0 0"
+            />
+          ) : (
+            <Image
+              src={
+                path === "/upload" || path === "/upload/:id"
+                  ? png.friendsBrand100
+                  : png.friendsBg100
+              }
+              size="2.74"
+              margin="0 1.6rem 0 0"
+            />
+          )}
           <Text
             text_align="center"
             size={fontSize.small}
@@ -132,17 +149,31 @@ const PcSide = (props) => {
             loginCheck("chatlist");
           }}
         >
-          <Image
-            src={
-              path === "/chatlist" ||
-              path === "/allowchat" ||
-              path === "/chatting"
-                ? chatBrand100
-                : chatback100
-            }
-            size="2.06"
-            margin="0 1.6rem 0 0"
-          />
+          {isWebpSupported() ? (
+            <Image
+              src={
+                path === "/chatlist" ||
+                path === "/allowchat" ||
+                path === "/chatting"
+                  ? webp.chatBrand100Webp
+                  : webp.chatback100Webp
+              }
+              size="2.74"
+              margin="0 1.6rem 0 0"
+            />
+          ) : (
+            <Image
+              src={
+                path === "/chatlist" ||
+                path === "/allowchat" ||
+                path === "/chatting"
+                  ? png.chatBrand100
+                  : png.chatback100
+              }
+              size="2.74"
+              margin="0 1.6rem 0 0"
+            />
+          )}
           <Text
             text_align="center"
             size={fontSize.small}
@@ -174,19 +205,35 @@ const PcSide = (props) => {
             loginCheck("mypage");
           }}
         >
-          <Image
-            src={
-              path === "/mypage" ||
-              path === "/settings" ||
-              path === "/myreview" ||
-              path === "/profile" ||
-              path === "/mypost"
-                ? mypageBrand100
-                : mypageback100
-            }
-            size="2.06"
-            margin="0 1.6rem 0 0"
-          />
+          {isWebpSupported() ? (
+            <Image
+              src={
+                path === "/mypage" ||
+                path === "/settings" ||
+                path === "/myreview" ||
+                path === "/profile" ||
+                path === "/mypost"
+                  ? webp.mypageBrand100Webp
+                  : webp.mypageback100Webp
+              }
+              size="2.74"
+              margin="0 1.6rem 0 0"
+            />
+          ) : (
+            <Image
+              src={
+                path === "/mypage" ||
+                path === "/settings" ||
+                path === "/myreview" ||
+                path === "/profile" ||
+                path === "/mypost"
+                  ? png.mypageBrand100
+                  : png.mypageback100
+              }
+              size="2.74"
+              margin="0 1.6rem 0 0"
+            />
+          )}
           <Text
             text_align="center"
             size={fontSize.small}
@@ -223,7 +270,11 @@ const PcSide = (props) => {
               dispatch(userActions.logOut());
             }}
           >
-            <Image src={exitGray} size="2.06" margin="0 1.6rem 0 0" />
+            <Image
+              src={isWebpSupported() ? webp.exitGrayWebp : png.exitGray}
+              size="2.74"
+              margin="0 1.6rem 0 0"
+            />
             <Text
               text_align="center"
               size={fontSize.small}

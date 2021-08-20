@@ -8,9 +8,13 @@ import {  DetailPost, PcSide } from "../components";
 
 // style
 import { Grid } from "../elements";
-import { emptyMeal_3x } from "../styles/img/index";
 import { Header } from "../components";
 import logger from "../shared/Console";
+
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from '../styles/img/webp/index';
+import {isWebpSupported} from 'react-image-webp/dist/utils';
 
 const MyPost = (props) => {
 
@@ -47,7 +51,7 @@ const MyPost = (props) => {
               })
             ) : (
               <Grid width="36rem" margin="18rem auto 0 auto">
-                <MyReviewImg src={emptyMeal_3x}></MyReviewImg>
+                <MyReviewImg src={isWebpSupported()? webp.emptyMeal_3xWebp : png.emptyMeal_3x}></MyReviewImg>
                 <MyReviewText>아직 내가 쓴 글이 없어요.</MyReviewText>
               </Grid>
             )}
