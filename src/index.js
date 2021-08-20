@@ -4,13 +4,20 @@ import './index.css';
 import App from './shared/App';
 
 import reportWebVitals from './reportWebVitals';
-import {Provider} from "react-redux";
+import { Provider } from 'react-redux';
 
-import store from "./redux/configureStore";
+// theme
+import { ThemeProvider } from 'styled-components';
+import theme from './styles/theme';
+
+import store from './redux/configureStore';
+
 
 ReactDOM.render(
   <Provider store={store}>
-    <App/>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </Provider>,
   document.getElementById('root')
 );
