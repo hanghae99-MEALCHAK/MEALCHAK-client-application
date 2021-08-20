@@ -243,7 +243,7 @@ const addPostAX = (post_info) => {
   };
 };
 
-const editPostAX = (post_id, post_info) => {
+const editPostAX = (post_id, post_info, path) => {
   return function (dispatch, getState, { history }) {
     const longitude = getState().loc.post_address.longitude;
     const latitude = getState().loc.post_address.latitude;
@@ -287,7 +287,14 @@ const editPostAX = (post_id, post_info) => {
         logger("수정 포스트 내용", post);
 
         dispatch(editPost(post_id, post));
-
+        if(path === "/mypost"){
+          customAlert.sweetConfirmReload(
+            "수정 완료",
+            ["모집글 수정이 완료되었습니다."],
+            "/mypost"
+          );
+          return;
+        }
         customAlert.sweetConfirmReload(
           "수정 완료",
           ["모집글 수정이 완료되었습니다."],
@@ -446,7 +453,7 @@ const requestChatPostAX = (user_id, post_user_id, post_id, detail_path) => {
   };
 };
 
-const deletePostAX = (post_id) => {
+const deletePostAX = (post_id, path) => {
   return function (dispatch, getState, { history }) {
     sweet
       .fire({
@@ -497,14 +504,14 @@ const deletePostAX = (post_id) => {
             .delete(`/posts/${post_id}`)
             .then(() => {
               dispatch(deletePost(post_id));
-              // if (path === "is_profile") {
-              //   customAlert.sweetConfirmReload(
-              //     "삭제가 완료 됐어요",
-              //     ["선택하신 게시글이 삭제되었어요."],
-              //     "/mypost"
-              //   );
-              //   return;
-              // }
+              if (path === "is_profile") {
+                customAlert.sweetConfirmReload(
+                  "삭제가 완료 됐어요",
+                  ["선택하신 게시글이 삭제되었어요."],
+                  "/mypost"
+                );
+                return;
+              }
               customAlert.sweetConfirmReload(
                 "삭제가 완료 됐어요",
                 ["선택하신 게시글이 삭제되었어요."],

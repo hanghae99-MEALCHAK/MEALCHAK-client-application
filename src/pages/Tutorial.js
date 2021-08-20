@@ -63,10 +63,11 @@ const Tutorial = (props) => {
                 height="5rem"
                 border="none"
                 radius={radius.button}
+                bg={color.brand20}
+                cursor="t"
                 _onClick={() => {
                   history.push("/home");
                 }}
-                bg={color.brand20}
               >
                 <Text
                   margin="auto"
@@ -82,6 +83,7 @@ const Tutorial = (props) => {
                 height="5rem"
                 border="none"
                 radius={radius.button}
+                cursor="t"
                 _onClick={() => {
                   window.location.href = `${Kakao_auth_url}`;
                 }}

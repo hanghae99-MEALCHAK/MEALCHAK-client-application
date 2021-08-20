@@ -6,7 +6,6 @@ import { customAlert } from "./Sweet";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as searchActions } from "../redux/modules/search";
 import { actionCreators as imageActions } from "../redux/modules/image";
-import { actionCreators as postActions } from "../redux/modules/post";
 
 // styles
 import { HiOutlineMenu } from "react-icons/hi";

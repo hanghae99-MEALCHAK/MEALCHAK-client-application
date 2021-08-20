@@ -68,9 +68,7 @@ const Main = (props) => {
       <PcSide {...props} />
       <Grid
         minHeight="100vh"
-        // maxWidth="36rem"
         margin="0 auto"
-        // border={border.line1}
         padding="0 0 5.2rem 0"
       >
         <Grid shape="container">

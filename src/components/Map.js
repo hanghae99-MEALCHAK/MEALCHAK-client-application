@@ -78,19 +78,6 @@ const Map = (props) => {
 
   return (
     <React.Fragment>
-      {/* {!latitude && !longitude ? (
-        ""
-      ) : (
-        <Grid
-          id="map"
-          width="32rem"
-          height="25rem"
-          margin="1.6rem auto"
-          padding="1.6rem 1.6rem 0.8rem 1.6rem"
-          is_border="0.1rem solid #EBE9E8"
-          radius={radius.postBox}
-        ></Grid>
-      )} */}
       <Grid
         id="map"
         width="32rem"

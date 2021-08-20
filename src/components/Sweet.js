@@ -90,6 +90,10 @@ const sweetConfirmReload = (msg_title, msg_content_array, path) => {
           history.push("/mypage");
           return;
         }
+        if (path === "/mypost") {
+          window.location.replace(path);
+          return;
+        }
       } else {
         if (path === "/profile") {
           return history.push(path);
