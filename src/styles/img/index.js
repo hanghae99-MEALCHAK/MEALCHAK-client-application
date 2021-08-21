@@ -24,6 +24,8 @@ import emptyMeal_3x from "./emptyMeal_3x.png";
 import inviteBg100 from "./inviteBg100.png";
 import search from "./search.png";
 import frontError from "./frontError.png";
+import whatDoIeat from "./whatDoIeat_3x.png";
+import Group182_3x from "./Group182_3x.png";
 
 const png = {
   mainLogo,
@@ -52,6 +54,8 @@ const png = {
   inviteBg100,
   search,
   frontError,
+  whatDoIeat,
+  Group182_3x,
 };
 
 export { png };
