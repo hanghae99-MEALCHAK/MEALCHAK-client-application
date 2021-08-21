@@ -73,7 +73,7 @@ const MyOneReview = React.memo((props) => {
           <Text size={fontSize.small} line_height="150%" color={color.bg100}>
             {props.other_user ? props.username : props.user_nickname}
           </Text>
-          {props?.is_me && (
+          {/* {props?.is_me && ( */}
             <Text
               width="5.7rem"
               height="1.9rem"
@@ -87,9 +87,9 @@ const MyOneReview = React.memo((props) => {
               padding="0.2rem"
               margin="0 0 0 0.6rem"
             >
-              {props?.my_manner}
+              {props?.is_me ? props?.my_manner : props?.manner}
             </Text>
-          )}
+          {/* )} */}
         </Grid>
         <Grid
           width="fit-content"

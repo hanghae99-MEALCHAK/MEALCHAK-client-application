@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Grid, Text, Button, Image } from "../elements";
 import { Post, Footer, Header, MainBanner, PcSide } from "../components";
 
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
@@ -14,8 +15,8 @@ import theme from "../styles/theme";
 
 // 이미지
 import { png } from "../styles/img/index";
-import { webp } from '../styles/img/webp/index';
-import {isWebpSupported} from 'react-image-webp/dist/utils';
+import { webp } from "../styles/img/webp/index";
+import { isWebpSupported } from "react-image-webp/dist/utils";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.scss";
@@ -24,6 +25,7 @@ import "swiper/components/pagination/pagination.scss";
 import "../shared/Swiper.scss";
 
 const Main = (props) => {
+  const media = useMediaQuery("(min-width: 950px)");
   const { color, border, btn_border, fontSize } = theme;
 
   const dispatch = useDispatch();
@@ -66,13 +68,20 @@ const Main = (props) => {
     }
   }, []);
 
+  const swiperRef = React.useRef(null);
+  const mainRef = React.useRef(null);
+  const scrollToCategory = () => {
+    swiperRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <React.Fragment>
       <PcSide {...props} />
+      <div ref={mainRef}></div>
       <Grid
         minHeight="100vh"
         margin="0 auto"
-        padding="0 0 5.2rem 0"
+        padding={media ? "0" : "0 0 5.2rem 0"}
       >
         <Grid shape="container">
           <Header {...props} shape="홈">
@@ -110,29 +119,12 @@ const Main = (props) => {
               >
                 오늘은 어떤 음식을 배달 시킬까?
               </Text>
-              <Image size="2.4" src={isWebpSupported()? webp.searchWebp : png.search} margin="0 0 0.4rem" />
-            </Grid>
-            {/* <svg
-              style={{
-                position: "absolute",
-                top: "6.4rem",
-                margin: "0 0 0 12rem",
-              }}
-              width="2rem"
-              height="2rem"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="11" cy="11" r="6" stroke="#36373C" strokeWidth="2" />
-              <path
-                d="M16 16C17.1716 17.1716 19 19 19 19"
-                stroke="#36373C"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+              <Image
+                size="2.4"
+                src={isWebpSupported() ? webp.searchWebp : png.search}
+                margin="0 0 0.4rem"
               />
-            </svg> */}
+            </Grid>
           </Button>
         </Grid>
         <Grid is_float="left">
@@ -148,6 +140,7 @@ const Main = (props) => {
             </Text>
           </Grid>
           <MainBanner
+            scrollToCategory={scrollToCategory}
             {...rank_list}
             category={category}
             getCategory={(value) =>
@@ -157,6 +150,7 @@ const Main = (props) => {
             getSort={() => setSort({ ...{ sort: false }, recent: true })}
           />
           <Grid height="0.8rem" bg="#f4f4f3" />
+          <div ref={swiperRef}></div>
         </Grid>
         <Grid
           maxWidth="33.3rem"
@@ -410,7 +404,13 @@ const Main = (props) => {
             <React.Fragment>
               <Grid>
                 <Grid is_flex_column height="20rem" margin="3.2rem 0 0 0">
-                  <LogoImg src={isWebpSupported()? webp.emptyHome_3xWebp : png.emptyHome_3x}></LogoImg>
+                  <LogoImg
+                    src={
+                      isWebpSupported()
+                        ? webp.emptyHome_3xWebp
+                        : png.emptyHome_3x
+                    }
+                  ></LogoImg>
                 </Grid>
                 <Text
                   size={fontSize.base}

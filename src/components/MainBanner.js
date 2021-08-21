@@ -48,11 +48,7 @@ const MainBanner = React.memo((props) => {
                   margin="0.5rem auto"
                   cursor="t"
                   _onClick={() => {
-                    if (post_list?.length !== 0) {
-                      document
-                        .querySelector("body")
-                        .scrollTo({ top: 410, left: 0, behavior: "smooth" });
-                    }
+                    props?.scrollToCategory();
                     if (p.category === "한식") {
                       dispatch(postActions.getPostAX(p.category));
                       props?.getCategory({ kr: true });

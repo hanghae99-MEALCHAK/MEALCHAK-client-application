@@ -27,9 +27,6 @@ const MyPage = (props) => {
     document
       .querySelector("body")
       .scrollTo({ top: 0, left: 0, behavior: "instant" });
-    if(!is_login) {
-      dispatch(userAction.loginCheck());
-    }  
     logger("Mypage props: ", props);
   }, []);
 
