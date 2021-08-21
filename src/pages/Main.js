@@ -153,9 +153,10 @@ const Main = (props) => {
           <div ref={swiperRef}></div>
         </Grid>
         <Grid
-          maxWidth="33.3rem"
+          maxWidth="34.9rem"
           height="4.5rem"
-          margin="0 auto"
+          // margin="0 auto"
+          margin={media? "0 0 0 2rem" : "0 0 0 2.8rem"}
           flex
           flex_direction="row"
           align_items="center"
@@ -163,7 +164,7 @@ const Main = (props) => {
         >
           <Swiper
             className="category"
-            slidesPerView="7"
+            slidesPerView="7.55"
             style={{ transform: "none" }}
           >
             <SwiperSlide style={{ width: "3rem", textAlign: "center" }}>
@@ -174,7 +175,8 @@ const Main = (props) => {
                 color={category.all ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
-                margin="-0.4rem 0rem 0.1rem 0.5rem"
+                // margin="-0.4rem 0rem 0.1rem 0.5rem"
+                margin="-0.4rem 1.6rem 0.1rem 0rem"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.all ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
@@ -194,7 +196,7 @@ const Main = (props) => {
                 color={category.kr ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
-                margin="-0.4rem 0rem 0 0.7rem"
+                margin="-0.4rem 1.6rem 0 0"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.kr ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
@@ -215,7 +217,7 @@ const Main = (props) => {
                 color={category.bunsik ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
-                margin="-0.4rem 0rem 0 0.7rem"
+                margin="-0.4rem 1.6rem 0 0"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.bunsik ? "0.2rem solid black" : "none"}
                 _onClick={(e) => {
@@ -236,7 +238,7 @@ const Main = (props) => {
                 color={category.cn ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
-                margin="-0.4rem 0rem 0 0.7rem"
+                margin="-0.4rem 1.6rem 0 0"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.cn ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
@@ -257,7 +259,7 @@ const Main = (props) => {
                 color={category.jp ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
-                margin="-0.4rem 0rem 0 0.7rem"
+                margin="-0.4rem 1.6rem 0 0"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.jp ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
@@ -278,7 +280,7 @@ const Main = (props) => {
                 color={category.west ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
-                margin="-0.4rem 0rem 0 0.7rem"
+                margin="-0.4rem 1.6rem 0 0"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category?.west ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
@@ -299,7 +301,7 @@ const Main = (props) => {
                 color={category.cafe ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
-                margin="-0.4rem 0rem 0 0.7rem"
+                margin="-0.4rem 1.6rem 0 0"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.cafe ? "0.2rem solid black" : ""}
                 _onClick={(e) => {
@@ -320,7 +322,7 @@ const Main = (props) => {
                 color={category.etc ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
-                margin="-0.4rem 0rem 0 0.7rem"
+                margin="-0.4rem 1.6rem 0 0"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.etc ? "0.2rem solid black" : ""}
                 _onClick={(e) => {

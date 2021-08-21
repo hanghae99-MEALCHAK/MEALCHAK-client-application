@@ -37,18 +37,19 @@ const Map = (props) => {
     // map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
     const content =
-      '<div className="wrap">' +
-      '    <div className="info">' +
-      '        <div className="title">' +
+      '<div class="wrap">' +
+      '    <div class="info">' +
+      '        <div class="title">' +
       `            ${props?.title}` +
+      // '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
       "        </div>" +
-      '        <div className="body">' +
-      '            <div className="img">' +
-      `                <img className="img02" src=${props?.userImg}>` +
+      '        <div class="body">' +
+      '            <div class="img">' +
+      `                <img class="img02" src=${props?.userImg}>` +
       "           </div>" +
-      '            <div className="desc">' +
-      `                <div className="ellipsis">${props?.address}</div>` +
-      `                <div className="jibun ellipsis">${
+      '            <div class="desc">' +
+      `                <div class="ellipsis">${props?.address}</div>` +
+      `                <div class="jibun ellipsis">${
         props?.detail_address ? props?.detail_address : ""
       }</div>` +
       "            </div>" +

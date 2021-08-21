@@ -16,6 +16,7 @@ import MyReview from "./MyReview";
 import MyProfile from "./MyProfile";
 import UserProfile from "./UserProfile";
 import AllowChat from "./AllowChat";
+import ReviewWrite from "./ReviewWrite";
 
 export {
   LoginRedirect,
@@ -36,4 +37,5 @@ export {
   MyProfile,
   UserProfile,
   AllowChat,
+  ReviewWrite,
 };
