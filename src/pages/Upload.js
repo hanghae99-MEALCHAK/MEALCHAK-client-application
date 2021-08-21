@@ -243,7 +243,7 @@ const Upload = React.memo((props) => {
       return;
     }
 
-    dispatch(postAction.editPostAX(post_id, post_info, (my_post ? "/mypost" : null)));
+    dispatch(postAction.editPostAX(post_id, post_info, (my_post.length > 0 ? "/mypost" : null)));
   };
 
   if (is_login) {
