@@ -338,6 +338,7 @@ const TopGrid = styled.div`
   }
   min-height: 100vh;
   margin: 0 auto;
+  overflow-x: hidden;
 `;
 
 export default Grid;

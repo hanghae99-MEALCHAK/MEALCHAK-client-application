@@ -79,7 +79,11 @@ const ProfileEdit = (props) => {
             }
           });
       } else {
-        customAlert.sweetConfirmReload("앗 빈칸이 있어요", ["성별과 연령을 모두 선택해주세요."], "");
+        customAlert.sweetConfirmReload(
+          "앗 빈칸이 있어요",
+          ["성별과 연령을 모두 선택해주세요."],
+          ""
+        );
       }
     } else {
       // 프로필 age, gender 둘다 이미 있는 사람
@@ -91,7 +95,11 @@ const ProfileEdit = (props) => {
           "/mypage"
         );
       } else {
-        customAlert.sweetConfirmReload("앗 빈칸이 있어요", ["성별과 연령을 모두 선택해주세요."], "");
+        customAlert.sweetConfirmReload(
+          "앗 빈칸이 있어요",
+          ["성별과 연령을 모두 선택해주세요."],
+          ""
+        );
       }
     }
   };
@@ -157,6 +165,7 @@ const ProfileEdit = (props) => {
               <ProfileCover>
                 <input
                   type="file"
+                  accept="image/jpg,image/png,image/jpeg,image/bmp"
                   id="input-file"
                   ref={fileInput}
                   onChange={selectFile}

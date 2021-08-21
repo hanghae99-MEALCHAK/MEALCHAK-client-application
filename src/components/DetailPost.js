@@ -406,7 +406,7 @@ const DetailPost = React.memo((props) => {
           {!latitude && !longitude ? (
             <Grid
               width="32rem"
-              height="25rem"
+              height="fit-content"
               bg="white"
               margin="1.6rem auto"
               padding="0.5rem 1.6rem 0.8rem 1.6rem"
@@ -433,6 +433,7 @@ const DetailPost = React.memo((props) => {
                 text_align="center"
                 line_height="150%"
                 letter_spacing="-0.01em"
+                margin="0 0 1.6rem 0"
               >
                 잠시 후 다시 시도해주세요.
               </Text>
@@ -543,7 +544,7 @@ const GridGap = styled.div`
 `;
 
 const LogoImg = styled.div`
-  margin: 1rem auto 1rem auto;
+  margin: 2.4rem auto 1.6rem auto;
   background-image: url("${(props) => props.src}");
   width: 12.7rem;
   height: 11.5rem;
