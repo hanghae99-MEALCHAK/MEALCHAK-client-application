@@ -10,6 +10,11 @@ import { actionCreators as searchActions } from '../redux/modules/search';
 
 import theme from '../styles/theme';
 
+// 이미지 
+import { png } from "../styles/img/index"; 
+import { webp } from "../styles/img/webp"; 
+import {isWebpSupported} from 'react-image-webp/dist/utils';
+
 const Search = (props) => {
   const { color } = theme;
 
@@ -59,7 +64,7 @@ const Search = (props) => {
             <Input
               padding="1.4rem 1.6rem"
               border="0.1rem solid #EBE9E8"
-              placeholder="제목+내용으로 검색 돼요."
+              placeholder="제목+내용, 장소로 검색 돼요."
               size="1.6rem"
               value={food}
               _onChange={onChange}
@@ -196,7 +201,7 @@ const SearchLogoImg = styled.div`
   width: 28rem;
   height: 25.8rem;
   border-radius: 2rem;
-  background-image: url('/illust/whatDoIeat_3x.png');
+  background-image: url('${isWebpSupported() ? webp.whatDoIeatWebp : png.whatDoIeat}');
   background-size: 28rem 25.8rem;
   margin: 0 auto;
 `;
@@ -205,7 +210,7 @@ const ZeroImg = styled.div`
   width: 14.3rem;
   height: 26.4rem;
   border-radius: 2rem;
-  background-image: url('/illust/Group182_3x.png');
+  background-image: url('${isWebpSupported() ? webp.Group182_3xWebp : png.Group182_3x}');
   background-size: 14.3rem 26.4rem;
   margin: 0 auto;
 `;

@@ -10,7 +10,11 @@ import { Grid, Button, Text, Image } from "../elements";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
 import { customAlert } from "./Sweet";
-import { emptyHome_3x } from "../styles/img/index";
+
+// 이미지 
+import { png } from "../styles/img/index"; 
+import { webp } from "../styles/img/webp"; 
+import {isWebpSupported} from 'react-image-webp/dist/utils';
 
 import moment from "moment";
 
@@ -410,7 +414,7 @@ const DetailPost = React.memo((props) => {
               is_border="0.1rem solid #EBE9E8"
               radius={radius.postBox}
             >
-              <LogoImg src={emptyHome_3x} />
+              <LogoImg src={isWebpSupported() ? webp.emptyHome_3xWebp : png.emptyHome_3x} />
               <Text size={fontSize.small} color={color.bg80} text_align="center">
                 주소를 불러올 수 없습니다
               </Text>

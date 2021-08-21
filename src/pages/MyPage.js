@@ -20,14 +20,16 @@ const MyPage = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const user_info = useSelector((state) => state.user.user);
-
+  console.log(is_login);
   const { color, border, fontSize } = theme;
 
   React.useEffect(() => {
     document
       .querySelector("body")
       .scrollTo({ top: 0, left: 0, behavior: "instant" });
-    dispatch(userAction.loginCheck());
+    if(!is_login) {
+      dispatch(userAction.loginCheck());
+    }  
     logger("Mypage props: ", props);
   }, []);
 
