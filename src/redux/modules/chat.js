@@ -22,8 +22,6 @@ const CLEAR_CHAT = "CLEAR_CHAT";
 const GET_MSG = "GET_MSG";
 // 처음 방에 입장할때 이전 대화기록 DB에서 가져오기 (array)
 const SET_MSG = "SET_MSG";
-// 메세지 내용 초기화 (방이동시)
-const CLEAR_MSG = "CLEAR_MSG";
 // 사용자가 입력하는 메세지 내용
 const WRITE_MSG = "WRITE_MSG";
 // 로딩 중 (false)
@@ -60,7 +58,6 @@ const getMessages = createAction(GET_MSG, (newMessage) => ({
 const setMessage = createAction(SET_MSG, (chatMassageArray) => ({
   chatMassageArray,
 }));
-const clearMessage = createAction(CLEAR_MSG, () => ({}));
 const writeMessage = createAction(WRITE_MSG, (message) => ({ message }));
 const loading = createAction(LOADING, () => {});
 const loaded = createAction(LOADED, () => {});
@@ -125,7 +122,10 @@ const setChatListAX = () => {
         .catch((e) => {
           customAlert.sweetConfirmReload(
             "채팅방을 불러올 수 없어요",
-            ["채팅방을 불러오는 데 실패했어요.", "홈 탭으로 돌아간 후에 다시 시도해주세요."],
+            [
+              "채팅방을 불러오는 데 실패했어요.",
+              "홈 탭으로 돌아간 후에 다시 시도해주세요.",
+            ],
             "history"
           );
           logger("나의 채팅방 목록 조회 에러", e);
@@ -166,40 +166,16 @@ const getChatMessagesAX = () => {
       .catch((e) => {
         customAlert.sweetConfirmReload(
           "불러오기 실패",
-          ["채팅방 메세지를 불러오는데 실패했어요.", "잠시 후 다시 시도해주세요."],
+          [
+            "채팅방 메세지를 불러오는데 실패했어요.",
+            "잠시 후 다시 시도해주세요.",
+          ],
           ""
         );
         logger("채팅 메세지 불러오기 실패", e);
       });
   };
 };
-
-// 채팅 수락, 거절 요청
-// const chatAllowAX = (joinId, boolean) => {
-//   return function (dispatch, getState, { history }) {
-//     axiosModule
-//       .get(`/posts/join/request/accept/${joinId}?accept=${boolean}`)
-//       .then((res) => {
-//         logger("승인 수락, 거절 res", res);
-//         if (boolean === true) {
-//           customAlert.sweetConfirmReload(
-//             "수락 완료",
-//             ["수락이 완료되었습니다."],
-//             ""
-//           );
-//         } else {
-//           customAlert.sweetConfirmReload(
-//             "거절 완료",
-//             ["수락 거절이 완료되었습니다."],
-//             ""
-//           );
-//         }
-//       })
-//       .catch((e) => {
-//         logger("채팅방 참여 승인 요청 에러", e);
-//       });
-//   };
-// };
 
 // 채팅 승인 대기 목록
 const requestChatListAX = () => {
@@ -227,7 +203,10 @@ const requestChatListAX = () => {
           logger("방장 승인 대기 목록 에러", e);
           customAlert.sweetConfirmReload(
             "불러오기 실패",
-            ["승인 대기 목록을 불러오는데 실패했어요.", "잠시 후 다시 시도해주세요."],
+            [
+              "승인 대기 목록을 불러오는데 실패했어요.",
+              "잠시 후 다시 시도해주세요.",
+            ],
             "/chatlist"
           );
         });
@@ -263,7 +242,10 @@ const awaitChatListAX = () => {
         logger("신청자 승인 요청 목록 에러", e);
         customAlert.sweetConfirmReload(
           "불러오기 실패",
-          ["승인 요청 목록을 불러오는데 실패했어요.", "잠시 후 다시 시도해주세요."],
+          [
+            "승인 요청 목록을 불러오는데 실패했어요.",
+            "잠시 후 다시 시도해주세요.",
+          ],
           "/home"
         );
       });
@@ -286,7 +268,10 @@ const awaitChatOut = (join_id) => {
         logger("대기 취소 에러", e);
         customAlert.sweetConfirmReload(
           "승인 요청 취소 실패",
-          ["승인 요청한 채팅을 취소하는데 실패했어요.", "잠시 후 다시 시도해주세요."],
+          [
+            "승인 요청한 채팅을 취소하는데 실패했어요.",
+            "잠시 후 다시 시도해주세요.",
+          ],
           ""
         );
       });
@@ -315,7 +300,10 @@ const getChatUserAX = (roomId) => {
           logger("채팅 참여 유저 목록확인 에러", e);
           customAlert.sweetConfirmReload(
             "앗! 잠시 볼 수 없어요",
-            ["채팅에 참여 중인 사용자를 조회하는 데", "실패했어요. 잠시 후 다시 시도해주세요."],
+            [
+              "채팅에 참여 중인 사용자를 조회하는 데",
+              "실패했어요. 잠시 후 다시 시도해주세요.",
+            ],
             "goBack"
           );
         });
@@ -338,9 +326,9 @@ const leaveChatAX = (post_id) => {
   return function (dispatch, getState, { history }) {
     customAlert
       .sweetPromise(
-        "채팅방 나가기",
-        "나가기를 하면 대화내용이 모두 삭제되고",
-        "채팅목록에서도 삭제됩니다.",
+        "채팅방을 나가시겠어요?",
+        "해당 채팅방이 목록에서 사라져요.",
+        "",
         "나가기",
         "취소"
       )
@@ -391,6 +379,11 @@ export default handleActions(
       produce(state, (draft) => {
         draft.currentChat.room_id = null;
         draft.currentChat.roomName = null;
+        draft.currentChat.post_id = null;
+        draft.currentChat.own_user_id = null;
+        draft.currentChat.order_time = null;
+        draft.userInList = [];
+        draft.messages = [];
       }),
     // getMessages - 새로운 메세지 정보를 메세지 리스트에 추가
     [GET_MSG]: (state, action) =>
@@ -431,7 +424,11 @@ export default handleActions(
               });
           } else {
             return customAlert
-              .sweetOK("앗 사라진 채팅방이에요", "방장이 삭제한 채팅방이에요.", "다른 밀착을 시작해볼까요?")
+              .sweetOK(
+                "앗 사라진 채팅방이에요",
+                "방장이 삭제한 채팅방이에요.",
+                "다른 밀착을 시작해볼까요?"
+              )
               .then(() => {
                 return window.location.replace("/chatlist");
               });
@@ -456,10 +453,6 @@ export default handleActions(
         draft.messages = _.remove(action.payload.chatMassageArray.reverse(), {
           type: "TALK",
         });
-      }),
-    [CLEAR_MSG]: (state, action) =>
-      produce(state, (draft) => {
-        draft.messages = [];
       }),
     [WRITE_MSG]: (state, action) =>
       produce(state, (draft) => {
@@ -500,17 +493,16 @@ const actionCreators = {
   moveChatRoom,
   clearChat,
   getMessages,
-  clearMessage,
   writeMessage,
   loading,
   loaded,
   setTime,
-  // chatAllowAX,
   requestChatListAX,
   awaitChatListAX,
   getChatUserAX,
   awaitChatOut,
   leaveChatAX,
+  // clearChatUser,
 };
 
 export { actionCreators };

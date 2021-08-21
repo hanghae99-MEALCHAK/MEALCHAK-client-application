@@ -90,7 +90,7 @@ const kakaoLogin = (code) => {
         customAlert.sweetConfirmReload(
           "로그인 성공",
           [
-            `${user_nickname}님 반가워요!`,
+            `<b>${user_nickname}</b>님 반가워요!`,
             `밀착에서 사람도, 환경도`,
             `한 걸음 더 가까워져봐요!`,
           ],

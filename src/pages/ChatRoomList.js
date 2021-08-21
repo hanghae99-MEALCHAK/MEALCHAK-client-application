@@ -13,8 +13,8 @@ import styled from "styled-components";
 
 // 이미지
 import { png } from "../styles/img/index";
-import { webp } from '../styles/img/webp/index';
-import {isWebpSupported} from 'react-image-webp/dist/utils';
+import { webp } from "../styles/img/webp/index";
+import { isWebpSupported } from "react-image-webp/dist/utils";
 
 import logger from "../shared/Console";
 
@@ -30,6 +30,7 @@ const ChatRoomList = (props) => {
     if (token) {
       dispatch(chatActions.setChatListAX());
       dispatch(chatActions.awaitChatListAX());
+      dispatch(chatActions.clearChat());
     }
   }, []);
 
@@ -49,8 +50,6 @@ const ChatRoomList = (props) => {
 
     // 채팅 시작하기 버튼 누를때 입장 axios 요청
     // 동시에 구독
-    // /chat/join/${room_id}
-    dispatch(chatActions.clearMessage());
     dispatch(
       chatActions.moveChatRoom(
         room_id,
@@ -88,12 +87,12 @@ const ChatRoomList = (props) => {
           <Grid height="4.4rem" />
           <Footer {...props}></Footer>
         </Grid>
-        <Grid is_flex4="t" text_align="center" borderBottom={border.line1}>
+        <TapGrid>
           <Grid
             borderBottom={border.line3}
-            width="auto"
+            width="100%"
             padding="0 2rem"
-            margin="auto"
+            margin="0"
             _onClick={() => {
               history.push("/chatlist");
             }}
@@ -103,7 +102,7 @@ const ChatRoomList = (props) => {
               참여중인 채팅방
             </Text>
           </Grid>
-          <Grid width="auto" padding="0 2rem" margin="auto">
+          <Grid width="100%" padding="0 2rem" margin="0">
             <Text
               bold2="700"
               size={fontSize.base}
@@ -117,7 +116,7 @@ const ChatRoomList = (props) => {
               들어온 승인 요청
             </Text>
           </Grid>
-        </Grid>
+        </TapGrid>
         {chat_list?.map((info, idx) => {
           return (
             <ChatListItem
@@ -149,7 +148,10 @@ const ChatRoomList = (props) => {
 
         {await_list?.length === 0 && chat_list?.length === 0 && (
           <>
-            <Grid shape="empty" src={isWebpSupported()? webp.emptyBubblesWebp : png.emptyBubbles}>
+            <Grid
+              shape="empty"
+              src={isWebpSupported() ? webp.emptyBubblesWebp : png.emptyBubbles}
+            >
               <EmptyText theme={theme}>아직 채팅 내용이 없어요.</EmptyText>
             </Grid>
             <Grid height="20rem"></Grid>
@@ -168,6 +170,19 @@ const EmptyText = styled.p`
   top: 15rem;
   font-size: ${(props) => props.theme.fontSize.base};
   color: ${(props) => props.theme.color.bg80};
+`;
+
+export const TapGrid = styled.div`
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgb(207, 207, 207);
+  display: grid;
+  -webkit-box-align: center;
+  align-items: center;
+  text-align: center;
+  grid-template-columns: 1fr 1fr;
+  padding: 0 2rem;
 `;
 
 export default ChatRoomList;

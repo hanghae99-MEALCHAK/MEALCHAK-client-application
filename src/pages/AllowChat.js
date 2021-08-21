@@ -8,12 +8,13 @@ import styled from "styled-components";
 import { Header, Footer, AllowList, PcSide } from "../components";
 import { Grid, Text } from "../elements";
 import theme from "../styles/theme";
+import { TapGrid } from "./ChatRoomList";
 import logger from "../shared/Console";
 
 // 이미지
 import { png } from "../styles/img/index";
-import { webp } from '../styles/img/webp/index';
-import {isWebpSupported} from 'react-image-webp/dist/utils';
+import { webp } from "../styles/img/webp/index";
+import { isWebpSupported } from "react-image-webp/dist/utils";
 
 const AllowChat = (props) => {
   const dispatch = useDispatch();
@@ -42,11 +43,11 @@ const AllowChat = (props) => {
           <Header {...props} shape="채팅리스트" />
           <Grid height="4.4rem" />
           <Footer {...props}></Footer>
-          <Grid is_flex4="t" text_align="center" borderBottom={border.line1}>
+          <TapGrid>
             <Grid
-              width="auto"
+              width="100%"
               padding="0 2rem"
-              margin="auto"
+              margin="0"
               _onClick={() => {
                 history.push("/chatlist");
               }}
@@ -63,9 +64,9 @@ const AllowChat = (props) => {
             </Grid>
             <Grid
               borderBottom={border.line3}
-              width="auto"
+              width="100%"
               padding="0 2rem"
-              margin="auto"
+              margin="0"
               _onClick={() => {
                 history.push("/allowchat");
               }}
@@ -75,7 +76,7 @@ const AllowChat = (props) => {
                 들어온 승인 요청
               </Text>
             </Grid>
-          </Grid>
+          </TapGrid>
 
           {allow_list.map((info, idx) => {
             return (
@@ -92,7 +93,12 @@ const AllowChat = (props) => {
 
           {allow_list.length === 0 && (
             <>
-              <Grid shape="empty" src={isWebpSupported()? webp.emptyBubblesWebp : png.emptyBubbles}>
+              <Grid
+                shape="empty"
+                src={
+                  isWebpSupported() ? webp.emptyBubblesWebp : png.emptyBubbles
+                }
+              >
                 <EmptyText theme={theme}>아직 들어온 요청이 없어요.</EmptyText>
               </Grid>
               <Grid height="20rem"></Grid>

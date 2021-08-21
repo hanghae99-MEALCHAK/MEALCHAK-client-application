@@ -7,7 +7,7 @@ import { history } from "../redux/configureStore";
 
 const AllowList = (props) => {
   const { color, border, fontSize } = theme;
-  const { roomName, join_id, user_img, username } = props;
+  const { roomName, join_id, user_img, username, user_id } = props;
 
   React.useEffect(() => {
     logger("승인요청대기 페이지", props);
@@ -25,7 +25,7 @@ const AllowList = (props) => {
               cursor="pointer"
               _onClick={() => {
                 history.push({
-                  pathname: "/userprofile",
+                  pathname: `/userprofile/${user_id}`,
                   state: { ...props },
                 });
               }}

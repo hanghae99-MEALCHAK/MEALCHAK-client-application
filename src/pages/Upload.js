@@ -81,50 +81,61 @@ const Upload = React.memo((props) => {
 
   const uploadBtn = () => {
     // 모집글 작성 시 상위, 하위 컴포넌트들에서 올바르지 않은 value있을때 처리하는 과정
+    if (post_info.disabled) {
+      return customAlert
+        .sweetOK(
+          "입력 가능한 글자수를 초과했어요",
+          "모집글 작성 시 255자 이내로 작성해주세요."
+        )
+        .then(() => {
+          return;
+        });
+    }
+
     if (!post_info.title || post_info.title === "") {
       customAlert.sweetConfirmReload(
-        "빈칸이 있습니다.",
-        ["모집글의 제목을 입력해주세요."],
+        "앗 빈칸이 있어요",
+        [`모집글의 <b>제목</b>을 작성해주세요.`],
         ""
       );
       return;
     }
     if (!post_info.contents || post_info.contents === "") {
       customAlert.sweetConfirmReload(
-        "빈칸이 있습니다.",
-        ["모집글의 내용을 입력해주세요."],
+        "앗 빈칸이 있어요",
+        [`모집글의 <b>내용</b>을 작성해주세요.`],
         ""
       );
       return;
     }
     if (!post_info?.place || post_info?.place === "") {
       customAlert.sweetConfirmReload(
-        "앗 상세 주소를 입력해주세요",
-        ["더치페이를 위해 모집원을 만날", "상세 주소가 필요해요."],
+        "앗 빈칸이 있어요",
+        ["만날 장소에서 주소 찾기 버튼을 눌러", `<b>주소</b>를 입력해주세요.`],
         ""
       );
       return;
     }
     if (!post_info?.detail_place || post_info?.detail_place === "") {
       customAlert.sweetConfirmReload(
-        "앗 상세 주소를 입력해주세요",
-        ["더치페이를 위해 모집원을 만날", "상세 주소가 필요해요."],
+        "앗 빈칸이 있어요",
+        [`<b>상세 주소</b>를 작성해주세요.`],
         ""
       );
       return;
     }
     if (!post_info.restaurant || post_info.restaurant === "") {
       customAlert.sweetConfirmReload(
-        "빈칸이 있습니다.",
-        ["배달 예정인 식당을 입력해주세요."],
+        "앗 빈칸이 있어요",
+        ["<b>배달 예정인 식당</b> 이름을 적어주세요."],
         ""
       );
       return;
     }
     if (!post_info.headCount || post_info.headCount === "0") {
       customAlert.sweetConfirmReload(
-        "빈칸이 있습니다.",
-        ["모집원의 인원 수를 입력해주세요."],
+        "앗 빈칸이 있어요",
+        [`<b>모집 인원 수</b>를 선택해주세요.`],
         ""
       );
       return;
@@ -144,8 +155,8 @@ const Upload = React.memo((props) => {
       // 선택시간이 과거인 경우
       if (time_now > select_time) {
         return customAlert.sweetConfirmReload(
-          "시간을 확인해주세요",
-          ["현재시간보다 과거로 설정되어있어요."],
+          "배달 주문 예정 시간을 확인해주세요",
+          ["현재시간보다 과거로 설정됐어요."],
           ""
         );
       }
@@ -153,15 +164,15 @@ const Upload = React.memo((props) => {
 
     if (!post_info.foodCategory || post_info.foodCategory === "") {
       customAlert.sweetConfirmReload(
-        "빈칸이 있습니다.",
-        ["모집을 희망하는 식품의 카테고리를 입력해주세요."],
+        "앗 빈칸이 있어요",
+        [`음식의 <b>카테고리</b>를 선택해주세요.`],
         ""
       );
       return;
     }
 
     logger("post 업로드 상태", post_info);
-
+    delete post_info.disabled;
     dispatch(postAction.addPostAX(post_info));
   };
 
@@ -169,50 +180,60 @@ const Upload = React.memo((props) => {
     logger("수정 버튼, post_info", post_info);
 
     // 모집글 작성 시 상위, 하위 컴포넌트들에서 올바르지 않은 value있을때 처리하는 과정
+    if (post_info.disabled) {
+      return customAlert
+        .sweetOK(
+          "입력 가능한 글자수를 초과했어요",
+          "모집글 작성 시 255자 이내로 작성해주세요."
+        )
+        .then(() => {
+          return;
+        });
+    }
     if (!post_info.title || post_info.title === "") {
       customAlert.sweetConfirmReload(
-        "빈칸이 있습니다",
-        ["모집글의 제목을 입력해주세요."],
+        "앗 빈칸이 있어요",
+        [`모집글의 <b>제목</b>을 작성해주세요.`],
         ""
       );
       return;
     }
     if (!post_info.contents || post_info.contents === "") {
       customAlert.sweetConfirmReload(
-        "빈칸이 있습니다",
-        ["모집글의 내용을 입력해주세요."],
+        "앗 빈칸이 있어요",
+        [`모집글의 <b>내용</b>을 작성해주세요.`],
         ""
       );
       return;
     }
     if (!post_info.place || post_info.place === "") {
       customAlert.sweetConfirmReload(
-        "앗 상세 주소를 입력해주세요",
-        ["더치페이를 위해 모집원을 만날", "상세 주소가 필요해요."],
+        "앗 빈칸이 있어요",
+        ["만날 장소에서 주소 찾기 버튼을 눌러", `<b>주소</b>를 입력해주세요.`],
         ""
       );
       return;
     }
     if (!post_info?.detail_place || post_info?.detail_place === "") {
       customAlert.sweetConfirmReload(
-        "앗 상세 주소를 입력해주세요",
-        ["더치페이를 위해 모집원을 만날", "상세 주소가 필요해요."],
+        "앗 빈칸이 있어요",
+        [`<b>상세 주소</b>를 작성해주세요.`],
         ""
       );
       return;
     }
     if (!post_info.restaurant || post_info.restaurant === "") {
       customAlert.sweetConfirmReload(
-        "빈칸이 있습니다",
-        ["배달 예정인 식당을 입력해주세요."],
+        "앗 빈칸이 있어요",
+        ["<b>배달 예정인 식당</b> 이름을 적어주세요."],
         ""
       );
       return;
     }
     if (!post_info.headCount || post_info.headCount === "0") {
       customAlert.sweetConfirmReload(
-        "빈칸이 있습니다",
-        ["모집원의 인원 수를 입력해주세요."],
+        "앗 빈칸이 있어요",
+        [`<b>모집 인원 수</b>를 선택해주세요.`],
         ""
       );
       return;
@@ -228,22 +249,24 @@ const Upload = React.memo((props) => {
       // 선택시간이 과거인 경우
       if (time_now > select_time) {
         return customAlert.sweetConfirmReload(
-          "시간을 확인해주세요",
-          ["현재시간보다 과거로 설정되어있어요."],
+          "배달 주문 예정 시간을 확인해주세요",
+          ["현재시간보다 과거로 설정됐어요."],
           ""
         );
       }
     }
     if (!post_info.foodCategory || post_info.foodCategory === "") {
       customAlert.sweetConfirmReload(
-        "빈칸이 있습니다.",
-        ["모집을 희망하는 식품의 카테고리를 입력해주세요."],
+        "앗 빈칸이 있어요",
+        [`음식의 <b>카테고리</b>를 선택해주세요.`],
         ""
       );
       return;
     }
-
-    dispatch(postAction.editPostAX(post_id, post_info, (my_post ? "/mypost" : null)));
+    delete post_info.disabled;
+    dispatch(
+      postAction.editPostAX(post_id, post_info, my_post.length > 0 ? "/mypost" : null)
+    );
   };
 
   if (is_login) {

@@ -79,7 +79,7 @@ const ProfileEdit = (props) => {
             }
           });
       } else {
-        customAlert.sweetConfirmReload("성별/ 연령", ["필수항목입니다."], "");
+        customAlert.sweetConfirmReload("앗 빈칸이 있어요", ["성별과 연령을 모두 선택해주세요."], "");
       }
     } else {
       // 프로필 age, gender 둘다 이미 있는 사람
@@ -91,7 +91,7 @@ const ProfileEdit = (props) => {
           "/mypage"
         );
       } else {
-        customAlert.sweetConfirmReload("성별/ 연령", ["필수항목입니다."], "");
+        customAlert.sweetConfirmReload("앗 빈칸이 있어요", ["성별과 연령을 모두 선택해주세요."], "");
       }
     }
   };
