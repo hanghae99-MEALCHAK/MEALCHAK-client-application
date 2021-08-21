@@ -45,8 +45,6 @@ function App() {
 
   const user_info = useSelector((state) => state.user.user);
   const is_loading = useSelector((state) => state.user.is_loading);
-  const is_login = useSelector((state) => state.user.is_login);
-  const post_list = useSelector((state) => state.post.list);
 
   // token 정보 있을때 user redux에 저장
   React.useEffect(() => {
