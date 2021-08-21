@@ -35,11 +35,29 @@ const sweetConfirmReload = (msg_title, msg_content_array, path) => {
             {msg_title}
           </Text>
           {msg_content_array?.map((p, idx) => {
-            return (
-              <Text size={fontSize.small} word_break="keep-all" key={idx}>
-                {p}
-              </Text>
-            );
+            let word_first = p.includes(":") ? p.split(":") : null;
+            let word_mid = p.includes("/") ? p.split("/") : null;
+            let word_normal = !p.includes(":") && !p.includes("/") ? p : null;
+            if (word_first) {
+              return (
+                <Text size={fontSize.small} word_break="keep-all" key={idx}>
+                  <b>{word_first[0]}</b>{word_first[1]}
+                </Text>
+              );
+            }
+            if (word_mid) {
+              return (
+                <Text size={fontSize.small} word_break="keep-all" key={idx}>
+                  {word_mid[0]} <b>{word_mid[1]}</b>{word_mid[2]}
+                </Text>
+              );
+            } else {
+              return (
+                <Text size={fontSize.small} word_break="keep-all" key={idx}>
+                  {word_normal}
+                </Text>
+              );
+            }
           })}
         </Grid>
       ),
@@ -78,8 +96,7 @@ const sweetConfirmReload = (msg_title, msg_content_array, path) => {
         }
         // 그 외 새로 리로드 될때
         window.location.replace(path);
-      }
-      else if (res.isDismissed) {
+      } else if (res.isDismissed) {
         // 뒤로가기
         if (path === "goBack") {
           history.goBack();
@@ -504,57 +521,6 @@ const sweetUserInfo = (age, gender) => {
     });
 };
 
-// 작성 에러시 홈으로 간다고 하면 홈으로 보내고
-// 홈으로 안가면 이전 디테일 페이지로 보내줌
-// const sweetEditError = (path) => {
-//   return sweet
-//     .fire({
-//       customClass: {
-//         popup: "border",
-//         confirmButton: "confirmButton",
-//         cancelButton: "cancelButton",
-//         denyButton: "denyButton",
-//         actions: "meal-action-class",
-//       },
-//       width: "auto",
-//       padding: "0 1rem 1rem",
-//       title: (
-//         <Grid>
-//           <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
-//             마감 기한이 끝난 글입니다.
-//           </Text>
-//           <Text size={fontSize.small}>새로운 모집글을 확인해주세요.</Text>
-//         </Grid>
-//       ),
-//       showCancelButton: false,
-//       cancelButtonColor: color.brand20,
-//       cancelButtonText: (
-//         <Grid width="9rem" is_flex2 margin="auto">
-//           <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
-//             닫기
-//           </Text>
-//         </Grid>
-//       ),
-//       confirmButtonColor: color.brand100,
-//       confirmButtonText: (
-//         <Grid width="9rem" is_flex2 margin="auto">
-//           <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
-//             확인
-//           </Text>
-//         </Grid>
-//       ),
-//       focusConfirm: false,
-//       reverseButtons: true,
-//     })
-//     .then((res) => {
-//       if (res.isConfirmed) {
-//         window.location.replace("/home");
-//       } else {
-//         window.location.replace("/home");
-//       }
-//     });
-// };
-
 const SweetAllowChat = (join_id) => {
   sweet
     .fire({
@@ -690,73 +656,6 @@ const SweetDenyChat = (join_id) => {
       }
     });
 };
-
-// const SweetOutChat = (post_id) => {
-//   sweet
-//     .fire({
-//       customClass: {
-//         popup: "border",
-//         confirmButton: "confirmButton",
-//         cancelButton: "cancelButton",
-//         denyButton: "denyButton",
-//         actions: "meal-action-class",
-//       },
-//       width: "auto",
-//       padding: "0 1rem 1rem",
-//       title: (
-//         <Grid>
-//           <Text margin="0 auto 1rem" size={fontSize.base} bold2="700">
-//             채팅방 나가기
-//           </Text>
-//         </Grid>
-//       ),
-//       text: "나가기를 하면 대화내용이 모두 삭제되고 채팅목록에서도 삭제됩니다.",
-//       showDenyButton: true,
-//       denyButtonText: (
-//         <Grid width="9rem" is_flex2 margin="auto">
-//           <Text padding="0" color={color.brand100} bold2={fontSize.bold}>
-//             취소
-//           </Text>
-//         </Grid>
-//       ),
-//       denyButtonColor: color.brand20,
-//       confirmButtonColor: color.brand100,
-//       confirmButtonText: (
-//         <Grid width="9rem" is_flex2 margin="auto">
-//           <Text padding="0" color={color.bg0} bold2={fontSize.bold}>
-//             나가기
-//           </Text>
-//         </Grid>
-//       ),
-//       focusConfirm: false,
-//       reverseButtons: true,
-//     })
-//     .then((res) => {
-//       if (res.isConfirmed) {
-//         axiosModule
-//           .delete(`/chat/quit/${post_id}`)
-//           .then((res) => {
-//             sweetConfirmReload(
-//               "나가기 완료",
-//               ["성공적으로 채팅방에서 나왔어요."],
-//               "/chatlist"
-//             );
-//           })
-//           .catch((e) => {
-//             logger("채팅방 나가기 요청 에러", e);
-//             sweetConfirmReload(
-//               "나가기 요청 에러",
-//               ["채팅방 나가기 요청 중 에러가 발생했습니다"],
-//               ""
-//             );
-//           });
-//       } else if (res.isDenied) {
-//         return;
-//       } else {
-//         return;
-//       }
-//     });
-// };
 
 const SweetBen = (sendBen, other_user_id, other_user_name) => {
   sweet
