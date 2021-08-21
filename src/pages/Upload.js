@@ -95,7 +95,7 @@ const Upload = React.memo((props) => {
     if (!post_info.title || post_info.title === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        [`모집글의 <b>제목</b>을 작성해주세요.`],
+        [`모집글의 /제목/을 작성해주세요.`],
         ""
       );
       return;
@@ -103,7 +103,7 @@ const Upload = React.memo((props) => {
     if (!post_info.contents || post_info.contents === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        [`모집글의 <b>내용</b>을 작성해주세요.`],
+        [`모집글의 /내용/을 작성해주세요.`],
         ""
       );
       return;
@@ -111,7 +111,7 @@ const Upload = React.memo((props) => {
     if (!post_info?.place || post_info?.place === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        ["만날 장소에서 주소 찾기 버튼을 눌러", `<b>주소</b>를 입력해주세요.`],
+        ["만날 장소에서 주소 찾기 버튼을 눌러", `주소:를 입력해주세요.`],
         ""
       );
       return;
@@ -119,7 +119,7 @@ const Upload = React.memo((props) => {
     if (!post_info?.detail_place || post_info?.detail_place === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        [`<b>상세 주소</b>를 작성해주세요.`],
+        [`상세 주소:를 작성해주세요.`],
         ""
       );
       return;
@@ -127,7 +127,7 @@ const Upload = React.memo((props) => {
     if (!post_info.restaurant || post_info.restaurant === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        ["<b>배달 예정인 식당</b> 이름을 적어주세요."],
+        ["배달 예정인 식당 :이름을 적어주세요."],
         ""
       );
       return;
@@ -135,7 +135,7 @@ const Upload = React.memo((props) => {
     if (!post_info.headCount || post_info.headCount === "0") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        [`<b>모집 인원 수</b>를 선택해주세요.`],
+        [`모집 인원 수:를 선택해주세요.`],
         ""
       );
       return;
@@ -165,7 +165,7 @@ const Upload = React.memo((props) => {
     if (!post_info.foodCategory || post_info.foodCategory === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        [`음식의 <b>카테고리</b>를 선택해주세요.`],
+        [`음식의 /카테고리/를 선택해주세요.`],
         ""
       );
       return;
@@ -193,7 +193,7 @@ const Upload = React.memo((props) => {
     if (!post_info.title || post_info.title === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        [`모집글의 <b>제목</b>을 작성해주세요.`],
+        [`모집글의 /제목/을 작성해주세요.`],
         ""
       );
       return;
@@ -201,7 +201,7 @@ const Upload = React.memo((props) => {
     if (!post_info.contents || post_info.contents === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        [`모집글의 <b>내용</b>을 작성해주세요.`],
+        [`모집글의 /내용/을 작성해주세요.`],
         ""
       );
       return;
@@ -209,7 +209,7 @@ const Upload = React.memo((props) => {
     if (!post_info.place || post_info.place === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        ["만날 장소에서 주소 찾기 버튼을 눌러", `<b>주소</b>를 입력해주세요.`],
+        ["만날 장소에서 주소 찾기 버튼을 눌러", `주소:를 입력해주세요.`],
         ""
       );
       return;
@@ -217,7 +217,7 @@ const Upload = React.memo((props) => {
     if (!post_info?.detail_place || post_info?.detail_place === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        [`<b>상세 주소</b>를 작성해주세요.`],
+        [`상세 주소:를 작성해주세요.`],
         ""
       );
       return;
@@ -225,7 +225,7 @@ const Upload = React.memo((props) => {
     if (!post_info.restaurant || post_info.restaurant === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        ["<b>배달 예정인 식당</b> 이름을 적어주세요."],
+        ["배달 예정인 식당: 이름을 적어주세요."],
         ""
       );
       return;
@@ -233,7 +233,7 @@ const Upload = React.memo((props) => {
     if (!post_info.headCount || post_info.headCount === "0") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        [`<b>모집 인원 수</b>를 선택해주세요.`],
+        [`모집 인원 수:를 선택해주세요.`],
         ""
       );
       return;
@@ -258,7 +258,7 @@ const Upload = React.memo((props) => {
     if (!post_info.foodCategory || post_info.foodCategory === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        [`음식의 <b>카테고리</b>를 선택해주세요.`],
+        [`음식의 /카테고리/를 선택해주세요.`],
         ""
       );
       return;

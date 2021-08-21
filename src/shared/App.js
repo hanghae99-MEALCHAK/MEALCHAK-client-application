@@ -11,33 +11,53 @@ import { actionCreators as userAction } from "../redux/modules/user";
 import Spinner from "./Spinner";
 import { Grid } from "../elements";
 
-import {
-  // Main,
-  LoginRedirect,
-  Tutorial,
-  Upload,
-  DetailPage,
-  Search,
-  MyPage,
-  RoadAddress,
-  ChatRoomList,
-  Chat,
-  NotFound,
-  ProfileEdit,
-  Settings,
-  MyPost,
-  MyReview,
-  MyProfile,
-  UserProfile,
-  AllowChat,
-} from "../pages";
+// import {
+//   // Main,
+//   LoginRedirect,
+//   Tutorial,
+//   Upload,
+//   DetailPage,
+//   Search,
+//   MyPage,
+//   RoadAddress,
+//   ChatRoomList,
+//   Chat,
+//   NotFound,
+//   ProfileEdit,
+//   Settings,
+//   MyPost,
+//   MyReview,
+//   MyProfile,
+//   UserProfile,
+//   AllowChat,
+// } from "../pages";
 
-import ReviewWrite from "../pages/ReviewWrite";
+// import ReviewWrite from "../pages/ReviewWrite";
 
 // 사용자 token 여부
 import { token } from "./OAuth";
 import logger from "./Console";
+
 const Main = lazy(() => import("../pages/Main"));
+const LoginRedirect = lazy(() => import("../pages/LoginRedirect"));
+const Tutorial = lazy(() => import("../pages/Tutorial"));
+const Upload = lazy(() => import("../pages/Upload"));
+const DetailPage = lazy(() => import("../pages/DetailPage"));
+const Search = lazy(() => import("../pages/Search"));
+const MyPage = lazy(() => import("../pages/MyPage"));
+const RoadAddress = lazy(() => import("../pages/RoadAddress"));
+const ChatRoomList = lazy(() => import("../pages/ChatRoomList"));
+const Chat = lazy(() => import("../pages/Chat"));
+const NotFound = lazy(() => import("../pages/NotFound"));
+const ProfileEdit = lazy(() => import("../pages/ProfileEdit"));
+const Settings = lazy(() => import("../pages/Settings"));
+const MyPost = lazy(() => import("../pages/MyPost"));
+const MyReview = lazy(() => import("../pages/MyReview"));
+const MyProfile = lazy(() => import("../pages/MyProfile"));
+const UserProfile = lazy(() => import("../pages/UserProfile"));
+const AllowChat = lazy(() => import("../pages/AllowChat"));
+const ReviewWrite = lazy(() => import("../pages/ReviewWrite"));
+
 function App() {
   const dispatch = useDispatch();
 
@@ -45,8 +65,6 @@ function App() {
 
   const user_info = useSelector((state) => state.user.user);
   const is_loading = useSelector((state) => state.user.is_loading);
-  const is_login = useSelector((state) => state.user.is_login);
-  const post_list = useSelector((state) => state.post.list);
 
   // token 정보 있을때 user redux에 저장
   React.useEffect(() => {
