@@ -12,7 +12,7 @@ import Spinner from "./Spinner";
 import { Grid } from "../elements";
 
 // import {
-//   // Main,
+//   Main,
 //   LoginRedirect,
 //   Tutorial,
 //   Upload,
@@ -30,9 +30,8 @@ import { Grid } from "../elements";
 //   MyProfile,
 //   UserProfile,
 //   AllowChat,
+//   ReviewWrite,
 // } from "../pages";
-
-// import ReviewWrite from "../pages/ReviewWrite";
 
 // 사용자 token 여부
 import { token } from "./OAuth";

@@ -11,9 +11,14 @@
 .category {
   padding: 0.1rem 0 0 0;
   touch-action: none;
-  width: 32rem;
+  width: 100%;
+  max-width: 34.9rem;
 }
 
 .swiper-slide {
   width: 5rem;
+}
+
+.swiper-container {
+  margin: 0!important;
 }
