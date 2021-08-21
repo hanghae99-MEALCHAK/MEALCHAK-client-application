@@ -11,11 +11,6 @@ import theme from "../styles/theme";
 import logger from "../shared/Console";
 import { customAlert } from "./Sweet";
 
-// 이미지 
-import { png } from "../styles/img/index"; 
-import { webp } from "../styles/img/webp"; 
-import {isWebpSupported} from 'react-image-webp/dist/utils';
-
 // 이미지
 import { png } from "../styles/img/index";
 import { webp } from "../styles/img/webp";

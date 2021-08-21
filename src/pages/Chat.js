@@ -351,6 +351,7 @@ const SideGrid = styled.div`
   z-index: 101;
   text-align: right;
   display: ${(props) => (props.isOpen ? "auto" : "none")};
+  touch-action: none;
 `;
 
 export default Chat;

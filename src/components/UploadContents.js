@@ -1,15 +1,16 @@
-import React from 'react';
-import { Grid, Input } from '../elements';
-import { useState } from 'react';
-import styled from 'styled-components';
-import theme from '../styles/theme';
-import logger from '../shared/Console';
+import React from "react";
+import { Grid, Input } from "../elements";
+import { useState } from "react";
+import styled from "styled-components";
+import theme from "../styles/theme";
+import logger from "../shared/Console";
+import { customAlert } from "./Sweet";
 
 const UploadContents = React.memo((props) => {
   const { color, border, fontSize } = theme;
 
   React.useEffect(() => {
-    logger('uploadinput 페이지', props);
+    logger("uploadinput 페이지", props);
   }, []);
 
   const [post_info, setPostInfo] = useState(
@@ -17,10 +18,12 @@ const UploadContents = React.memo((props) => {
       ? {
           title: props.post_info.title,
           contents: props.post_info.contents,
+          disabled: false,
         }
       : {
-          title: '',
-          contents: '',
+          title: "",
+          contents: "",
+          disabled: false,
         }
   );
 
@@ -40,7 +43,8 @@ const UploadContents = React.memo((props) => {
               bold="400"
               value={post_info.title}
               _onChange={(e) => {
-                setPostInfo({ ...post_info, title: e.target.value });
+                if (e.target.value.length)
+                  setPostInfo({ ...post_info, title: e.target.value });
                 props.onChange({ title: e.target.value });
               }}
               radius=""
@@ -54,12 +58,32 @@ const UploadContents = React.memo((props) => {
             size={fontSize.base}
             placeholder="어떤 음식을 함께 즐기고 싶으신가요?"
             multiLine="t"
-            length="300"
+            length="256"
             color={color.bg80}
             value={post_info.contents}
             _onChange={(e) => {
-              setPostInfo({ ...post_info, contents: e.target.value });
-              props.onChange({ contents: e.target.value });
+              if (e.target.value.length >= 256) {
+                logger("초과!!");
+                return customAlert
+                  .sweetOK(
+                    "입력 가능한 글자수를 초과했어요",
+                    "모집글 작성 시 255자 이내로 작성해주세요."
+                  )
+                  .then(() => {
+                    setPostInfo({
+                      ...post_info,
+                      disabled: true,
+                    });
+                    return props.onChange({ disabled: true });
+                  });
+              }
+              logger("안전 :)");
+              setPostInfo({
+                ...post_info,
+                contents: e.target.value,
+                disabled: false,
+              });
+              props.onChange({ contents: e.target.value, disabled: false });
             }}
           ></Input>
         </Grid>
