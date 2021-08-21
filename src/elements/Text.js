@@ -31,6 +31,7 @@ const Text = (props) => {
     radius,
     word_break,
     text_decoration,
+    letter_spacing,
   } = props;
 
   const styles = {
@@ -61,6 +62,7 @@ const Text = (props) => {
     radius: radius,
     word_break: word_break,
     text_decoration: text_decoration,
+    letter_spacing: letter_spacing,
   };
 
   return (
@@ -97,6 +99,7 @@ Text.defaultProps = {
   border_bottom: '',
   bg: false,
   radius: '',
+  letter_spacing: '',
 };
 
 const P = styled.p`
@@ -132,6 +135,7 @@ const P = styled.p`
   ${(props) => (props.radius ? `border-radius: ${props.radius};` : '')}
   ${(props) => (props.word_break ? `word-break: ${props.word_break};` : '')}
   ${(props) => (props.text_decoration ? `text-decoration: ${props.text_decoration};` : '')}
+  ${(props) => (props.letter_spacing ? `letter-spacing: ${props.letter_spacing};` : '')}
   
 
 `;

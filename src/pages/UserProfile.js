@@ -16,8 +16,8 @@ import logger from "../shared/Console";
 
 // 이미지
 import { png } from "../styles/img/index";
-import { webp } from '../styles/img/webp/index';
-import {isWebpSupported} from 'react-image-webp/dist/utils';
+import { webp } from "../styles/img/webp/index";
+import { isWebpSupported } from "react-image-webp/dist/utils";
 
 const UserProfile = (props) => {
   const dispatch = useDispatch();
@@ -79,7 +79,11 @@ const UserProfile = (props) => {
               >
                 {other_user?.user_nickname}
               </Text>
-              <Grid width="auto" text_align="center">
+              <Grid
+                width="24rem"
+                text_align="center"
+                margin="0.5rem auto 0 auto"
+              >
                 <Text size={fontSize.small} color="#9A9896" line_height="150%">
                   <span style={{ whiteSpace: "pre-wrap" }}>
                     {other_user?.user_comment ? other_user?.user_comment : ""}
@@ -124,10 +128,7 @@ const UserProfile = (props) => {
               </Button>
             </Grid>
             <Grid height="1.6rem" />
-            <Grid
-              padding="0 0 0 2rem"
-              margin="0"
-            >
+            <Grid padding="0 0 0 2rem" margin="0">
               <Text
                 bold2="700"
                 size={fontSize.base}
@@ -143,7 +144,11 @@ const UserProfile = (props) => {
               })
             ) : (
               <Grid width="36rem" margin="0 auto">
-                <MyReviewImg src={isWebpSupported()? webp.emptyMeal_3xWebp : png.emptyMeal_3x}></MyReviewImg>
+                <MyReviewImg
+                  src={
+                    isWebpSupported() ? webp.emptyMeal_3xWebp : png.emptyMeal_3x
+                  }
+                ></MyReviewImg>
                 <MyReviewText>아직 받은 리뷰가 없어요.</MyReviewText>
               </Grid>
             )}

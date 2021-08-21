@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import GlobalStyle from "./GlobalStyle";
 
 import { Route, Switch } from "react-router-dom";
@@ -12,7 +12,7 @@ import Spinner from "./Spinner";
 import { Grid } from "../elements";
 
 import {
-  Main,
+  // Main,
   LoginRedirect,
   Tutorial,
   Upload,
@@ -37,7 +37,7 @@ import ReviewWrite from "../pages/ReviewWrite";
 // 사용자 token 여부
 import { token } from "./OAuth";
 import logger from "./Console";
-
+const Main = lazy(() => import("../pages/Main"));
 function App() {
   const dispatch = useDispatch();
 
@@ -46,6 +46,7 @@ function App() {
   const user_info = useSelector((state) => state.user.user);
   const is_loading = useSelector((state) => state.user.is_loading);
   const is_login = useSelector((state) => state.user.is_login);
+  const post_list = useSelector((state) => state.post.list);
 
   // token 정보 있을때 user redux에 저장
   React.useEffect(() => {
@@ -68,15 +69,20 @@ function App() {
 
   return (
     <React.Fragment>
-        <ConnectedRouter history={history}>
-          <GlobalStyle />
+      <ConnectedRouter history={history}>
+        <GlobalStyle />
+        <Suspense fallback={<Spinner />}>
           <Grid shape="topGrid">
             <Switch>
               <Route path="/" exact component={Tutorial} />
               <Route path="/home" exact component={Main} />
               <Route path="/post/:id" exact component={DetailPage} />
               <Route path="/address" exact component={RoadAddress} />
-              <Route path="/user/kakao/callback" exact component={LoginRedirect}/>
+              <Route
+                path="/user/kakao/callback"
+                exact
+                component={LoginRedirect}
+              />
               <Route path="/upload" exact component={Upload} />
               <Route path="/upload/:id" exact component={Upload} />
               <Route path="/search" exact component={Search} />
@@ -94,7 +100,8 @@ function App() {
               <Route component={NotFound} />
             </Switch>
           </Grid>
-        </ConnectedRouter>
+        </Suspense>
+      </ConnectedRouter>
     </React.Fragment>
   );
 }
