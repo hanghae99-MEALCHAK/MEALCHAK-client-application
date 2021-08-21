@@ -297,7 +297,7 @@ const UploadInput = React.memo((props) => {
                   onFocus={(e) => (e.target.readOnly = true)}
                   timeCaption="Time"
                   dateFormat="p"
-                  timeIntervals={15}
+                  timeIntervals={1}
                   showTimeSelectOnly
                   showTimeSelect
                   theme={theme}

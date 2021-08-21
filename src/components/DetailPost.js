@@ -14,8 +14,7 @@ import { customAlert } from "./Sweet";
 // 이미지
 import { png } from "../styles/img/index";
 import { webp } from "../styles/img/webp";
-import {isWebpSupported} from 'react-image-webp/dist/utils';
-
+import { isWebpSupported } from "react-image-webp/dist/utils";
 import moment from "moment";
 
 const DetailPost = React.memo((props) => {
@@ -139,7 +138,7 @@ const DetailPost = React.memo((props) => {
                     });
                   }
                   history.push({
-                    pathname: `/userprofile/${props.user_id}`,
+                    pathname: `/userprofile/${user_id}`,
                     state: { ...props },
                   });
                 } else {
@@ -373,7 +372,7 @@ const DetailPost = React.memo((props) => {
                           });
                         }
                         history.push({
-                          pathname: `/userprofile/${props.user_id}`,
+                          pathname: `/userprofile/${user_id}`,
                           state: { ...p },
                         });
                       } else {
@@ -414,11 +413,27 @@ const DetailPost = React.memo((props) => {
               is_border="0.1rem solid #EBE9E8"
               radius={radius.postBox}
             >
-              <LogoImg src={isWebpSupported() ? webp.emptyHome_3xWebp : png.emptyHome_3x} />
-              <Text size={fontSize.small} color={color.bg80} text_align="center">
+              <LogoImg
+                src={
+                  isWebpSupported() ? webp.emptyHome_3xWebp : png.emptyHome_3x
+                }
+              />
+              <Text
+                size={fontSize.small}
+                color={color.bg80}
+                text_align="center"
+                line_height="150%"
+                letter_spacing="-0.01em"
+              >
                 주소를 불러올 수 없습니다
               </Text>
-              <Text size={fontSize.base} color={color.bg80} text_align="center">
+              <Text
+                size={fontSize.small}
+                color={color.bg80}
+                text_align="center"
+                line_height="150%"
+                letter_spacing="-0.01em"
+              >
                 잠시 후 다시 시도해주세요.
               </Text>
             </Grid>
@@ -530,8 +545,8 @@ const GridGap = styled.div`
 const LogoImg = styled.div`
   margin: 1rem auto 1rem auto;
   background-image: url("${(props) => props.src}");
-  width: 18.4rem;
-  height: 16.7rem;
+  width: 12.7rem;
+  height: 11.5rem;
   background-size: cover;
   background-position: center;
 `;

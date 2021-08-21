@@ -37,8 +37,10 @@
   font-display: swap;
 }
 body {
+  /* overflow-y, -webkit-overflow-scrolling 추가 */
   position: relative;
   overflow-x: hidden;
+  overflow-y: auto;
   width: 100vw;
   height: 100vh;
   min-width: 250px;
@@ -48,6 +50,7 @@ body {
     "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
   -moz-osx-font-smoothing: grayscale;
   scroll-snap-type: none;
   scroll-behavior: smooth;

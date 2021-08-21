@@ -24,6 +24,8 @@ import emptyMeal_3xWebp from "./emptyMeal_3x.webp";
 import inviteBg100Webp from "./inviteBg100.webp";
 import searchWebp from "./search.webp";
 import frontErrorWebp from "./frontError.webp";
+import whatDoIeatWebp from "./whatDoIeat_3x.webp";
+import Group182_3xWebp from "./Group182_3x.webp";
 
 const webp = {
   mainLogoWebp,
@@ -52,6 +54,8 @@ const webp = {
   inviteBg100Webp,
   searchWebp,
   frontErrorWebp,
+  whatDoIeatWebp,
+  Group182_3xWebp,
 };
 
 export { webp };
