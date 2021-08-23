@@ -191,7 +191,7 @@ const Chat = (props) => {
       }
       // 로딩
       // dispatch(chatActions.loading());
-      dispatch(chatActions.setTime());
+      // dispatch(chatActions.setTime());
       waitForConnection(ws, () => {
         ws.debug = null;
 

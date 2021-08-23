@@ -35,8 +35,8 @@ const Message = (props) => {
     logger("user id", typeof user_info?.user_id);
     logger("msg id", typeof messagesInfo.sender_id);
   }, [user_info?.user_nickname]);
-
-  if (messagesInfo.type === "ENTER") {
+  
+  if (messagesInfo.type === "ENTER" || messagesInfo.type === "QUIT") {
     return (
       <Grid
         is_flex4="t"
@@ -126,7 +126,7 @@ const Message = (props) => {
                     {messagesInfo?.message}
                   </Text>
                 </Grid>
-  
+
                 <Text
                   size={fontSize.tiny}
                   margin="0 0 0 0.4rem"
@@ -141,9 +141,7 @@ const Message = (props) => {
         </Grid>
       );
     }
-  }
-
-  else {
+  } else {
     return null;
   }
 };

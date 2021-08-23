@@ -111,7 +111,7 @@ const Upload = React.memo((props) => {
     if (!post_info?.place || post_info?.place === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        ["만날 장소에서 주소 찾기 버튼을 눌러", `주소:를 입력해주세요.`],
+        ["만날 장소에서 주소 찾기 버튼을 눌러", `주소;를 입력해주세요.`],
         ""
       );
       return;
@@ -119,7 +119,7 @@ const Upload = React.memo((props) => {
     if (!post_info?.detail_place || post_info?.detail_place === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        [`상세 주소:를 작성해주세요.`],
+        [`상세 주소;를 작성해주세요.`],
         ""
       );
       return;
@@ -127,7 +127,7 @@ const Upload = React.memo((props) => {
     if (!post_info.restaurant || post_info.restaurant === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        ["배달 예정인 식당 :이름을 적어주세요."],
+        ["배달 예정인 식당 ;이름을 적어주세요."],
         ""
       );
       return;
@@ -135,7 +135,7 @@ const Upload = React.memo((props) => {
     if (!post_info.headCount || post_info.headCount === "0") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        [`모집 인원 수:를 선택해주세요.`],
+        [`모집 인원 수;를 선택해주세요.`],
         ""
       );
       return;
@@ -209,7 +209,7 @@ const Upload = React.memo((props) => {
     if (!post_info.place || post_info.place === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        ["만날 장소에서 주소 찾기 버튼을 눌러", `주소:를 입력해주세요.`],
+        ["만날 장소에서 주소 찾기 버튼을 눌러", `주소;를 입력해주세요.`],
         ""
       );
       return;
@@ -217,7 +217,7 @@ const Upload = React.memo((props) => {
     if (!post_info?.detail_place || post_info?.detail_place === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        [`상세 주소:를 작성해주세요.`],
+        [`상세 주소;를 작성해주세요.`],
         ""
       );
       return;
@@ -225,7 +225,7 @@ const Upload = React.memo((props) => {
     if (!post_info.restaurant || post_info.restaurant === "") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        ["배달 예정인 식당: 이름을 적어주세요."],
+        ["배달 예정인 식당; 이름을 적어주세요."],
         ""
       );
       return;
@@ -233,7 +233,7 @@ const Upload = React.memo((props) => {
     if (!post_info.headCount || post_info.headCount === "0") {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
-        [`모집 인원 수:를 선택해주세요.`],
+        [`모집 인원 수;를 선택해주세요.`],
         ""
       );
       return;

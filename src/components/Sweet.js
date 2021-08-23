@@ -35,20 +35,22 @@ const sweetConfirmReload = (msg_title, msg_content_array, path) => {
             {msg_title}
           </Text>
           {msg_content_array?.map((p, idx) => {
-            let word_first = p.includes(":") ? p.split(":") : null;
+            let word_first = p.includes(";") ? p.split(";") : null;
             let word_mid = p.includes("/") ? p.split("/") : null;
             let word_normal = !p.includes(":") && !p.includes("/") ? p : null;
             if (word_first) {
               return (
                 <Text size={fontSize.small} word_break="keep-all" key={idx}>
-                  <b>{word_first[0]}</b>{word_first[1]}
+                  <b>{word_first[0]}</b>
+                  {word_first[1]}
                 </Text>
               );
             }
             if (word_mid) {
               return (
                 <Text size={fontSize.small} word_break="keep-all" key={idx}>
-                  {word_mid[0]} <b>{word_mid[1]}</b>{word_mid[2]}
+                  {word_mid[0]} <b>{word_mid[1]}</b>
+                  {word_mid[2]}
                 </Text>
               );
             } else {
@@ -110,6 +112,12 @@ const sweetConfirmReload = (msg_title, msg_content_array, path) => {
         if (path === "/mypost") {
           window.location.replace(path);
           return;
+        }
+        if (path === "/home") {
+          window.location.replace(path);
+        }
+        if (path === "/") {
+          window.location.replace(path);
         }
       } else {
         if (path === "/profile") {

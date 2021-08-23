@@ -161,3 +161,130 @@ body {
   background-color: #fff0e1 !important;
   color: #ff9425;
 }
+
+/* Main 구글 폼 이동 버튼 모달 */
+.link-container {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  position: fixed;
+  margin: 0 0 0 2.5rem;
+  z-index: 50;
+}
+
+.link-trigger {
+  background: #ffffff;
+  border-radius: 90px;
+  cursor: pointer;
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center; */
+  padding: 4px 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  border: none;
+  vertical-align: middle;
+  transition: box-shadow 0.4s ease;
+  margin-left: auto;
+}
+
+.link-trigger:hover {
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+.link-trigger span {
+  font-weight: 700;
+  vertical-align: middle;
+  font-size: 14px;
+  margin: 0 10px;
+}
+
+.link-trigger img {
+  border-radius: 90px;
+}
+
+.link {
+  max-width: 36rem;
+  width: fit-content;
+  height: fit-content;
+  background: #ffffff;
+  position: fixed;
+  margin: 0 0 0 7.5rem;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(1rem);
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+  z-index: 10;
+  /* border-radius: 1.5rem 1.5rem 0 1.5rem; */
+  visibility: hidden;
+	border-radius: 1.2rem;
+	padding:1.5rem;
+}
+
+.link:after { /*말풍선 꼭지*/
+	bottom: -0.9rem; /*말풍선꼭지위치 위아래*/
+	right: 8%; /*말풍선위치 좌우*/
+	border: solid transparent;
+	content: "";
+	width: 0;
+	height: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: #fff transparent transparent transparent; /*말풍선 꼭지방향*/
+	border-width: 0.5rem; /*말풍선 꼭지 사이즈*/
+	margin-left: -0.5rem; /*말풍선 상세위치 조정*/
+}
+
+.link.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+@media all and (min-width: 280px) {
+  .link.active {
+    max-width: fit-content !important;
+    margin: 0 0 0 7.5rem;
+    padding: 1.5rem;
+  }
+  .link-container{
+    margin: 0 0 0 1.7rem;
+  }
+}
+@media all and (min-width: 415px) {
+  .link.active {
+    max-width: fit-content !important;
+  }
+  .link-container{
+    margin: 0 0 0 1.7rem;
+  }
+}
+@media all and (min-width: 721px) {
+  .link.active {
+    max-width: fit-content !important;
+    margin: 0 0 0 5.9rem;
+  }
+  .link {
+    margin: 0 0 0 5.9rem;
+  }
+  .link-container{
+    margin: 0 0 0 2.5rem;
+  }
+}
+
+.link ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.link li {
+  border-bottom: 1px solid #dddddd;
+}
+
+.link li a {
+  text-decoration: none;
+  color: #333333;
+  padding: 15px 20px;
+  display: block;
+}
