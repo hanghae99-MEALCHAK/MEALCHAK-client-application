@@ -34,7 +34,7 @@ const PcSide = (props) => {
     if (is_login) {
       history.push(`/${path}`);
     } else {
-      customAlert.sweetNeedLogin("replace");
+      customAlert.sweetNeedLogin();
     }
   };
 

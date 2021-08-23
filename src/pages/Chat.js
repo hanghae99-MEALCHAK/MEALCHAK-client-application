@@ -40,8 +40,8 @@ const Chat = (props) => {
 
   // 소켓
   // const sock = new SockJS("http://52.78.204.238/chatting");
-  const sock = new SockJS("http://115.85.182.57/chatting");
-  // const sock = new SockJS("https://gorokke.shop/chatting");
+  // const sock = new SockJS("http://115.85.182.57/chatting");
+  const sock = new SockJS("https://gorokke.shop/chatting");
   const ws = Stomp.over(sock);
   // ws.reconnect_delay = 500;
 
@@ -168,7 +168,7 @@ const Chat = (props) => {
     try {
       // 토큰없으면 다시 로그인 시키기
       if (!token) {
-        customAlert.sweetNeedLogin("replace");
+        customAlert.sweetNeedLogin();
       }
       // send할 데이터
       const data = {
@@ -211,7 +211,7 @@ const Chat = (props) => {
     try {
       // 토큰없으면 다시 로그인 시키기
       if (!token) {
-        customAlert.sweetNeedLogin("replace");
+        customAlert.sweetNeedLogin();
       }
       // send할 데이터
       const data = {
@@ -252,7 +252,7 @@ const Chat = (props) => {
     try {
       // 토큰없으면 다시 로그인 시키기
       if (!token) {
-        return customAlert.sweetNeedLogin("replace");
+        return customAlert.sweetNeedLogin();
       }
       // send할 데이터
       const data = {
