@@ -5,13 +5,14 @@ import { Grid, Text, Button, Image } from "../elements";
 import { Post, Footer, Header, MainBanner, PcSide } from "../components";
 
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useDetectOutsideClick } from "../components/useDetectOutsideClick";
 import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as userActions } from "../redux/modules/user";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import logger from "../shared/Console";
 
 import theme from "../styles/theme";
+import "../components/style.css";
 
 // 이미지
 import { png } from "../styles/img/index";
@@ -26,6 +27,7 @@ import "../shared/Swiper.scss";
 
 const Main = (props) => {
   const media = useMediaQuery("(min-width: 950px)");
+
   const { color, border, btn_border, fontSize } = theme;
 
   const dispatch = useDispatch();
@@ -74,6 +76,12 @@ const Main = (props) => {
     swiperRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
+  const qaRef = React.useRef(null);
+  const [isActive, setIsActive] = useDetectOutsideClick(qaRef, false);
+  const onClick = () => {
+    setIsActive(!isActive);
+  };
+
   return (
     <React.Fragment>
       <PcSide {...props} />
@@ -88,6 +96,52 @@ const Main = (props) => {
             {user?.user_address}
           </Header>
           <Footer {...props}></Footer>
+          <Button
+            width="4rem"
+            height="4rem"
+            radius="2rem"
+            bg="orange"
+            position="fixed"
+            border="none"
+            margin={media ? "0 0 0 29.8rem" : "0 0 0 30rem"}
+            bottom={media ? "2rem" : "7rem"}
+            z_index="100"
+            cursor="t"
+            _onClick={onClick}
+          >
+            <Text color="white" size="2.4rem" bold cursor="t">
+              {isActive ? "!" : "?"}
+            </Text>
+          </Button>
+          <div className="link-container">
+            <nav
+              ref={qaRef}
+              className={`link ${isActive ? "active" : "inactive"}`}
+              style={media ? { bottom: "6.7rem" } : { bottom: "11.5rem" }}
+            >
+              <Grid
+                width="fit-content"
+                height="fit-content"
+                radius="inherit"
+                text_align="center"
+                absolute="relative"
+              >
+                <Text size={fontSize.small}>밀착에서의 경험은 어떠셨나요!</Text>
+                <Text size={fontSize.small}>
+                  여러분의 소중한 의견에 귀 기울이겠습니다.
+                </Text>
+                <Text size={fontSize.small}>
+                  <a
+                    href="https://forms.gle/j2616Jgt3toPf4Dd8"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    후기 및 의견 작성하기
+                  </a>
+                </Text>
+              </Grid>
+            </nav>
+          </div>
         </Grid>
         <Grid width="36rem" margin="0 auto">
           <Button
@@ -155,8 +209,7 @@ const Main = (props) => {
         <Grid
           maxWidth="34.9rem"
           height="4.5rem"
-          // margin="0 auto"
-          margin={media? "0 0 0 2rem" : "0 0 0 2.8rem"}
+          margin={media ? "0 0 0 2rem" : "0 0 0 2.8rem"}
           flex
           flex_direction="row"
           align_items="center"
@@ -449,5 +502,4 @@ const LogoImg = styled.div`
   background-size: cover;
   background-position: center;
 `;
-
 export default Main;

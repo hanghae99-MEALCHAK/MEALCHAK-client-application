@@ -239,7 +239,6 @@ const Post = React.memo((props) => {
             </Text>
           </Grid>
           <Hr />
-
           <Grid is_flex align_items="center">
             <Grid>
               <Text
@@ -359,7 +358,7 @@ const UserProfile = styled.div`
 
 const Hr = styled.hr`
   width: 29rem;
-  height: 0.01rem;
+  height: 0.05rem;
   background-color: #f4f4f3;
   border: none;
   margin: 0;
