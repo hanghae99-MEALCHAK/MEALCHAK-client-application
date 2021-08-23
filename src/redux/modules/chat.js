@@ -29,7 +29,7 @@ const LOADING = "LOADING";
 // 로딩 완료 (true)
 const LOADED = "LOADED";
 // 실시간 메세지 시간 보여주기
-const SET_TIME = "SET_TIME";
+// const SET_TIME = "SET_TIME";
 // 입장 요청 리스트(방장용)
 const SET_REQ_LIST = "SET_REQ_LIST";
 // 입장 대기 리스트(신청자용)
@@ -61,7 +61,7 @@ const setMessage = createAction(SET_MSG, (chatMassageArray) => ({
 const writeMessage = createAction(WRITE_MSG, (message) => ({ message }));
 const loading = createAction(LOADING, () => {});
 const loaded = createAction(LOADED, () => {});
-const setTime = createAction(SET_TIME, () => ({}));
+// const setTime = createAction(SET_TIME, () => ({}));
 const setRequestList = createAction(SET_REQ_LIST, (request_list) => ({
   request_list,
 }));
@@ -466,11 +466,11 @@ export default handleActions(
       produce(state, (draft) => {
         draft.loading = false;
       }),
-    [SET_TIME]: (state, action) =>
-      produce(state, (draft) => {
-        const now_time = moment().format("hh:mm");
-        draft.now_time = now_time;
-      }),
+    // [SET_TIME]: (state, action) =>
+    //   produce(state, (draft) => {
+    //     const now_time = moment().format("hh:mm");
+    //     draft.now_time = now_time;
+    //   }),
     [SET_REQ_LIST]: (state, action) =>
       produce(state, (draft) => {
         draft.requestList = action.payload.request_list;
@@ -496,7 +496,7 @@ const actionCreators = {
   writeMessage,
   loading,
   loaded,
-  setTime,
+  // setTime,
   requestChatListAX,
   awaitChatListAX,
   getChatUserAX,

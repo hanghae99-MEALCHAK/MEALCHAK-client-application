@@ -35,7 +35,7 @@ const Message = (props) => {
     logger("user id", typeof user_info?.user_id);
     logger("msg id", typeof messagesInfo.sender_id);
   }, [user_info?.user_nickname]);
-
+  
   if (messagesInfo.type === "ENTER" || messagesInfo.type === "QUIT") {
     return (
       <Grid

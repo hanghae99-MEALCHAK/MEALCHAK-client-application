@@ -40,8 +40,8 @@ const Chat = (props) => {
 
   // 소켓
   // const sock = new SockJS("http://52.78.204.238/chatting");
-  // const sock = new SockJS("http://115.85.182.57/chatting");
-  const sock = new SockJS("https://gorokke.shop/chatting");
+  const sock = new SockJS("http://115.85.182.57/chatting");
+  // const sock = new SockJS("https://gorokke.shop/chatting");
   const ws = Stomp.over(sock);
   // ws.reconnect_delay = 500;
 
@@ -191,7 +191,7 @@ const Chat = (props) => {
       }
       // 로딩
       // dispatch(chatActions.loading());
-      dispatch(chatActions.setTime());
+      // dispatch(chatActions.setTime());
       waitForConnection(ws, () => {
         ws.debug = null;
 
