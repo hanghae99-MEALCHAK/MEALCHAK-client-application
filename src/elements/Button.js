@@ -25,6 +25,9 @@ const Button = (props) => {
     borderBottom,
     is_float,
     display,
+    position,
+    bottom,
+    z_index,
   } = props;
 
   const styles = {
@@ -43,6 +46,9 @@ const Button = (props) => {
     bold: bold,
     borderBottom: borderBottom,
     display: display,
+    position: position,
+    bottom: bottom,
+    z_index: z_index,
   };
 
   if (shape === 'large') {
@@ -164,6 +170,9 @@ const ElButton = styled.button`
   ${(props) => (props.border ? `border: ${props.border};` : '')}
   ${(props) => (props.bold ? `font-weight: ${props.bold};` : '')}
   ${(props) => (props.display ? `display: ${props.display};` : '')}
+  ${(props) => (props.position ? `position: ${props.position};` : '')}
+  ${(props) => (props.bottom ? `bottom: ${props.bottom};` : '')}
+  ${(props) => (props.z_index ? `z-index: ${props.z_index};` : '')}
   ${(props) =>
     props.borderBottom ? `border-bottom: ${props.borderBottom};` : ''}
   ${(props) =>
