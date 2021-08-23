@@ -40,10 +40,7 @@ const Search = (props) => {
     setFood('');
     dispatch(searchActions.food_check(false));
   };
-
-  React.useEffect(() => {
-    // dispatch(searchActions.food_check(false));
-  }, []);
+  
   return (
     <React.Fragment>
       <PcSide {...props} />
