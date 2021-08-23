@@ -295,7 +295,7 @@ const sweetPromise = (title, message1, message2, confirmText, cancelText) => {
 
 // 로그인 체크 시 사용
 // 체크 후 주소 이동 방식에 따라 달라서 파람값으로 replace 인지 받음
-const sweetNeedLogin = (way) => {
+const sweetNeedLogin = () => {
   return sweet
     .fire({
       customClass: {
@@ -339,9 +339,7 @@ const sweetNeedLogin = (way) => {
     })
     .then((res) => {
       if (res.isConfirmed) {
-        if (way === "replace") {
           history.replace("/");
-        }
         return;
       }
       return;
