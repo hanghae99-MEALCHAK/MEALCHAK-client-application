@@ -401,7 +401,7 @@ const SDatePicker = styled(DatePicker)`
   width: 100%;
   height: 5rem;
   padding: 1.4rem 1.6rem;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   text-align: left;
   border: ${(props) => props.theme.border.bg40};
   border-radius: ${(props) => props.theme.radius.button};
@@ -419,7 +419,7 @@ const TDatePicker = styled(DatePicker)`
   width: 100%;
   height: 5rem;
   padding: 1.4rem 1.6rem;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   text-align: left;
   border: ${(props) => props.theme.border.bg40};
   border-radius: ${(props) => props.theme.radius.button};
