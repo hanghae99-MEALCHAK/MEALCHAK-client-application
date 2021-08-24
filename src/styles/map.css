@@ -82,6 +82,8 @@
 .info .img .img02 {
   width: 5.1rem;
   height: 4.8rem;
+  object-fit: cover;
+  object-position: center;
 }
 .info:after {
   content: "";

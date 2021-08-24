@@ -13,9 +13,8 @@ import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
 // 이미지
 import { png } from "../styles/img/index";
-import { webp } from '../styles/img/webp/index';
-import {isWebpSupported} from 'react-image-webp/dist/utils';
-
+import { webp } from "../styles/img/webp/index";
+import { isWebpSupported } from "react-image-webp/dist/utils";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -114,8 +113,8 @@ const Header = (props) => {
           src={isWebpSupported() ? webp.arrowLeftWebp : png.arrowLeft}
           cursor="pointer"
           _onClick={() => {
-            // history.replace('/home');
-            history.goBack();
+            history.replace('/home');
+            // history.goBack();
           }}
         />
         <Text
@@ -214,7 +213,8 @@ const Header = (props) => {
           마이페이지
         </Text>
         <Text
-          width="6.4rem"
+          // width="6.4rem"
+          width="fit-content"
           height="2rem"
           size="1.3rem"
           line_height="150%"
@@ -223,6 +223,7 @@ const Header = (props) => {
           bold2="500"
           margin="0 2rem 0 0"
           cursor="t"
+          white_space="nowrap"
           _onClick={() => {
             history.push("/profile");
           }}

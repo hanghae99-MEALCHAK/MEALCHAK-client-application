@@ -43,8 +43,7 @@ const UploadContents = React.memo((props) => {
               bold="400"
               value={post_info.title}
               _onChange={(e) => {
-                if (e.target.value.length)
-                  setPostInfo({ ...post_info, title: e.target.value });
+                setPostInfo({ ...post_info, title: e.target.value });
                 props.onChange({ title: e.target.value });
               }}
               radius=""
