@@ -26,6 +26,7 @@ import search from "./search.png";
 import frontError from "./frontError.png";
 import whatDoIeat from "./whatDoIeat_3x.png";
 import Group182_3x from "./Group182_3x.png";
+import setting from "./setting.jpg";
 
 const png = {
   mainLogo,
@@ -56,6 +57,7 @@ const png = {
   frontError,
   whatDoIeat,
   Group182_3x,
+  setting,
 };
 
 export { png };

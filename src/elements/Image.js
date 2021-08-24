@@ -45,8 +45,13 @@ const Image = (props) => {
   }
 
   if (shape === 'main') {
-    return <MainInner {...styles}  alt="">{children} onClick={_onClick}</MainInner>;
+    return <MainInner {...styles}  alt="" onClick={_onClick}> {children} </MainInner>;
   }
+
+  if (shape === 'setting') {
+    return <Setting {...styles}  alt="" onClick={_onClick}> {children} </Setting>;
+  }
+
   return (
     <React.Fragment>
       <ImageDefault {...styles} onClick={_onClick}  alt=""></ImageDefault>
@@ -128,5 +133,15 @@ const ButtonCircle = styled.div`
     background-color: #888e95;
     transition: all 0.5s ease-in-out;
   }
+`;
+
+const Setting = styled.div`
+  --size: ${(props) => props.size}px;
+  width: var(--size);
+  height: var(--size);
+  background-image: url('${(props) => props.src}');
+  background-position: center;
+  background-size: cover;
+  margin: ${(props) => props.margin};
 `;
 export default Image;
