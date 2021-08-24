@@ -111,32 +111,38 @@ const kakaoLogin = (code) => {
 // 사용자 정보 변경 middleware
 const editUserProfileAX = (profile) => {
   return function (dispatch, getState, { history }) {
-    let form = new FormData();
-    form.append("username", profile.nickname);
-    form.append("comment", profile.comment);
-    form.append("file", profile.image);
-    form.append("gender", profile.gender);
-    form.append("age", profile.age);
+    customAlert.sweetOK("프로필 수정 완료", "멋진 프로필이시네요!").then(() => {
+      dispatch(loading(true));
+      let form = new FormData();
+      form.append("username", profile.nickname);
+      form.append("comment", profile.comment);
+      form.append("file", profile.image);
+      form.append("gender", profile.gender);
+      form.append("age", profile.age);
 
-    axiosModule
-      .put("/userInfo/update", form)
-      .then((res) => {
-        logger("profile 수정 모듈", res);
-        let _profile = res.data;
-        let profile = {
-          username: _profile.username,
-          comment: _profile.comment,
-          profileImg: _profile.profileImg,
-          user_age: _profile.age,
-          user_gender: _profile.gender,
-        };
-        dispatch(editProfile(profile));
-        dispatch(imageActions.setPreview(null));
-        logger("profile 수정 모듈", res);
-      })
-      .catch((e) => {
-        logger("profile 수정 모듈 e", e);
-      });
+      axiosModule
+        .put("/userInfo/update", form)
+        .then((res) => {
+          logger("profile 수정 모듈", res);
+          let _profile = res.data;
+          let profile = {
+            username: _profile.username,
+            comment: _profile.comment,
+            profileImg: _profile.profileImg,
+            user_age: _profile.age,
+            user_gender: _profile.gender,
+          };
+          dispatch(editProfile(profile));
+          dispatch(imageActions.setPreview(null));
+        })
+        .then(() => {
+          dispatch(loading(false));
+          history.push("/mypage");
+        })
+        .catch((e) => {
+          logger("profile 수정 모듈 e", e);
+        });
+    });
   };
 };
 

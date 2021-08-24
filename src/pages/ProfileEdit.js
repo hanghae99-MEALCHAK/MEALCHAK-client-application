@@ -9,6 +9,7 @@ import { actionCreators as imageActions } from "../redux/modules/image";
 import { GenderSelect, AgeSelect } from "../components/ReactSelect";
 
 // style
+import Resizer from "react-image-file-resizer";
 import { Button, Grid, Input, Text } from "../elements";
 import { customAlert } from "../components/Sweet";
 import { Header, PcSide } from "../components";
@@ -17,6 +18,22 @@ import logger from "../shared/Console";
 import theme from "../styles/theme";
 
 const ProfileEdit = (props) => {
+  const resizeFile = (file) =>
+  new Promise((resolve) => {
+    Resizer.imageFileResizer(
+      file,
+      300,
+      300,
+      "JPEG",
+      95,
+      0,
+      (uri) => {
+        resolve(uri);
+      },
+      "file"
+    );
+  });
+
   const { color, border, radius, fontSize, btn_border } = theme;
   const dispatch = useDispatch();
 
@@ -69,11 +86,11 @@ const ProfileEdit = (props) => {
           .then((res) => {
             if (res) {
               dispatch(userAction.editUserProfileAX({ ...editProfile }));
-              customAlert.sweetConfirmReload(
-                "프로필 수정 완료",
-                ["멋진 프로필이시네요!"],
-                "/mypage"
-              );
+              // customAlert.sweetConfirmReload(
+              //   "프로필 수정 완료",
+              //   ["멋진 프로필이시네요!"],
+              //   "/mypage"
+              // );
             } else {
               return;
             }
@@ -89,11 +106,11 @@ const ProfileEdit = (props) => {
       // 프로필 age, gender 둘다 이미 있는 사람
       if (editProfile.gender && editProfile.age) {
         dispatch(userAction.editUserProfileAX({ ...editProfile }));
-        customAlert.sweetConfirmReload(
-          "프로필 수정 완료",
-          ["멋진 프로필이시네요!"],
-          "/mypage"
-        );
+        // customAlert.sweetConfirmReload(
+        //   "프로필 수정 완료",
+        //   ["멋진 프로필이시네요!"],
+        //   "/mypage"
+        // );
       } else {
         customAlert.sweetConfirmReload(
           "앗 빈칸이 있어요",
@@ -106,11 +123,16 @@ const ProfileEdit = (props) => {
 
   // 선택한 파일 정보
   const fileInput = React.useRef();
-  const selectFile = (e) => {
+  const selectFile = async (e) => {
     const reader = new FileReader();
     const file = fileInput.current.files[0];
-    setProfile({ ...editProfile, image: file });
-    reader.readAsDataURL(file);
+
+    const img = await resizeFile(file);
+    logger("이미지 정보", file)
+    logger("resize 이미지 정보", img)
+
+    setProfile({ ...editProfile, image: img });
+    reader.readAsDataURL(img);
 
     reader.onloadend = () => {
       dispatch(imageActions.setPreview(reader.result));

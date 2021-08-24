@@ -26,6 +26,7 @@ import searchWebp from "./search.webp";
 import frontErrorWebp from "./frontError.webp";
 import whatDoIeatWebp from "./whatDoIeat_3x.webp";
 import Group182_3xWebp from "./Group182_3x.webp";
+import settingWebp from "./setting_1.webp";
 
 const webp = {
   mainLogoWebp,
@@ -56,6 +57,7 @@ const webp = {
   frontErrorWebp,
   whatDoIeatWebp,
   Group182_3xWebp,
+  settingWebp,
 };
 
 export { webp };
