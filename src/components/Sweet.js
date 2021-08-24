@@ -37,7 +37,7 @@ const sweetConfirmReload = (msg_title, msg_content_array, path) => {
           {msg_content_array?.map((p, idx) => {
             let word_first = p.includes(";") ? p.split(";") : null;
             let word_mid = p.includes("/") ? p.split("/") : null;
-            let word_normal = !p.includes(":") && !p.includes("/") ? p : null;
+            let word_normal = !p.includes(";") && !p.includes("/") ? p : null;
             if (word_first) {
               return (
                 <Text size={fontSize.small} word_break="keep-all" key={idx}>

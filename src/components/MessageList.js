@@ -14,7 +14,7 @@ const MessageList = (props) => {
   const scrollTomBottom = () => {
     messageEndRef.current?.scrollIntoView({ behavior: "instant" });
   };
-  
+
   // 렌더링시 이동
   React.useEffect(() => {
     scrollTomBottom();
@@ -27,9 +27,9 @@ const MessageList = (props) => {
   return (
     <Grid padding="0 2rem">
       <Grid height="6rem"></Grid>
-        {messages?.map((m, idx) => {
-          return <Message key={idx} messagesInfo={m} />;
-        })}
+      {messages?.map((m, idx) => {
+        return <Message key={idx} messagesInfo={m} />;
+      })}
 
       <div ref={messageEndRef}></div>
       <Grid height="7rem"></Grid>
