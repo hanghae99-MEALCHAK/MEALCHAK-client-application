@@ -232,6 +232,7 @@ const Main = (props) => {
                 margin="-0.4rem 1.6rem 0.1rem 0rem"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.all ? "0.2rem solid black" : ""}
+                white_space="nowrap"
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, all: true });
@@ -252,6 +253,7 @@ const Main = (props) => {
                 margin="-0.4rem 1.6rem 0 0"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.kr ? "0.2rem solid black" : ""}
+                white_space="nowrap"
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, kr: true });
@@ -273,6 +275,7 @@ const Main = (props) => {
                 margin="-0.4rem 1.6rem 0 0"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.bunsik ? "0.2rem solid black" : "none"}
+                white_space="nowrap"
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, bunsik: true });
@@ -294,6 +297,7 @@ const Main = (props) => {
                 margin="-0.4rem 1.6rem 0 0"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.cn ? "0.2rem solid black" : ""}
+                white_space="nowrap"
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, cn: true });
@@ -315,6 +319,7 @@ const Main = (props) => {
                 margin="-0.4rem 1.6rem 0 0"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.jp ? "0.2rem solid black" : ""}
+                white_space="nowrap"
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, jp: true });
@@ -336,6 +341,7 @@ const Main = (props) => {
                 margin="-0.4rem 1.6rem 0 0"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category?.west ? "0.2rem solid black" : ""}
+                white_space="nowrap"
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, west: true });
@@ -357,6 +363,7 @@ const Main = (props) => {
                 margin="-0.4rem 1.6rem 0 0"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.cafe ? "0.2rem solid black" : ""}
+                white_space="nowrap"
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, cafe: true });
@@ -378,6 +385,7 @@ const Main = (props) => {
                 margin="-0.4rem 1.6rem 0 0"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.etc ? "0.2rem solid black" : ""}
+                white_space="nowrap"
                 _onClick={(e) => {
                   dispatch(postActions.getPostAX(e.target.innerText));
                   setCategory({ ...{ category: false }, etc: true });

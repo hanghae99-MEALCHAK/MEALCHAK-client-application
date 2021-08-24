@@ -129,10 +129,11 @@ const Post = React.memo((props) => {
                   {props.username}
                 </Text>
                 <Grid
-                  width={props.valid === false || disabled ? "5rem" : ""}
-                  minWidth="5.5rem"
-                  maxWidth="9.1rem"
-                  height="2.3rem"
+                  // minWidth="5.5rem"
+                  // maxWidth="9.1rem"
+                  width="fit-content"
+                  height="fit-content"
+                  white_space="nowrap"
                   bg={
                     props.valid === false || disabled
                       ? `${color.bg20}`
@@ -147,6 +148,8 @@ const Post = React.memo((props) => {
                     size="1rem"
                     text_align="center"
                     margin="0"
+                    width="fit-content"
+                    white_space="nowrap"
                     color={
                       props.valid === false || disabled
                         ? `${color.bg80}`
