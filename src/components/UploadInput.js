@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 // 날짜
 import moment from "moment";
 import DatePicker from "react-datepicker";
-import TimePicker from "react-time-picker";
 import { ko } from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -58,7 +57,6 @@ const UploadInput = React.memo((props) => {
   const modi_time = `${props.post_info.appointmentDate} ${props.post_info.appointmentTime}`;
   // const today = moment().format("YYYY-MM-DD");
 
-  const now_time = moment().format("HH:mm");
   const post_address = useSelector((state) => state.loc.post_address?.address);
   const coords = useSelector((state) => state.loc.post_address);
   const longitude = coords.longitude;
