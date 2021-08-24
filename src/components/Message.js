@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
 import logger from "../shared/Console";
 import Spinner from "../shared/Spinner";
 
@@ -34,8 +35,9 @@ const Message = (props) => {
   React.useEffect(() => {
     logger("user id", typeof user_info?.user_id);
     logger("msg id", typeof messagesInfo.sender_id);
+    logger("Message props : ", props);
   }, [user_info?.user_nickname]);
-  
+
   if (messagesInfo.type === "ENTER" || messagesInfo.type === "QUIT") {
     return (
       <Grid
@@ -103,7 +105,23 @@ const Message = (props) => {
           align_items="start"
         >
           <Grid width="4rem" margin="0 0.8rem 0 0">
-            <Image size="4" src={messagesInfo.sender_img}></Image>
+            <Image
+              size="4"
+              cursor="t"
+              src={messagesInfo.sender_img}
+              _onClick={() => {
+                if (user_info.user_id === messagesInfo?.sender_id) {
+                  return history.push({
+                    pathname: "/myprofile",
+                    state: { user_id: messagesInfo?.sender_id },
+                  });
+                }
+                history.push({
+                  pathname: `/userprofile/${messagesInfo?.sender_id}`,
+                  state: { user_id: messagesInfo?.sender_id },
+                });
+              }}
+            ></Image>
           </Grid>
           <Grid margin="0 auto 1.6rem" text_align="left" padding="1rem 0 0">
             <Text color={color.bg0} size={fontSize.tiny} text_align="left">

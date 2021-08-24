@@ -239,6 +239,9 @@ body {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media all and (min-width: 280px) {
