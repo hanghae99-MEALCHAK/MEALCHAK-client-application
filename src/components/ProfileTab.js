@@ -40,7 +40,7 @@ const ProfileTab = (props) => {
             {info?.user_manner.toFixed(1)}
           </Text>
           <Text
-            width="4rem"
+            width="fit-content"
             height="1.5rem"
             size={fontSize.tiny}
             bold2="500"

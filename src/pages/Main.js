@@ -182,7 +182,7 @@ const Main = (props) => {
           </Button>
         </Grid>
         <Grid is_float="left">
-          <Grid maxWidth="15rem">
+          <Grid maxWidth="fit-content">
             <Text
               size="1.6rem"
               color={color.bg100}
@@ -220,9 +220,9 @@ const Main = (props) => {
             slidesPerView="7.55"
             style={{ transform: "none" }}
           >
-            <SwiperSlide style={{ width: "3rem", textAlign: "center" }}>
+            <SwiperSlide style={{ width: "fit-content", textAlign: "center" }}>
               <Text
-                width="3rem"
+                width="fit-content"
                 height="2.4rem"
                 size={fontSize.base}
                 color={category.all ? color.bg100 : color.bg80}
@@ -241,9 +241,9 @@ const Main = (props) => {
                 전체
               </Text>
             </SwiperSlide>
-            <SwiperSlide style={{ width: "3rem", textAlign: "center" }}>
+            <SwiperSlide style={{ width: "fit-content", textAlign: "center" }}>
               <Text
-                width="3rem"
+                width="fit-content"
                 height="2.4rem"
                 size="1.6rem"
                 color={category.kr ? color.bg100 : color.bg80}
@@ -262,9 +262,9 @@ const Main = (props) => {
                 한식
               </Text>
             </SwiperSlide>
-            <SwiperSlide style={{ width: "3rem", textAlign: "center" }}>
+            <SwiperSlide style={{ width: "fit-content", textAlign: "center" }}>
               <Text
-                width="3rem"
+                width="fit-content"
                 height="2.4rem"
                 size="1.6rem"
                 color={category.bunsik ? color.bg100 : color.bg80}
@@ -283,9 +283,9 @@ const Main = (props) => {
                 분식
               </Text>
             </SwiperSlide>
-            <SwiperSlide style={{ width: "3rem", textAlign: "center" }}>
+            <SwiperSlide style={{ width: "fit-content", textAlign: "center" }}>
               <Text
-                width="3rem"
+                width="fit-content"
                 height="2.4rem"
                 size="1.6rem"
                 color={category.cn ? color.bg100 : color.bg80}
@@ -304,9 +304,9 @@ const Main = (props) => {
                 중식
               </Text>
             </SwiperSlide>
-            <SwiperSlide style={{ width: "3rem", textAlign: "center" }}>
+            <SwiperSlide style={{ width: "fit-content", textAlign: "center" }}>
               <Text
-                width="3rem"
+                width="fit-content"
                 height="2.4rem"
                 size="1.6rem"
                 color={category.jp ? color.bg100 : color.bg80}
@@ -325,9 +325,9 @@ const Main = (props) => {
                 일식
               </Text>
             </SwiperSlide>
-            <SwiperSlide style={{ width: "5rem", textAlign: "center" }}>
+            <SwiperSlide style={{ width: "fit-content", textAlign: "center" }}>
               <Text
-                width="3rem"
+                width="fit-content"
                 height="2.4rem"
                 size="1.6rem"
                 color={category.west ? color.bg100 : color.bg80}
@@ -346,9 +346,9 @@ const Main = (props) => {
                 양식
               </Text>
             </SwiperSlide>
-            <SwiperSlide style={{ width: "5rem", textAlign: "center" }}>
+            <SwiperSlide style={{ width: "fit-content", textAlign: "center" }}>
               <Text
-                width="3rem"
+                width="fit-content"
                 height="2.4rem"
                 size="1.6rem"
                 color={category.cafe ? color.bg100 : color.bg80}
@@ -367,9 +367,9 @@ const Main = (props) => {
                 카페
               </Text>
             </SwiperSlide>
-            <SwiperSlide style={{ width: "5rem", textAlign: "center" }}>
+            <SwiperSlide style={{ width: "fit-content", textAlign: "center" }}>
               <Text
-                width="3rem"
+                width="fit-content"
                 height="2.4rem"
                 size="1.6rem"
                 color={category.etc ? color.bg100 : color.bg80}
