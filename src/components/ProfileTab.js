@@ -182,7 +182,7 @@ const ProfileTab = (props) => {
           radius={radius.button}
         >
           <Text
-            width={info?.user_age ? '4.5rem' : '5.8rem'}
+            width={info?.user_age ? 'fit-content' : '5.8rem'}
             height="3.2rem"
             size={fontSize.display4}
             bold

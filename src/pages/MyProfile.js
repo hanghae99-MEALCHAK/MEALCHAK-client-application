@@ -77,7 +77,9 @@ const MyProfile = (props) => {
                 margin="0.5rem auto 0 auto"
               >
                 <Text size={fontSize.small} color="#9A9896" line_height="150%">
-                  <span style={{ whiteSpace: "pre-wrap" }}>
+                  <span
+                    style={{ whiteSpace: "pre-wrap", wordBreak: "break-all" }}
+                  >
                     {other_user?.user_comment ? other_user?.user_comment : ""}
                   </span>
                 </Text>

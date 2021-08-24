@@ -70,8 +70,8 @@ const MyPage = (props) => {
                   width: "10rem",
                   height: "10rem",
                   borderRadius: "5rem",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
+                  objectFit: "cover",
+                  objectPosition: "center",
                   display: "block",
                 }}
                 src={user_info.user_profile}
@@ -99,7 +99,9 @@ const MyPage = (props) => {
                 margin="0.5rem auto 0 auto"
               >
                 <Text size={fontSize.small} color="#9A9896" line_height="150%">
-                  <span style={{ whiteSpace: "pre-wrap" }}>
+                  <span
+                    style={{ whiteSpace: "pre-wrap", wordBreak: "break-all" }}
+                  >
                     {user_info?.user_comment
                       ? user_info?.user_comment
                       : "프로필 수정에서 한 줄 소개를 입력해주세요."}
@@ -303,7 +305,12 @@ const MyPage = (props) => {
                   history.push("/settings");
                 }}
               >
-                <Image shape="setting" src={png.setting} size="30" margin="0 1.2rem 0 0"/>
+                <Image
+                  shape="setting"
+                  src={png.setting}
+                  size="30"
+                  margin="0 1.2rem 0 0"
+                />
 
                 <Text color={color.bg100} size={fontSize.base} bold2="400">
                   앱 설정

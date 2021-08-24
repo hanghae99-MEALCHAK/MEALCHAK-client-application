@@ -29,7 +29,7 @@ const MyOneReview = React.memo((props) => {
   return (
     <React.Fragment>
       <Grid
-        padding="0 0 0 2rem"
+        padding="0 2rem 0 2rem"
         margin="1.5rem 0 0 0"
         borderBottom="0.1rem solid #F4F4F3"
       >

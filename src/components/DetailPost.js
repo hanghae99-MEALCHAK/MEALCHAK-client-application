@@ -23,7 +23,6 @@ const DetailPost = React.memo((props) => {
     address,
     detail_address,
     contents,
-    distance,
     headCount,
     nowHeadCount,
     orderDate,
@@ -49,6 +48,8 @@ const DetailPost = React.memo((props) => {
   // 지도 표시 위도, 경도
   const latitude = useSelector((state) => state.post.post_lat_lng?.latitude);
   const longitude = useSelector((state) => state.post.post_lat_lng?.longitude);
+
+  const distance = props?.distance * 1000;
 
   // 연, 월
   const ym = props?.insert_dt.split("-");
@@ -224,7 +225,7 @@ const DetailPost = React.memo((props) => {
                 margin="0 0 0 1rem"
               >
                 {distance > 999
-                  ? `내 위치로부터 ${(distance / 1000).toFixed(2) * 1000}km`
+                  ? `내 위치로부터 ${(distance / 1000).toFixed(2)}km`
                   : `내 위치로부터 ${distance * 1000}m`}
               </Text>
             )}
