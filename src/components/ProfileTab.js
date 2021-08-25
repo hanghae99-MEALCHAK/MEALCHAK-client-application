@@ -29,13 +29,14 @@ const ProfileTab = (props) => {
           radius={radius.button}
         >
           <Text
-            width="3.1rem"
+            width="fit-content"
             height="3.2rem"
             size={fontSize.display4}
             bold
             text_align="center"
             line_height="150%"
             color={color.brand100}
+            white_space="nowrap"
           >
             {info?.user_manner.toFixed(1)}
           </Text>

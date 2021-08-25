@@ -182,12 +182,10 @@ const Main = (props) => {
           </Button>
         </Grid>
         <Grid is_float="left">
-          <Grid maxWidth="fit-content">
+          <Grid width="fit-content" maxWidth="fit-content" padding="2.4rem 0 0 2.1rem">
             <Text
               size="1.6rem"
               color={color.bg100}
-              padding="2.4rem 0 0 0"
-              margin="0 0 0 2.1rem"
               bold
             >
               #오늘의 인기 메뉴

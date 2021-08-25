@@ -229,7 +229,7 @@ const DetailPost = React.memo((props) => {
               >
                 {distance > 999
                   ? `내 위치로부터 ${(distance / 1000).toFixed(2)}km`
-                  : `내 위치로부터 ${distance * 1000}m`}
+                  : `내 위치로부터 ${distance}m`}
               </Text>
             )}
           </Grid>

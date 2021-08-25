@@ -146,12 +146,13 @@ const UploadInput = React.memo((props) => {
               </div>
             </div>
             <Grid
-              height="5rem"
+              height="fit-content"
               radius="1.2rem"
               border={border.bg40}
               padding="1.4rem 1.6rem"
               bg={color.bg20}
               margin="0 0 0.8rem"
+              white_space="pre-wrap"
             >
               <Text color={color.bg80} size={fontSize.base}>
                 {post_address

@@ -263,7 +263,7 @@ const MyPage = (props) => {
                 </Text>
               </Grid>
 
-              <CopyToClipboard text="https://mealchak.com/" onCopy={copy}>
+              <CopyToClipboard text="https://mealchak.com" onCopy={copy}>
                 <button
                   style={{
                     height: "auto",
