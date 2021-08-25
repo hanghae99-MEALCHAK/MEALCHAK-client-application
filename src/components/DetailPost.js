@@ -153,9 +153,10 @@ const DetailPost = React.memo((props) => {
                   {username}
                 </Text>
                 <Grid
-                  width={valid === false ? "5.5rem" : ""}
-                  maxWidth="9.1rem"
-                  height="2.3rem"
+                  // width={valid === false ? "5.5rem" : ""}
+                  width="fit-content"
+                  height="fit-content"
+                  white_space="nowrap"
                   bg={
                     props.valid === false || disabled
                       ? color.bg20
@@ -165,8 +166,10 @@ const DetailPost = React.memo((props) => {
                   padding="0.4rem 0.8rem"
                 >
                   <Text
+                    width="fit-content"
                     size="1rem"
                     text_align="center"
+                    white_space="nowrap"
                     color={
                       props.valid === false || disabled
                         ? color.bg80
@@ -226,7 +229,7 @@ const DetailPost = React.memo((props) => {
               >
                 {distance > 999
                   ? `내 위치로부터 ${(distance / 1000).toFixed(2)}km`
-                  : `내 위치로부터 ${distance * 1000}m`}
+                  : `내 위치로부터 ${distance}m`}
               </Text>
             )}
           </Grid>

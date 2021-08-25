@@ -164,11 +164,7 @@ body {
 
 /* Main 구글 폼 이동 버튼 모달 */
 .link-container {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   position: fixed;
-  margin: 0 0 0 2.5rem;
   z-index: 50;
 }
 
@@ -176,9 +172,6 @@ body {
   background: #ffffff;
   border-radius: 90px;
   cursor: pointer;
-  /* display: flex;
-  justify-content: space-between;
-  align-items: center; */
   padding: 4px 6px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   border: none;
@@ -208,14 +201,12 @@ body {
   height: fit-content;
   background: #ffffff;
   position: fixed;
-  margin: 0 0 0 7.5rem;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
   transform: translateY(1rem);
   transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
   z-index: 10;
-  /* border-radius: 1.5rem 1.5rem 0 1.5rem; */
   visibility: hidden;
 	border-radius: 1.2rem;
 	padding:1.5rem;
@@ -245,32 +236,39 @@ body {
 }
 
 @media all and (min-width: 280px) {
+  .link {
+    margin: 0 0 0 7.5rem;
+  }
   .link.active {
     max-width: fit-content !important;
     margin: 0 0 0 7.5rem;
     padding: 1.5rem;
   }
-  .link-container{
-    margin: 0 0 0 1.7rem;
+  .link-container {
+    margin: 0 0 0 1.1rem;
   }
 }
 @media all and (min-width: 415px) {
+  .link {
+    margin: 0 0 0 6.8rem;
+  }
   .link.active {
     max-width: fit-content !important;
+    margin: 0 0 0 6.8rem;
   }
-  .link-container{
-    margin: 0 0 0 1.7rem;
+  .link-container {
+    margin: 0 0 0 1.8rem;
   }
 }
 @media all and (min-width: 721px) {
+  .link {
+    margin: 0 0 0 5.9rem;
+  }
   .link.active {
     max-width: fit-content !important;
     margin: 0 0 0 5.9rem;
   }
-  .link {
-    margin: 0 0 0 5.9rem;
-  }
-  .link-container{
+  .link-container {
     margin: 0 0 0 2.5rem;
   }
 }

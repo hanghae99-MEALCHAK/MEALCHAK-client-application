@@ -60,6 +60,7 @@ const Grid = (props) => {
     className,
     ref,
     id,
+    white_space
   } = props;
 
   const styles = {
@@ -116,6 +117,7 @@ const Grid = (props) => {
     className: className,
     ref: ref,
     id: id,
+    white_space: white_space,
   };
 
   if (shape === "topGrid") {
@@ -291,6 +293,7 @@ const GridBox = styled.div`
   ${(props) => (props.display ? `display: ${props.display};` : "")};
   ${(props) => (props.opacity ? `opacity: ${props.opacity};` : "")};
   ${(props) => (props.z_index ? `z-index: ${props.z_index};` : "")};
+  ${(props) => (props.white_space ? `white-space: ${props.white_space};` : "")};
 
   @media (min-width: 501px) {
     ${(props) =>

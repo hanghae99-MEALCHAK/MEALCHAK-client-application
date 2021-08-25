@@ -14,7 +14,9 @@ const Settings = (props) => {
   const { color, border, fontSize } = theme;
 
   React.useEffect(() => {
-    document.querySelector("body").scrollTo(0, 0);
+    document
+      .querySelector("body")
+      .scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, []);
   return (
     <>
@@ -77,9 +79,15 @@ const Settings = (props) => {
             borderBottom={border.bg20}
             cursor="t"
             _onClick={() => {
-              customAlert.sweetOK("아직 개발 중인 기능이에요.", "열심히 개발하고 있으니", "조금만 기다려주세요.").then(() => {
-                return ;
-              })
+              customAlert
+                .sweetOK(
+                  "아직 개발 중인 기능이에요.",
+                  "열심히 개발하고 있으니",
+                  "조금만 기다려주세요."
+                )
+                .then(() => {
+                  return;
+                });
             }}
           >
             <svg
