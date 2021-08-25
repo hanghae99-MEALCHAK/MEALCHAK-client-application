@@ -61,7 +61,7 @@ const Search = (props) => {
             <Input
               padding="1.4rem 1.6rem"
               border="0.1rem solid #EBE9E8"
-              placeholder="제목+내용, 장소로 검색 돼요."
+              placeholder="제목+내용으로 검색 돼요."
               size="1.6rem"
               value={food}
               _onChange={onChange}
