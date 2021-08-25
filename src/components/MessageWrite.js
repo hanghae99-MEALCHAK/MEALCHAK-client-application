@@ -47,7 +47,7 @@ const MessageWrite = (props) => {
             is_submit
             placeholder="메세지를 입력해주세요."
             type="text"
-            length={300}
+            length={255}
             onSubmit={sendMessageBtn}
             padding="1.1rem 1.6rem"
             value={new_message}

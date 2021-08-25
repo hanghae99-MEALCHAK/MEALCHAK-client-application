@@ -130,13 +130,13 @@ const Message = (props) => {
             <Grid is_flex4="t" justify_content="space-between">
               <Grid
                 is_flex4="t"
-                maxWidth="15rem"
+                maxWidth="23rem"
                 flex_direction="row"
                 align_items="flex-end"
               >
                 <Grid
                   bg={color.bg0}
-                  width="auto"
+                  width="max-content"
                   padding="0.8rem"
                   radius="0 1.2rem 1.2rem 1.2rem"
                 >
