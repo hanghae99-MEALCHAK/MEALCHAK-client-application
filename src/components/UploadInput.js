@@ -296,7 +296,7 @@ const UploadInput = React.memo((props) => {
                   onFocus={(e) => (e.target.readOnly = true)}
                   timeCaption="Time"
                   dateFormat="p"
-                  timeIntervals={1}
+                  timeIntervals={15}
                   showTimeSelectOnly
                   showTimeSelect
                   theme={theme}
@@ -324,6 +324,16 @@ const UploadInput = React.memo((props) => {
                 />
               </Grid>
             </FocusWithin>
+          </Grid>
+          <Grid text_align="left">
+            <Text
+              color="#F35959"
+              size={fontSize.small}
+              line_height="150%"
+              padding="0.8rem 1rem 0 0rem"
+            >
+              주문 예정 시간이 지나면 자동으로 모집글이 사라집니다.
+            </Text>
           </Grid>
 
           <Grid margin="0 auto 1rem">

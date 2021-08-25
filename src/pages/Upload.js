@@ -152,7 +152,7 @@ const Upload = React.memo((props) => {
       const time_now = parseInt(now_time.split(":").join(""));
 
       // 선택시간이 과거인 경우
-      if (time_now > select_time) {
+      if (time_now >= select_time) {
         return customAlert.sweetConfirmReload(
           "배달 주문 예정 시간을 확인해주세요",
           ["현재시간보다 과거로 설정됐어요."],
