@@ -292,7 +292,8 @@ const PcSide = (props) => {
 };
 
 const SideGrid = styled.div`
-  width: fit-content;
+  /* width: fit-content; */
+  width: intrinsic;
   height: 100%;
   box-sizing: border-box;
   padding: 2.19rem 6.18rem 0 0;
@@ -300,7 +301,7 @@ const SideGrid = styled.div`
   bottom: 0;
   left: 50%;
   transform: translateX(-200%);
-
+  -webkit-transform: translateX(-200%);
   @media (max-width: 1200px) {
     padding: 2.19rem 5rem 0 0;
   }
