@@ -19,7 +19,7 @@ import { png } from "../styles/img/index";
 import { webp } from "../styles/img/webp/index";
 import { isWebpSupported } from "react-image-webp/dist/utils";
 
-const UserProfile = (props) => {
+const UserProfile = React.memo((props) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const is_login = useSelector((state) => state.user?.is_login);
@@ -34,18 +34,15 @@ const UserProfile = (props) => {
     document
       .querySelector("body")
       .scrollTo({ top: 0, left: 0, behavior: "instant" });
-
-    dispatch(userAction.loginCheck());
+    if (!is_login) {
+      dispatch(userAction.loginCheck());
+    }
     dispatch(userAction.findUserProfileAX(user_id));
     logger("UserProfile props state: ", location.state);
     logger("UserProfile props: ", props);
     logger("another_user_info: ", other_user);
     logger("id : ", typeof id);
   }, []);
-
-  React.useEffect(() => {
-    dispatch(userAction.findUserProfileAX(id));
-  }, [dispatch, props.match.params.id]);
 
   if (is_login) {
     return (
@@ -162,7 +159,7 @@ const UserProfile = (props) => {
   } else {
     return <Spinner />;
   }
-};
+});
 
 UserProfile.defaultProps = {};
 

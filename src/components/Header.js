@@ -453,6 +453,7 @@ const GridTop = styled.div`
   text-align: right;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 100;
 `;
 
 const SideGrid = styled.div`

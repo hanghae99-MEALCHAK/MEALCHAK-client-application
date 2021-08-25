@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { actionCreators as locateActions } from "../redux/modules/loc";
 import logger from "../shared/Console";
 
+import "./style.css";
+
 const PostAddress = React.memo((props) => {
   const dispatch = useDispatch();
   const [address, setAddress] = React.useState("");
@@ -40,7 +42,11 @@ const PostAddress = React.memo((props) => {
     window.scrollTo(0, 0);
     if (address === "") return;
     dispatch(locateActions.getMyPostCoordAX(address));
-    customAlert.sweetConfirmReload("주소 설정 완료", ["입력한 주소로 설정이 완료되었어요."], "");
+    customAlert.sweetConfirmReload(
+      "주소 설정 완료",
+      ["입력한 주소로 설정이 완료되었어요."],
+      ""
+    );
   }, [address]);
 
   return (

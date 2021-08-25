@@ -7,15 +7,15 @@ import Spinner from "../shared/Spinner";
 import { MyOneReview, PcSide } from "../components";
 
 // style
-import { Grid} from "../elements";
+import { Grid } from "../elements";
 import { Header } from "../components";
 import logger from "../shared/Console";
 import theme from "../styles/theme";
 
 // 이미지
 import { png } from "../styles/img/index";
-import { webp } from '../styles/img/webp/index';
-import {isWebpSupported} from 'react-image-webp/dist/utils';
+import { webp } from "../styles/img/webp/index";
+import { isWebpSupported } from "react-image-webp/dist/utils";
 
 const MyReview = (props) => {
   const dispatch = useDispatch();
@@ -24,8 +24,9 @@ const MyReview = (props) => {
   const my_review = useSelector((state) => state.user?.myReview);
 
   React.useEffect(() => {
-    window.scrollTo(0, 0);
-    dispatch(userActions.loginCheck());
+    if (!is_login) {
+      dispatch(userActions.loginCheck());
+    }
     if (my_review.length === 0) {
       dispatch(userActions.getMyReviewAX());
     }
@@ -52,7 +53,11 @@ const MyReview = (props) => {
               })
             ) : (
               <Grid>
-                <MyReviewImg src={isWebpSupported()? webp.emptyMeal_3xWebp : png.emptyMeal_3x}></MyReviewImg>
+                <MyReviewImg
+                  src={
+                    isWebpSupported() ? webp.emptyMeal_3xWebp : png.emptyMeal_3x
+                  }
+                ></MyReviewImg>
                 <MyReviewText>아직 받은 리뷰가 없어요.</MyReviewText>
               </Grid>
             )}

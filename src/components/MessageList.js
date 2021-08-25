@@ -18,10 +18,11 @@ const MessageList = (props) => {
   // 렌더링시 이동
   React.useEffect(() => {
     scrollTomBottom();
-  }, [messages]);
+    logger("tell me you are moving now", messageEndRef);
+  }, [messages.length]);
 
   React.useEffect(() => {
-    logger("메시지 DB", messages);
+    // logger("메시지 DB", messages);
   }, []);
 
   return (
