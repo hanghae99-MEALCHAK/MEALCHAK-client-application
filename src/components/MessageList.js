@@ -12,7 +12,7 @@ const MessageList = (props) => {
   const messageEndRef = React.useRef(null);
   //  하단 스크롤 함수
   const scrollTomBottom = () => {
-    messageEndRef.current?.scrollIntoView({ behavior: "instant" });
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   // 렌더링시 이동

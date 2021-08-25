@@ -1,6 +1,7 @@
 import React from "react";
 import axiosModule from "../redux/axios_module";
 import logger from "../shared/Console";
+import { Kakao_auth_url } from "../shared/OAuth";
 
 // sweet alert2
 import Swal from "sweetalert2";
@@ -339,8 +340,8 @@ const sweetNeedLogin = () => {
     })
     .then((res) => {
       if (res.isConfirmed) {
-          history.replace("/");
-        return;
+        return window.location.href = `${Kakao_auth_url}`;
+        
       }
       return;
     });

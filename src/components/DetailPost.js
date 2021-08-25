@@ -258,7 +258,7 @@ const DetailPost = React.memo((props) => {
               size="1.3rem"
               color={color.bg80}
             >
-              예상 만남 시간
+              만남 예정 시간
             </Text>
           </GridGap>
           <GridGap>

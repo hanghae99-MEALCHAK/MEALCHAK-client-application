@@ -1,10 +1,9 @@
 import { createAction, handleActions } from "redux-actions";
-import { useMemo } from "react";
 import { produce } from "immer";
 import axiosModule from "../axios_module";
 import jwtDecode from "jwt-decode";
 import { customAlert } from "../../components/Sweet";
-import { Text } from "../../elements";
+import { Kakao_auth_url } from "../../shared/OAuth";
 
 import { actionCreators as imageActions } from "./image";
 
@@ -211,7 +210,7 @@ const loginCheck = (path) => {
         )
         .then((res) => {
           if (res) {
-            return history.replace("/");
+            return window.location.href = `${Kakao_auth_url}`;
           } else {
             return history.replace("/home");
           }
