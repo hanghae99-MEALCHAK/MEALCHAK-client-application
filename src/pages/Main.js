@@ -508,4 +508,12 @@ const LogoImg = styled.div`
   background-size: cover;
   background-position: center;
 `;
+
+// const Mask = styled.div`
+//   position: fixed;
+//   width: 100vw;
+//   height: 100vh;
+//   background-color: rgba(0, 0, 0, 0.5);
+//   z-index: 10000;
+// `;
 export default Main;

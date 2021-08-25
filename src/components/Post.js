@@ -277,7 +277,7 @@ const Post = React.memo((props) => {
                   color={color.bg80}
                   margin="0.7rem 0"
                 >
-                  예상 만남 시간
+                  만남 예정 시간
                 </Text>
                 <Text
                   width="13.6rem"

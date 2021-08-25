@@ -87,7 +87,7 @@ const SideContent = (props) => {
               margin="0.4rem 0 0"
               bold2="500"
             >
-              예상 만남 시간
+              만남 예정 시간
               <span style={{ fontWeight: "400", marginLeft: "0.5rem" }}>
                 {/* {ym[1]}월 {day[0]}일 {hm[0]}:{hm[1]} */}
                 {date_time()}
