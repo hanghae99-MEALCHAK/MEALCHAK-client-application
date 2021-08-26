@@ -64,8 +64,9 @@ const Tour = (props) => {
           width="fit-content"
           height="fit-content"
           padding="0.5rem 1rem"
+          radius="0.8rem"
         >
-          <Text color={color.bg0} size={fontSize.base} bold2="500">
+          <Text color={color.bg0} size={fontSize.small} bold2="500">
             주소 설정 시 주변 모집글이 나타나요.
           </Text>
         </Grid>
