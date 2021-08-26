@@ -14,7 +14,13 @@ const Tour = (props) => {
 
   return (
     <Mask is_mask={is_mask}>
-      <Grid is_flex2="t" height="4.4rem" maxWidth={media ? "36rem" : "100%"} margin="0rem auto 0.8rem" bg="#ffffff">
+      <Grid
+        is_flex2="t"
+        height="4.4rem"
+        maxWidth={media ? "36rem" : "100%"}
+        margin="0 auto"
+        bg="#ffffff"
+      >
         <Text
           margin="0 1rem 0 0"
           size={fontSize.small}
@@ -46,21 +52,18 @@ const Tour = (props) => {
           />
         </svg>
       </Grid>
-      <Grid is_flex4="t" justify_content="center" height="fit-content" margin="0">
-        <BsArrow90DegUp
-          style={{
-            color: "white",
-            fontSize: "3rem",
-            zIndex: 2,
-            margin: "0 0 2rem",
-          }}
-        />
+      <GuideBubble />
+      <Grid
+        is_flex4="t"
+        justify_content="center"
+        height="fit-content"
+        margin="0"
+      >
         <Grid
           bg={color.brand100}
           width="fit-content"
           height="fit-content"
           padding="0.5rem 1rem"
-          radius="1.2rem"
         >
           <Text color={color.bg0} size={fontSize.base} bold2="500">
             주소 설정 시 주변 모집글이 나타나요.
@@ -76,7 +79,27 @@ const Mask = styled.div`
   position: fixed;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   z-index: 101;
 `;
+
+const GuideBubble = styled.div`
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+
+  &::after {
+    top: 0rem;
+    border: solid transparent;
+    content: "";
+    width: 0;
+    height: 0;
+    position: relative;
+    pointer-events: none;
+    border-color: transparent transparent ${theme.color.brand100} transparent;
+    border-width: 1rem 0.8rem;
+    margin-left: 0rem;
+  }
+`;
+
 export default Tour;
