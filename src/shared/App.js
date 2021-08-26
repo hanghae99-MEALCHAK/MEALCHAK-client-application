@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { Suspense, lazy } from "react";
 import GlobalStyle from "./GlobalStyle";
+import styled from "styled-components";
 
 import { Route, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
@@ -36,6 +37,7 @@ import { Grid } from "../elements";
 // 사용자 token 여부
 import { token } from "./OAuth";
 import logger from "./Console";
+import Tour from "../components/Tour";
 
 const Main = lazy(() => import("../pages/Main"));
 const LoginRedirect = lazy(() => import("../pages/LoginRedirect"));
@@ -71,7 +73,6 @@ function App() {
       dispatch(userAction.loginCheck(`/${path}`));
       logger("app.js user 정보", user_info);
     }
-    logger("app.js token 정보", token);
     logger("is_loading", is_loading);
     logger("path", path);
   }, []);
@@ -89,6 +90,7 @@ function App() {
       <ConnectedRouter history={history}>
         <GlobalStyle />
         <Suspense fallback={<Spinner />}>
+          <Tour/>
           <Grid shape="topGrid">
             <Switch>
               <Route path="/" exact component={Tutorial} />

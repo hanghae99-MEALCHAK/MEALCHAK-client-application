@@ -7,6 +7,7 @@ import { Post, Footer, Header, MainBanner, PcSide } from "../components";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useDetectOutsideClick } from "../components/useDetectOutsideClick";
 import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as imageActions } from "../redux/modules/image";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import logger from "../shared/Console";
@@ -82,6 +83,11 @@ const Main = (props) => {
   const onClick = () => {
     setIsActive(!isActive);
   };
+  
+  React.useEffect(() => {
+    const is_address = user?.user_address === "여기를 클릭해서 주소를 설정하세요!" ? true : false ;
+    dispatch(imageActions.setMask(is_address));
+  },[user?.user_address])
 
   return (
     <React.Fragment>
@@ -510,11 +516,4 @@ const LogoImg = styled.div`
   background-position: center;
 `;
 
-// const Mask = styled.div`
-//   position: fixed;
-//   width: 100vw;
-//   height: 100vh;
-//   background-color: rgba(0, 0, 0, 0.5);
-//   z-index: 10000;
-// `;
 export default Main;
