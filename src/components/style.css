@@ -99,7 +99,7 @@ body {
 /* date picker calender */
 .react-datepicker__header {
   background-color: #ffffff !important;
-  border-bottom: 1px solid #EBE9E8 !important;
+  border-bottom: 1px solid #ebe9e8 !important;
 }
 
 .sunday {
@@ -123,9 +123,8 @@ body {
 }
 
 .react-datepicker-time__header {
-  color: #36373C !important;
+  color: #36373c !important;
   font-size: 1.6rem !important;
-
 }
 
 .react-datepicker__time-list-item--selected {
@@ -141,12 +140,12 @@ body {
   width: 100% !important;
 }
 
-.react-datepicker__time{
+.react-datepicker__time {
   border-bottom-left-radius: 1.2rem !important;
   border-bottom-right-radius: 1.2rem !important;
 }
 
-.react-datepicker__time-list{
+.react-datepicker__time-list {
   height: calc(28rem + (1.7rem / 2)) !important;
 }
 
@@ -208,22 +207,23 @@ body {
   transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
   z-index: 10;
   visibility: hidden;
-	border-radius: 1.2rem;
-	padding:1.5rem;
+  border-radius: 1.2rem;
+  padding: 1.5rem;
 }
 
-.link:after { /*말풍선 꼭지*/
-	bottom: -0.9rem; /*말풍선꼭지위치 위아래*/
-	right: 8%; /*말풍선위치 좌우*/
-	border: solid transparent;
-	content: "";
-	width: 0;
-	height: 0;
-	position: absolute;
-	pointer-events: none;
-	border-color: #fff transparent transparent transparent; /*말풍선 꼭지방향*/
-	border-width: 0.5rem; /*말풍선 꼭지 사이즈*/
-	margin-left: -0.5rem; /*말풍선 상세위치 조정*/
+.link:after {
+  /*말풍선 꼭지*/
+  bottom: -0.9rem; /*말풍선꼭지위치 위아래*/
+  right: 8%; /*말풍선위치 좌우*/
+  border: solid transparent;
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: #fff transparent transparent transparent; /*말풍선 꼭지방향*/
+  border-width: 0.5rem; /*말풍선 꼭지 사이즈*/
+  margin-left: -0.5rem; /*말풍선 상세위치 조정*/
 }
 
 .link.active {

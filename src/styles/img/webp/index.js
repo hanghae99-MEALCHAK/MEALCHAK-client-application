@@ -28,6 +28,7 @@ import whatDoIeatWebp from "./whatDoIeat_3x.webp";
 import Group182_3xWebp from "./Group182_3x.webp";
 import settingWebp from "./setting_1.webp";
 import feedbackWebp from "./feedback.webp";
+import UnionWebp from "./Union.webp";
 
 const webp = {
   mainLogoWebp,
@@ -60,6 +61,7 @@ const webp = {
   Group182_3xWebp,
   settingWebp,
   feedbackWebp,
+  UnionWebp,
 };
 
 export { webp };

@@ -1,0 +1,2 @@
+(this.webpackJsonpmealchak=this.webpackJsonpmealchak||[]).push([[14],{387:function(a,e,c){"use strict";c.r(e);var t=c(1),n=c.n(t),o=c(23),s=c(58),i=c(24),r=c(5),u=c(2);e.default=function(a){var e=Object(o.d)(),c=new URL(window.location.href).searchParams.get("code");return n.a.useEffect((function(){Object(r.a)(c),e(i.a.kakaoLogin(c))}),[]),Object(u.jsx)(s.a,{})}}}]);
+//# sourceMappingURL=14.36e389d7.chunk.js.map

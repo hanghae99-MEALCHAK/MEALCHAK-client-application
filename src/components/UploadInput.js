@@ -257,7 +257,7 @@ const UploadInput = React.memo((props) => {
                 bold2="500"
                 size={fontSize.base}
               >
-                배달 주문 예정 시간
+                만남 예정 시간
               </Text>
 
               <Grid display_grid="t">

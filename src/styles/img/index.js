@@ -28,6 +28,7 @@ import whatDoIeat from "./whatDoIeat_3x.png";
 import Group182_3x from "./Group182_3x.png";
 import setting from "./setting.jpg";
 import feedback from "./feedback.png";
+import Union from "./Union.png";
 
 const png = {
   mainLogo,
@@ -60,6 +61,7 @@ const png = {
   Group182_3x,
   setting,
   feedback,
+  Union,
 };
 
 export { png };

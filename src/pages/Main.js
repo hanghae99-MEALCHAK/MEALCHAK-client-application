@@ -28,6 +28,7 @@ import "../shared/Swiper.scss";
 
 const Main = (props) => {
   const media = useMediaQuery("(min-width: 950px)");
+  const backdrop = CSS.supports("backdrop-filter: blur(4px)");
 
   const { color, border, btn_border, fontSize } = theme;
 
@@ -83,11 +84,14 @@ const Main = (props) => {
   const onClick = () => {
     setIsActive(!isActive);
   };
-  
+
   React.useEffect(() => {
-    const is_address = user?.user_address === "여기를 클릭해서 주소를 설정하세요!" ? true : false ;
+    const is_address =
+      user?.user_address === "여기를 클릭해서 주소를 설정하세요!"
+        ? true
+        : false;
     dispatch(imageActions.setMask(is_address));
-  },[user?.user_address])
+  }, [user?.user_address]);
 
   return (
     <React.Fragment>
@@ -108,20 +112,23 @@ const Main = (props) => {
             width="5rem"
             height="5rem"
             radius="2.5rem"
-            bg="rgba(255, 204,151, 0.6)"
+            bg={backdrop ? "rgba(255, 204, 151, 0.3)" : "rgba(255, 204,151, 0.6)"}
             position="fixed"
             border="none"
             padding="0"
             margin={media ? "0 0 0 29.3rem" : "0 0 0 29.5rem"}
             bottom={media ? "1rem" : "6rem"}
             z_index="100"
+            backdrop="blur(4px)"
             cursor="t"
             _onClick={onClick}
           >
             {isActive ? (
-              <Text color="white" size="3rem" bold cursor="t">
-                !
-              </Text>
+              <FeedbackBtn src={isWebpSupported() ? webp.UnionWebp : png.Union}>
+                <Text size="2.4rem" bold color="#fff" margin="0.1rem 0 0 0">
+                  !
+                </Text>
+              </FeedbackBtn>
             ) : (
               <FeedbackBtn
                 src={isWebpSupported() ? webp.feedbackWebp : png.feedback}
@@ -525,8 +532,8 @@ const LogoImg = styled.div`
 `;
 
 const FeedbackBtn = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 3.4rem;
+  height: 3.6rem;
   max-width: 3.4rem;
   max-height: 3.6rem;
   border-radius: 1rem;
