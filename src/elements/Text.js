@@ -32,6 +32,7 @@ const Text = (props) => {
     word_break,
     text_decoration,
     letter_spacing,
+    z_index,
   } = props;
 
   const styles = {
@@ -63,6 +64,7 @@ const Text = (props) => {
     word_break: word_break,
     text_decoration: text_decoration,
     letter_spacing: letter_spacing,
+    z_index: z_index,
   };
 
   return (
@@ -100,6 +102,7 @@ Text.defaultProps = {
   bg: false,
   radius: '',
   letter_spacing: '',
+  z_index: '',
 };
 
 const P = styled.p`
@@ -136,6 +139,7 @@ const P = styled.p`
   ${(props) => (props.word_break ? `word-break: ${props.word_break};` : '')}
   ${(props) => (props.text_decoration ? `text-decoration: ${props.text_decoration};` : '')}
   ${(props) => (props.letter_spacing ? `letter-spacing: ${props.letter_spacing};` : '')}
+  ${(props) => (props.z_index ? `z-index: ${props.z_index};` : '')}
   
 
 `;

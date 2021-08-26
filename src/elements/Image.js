@@ -77,6 +77,7 @@ const ImageDefault = styled.div`
   background-image: url('${(props) => props.src}');
   background-position: center;
   background-size: cover;
+  ${(props) => (props.radius ? `border-radius: ${props.radius}` : '')}
 `;
 
 const AspectOutter = styled.div`
