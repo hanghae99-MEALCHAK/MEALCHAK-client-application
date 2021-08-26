@@ -94,6 +94,7 @@ const UploadContents = React.memo((props) => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  border-bottom: 0.1rem solid ${theme.color.bg40};
 `;
 
 const FocusWithinTitle = styled.div`

@@ -98,21 +98,29 @@ const Main = (props) => {
           </Header>
           <Footer {...props}></Footer>
           <Button
-            width="4rem"
-            height="4rem"
-            radius="2rem"
-            bg="orange"
+            feedback
+            width="5rem"
+            height="5rem"
+            radius="2.5rem"
+            bg="rgba(255, 204,151, 0.6)"
             position="fixed"
             border="none"
-            margin={media ? "0 0 0 29.8rem" : "0 0 0 30rem"}
-            bottom={media ? "2rem" : "7rem"}
+            padding="0"
+            margin={media ? "0 0 0 29.3rem" : "0 0 0 29.5rem"}
+            bottom={media ? "1rem" : "6rem"}
             z_index="100"
             cursor="t"
             _onClick={onClick}
           >
-            <Text color="white" size="2.4rem" bold cursor="t">
-              {isActive ? "!" : "?"}
-            </Text>
+            {isActive ? (
+              <Text color="white" size="3rem" bold cursor="t">
+                !
+              </Text>
+            ) : (
+              <FeedbackBtn
+                src={isWebpSupported() ? webp.feedbackWebp : png.feedback}
+              />
+            )}
           </Button>
           <div className="link-container">
             <nav
@@ -517,4 +525,16 @@ const LogoImg = styled.div`
 //   background-color: rgba(0, 0, 0, 0.5);
 //   z-index: 10000;
 // `;
+
+const FeedbackBtn = styled.div`
+  width: 100%;
+  height: 100%;
+  max-width: 3.4rem;
+  max-height: 3.6rem;
+  border-radius: 1rem;
+  background-image: url("${(props) => props.src}");
+  background-size: cover;
+  background-position: center;
+  margin: 0.3rem 0 0 0;
+`;
 export default Main;
