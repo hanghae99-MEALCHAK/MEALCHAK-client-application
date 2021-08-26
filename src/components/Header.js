@@ -53,7 +53,7 @@ const Header = (props) => {
             history.replace("/address");
           }}
         >
-          {is_login ? props.children : "여기를 클릭해서 주소를 설정하세요!"}
+          {is_login ? props.children : "게스트 로그인"}
         </Text>
         <svg
           style={{ cursor: "pointer" }}

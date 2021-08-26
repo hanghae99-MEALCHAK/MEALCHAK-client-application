@@ -4,13 +4,15 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 
 const SET_PREVIEW = "SET_PREVIEW";
+const SET_MASK = "SET_MASK";
 
 const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }));
+const setMask = createAction(SET_MASK, (is_mask) => ({is_mask}));
 
 const initialState = {
   preview: null,
+  is_mask: false,
 };
-
 
 export default handleActions(
   {
@@ -18,14 +20,17 @@ export default handleActions(
       produce(state, (draft) => {
         draft.preview = action.payload.preview;
       }),
+    [SET_MASK]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_mask = action.payload.is_mask;
+      }),
   },
   initialState
 );
 
 const actionCreators = {
   setPreview,
+  setMask,
 };
 
 export { actionCreators };
-
-
