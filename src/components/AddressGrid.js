@@ -8,21 +8,17 @@ import styled from "styled-components";
 import { Grid } from "../elements";
 
 const AddressGrid = (props) => {
-
   return (
     <GridTop is_home={props.is_home} is_post={props.is_post}>
-      <Grid
-        // minHeight={props.is_home ? "100vh" : ""}
-        // minWidth={props.is_post ? "36rem" : "36rem"}
-        // maxWidth={props.is_post ? "32rem" : "36rem"}
-        // width={props.is_home ? "36rem" : ""}
-        // margin="0 auto"
-        // border={border.line1}
-      >
+      <Grid>
         <Grid shape="container">
           {props.is_post ? (
             <Header {...props} shape="주소입력" close={props?.close}>
               만날 장소
+            </Header>
+          ) : props.is_shop ? (
+            <Header {...props} shape="주소입력" close={props?.close}>
+              배달 예정 식당
             </Header>
           ) : (
             <Header {...props} shape="주소입력" close={props?.close}>
@@ -42,7 +38,7 @@ const GridTop = styled.div`
     min-height: ${(props) => (props.is_home ? "100vh" : "")};
     max-width: "36rem";
     width: ${(props) => (props.is_home ? "36rem" : "")};
-    ${(props) => props.is_post ? `transform: translateX(0.1rem)` : ""};
+    ${(props) => (props.is_post ? `transform: translateX(0.1rem)` : "")};
   }
   width: 100%;
 `;
