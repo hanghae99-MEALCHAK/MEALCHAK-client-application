@@ -21,13 +21,6 @@ const Header = (props) => {
 
   const is_login = useSelector((state) => state.user.is_login);
 
-  // const loginCheck = (path) => {
-  //   if (is_login) {
-  //     history.push(`/${path}`);
-  //   } else {
-  //     customAlert.sweetNeedLogin();
-  //   }
-  // };
   const { color, fontSize } = theme;
 
   React.useEffect(() => {
@@ -392,9 +385,13 @@ const Header = (props) => {
   if (props.shape === "주소입력") {
     return (
       <GridTop>
+        <Grid width="2.4rem" margin="0 1.6rem 0 0"></Grid>
+        <Text margin="auto" size="1.6rem" bold>
+          {props.children}
+        </Text>
         <Image
           size="2.4"
-          margin="0 0 0 1.6rem"
+          margin="0 1rem 0 0"
           src={isWebpSupported() ? webp.deleteLogoWebp : png.deleteLogo}
           cursor="pointer"
           _onClick={() => {
@@ -404,10 +401,6 @@ const Header = (props) => {
             props?.close();
           }}
         />
-        <Text margin="auto" size="1.6rem" bold>
-          {props.children}
-        </Text>
-        <Grid width="2.4rem" margin="0 1.6rem 0 0"></Grid>
       </GridTop>
     );
   }
@@ -440,7 +433,7 @@ Header.defaultProps = {
 
 const GridTop = styled.div`
   @media (min-width: 415px) {
-    max-width: 35.8rem;
+    max-width: 35.6rem;
     margin: 0 auto;
     box-sizing: border-box;
   }

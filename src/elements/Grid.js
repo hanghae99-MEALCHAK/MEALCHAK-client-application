@@ -61,7 +61,8 @@ const Grid = (props) => {
     ref,
     id,
     white_space,
-    mix_blend_mode
+    mix_blend_mode,
+    overflow,
   } = props;
 
   const styles = {
@@ -120,6 +121,7 @@ const Grid = (props) => {
     id: id,
     white_space: white_space,
     mix_blend_mode: mix_blend_mode,
+    overflow: overflow,
   };
 
   if (shape === "topGrid") {
@@ -216,6 +218,7 @@ Grid.defaultProps = {
   display: "",
   opacity: "",
   z_index: "",
+  overflow: "",
 };
 
 const GridBox = styled.div`
@@ -297,6 +300,7 @@ const GridBox = styled.div`
   ${(props) => (props.z_index ? `z-index: ${props.z_index};` : "")};
   ${(props) => (props.white_space ? `white-space: ${props.white_space};` : "")};
   ${(props) => (props.mix_blend_mode ? `mix-blend-mode: ${props.mix_blend_mode};` : "")};
+  ${(props) => (props.overflow ? `overflow: ${props.overflow};` : "")};
 
   @media (min-width: 501px) {
     ${(props) =>

@@ -60,8 +60,10 @@
 .desc .ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  /* white-space: nowrap; */
+  white-space: pre-wrap;
   font-size: 1.1rem;
+  padding: 0 1rem 0 0;
 }
 .desc .jibun {
   font-size: 0.5rem;
