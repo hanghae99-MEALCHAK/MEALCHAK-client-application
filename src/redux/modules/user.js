@@ -163,6 +163,9 @@ const loginCheck = (path) => {
             user_manner: res.data.mannerScore,
             user_age: res.data.age,
             user_gender: res.data.gender,
+            new_msg: res.data.newMessage,
+            new_join_request: res.data.newJoinRequest,
+            is_alarm: res.data.newMessage || res.data.newJoinRequest,
           };
           dispatch(
             setUser({

@@ -77,6 +77,10 @@ const MessageWrite = (props) => {
 const GridTop = styled.div`
   @media (min-width: 415px) {
     max-width: 36rem;
+    border-style: solid;
+    border-width: 0 1px;
+    border-color: #CFCFCF;
+    box-sizing: border-box;
   }
   height: 5rem;
   width: 100%;

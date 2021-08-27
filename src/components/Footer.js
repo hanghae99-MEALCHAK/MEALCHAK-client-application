@@ -19,6 +19,7 @@ const Footer = (props) => {
 
   const path = props.match.path;
   const is_login = useSelector((state) => state.user.is_login);
+  const is_alarm = useSelector((state) => state.user.user?.is_alarm);
 
   // props로 받아온 주소정보로 현재위치 탭 color 변경
   React.useEffect(() => {
@@ -126,6 +127,20 @@ const Footer = (props) => {
           }}
         >
           <Grid is_flex4="t" justify_content="center">
+            <Grid
+            width="fit-content"
+            height="fit-content"
+            position="absolute"
+            top="0.4rem"
+            margin="0 0 0 1.8rem"
+            >
+
+            {is_alarm && (
+              <Image 
+              size="0.9"
+              src={isWebpSupported() ? webp.alarmWebp : png.alarm} />
+            )}
+            </Grid>
             {isWebpSupported() ? (
               <Image
                 cursor="t"

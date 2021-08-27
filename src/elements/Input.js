@@ -41,7 +41,7 @@ const Input = forwardRef((props, ref) => {
           maxLength={length}
           size={size}
           padding={padding}
-          maxlength={length}
+          // maxlength={length}
         ></ElTextarea>
       </Grid>
     );
