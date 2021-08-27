@@ -6,7 +6,7 @@ import { history } from "../redux/configureStore";
 // style
 import styled from "styled-components";
 import { Header, Footer, AllowList, PcSide } from "../components";
-import { Grid, Text } from "../elements";
+import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
 import { TapGrid } from "./ChatRoomList";
 import logger from "../shared/Console";
@@ -28,16 +28,19 @@ const AllowChat = (props) => {
 
   // 채팅 승인 목록
   const allow_list = useSelector((state) => state.chat.requestList);
+  // 알람
+  const is_alarm = useSelector((state) => state.user.user?.new_join_request);
 
   return (
     <React.Fragment>
       <PcSide {...props} />
       <Grid
+        minWidth="36rem"
         // maxWidth="36rem"
         minHeight="100vh"
         // border={border.line1}
         margin="0 auto"
-        padding="0 0 6rem 0"
+        padding="0 0 5.2rem 0"
       >
         <Grid shape="container">
           <Header {...props} shape="채팅리스트" />
@@ -71,7 +74,22 @@ const AllowChat = (props) => {
                 history.push("/allowchat");
               }}
               cursor="pointer"
+              position="relative"
             >
+              <Grid
+                width="fit-content"
+                height="fit-content"
+                position="absolute"
+                top="-0.6rem"
+                right="1.2rem"
+              >
+                {is_alarm && (
+                  <Image
+                    size="0.9"
+                    src={isWebpSupported() ? webp.alarmWebp : png.alarm}
+                  />
+                )}
+              </Grid>
               <Text size={fontSize.base} bold2="700" margin="0 0 0.8rem">
                 들어온 승인 요청
               </Text>

@@ -113,7 +113,7 @@ const Header = (props) => {
           src={isWebpSupported() ? webp.arrowLeftWebp : png.arrowLeft}
           cursor="pointer"
           _onClick={() => {
-            history.replace('/home');
+            history.replace("/home");
             // history.goBack();
           }}
         />
@@ -149,7 +149,7 @@ const Header = (props) => {
   // 채팅방,
   if (props.shape === "채팅방") {
     return (
-      <GridTop>
+      <ChatGridTop>
         <Grid width="24px" margin="0 0 0 1.3rem" />
         <svg
           style={{
@@ -200,7 +200,7 @@ const Header = (props) => {
           }}
           onClick={props._onClick}
         />
-      </GridTop>
+      </ChatGridTop>
     );
   }
 
@@ -440,8 +440,9 @@ Header.defaultProps = {
 
 const GridTop = styled.div`
   @media (min-width: 415px) {
-    max-width: 35.92rem;
+    max-width: 35.8rem;
     margin: 0 auto;
+    box-sizing: border-box;
   }
   width: 100%;
   display: flex;
@@ -456,12 +457,26 @@ const GridTop = styled.div`
   z-index: 100;
 `;
 
-const SideGrid = styled.div`
+const ChatGridTop = styled.div`
+  @media (min-width: 415px) {
+    border-style: solid;
+    border-width: 0 1px;
+    border-color: #CFCFCF;
+    max-width: 36rem;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 4.4rem;
+  background-color: #ffffff;
   position: fixed;
-  width: 36rem;
-  height: inherit;
-  /* z-index: 101; */
+  top: 0;
   text-align: right;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
 `;
 
 export default Header;
