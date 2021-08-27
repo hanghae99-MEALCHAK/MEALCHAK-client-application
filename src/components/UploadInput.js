@@ -16,8 +16,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import { HeadSelect, CTGSelect } from "./ReactSelect";
 
 import "./style.css";
+import "./restaurant.css";
+
 import { useDetectOutsideClick } from "./useDetectOutsideClick";
-import PostAddress from "./PostAddress";
+
+import { PostAddress, ShopAddress } from ".";
 import { actionCreators as locateActions } from "../redux/modules/loc";
 
 const UploadInput = React.memo((props) => {
@@ -90,11 +93,18 @@ const UploadInput = React.memo((props) => {
   );
 
   const dropdownRef = React.useRef(null);
+  const shopRef = React.useRef(null);
+
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const [shopActive, setShopActive] = useDetectOutsideClick(shopRef, false);
+
   const onClick = () => {
-    window.scrollTo(0, 0);
     setIsActive(!isActive);
   };
+  const onClickShop = () => {
+    setShopActive(!shopActive);
+  };
+
   React.useEffect(() => {
     if (!post_address && props?.find_address) {
       dispatch(locateActions.getMyPostCoordAX(props.find_address));
@@ -131,13 +141,10 @@ const UploadInput = React.memo((props) => {
                   ref={dropdownRef}
                   className={`menu ${isActive ? "active" : "inactive"}`}
                   style={{
-                    // minWidth: "36rem",
-
                     backgroundColor: "transparent",
                     cursor: "pointer",
-                    zIndex: "1",
+                    zIndex: "101",
                     top: 0,
-                    // margin: "0 35rem 0 auto",
                     position: "fixed",
                   }}
                 >
@@ -194,15 +201,32 @@ const UploadInput = React.memo((props) => {
             </FocusWithin>
           </Grid>
           <Grid>
+            <div className="container">
+              <div className="shop-container">
+                <nav
+                  ref={shopRef}
+                  className={`shop ${shopActive ? "active" : "inactive"}`}
+                  style={{
+                    backgroundColor: "transparent",
+                    cursor: "pointer",
+                    zIndex: "101",
+                    top: 0,
+                    position: "fixed",
+                  }}
+                >
+                  <ShopAddress close={onClickShop}/>
+                </nav>
+              </div>
+            </div>
+            <Text
+              padding="2.4rem 0 0.8rem"
+              color={color.bg100}
+              bold2="500"
+              size={fontSize.base}
+            >
+              배달 예정 식당
+            </Text>
             <FocusWithin>
-              <Text
-                padding="2.4rem 0 0.8rem"
-                color={color.bg100}
-                bold2="500"
-                size={fontSize.base}
-              >
-                배달 예정 식당
-              </Text>
               <Input
                 border={border.bg40}
                 padding="1.5rem 1.3rem"
@@ -214,7 +238,23 @@ const UploadInput = React.memo((props) => {
                   setPostInfo({ ...post_info, restaurant: e.target.value });
                   props.onChange({ restaurant: e.target.value });
                 }}
-              ></Input>
+              />
+              <Button
+                height="5rem"
+                border={border.bg40}
+                padding="0.3rem 0 0.3rem 0"
+                margin="0.8rem 0 0"
+                radius={radius.button}
+                size="1.3rem"
+                bg={color.bg0}
+                _onClick={onClickShop}
+                className="shop-trigger"
+                cursor="t"
+              >
+                <Text color={color.brand100} size={fontSize.base} bold2="700">
+                  식당 찾기
+                </Text>
+              </Button>
             </FocusWithin>
           </Grid>
 
@@ -332,7 +372,7 @@ const UploadInput = React.memo((props) => {
               line_height="150%"
               padding="0.8rem 1rem 0 0rem"
             >
-              주문 예정 시간이 지나면 자동으로 모집글이 사라집니다.
+              만남 예정 시간이 지나면 자동으로 모집글이 사라집니다.
             </Text>
           </Grid>
 
