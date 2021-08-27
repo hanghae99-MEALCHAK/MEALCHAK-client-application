@@ -7,7 +7,7 @@ import { token } from "../shared/OAuth";
 
 // style
 import { Header, Footer, ChatListItem, AwaitList, PcSide } from "../components";
-import { Grid, Text } from "../elements";
+import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
 import styled from "styled-components";
 
@@ -43,6 +43,9 @@ const ChatRoomList = (props) => {
 
   // 채팅 대기 목록
   const await_list = useSelector((state) => state.chat.awaitList);
+
+  // 알람
+  const is_alarm = useSelector((state) => state.user.user?.new_join_request);
   
   const enterRoom = (room_id, roomName, post_id, own_user_id, order_time) => {
     // 채팅방 들어갔다가 뒤로가기 누르면 자동으로 방나가기
@@ -102,7 +105,21 @@ const ChatRoomList = (props) => {
               참여중인 채팅방
             </Text>
           </Grid>
-          <Grid width="100%" padding="0 2rem" margin="0">
+          <Grid width="100%" padding="0 2rem" margin="0" position="relative">
+          <Grid
+            width="fit-content"
+            height="fit-content"
+            position="absolute"
+            top="-0.6rem"
+            right="1.2rem"
+            >
+
+            {is_alarm && (
+              <Image 
+              size="0.9"
+              src={isWebpSupported() ? webp.alarmWebp : png.alarm} />
+            )}
+            </Grid>
             <Text
               bold2="700"
               size={fontSize.base}

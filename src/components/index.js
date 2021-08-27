@@ -19,6 +19,7 @@ import SideContent from "./SideContent";
 import ChatUserItem from "./ChatUserItem";
 import ProfileTab from "./ProfileTab";
 import PcSide from "./PcSide";
+import ShopAddress from "./ShopAddress"
 
 export {
   PcSide,
@@ -42,4 +43,5 @@ export {
   SideContent,
   ChatUserItem,
   ProfileTab,
+  ShopAddress
 };

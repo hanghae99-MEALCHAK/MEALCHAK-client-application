@@ -19,20 +19,20 @@ import theme from "../styles/theme";
 
 const ProfileEdit = (props) => {
   const resizeFile = (file) =>
-  new Promise((resolve) => {
-    Resizer.imageFileResizer(
-      file,
-      300,
-      300,
-      "JPEG",
-      95,
-      0,
-      (uri) => {
-        resolve(uri);
-      },
-      "file"
-    );
-  });
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        300,
+        300,
+        "JPEG",
+        95,
+        0,
+        (uri) => {
+          resolve(uri);
+        },
+        "file"
+      );
+    });
 
   const { color, border, radius, fontSize, btn_border } = theme;
   const dispatch = useDispatch();
@@ -69,8 +69,17 @@ const ProfileEdit = (props) => {
   };
 
   const changeComment = (e) => {
-    setProfile({ ...editProfile, comment: e.target.value });
-    setDisabled(false);
+    if (e.target.value.length >= 120) {
+      return customAlert.sweetOK(
+        "입력 가능한 글자수를 초과했어요",
+        "모집글 작성 시 120자 이내로 작성해주세요."
+      ).then(() => {
+      setDisabled(true);
+      });
+    } else {
+      setProfile({ ...editProfile, comment: e.target.value });
+      setDisabled(false);
+    }
   };
 
   // 사용자 추가 정보 따로 axios 요청이있는지?
@@ -128,8 +137,8 @@ const ProfileEdit = (props) => {
     const file = fileInput.current.files[0];
 
     const img = await resizeFile(file);
-    logger("이미지 정보", file)
-    logger("resize 이미지 정보", img)
+    logger("이미지 정보", file);
+    logger("resize 이미지 정보", img);
 
     setProfile({ ...editProfile, image: img });
     reader.readAsDataURL(img);
@@ -273,6 +282,7 @@ const ProfileEdit = (props) => {
                   소개글
                 </Text>
                 <TextArea
+                  maxLength="120"
                   onChange={changeComment}
                   value={editProfile?.comment}
                   placeholder="어느 지역에서 주로 시켜먹나요?&#13;&#10;제일 좋아하는 음식은 무엇인가요?&#13;&#10;나를 나타낼 수 있는 문구로 소개해보세요!"
@@ -456,6 +466,7 @@ const TextArea = styled.textarea`
   border-radius: ${theme.radius.button};
   padding: 1.6rem;
   resize: none;
+  -ms-overflow-style: none;
   &::placeholder {
     color: ${theme.color.bg80};
     font-size: ${theme.fontSize.base};
@@ -482,6 +493,9 @@ const TextArea = styled.textarea`
     /* Firefox 18- */
     display: block;
     content: "어느 지역에서 주로 시켜먹나요?\A제일 좋아하는 음식은 무엇인가요?\A나를 나타낼 수 있는 문구로 소개해보세요!";
+  }
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 

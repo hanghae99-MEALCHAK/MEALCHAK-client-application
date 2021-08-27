@@ -29,6 +29,8 @@ import Group182_3xWebp from "./Group182_3x.webp";
 import settingWebp from "./setting_1.webp";
 import feedbackWebp from "./feedback.webp";
 import UnionWebp from "./Union.webp";
+import alarmWebp from "./alarm.webp";
+import sideAlarmWebp from "./sideAlarm.webp";
 
 const webp = {
   mainLogoWebp,
@@ -62,6 +64,8 @@ const webp = {
   settingWebp,
   feedbackWebp,
   UnionWebp,
+  alarmWebp,
+  sideAlarmWebp,
 };
 
 export { webp };

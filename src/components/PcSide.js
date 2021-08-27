@@ -24,6 +24,7 @@ const PcSide = (props) => {
   const path = props.match.path;
 
   const is_login = useSelector((state) => state.user.is_login);
+  const is_alarm = useSelector((state) => state.user.user?.is_alarm);
 
   // props로 받아온 주소정보로 현재위치 탭 color 변경
   React.useEffect(() => {
@@ -195,6 +196,13 @@ const PcSide = (props) => {
           >
             채팅
           </Text>
+            {is_alarm && (
+              <Image
+              shape="rectangle"
+              size="1.6"
+              margin="0 0 0.2rem 0.8rem"
+              src={isWebpSupported() ? webp.sideAlarmWebp : png.sideAlarm} />
+            )}
         </Grid>
 
         <Grid

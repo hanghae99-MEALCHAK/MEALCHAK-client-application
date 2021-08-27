@@ -29,6 +29,8 @@ import Group182_3x from "./Group182_3x.png";
 import setting from "./setting.jpg";
 import feedback from "./feedback.png";
 import Union from "./Union.png";
+import alarm from "./alarm.png";
+import sideAlarm from "./sideAlarm.png"
 
 const png = {
   mainLogo,
@@ -62,6 +64,8 @@ const png = {
   setting,
   feedback,
   Union,
+  alarm,
+  sideAlarm,
 };
 
 export { png };
