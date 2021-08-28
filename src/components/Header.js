@@ -33,7 +33,6 @@ const Header = (props) => {
   if (props.shape === "홈") {
     return (
       <Grid is_flex2="t" height="4.4rem" margin="0rem auto 0.8rem" bg="#ffffff">
-        {/* <Grid width="24px" margin="0 0 0 1.3rem" /> */}
         <Text
           margin="0 1rem 0 0"
           size={fontSize.small}
