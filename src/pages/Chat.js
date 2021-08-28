@@ -21,7 +21,6 @@ import {
 import { Grid } from "../elements";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 import { actionCreators as userAction } from "../redux/modules/user";
-import theme from "../styles/theme";
 import logger from "../shared/Console";
 import { customAlert } from "../components/Sweet";
 import "../styles/side.css";
@@ -36,33 +35,10 @@ const Chat = (props) => {
     setIsOpen(!isOpen);
   };
 
-  const messages = useSelector((state) => state.chat.messages);
-
-  const [chatLength, setChatLength] = React.useState(0);
-
-  // 스크롤 대상
-  const messageEndRef = React.useRef(null);
-  //  하단 스크롤 함수
-  const scrollTomBottom = () => {
-    messageEndRef.current.scrollIntoView({ behavior: 'smooth'});
-  };
-
-  // 렌더링시 이동
-  React.useEffect(() => {
-    setChatLength(messages.length);
-  }, [messages]);
-
-  // 렌더링시 이동
-  React.useEffect(() => {
-    scrollTomBottom();
-    // logger("tell me you are moving now", messageEndRef);
-  }, [chatLength]);
-
   // 소켓
   // const sock = new SockJS("http://115.85.182.57/chatting");
   const sock = new SockJS("https://gorokke.shop/chatting");
   const ws = Stomp.over(sock);
-  // ws.reconnect_delay = 500;
 
   // 현재 방정보
   const dispatch = useDispatch();
@@ -124,10 +100,10 @@ const Chat = (props) => {
   }, [room_id ? room_id : null]);
 
   // 채팅방시작하기, 채팅방 클릭 시 room_id에 해당하는 방을 구독
-  const wsConnectSubscribe = async () => {
+  const wsConnectSubscribe = () => {
     try {
       ws.debug = null;
-      await ws.connect(
+      ws.connect(
         {
           token: token,
         },
@@ -138,7 +114,6 @@ const Chat = (props) => {
               const newMessage = JSON.parse(data.body);
               logger("구독후 새로운 메세지 data", newMessage);
 
-              scrollTomBottom();
               // 실시간 채팅 시간 넣어주는 부분
               const now_time = moment().format("YYYY-MM-DD HH:mm:ss");
               dispatch(
@@ -200,14 +175,6 @@ const Chat = (props) => {
         // message : 해당 유저 id
         // roomId : 방 번호
       };
-      // 빈 텍스트일때 보내기 방지
-      if (new_message === "" || new_message === " ") {
-        return customAlert.sweetConfirmReload(
-          "메세지를 입력해주세요",
-          ["무엇을 먹을지, 어디서 배달시킬지", "이야기해봐요 :)"],
-          ""
-        );
-      }
       // 로딩
       // dispatch(chatActions.loading());
       // dispatch(chatActions.setTime());
@@ -300,6 +267,24 @@ const Chat = (props) => {
     }
   };
 
+
+  const messages = useSelector((state) => state.chat.messages);
+
+  // 스크롤 대상
+  const messageEndRef = React.useRef();
+
+  const scrollTomBottom = () => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollTop = messageEndRef.current.scrollHeight;
+    }
+  };
+  // 렌더링시 이동
+  React.useEffect(() => {
+    scrollTomBottom();
+    logger("tell me you are moving now", messageEndRef);
+  }, [messages.length]);
+
+
   if (!room_id) {
     return (
       // alert("잘못된 접근입니다")
@@ -311,13 +296,7 @@ const Chat = (props) => {
     return (
       <React.Fragment>
         <PcSide {...props} />
-        <Grid
-          // maxWidth="36rem"
-          minHeight="100vh"
-          // border={border.line1}
-          margin="0 auto"
-          bg="#7B6E62"
-        >
+        <Container ref={messageEndRef}>
           <Grid shape="container" align_items="flex-end">
             <SideGrid isOpen={isOpen}>
               <Sidebar
@@ -357,11 +336,9 @@ const Chat = (props) => {
             <MessageList />
             <MessageWrite
               sendMessage={sendMessage}
-              scrollTomBottom={scrollTomBottom}
             />
-            <div ref={messageEndRef}></div>
           </Grid>
-        </Grid>
+        </Container>
       </React.Fragment>
     );
   }
@@ -376,5 +353,19 @@ const SideGrid = styled.div`
   display: ${(props) => (props.isOpen ? "auto" : "none")};
   touch-action: none;
 `;
+
+const Container = styled.div`
+  --inputBox: 4.4rem;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: #7B6E62;
+  width: 100%;
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+  display: none;
+}
+`;
+
 
 export default Chat;
