@@ -196,14 +196,11 @@ export const CTGSelect = (props) => {
 
 export const MeetingSelect = (props) => {
   const meetingName = () => {
-    if (props.meeting === "SHARE") {
+    if (props.meeting === "SEPARATE") {
       return "배달만";
     }
     if (props.meeting === "TOGETHER") {
       return "배달 + 식사";
-    }
-    if (props.meeting === "WHATEVER") {
-      return "협의 가능";
     }
     return;
   };
@@ -212,7 +209,7 @@ export const MeetingSelect = (props) => {
     <React.Fragment>
       <div style={styles.app}>
         <Select
-          menuPlacement="top"
+          // menuPlacement="top"
           components={{
             IndicatorSeparator: () => null,
             DropdownIndicator,

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { Grid } from "./index";
 
-const Input = forwardRef((props, ref) => {
+const Input = (props) => {
   const {
     placeholder,
     _onChange,
@@ -52,7 +52,7 @@ const Input = forwardRef((props, ref) => {
       <Grid display={`${flex}`}>
         {is_submit ? (
           <ElInput
-            ref={ref}
+            // ref={ref}
             type={type}
             placeholder={placeholder}
             onChange={_onChange}
@@ -76,7 +76,7 @@ const Input = forwardRef((props, ref) => {
           />
         ) : (
           <ElInput
-            ref={ref}
+            // ref={ref}
             type={type}
             min={min}
             bold={bold}
@@ -97,7 +97,7 @@ const Input = forwardRef((props, ref) => {
       </Grid>
     </React.Fragment>
   );
-});
+};
 
 Input.defaultProps = {
   width: "100%",

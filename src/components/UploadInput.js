@@ -44,9 +44,8 @@ const UploadInput = React.memo((props) => {
   ];
 
   const meeting_options = [
-    { value: "SHARE", label: "배달만" },
+    { value: "SEPARATE", label: "배달만" },
     { value: "TOGETHER", label: "배달 + 식사" },
-    { value: "WHATEVER", label: "협의 가능" },
   ];
 
   const getDayName = (date) => {
@@ -215,7 +214,7 @@ const UploadInput = React.memo((props) => {
             </FocusWithin>
           </Grid>
           <Grid>
-            {/* <div className="container">
+            <div className="container">
               <div className="shop-container">
                 <nav
                   ref={shopRef}
@@ -231,7 +230,7 @@ const UploadInput = React.memo((props) => {
                   <ShopAddress close={onClickShop} active={shopActive} />
                 </nav>
               </div>
-            </div> */}
+            </div>
             <Text
               padding="2.4rem 0 0.8rem"
               color={color.bg100}
@@ -290,7 +289,7 @@ const UploadInput = React.memo((props) => {
                 <Text color={color.brand100} size={fontSize.base} bold2="700">
                   식당 찾기
                 </Text>
-              </Button> */}
+              </Button>
             </FocusWithin>
           </Grid>
 
