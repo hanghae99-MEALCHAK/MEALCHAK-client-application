@@ -2,7 +2,6 @@ import axios from 'axios';
 import { token } from '../shared/OAuth';
 
 const env = process.env.NODE_ENV;
-
 const devTarget = env === "development" ? "http://115.85.182.57" : "https://gorokke.shop";
 
 const axiosModule = axios.create({

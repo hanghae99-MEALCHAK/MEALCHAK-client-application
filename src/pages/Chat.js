@@ -39,7 +39,6 @@ const Chat = (props) => {
   const devTarget =
     env === "development" ? "http://115.85.182.57/chatting" : "https://gorokke.shop/chatting";
   // 소켓
-  // const sock = new SockJS("http://115.85.182.57/chatting");
   const sock = new SockJS(devTarget);
   const ws = Stomp.over(sock);
 
