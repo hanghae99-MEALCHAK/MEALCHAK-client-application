@@ -12,13 +12,10 @@ import theme from "../styles/theme";
 import { customAlert } from "./Sweet";
 
 const MessageWrite = (props) => {
-  // const throttle = _.throttle((m) => dispatch(chatActions.writeMessage(m)), 300);
-  // const send_action = React.useCallback(throttle, []);
 
-  // const now_message = useRef();
-  // const msg = now_message.current;
+  const now_message = useRef();
+  const msg = now_message.current;
 
-  // const dispatch = useDispatch();
   const { color, border, radius, fontSize } = theme;
   const { sendMessage } = props;
 
@@ -26,15 +23,14 @@ const MessageWrite = (props) => {
 
   const changeMessage = (e) => {
     setMessage(e.target.value);
-    // send_action(e.target.value);
   };
 
   const sendMessageBtn = () => {
     if (new_message === "") {
-      return customAlert.sweetConfirmReload("메세지를 입력해주세요", ["무엇을 먹을지, 어디서 배달시킬지", "이야기해봐요 :)"], "");
+      return customAlert.sweetConfirmReload("메세지를 입력해주세요.", null, "");
     }
-    // logger("보낼 메세지 내용", typeof msg.defaultValue);
-    sendMessage(new_message);
+    logger("보낼 메세지 내용", typeof msg.defaultValue);
+    sendMessage(msg.defaultValue);
     setMessage("");
   };
 
@@ -43,18 +39,17 @@ const MessageWrite = (props) => {
         <Grid is_flex4="t" border={border.bg40} radius={radius.inputBox}>
           <Input
             flex="flex"
-            height="5rem"
+            height="4.4rem"
             is_submit
             placeholder="메세지를 입력해주세요."
             type="text"
-            length={255}
+            length={300}
             onSubmit={sendMessageBtn}
             padding="1.1rem 1.6rem"
             value={new_message}
             _onChange={changeMessage}
-            // ref={now_message}
+            ref={now_message}
             border="none"
-            size="1.6rem"
           ></Input>
           <Button
             width="6rem"
@@ -65,7 +60,7 @@ const MessageWrite = (props) => {
             bg={color.bg0}
             radius={radius.inputBox}
           >
-            <Text color={color.brand100} size={fontSize.base} bg={color.bg0}>
+            <Text color={color.brand100} size={fontSize.small} bg={color.bg0}>
               보내기
             </Text>
           </Button>
@@ -77,10 +72,7 @@ const MessageWrite = (props) => {
 const GridTop = styled.div`
   @media (min-width: 415px) {
     max-width: 36rem;
-    border-style: solid;
-    border-width: 0 1px;
-    border-color: #CFCFCF;
-    box-sizing: border-box;
+    margin: 0 auto 0 -0.1rem;
   }
   height: 5rem;
   width: 100%;
@@ -95,10 +87,5 @@ const GridTop = styled.div`
   box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.06);
 `;
 
-const Div = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-`;
 
 export default MessageWrite;
