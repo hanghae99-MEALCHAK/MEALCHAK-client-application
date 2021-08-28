@@ -67,6 +67,7 @@ const UploadInput = React.memo((props) => {
   // const today = moment().format("YYYY-MM-DD");
 
   const post_address = useSelector((state) => state.loc.post_address?.address);
+  const shopAddress = useSelector((state) => state.loc.shop_address);
   const coords = useSelector((state) => state.loc.post_address);
   const longitude = coords.longitude;
   const latitude = coords.latitude;
@@ -89,7 +90,7 @@ const UploadInput = React.memo((props) => {
       : {
           place: "",
           detail_place: "",
-          restaurant: "",
+          restaurant: shopAddress ? shopAddress : "",
           headCount: "",
           appointmentTime: today,
           appointmentDate: today,
@@ -127,6 +128,11 @@ const UploadInput = React.memo((props) => {
     setPostInfo({ ...post_info, place: post_address });
     props?.onChange({ place: post_address });
   }, [post_address ? post_address : null]);
+
+  React.useEffect(() => {
+    setPostInfo({ ...post_info, restaurant: shopAddress });
+    props?.onChange({ restaurant: shopAddress });
+  }, [shopAddress ? shopAddress : null]);
 
   return (
     <React.Fragment>
@@ -222,7 +228,7 @@ const UploadInput = React.memo((props) => {
                     position: "fixed",
                   }}
                 >
-                  <ShopAddress close={onClickShop}/>
+                  <ShopAddress close={onClickShop} active={shopActive} />
                 </nav>
               </div>
             </div> */}
@@ -235,19 +241,41 @@ const UploadInput = React.memo((props) => {
               배달 예정 식당
             </Text>
             <FocusWithin>
-              <Input
-                border={border.bg40}
-                padding="1.5rem 1.3rem"
-                size={fontSize.base}
-                color={color.bg80}
-                placeholder="배달 예정인 음식점을 입력해주세요."
-                value={post_info.restaurant}
-                _onChange={(e) => {
-                  setPostInfo({ ...post_info, restaurant: e.target.value });
-                  props.onChange({ restaurant: e.target.value });
-                }}
-              />
-              {/* <Button
+              {shopAddress ? (
+                <Grid
+                  height="fit-content"
+                  radius="1.2rem"
+                  border={border.bg40}
+                  padding="1.4rem 1.6rem"
+                  bg={color.bg20}
+                  margin="0 0 0.8rem"
+                  white_space="pre-wrap"
+                >
+                  <Text color={color.bg80} size={fontSize.base}>
+                    {shopAddress}
+                  </Text>
+                </Grid>
+              ) : (
+                <Input
+                  border={border.bg40}
+                  padding="1.5rem 1.3rem"
+                  size={fontSize.base}
+                  color={color.bg80}
+                  placeholder="배달 예정인 음식점을 입력해주세요."
+                  value={
+                    post_info.restaurant
+                      ? post_info.restaurant
+                      : shopAddress
+                      ? shopAddress
+                      : post_info.restaurant
+                  }
+                  _onChange={(e) => {
+                    setPostInfo({ ...post_info, restaurant: e.target.value });
+                    props.onChange({ restaurant: e.target.value });
+                  }}
+                />
+              )}
+              <Button
                 height="5rem"
                 border={border.bg40}
                 padding="0.3rem 0 0.3rem 0"

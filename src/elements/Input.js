@@ -67,6 +67,7 @@ const Input = forwardRef((props, ref) => {
             color={color}
             maxLength={length}
             width={width}
+            height={height}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 onSubmit(e);
@@ -90,6 +91,7 @@ const Input = forwardRef((props, ref) => {
             border={border}
             radius={radius}
             width={width}
+            height={height}
           />
         )}
       </Grid>
@@ -139,6 +141,7 @@ const ElTextarea = styled.textarea`
 const ElInput = styled.input`
   ${(props) => (props.radius ? `border-radius: ${props.radius};` : "1.2rem")};
   width: ${(props) => (props.width ? `${props.width};` : "100%")};
+  ${(props) => (props.height ? `height: ${props.height};` : "")};
   ${(props) => (props.size ? `font-size: ${props.size};` : "1.6rem")};
   ${(props) => (props.border ? `border: ${props.border};` : "")};
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")};
