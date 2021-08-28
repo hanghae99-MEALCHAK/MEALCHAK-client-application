@@ -1,25 +1,24 @@
 /*global kakao */
 import React from "react";
-import DaumPostCode from "react-daum-postcode";
 import { customAlert } from "./Sweet";
-import { AddressGrid } from ".";
 
-import { Grid, Text, Input, Button } from "../elements";
+import { Grid } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as locateActions } from "../redux/modules/loc";
 import logger from "../shared/Console";
-
-import theme from "../styles/theme";
-
+import Swal from "sweetalert2";
 const MapContainer = (props) => {
   const dispatch = useDispatch();
+
+  const latitude = useSelector((state) => state.user.user.latitude);
+  const longitude = useSelector((state) => state.user.user.longitude);
 
   React.useEffect(() => {
     let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
     const container = document.getElementById("map");
     const options = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667),
+      center: new kakao.maps.LatLng(latitude, longitude),
       level: 3,
     };
 
@@ -30,6 +29,15 @@ const MapContainer = (props) => {
     function placesSearchCB(data, status, pagination) {
       if (data.length === 0) {
         return alert("검색 결과가 없습니다!");
+        // return customAlert
+        //   .sweetOK(
+        //     "앗 검색 결과가 없어요",
+        //     "식당 + 지역으로 검색해주세요!",
+        //     "검색어를 찾을 수 없는 경우, 직접 입력 가능"
+        //   )
+        //   .then((res) => {
+        //     return console.log(res);
+        //   });
       }
       if (status === kakao.maps.services.Status.OK) {
         let bounds = new kakao.maps.LatLngBounds();

@@ -1,10 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Grid, Text, Input, Button } from '../elements';
-import { useState } from 'react';
-import theme from '../styles/theme';
-import logger from '../shared/Console';
-import { useDispatch, useSelector } from 'react-redux';
+import React from "react";
+import styled from "styled-components";
+import { Grid, Text, Input, Button } from "../elements";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useDetectOutsideClick } from "./useDetectOutsideClick";
 
 // 날짜
 import moment from 'moment';
@@ -15,10 +14,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 // select
 import { HeadSelect, CTGSelect, MeetingSelect } from './ReactSelect';
 
-import './style.css';
-import './restaurant.css';
-
-import { useDetectOutsideClick } from './useDetectOutsideClick';
+// style
+import "./style.css";
+import "./restaurant.css";
+import { IoIosCloseCircle } from "react-icons/io";
+import theme from "../styles/theme";
+import logger from "../shared/Console";
 
 import { PostAddress, ShopAddress } from '.';
 import { actionCreators as locateActions } from '../redux/modules/loc';
@@ -113,6 +114,9 @@ const UploadInput = React.memo((props) => {
   const onClickShop = () => {
     setShopActive(!shopActive);
   };
+  const nullShop = (e) => {
+    dispatch(locateActions.setShopAddress(""));
+  };
 
   React.useEffect(() => {
     if (!post_address && props?.find_address) {
@@ -120,8 +124,13 @@ const UploadInput = React.memo((props) => {
       setPostInfo({ ...post_info, place: post_address });
       props?.onChange({ place: post_address });
     }
-    logger('uploadinput 페이지', props);
-    logger('uploadinput 페이지2', post_info);
+    if (!shopAddress && post_info?.restaurant) {
+      dispatch(locateActions.setShopAddress(post_info?.restaurant));
+      setPostInfo({ ...post_info, restaurant: shopAddress });
+      props?.onChange({ restaurant: shopAddress });
+    }
+    logger("uploadinput 페이지", props);
+    logger("uploadinput 페이지2", post_info);
   }, []);
 
   React.useEffect(() => {
@@ -228,7 +237,7 @@ const UploadInput = React.memo((props) => {
                     position: 'fixed',
                   }}
                 >
-                  <ShopAddress close={onClickShop} active={shopActive} />
+                  <ShopAddress close={onClickShop} />
                 </nav>
               </div>
             </div>
@@ -250,10 +259,17 @@ const UploadInput = React.memo((props) => {
                   bg={color.bg20}
                   margin="0 0 0.8rem"
                   white_space="pre-wrap"
+                  is_flex
                 >
                   <Text color={color.bg80} size={fontSize.base}>
                     {shopAddress}
                   </Text>
+                  <IoIosCloseCircle
+                    size="2.2rem"
+                    color="gray"
+                    cursor="pointer"
+                    onClick={nullShop}
+                  />
                 </Grid>
               ) : (
                 <Input
@@ -263,11 +279,11 @@ const UploadInput = React.memo((props) => {
                   color={color.bg80}
                   placeholder="배달 예정인 음식점을 입력해주세요."
                   value={
-                    post_info.restaurant
-                      ? post_info.restaurant
+                    post_info?.restaurant
+                      ? post_info?.restaurant
                       : shopAddress
                       ? shopAddress
-                      : post_info.restaurant
+                      : post_info?.restaurant
                   }
                   _onChange={(e) => {
                     setPostInfo({ ...post_info, restaurant: e.target.value });
