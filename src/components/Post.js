@@ -1,37 +1,37 @@
-import React from "react";
-import styled from "styled-components";
-import { actionCreators as postActions } from "../redux/modules/post";
-import { useDispatch, useSelector } from "react-redux";
-import { history } from "../redux/configureStore";
+import React from 'react';
+import styled from 'styled-components';
+import { actionCreators as postActions } from '../redux/modules/post';
+import { useDispatch, useSelector } from 'react-redux';
+import { history } from '../redux/configureStore';
 
 // style
-import { Grid, Text, Button } from "../elements";
-import { customAlert } from "./Sweet";
-import theme from "../styles/theme";
-import logger from "../shared/Console";
+import { Grid, Text, Button } from '../elements';
+import { customAlert } from './Sweet';
+import theme from '../styles/theme';
+import logger from '../shared/Console';
 
-import moment from "moment";
+import moment from 'moment';
 
 const Post = React.memo((props) => {
-  logger("포스트 리렌더링이 되었습니다.");
-  const { color, fontSize } = theme;
+  logger('포스트 리렌더링이 되었습니다.', props);
+  const { color, fontSize, border } = theme;
 
   // 글 생성 시간
   // 연, 월
-  const ym = props?.insert_dt.split("-");
+  const ym = props?.insert_dt.split('-');
   // 일
-  const day = ym[2].split(" ");
+  const day = ym[2].split(' ');
   // 시, 분
-  const hm = day[1].split(":");
+  const hm = day[1].split(':');
 
   // 예상 만남 시간
-  const ordDate = props?.orderDate.split("-");
-  const ordTime = props?.orderTime.split(":");
+  const ordDate = props?.orderDate.split('-');
+  const ordTime = props?.orderTime.split(':');
 
   // 오늘 표시
-  const today = moment().format("YYYY-MM-DD");
-  const now = moment().format("HH:mm");
-  const tomorrow = moment().add(1, "d").format("YYYY-MM-DD");
+  const today = moment().format('YYYY-MM-DD');
+  const now = moment().format('HH:mm');
+  const tomorrow = moment().add(1, 'd').format('YYYY-MM-DD');
   const is_today = today === props.orderDate ? true : false;
   const is_tomorrow = tomorrow === props.orderDate ? true : false;
 
@@ -41,9 +41,9 @@ const Post = React.memo((props) => {
 
   // 마감여부
   const now_time_int = parseInt(
-    today.split("-").join("") + now.split(":").join("")
+    today.split('-').join('') + now.split(':').join('')
   );
-  const post_time_int = parseInt(ordDate.join("") + ordTime.join(""));
+  const post_time_int = parseInt(ordDate.join('') + ordTime.join(''));
   const is_over = now_time_int > post_time_int ? true : false;
 
   const dispatch = useDispatch();
@@ -78,6 +78,18 @@ const Post = React.memo((props) => {
     return `${ordDate[1]}월 ${ordDate[2]}일 ${ordTime[0]}:${ordTime[1]}`;
   };
 
+  const meetingType = () => {
+    if (props.meeting === 'SHARE') {
+      return '배달만';
+    }
+    if (props.meeting === 'TOGETHER') {
+      return '배달+식사';
+    }
+    if (props.meeting === 'WHATEVER') {
+      return '상괍없음';
+    }
+  };
+
   React.useEffect(() => {
     if (props.valid === false) {
       return setDisabled(true);
@@ -99,9 +111,11 @@ const Post = React.memo((props) => {
         radius={fontSize.base}
       >
         <Grid
-          is_float="left"
+          // is_float="left"
           // margin="0.5rem 1.5rem 0 1.5rem"
-          margin="0.5rem 1.5rem 0.8rem 1.5rem"
+          // margin="0.5rem 1.5rem 0.8rem 1.5rem"
+          padding="1.6rem 1.6rem 0 1.6rem"
+          margin="0 0 1.6rem 0"
         >
           <Grid is_flex>
             <UserProfile
@@ -110,7 +124,7 @@ const Post = React.memo((props) => {
                 if (is_login) {
                   if (user_info.user_id === props.user_id) {
                     return history.push({
-                      pathname: "/myprofile",
+                      pathname: '/myprofile',
                       state: { ...props },
                     });
                   }
@@ -125,42 +139,75 @@ const Post = React.memo((props) => {
             />
             <Grid>
               <Grid is_flex>
-                <Text size={fontSize.small} color={color.bg100} bold2="500">
-                  {props.username}
-                </Text>
-                <Grid
-                  // minWidth="5.5rem"
-                  // maxWidth="9.1rem"
-                  width="fit-content"
-                  height="fit-content"
-                  white_space="nowrap"
-                  bg={
-                    props.valid === false || disabled
-                      ? `${color.bg20}`
-                      : "rgba(84, 189, 88, 0.1)"
-                  }
-                  radius="0.5rem"
-                  padding="0.4rem 0.8rem"
-                  margin="0 3.3rem 0 0"
-                  opacity="0.9"
-                >
-                  <Text
-                    size="1rem"
-                    text_align="center"
-                    margin="0"
-                    width="fit-content"
-                    white_space="nowrap"
-                    color={
-                      props.valid === false || disabled
-                        ? `${color.bg80}`
-                        : color.success100
-                    }
-                    bold
-                  >
-                    {props.valid === false || disabled
-                      ? `모집마감`
-                      : `모집 인원 ${props.nowHeadCount}/${props.headCount}명`}
+                <Grid>
+                  <Text size={fontSize.small} color={color.bg100} bold2="500">
+                    {props.username}
                   </Text>
+                </Grid>
+                <Grid flex justify_content="flex-end" width="fit-content">
+                  <Grid
+                    // minWidth="5.5rem"
+                    // maxWidth="9.1rem"
+                    width="fit-content"
+                    height="fit-content"
+                    white_space="nowrap"
+                    bg={
+                      props.valid === false || disabled
+                        ? `${color.bg20}`
+                        : 'rgba(84, 189, 88, 0.1)'
+                    }
+                    radius="0.5rem"
+                    padding="0.4rem 0.4rem"
+                    margin="0 0.4rem 0 0"
+                    opacity="0.9"
+                  >
+                    <Text
+                      size="1rem"
+                      text_align="center"
+                      margin="0"
+                      width="fit-content"
+                      white_space="nowrap"
+                      color={
+                        props.valid === false || disabled
+                          ? `${color.bg80}`
+                          : color.success100
+                      }
+                      bold
+                    >
+                      {props.valid === false || disabled
+                        ? `모집마감`
+                        : `모집 ${props.nowHeadCount}/${props.headCount}명`}
+                    </Text>
+                  </Grid>
+                  <Grid
+                    // width={valid === false ? "5.5rem" : ""}
+                    width="fit-content"
+                    height="fit-content"
+                    white_space="nowrap"
+                    border={
+                      props.valid === false || disabled
+                        ? border.bg40
+                        : border.success100
+                    }
+                    radius="0.5rem"
+                    padding="0.3rem 0.3rem"
+                  >
+                    <Text
+                      width="fit-content"
+                      size="1rem"
+                      line_height="150%"
+                      text_align="center"
+                      white_space="nowrap"
+                      color={
+                        props.valid === false || disabled
+                          ? color.bg80
+                          : color.success100
+                      }
+                      bold
+                    >
+                      {meetingType()}
+                    </Text>
+                  </Grid>
                 </Grid>
               </Grid>
               <Text size="1rem" color={color.bg80} bold2="400">
@@ -293,7 +340,7 @@ const Post = React.memo((props) => {
             </Grid>
           </Grid>
           {props.valid === false || disabled ? (
-            ""
+            ''
           ) : (
             <Grid is_flex maxWidth="29rem" margin="0 0 1.5rem 0">
               <Button
@@ -317,7 +364,7 @@ const Post = React.memo((props) => {
                 width="14rem"
                 height="4.4rem"
                 radius="1.2rem"
-                bg={disabled ? "#EBE9E8" : color.brand100}
+                bg={disabled ? '#EBE9E8' : color.brand100}
                 border="none"
                 size={fontSize.small}
                 bold={fontSize.bold}
@@ -333,7 +380,7 @@ const Post = React.memo((props) => {
                 <Text
                   bold
                   size={fontSize.small}
-                  color={disabled ? "#CECAC7" : color.bg0}
+                  color={disabled ? '#CECAC7' : color.bg0}
                 >
                   채팅 시작하기
                 </Text>
@@ -350,12 +397,12 @@ Post.defaultProps = {};
 
 const UserProfile = styled.div`
   width: 4.3rem;
-  height: 3.8rem;
+  height: 3.6rem;
   border-radius: 2rem;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   background-size: cover;
   background-position: center;
-  margin: 1rem 1rem 1rem 0;
+  margin: 0 0.8rem 0 0;
   cursor: pointer;
 `;
 

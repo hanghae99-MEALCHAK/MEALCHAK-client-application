@@ -255,7 +255,7 @@ const ProfileEdit = (props) => {
                   padding="1.5rem 1.3rem"
                   size={fontSize.base}
                   color={color.bg80}
-                  length={10}
+                  length={8}
                   placeholder={user_info?.user_nickname}
                   value={editProfile?.nickname}
                   _onChange={changeNick}
