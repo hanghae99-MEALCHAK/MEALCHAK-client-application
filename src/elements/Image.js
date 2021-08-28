@@ -13,13 +13,16 @@ const Image = (props) => {
     _onMouseLeave,
     cursor,
     margin,
+    position,
   } = props;
+
   const styles = {
     src: src,
     size: size,
     radius: radius,
     cursor: cursor,
     margin: margin,
+    position: position,
   };
 
   if (shape === "circle") {
@@ -67,6 +70,7 @@ Image.defaultProps = {
   _onMouseEnter: () => {},
   _onMouseLeave: () => {},
   cursor: "",
+  position: "",
 };
 
 const ImageDefault = styled.div`
@@ -77,6 +81,7 @@ const ImageDefault = styled.div`
   background-position: center;
   background-size: cover;
   ${(props) => (props.radius ? `border-radius: ${props.radius}` : "")}
+  ${(props) => (props.position ? `position: ${props.position}` : "")}
 `;
 
 const ImageRec = styled.img`
@@ -98,6 +103,7 @@ const ImageCircle = styled.div`
   height: var(--size);
   border-radius: var(--size);
   ${(props) => (props.cursor ? `cursor: pointer;` : "")}
+  ${(props) => (props.position ? `position: ${props.position}` : "")}
 
   background-image: url('${(props) => props.src}');
   background-size: cover;

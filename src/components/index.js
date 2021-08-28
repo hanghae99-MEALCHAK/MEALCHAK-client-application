@@ -19,7 +19,8 @@ import SideContent from "./SideContent";
 import ChatUserItem from "./ChatUserItem";
 import ProfileTab from "./ProfileTab";
 import PcSide from "./PcSide";
-import ShopAddress from "./ShopAddress"
+import ShopAddress from "./ShopAddress";
+import MapContainer from "./MapContainer";
 
 export {
   PcSide,
@@ -43,5 +44,6 @@ export {
   SideContent,
   ChatUserItem,
   ProfileTab,
-  ShopAddress
+  ShopAddress,
+  MapContainer
 };
