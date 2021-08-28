@@ -29,7 +29,6 @@ import "../styles/side.css";
 import Sidebar from "react-sidebar";
 
 const Chat = (props) => {
-
   // side nav
   const [isOpen, setIsOpen] = React.useState(false);
   const onClick = () => {
@@ -37,8 +36,8 @@ const Chat = (props) => {
   };
 
   // 소켓
-  const sock = new SockJS("http://115.85.182.57/chatting");
-  // const sock = new SockJS("https://gorokke.shop/chatting");
+  // const sock = new SockJS("http://115.85.182.57/chatting");
+  const sock = new SockJS("https://gorokke.shop/chatting");
   const ws = Stomp.over(sock);
 
   // 현재 방정보
