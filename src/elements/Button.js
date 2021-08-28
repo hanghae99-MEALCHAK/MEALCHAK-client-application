@@ -30,7 +30,8 @@ const Button = (props) => {
     z_index,
     top,
     feedback,
-    backdrop
+    backdrop,
+    type,
   } = props;
 
   const styles = {
@@ -55,6 +56,7 @@ const Button = (props) => {
     top: top,
     feedback: feedback,
     backdrop: backdrop,
+    type:type,
   };
 
   if (shape === 'large') {
@@ -142,6 +144,7 @@ Button.defaultProps = {
   top: '',
   feedback: false,
   backdrop: '',
+  type: '',
 };
 
 const FloatButton = styled.button`
@@ -185,6 +188,7 @@ const ElButton = styled.button`
   ${(props) => (props.feedback ? `display: flex; justify-content: center; align-items: center;` : '')}
   ${(props) => (props.top ? `top: ${props.top};` : '')}
   ${(props) => (props.backdrop ? `backdrop-filter: ${props.backdrop};` : '')}
+  ${(props) => (props.type ? `type: ${props.type};` : '')}
   ${(props) =>
     props.borderBottom ? `border-bottom: ${props.borderBottom};` : ''}
   ${(props) =>
