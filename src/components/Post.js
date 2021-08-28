@@ -86,7 +86,7 @@ const Post = React.memo((props) => {
       return '배달+식사';
     }
     if (props.meeting === 'WHATEVER') {
-      return '상괍없음';
+      return '상관없음';
     }
   };
 
