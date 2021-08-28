@@ -12,7 +12,6 @@ import theme from "../styles/theme";
 import { customAlert } from "./Sweet";
 
 const MessageWrite = (props) => {
-
   const now_message = useRef();
   const msg = now_message.current;
 
@@ -36,43 +35,47 @@ const MessageWrite = (props) => {
 
   return (
     <GridTop>
-        <Grid is_flex4="t" border={border.bg40} radius={radius.inputBox}>
-          <Input
-            flex="flex"
-            height="4.4rem"
-            is_submit
-            placeholder="메세지를 입력해주세요."
-            type="text"
-            length={300}
-            onSubmit={sendMessageBtn}
-            padding="1.1rem 1.6rem"
-            value={new_message}
-            _onChange={changeMessage}
-            ref={now_message}
-            border="none"
-          ></Input>
-          <Button
-            width="6rem"
-            padding="0"
-            border="none"
-            _onClick={sendMessageBtn}
-            cursor="pointer"
-            bg={color.bg0}
-            radius={radius.inputBox}
-          >
-            <Text color={color.brand100} size={fontSize.small} bg={color.bg0}>
-              보내기
-            </Text>
-          </Button>
-        </Grid>
+      <Grid is_flex4="t" border={border.bg40} radius={radius.inputBox}>
+        <Input
+          flex="flex"
+          height="4.4rem"
+          is_submit
+          placeholder="메세지를 입력해주세요."
+          type="text"
+          length={300}
+          onSubmit={sendMessageBtn}
+          padding="1.1rem 1.6rem"
+          value={new_message}
+          _onChange={changeMessage}
+          ref={now_message}
+          border="none"
+        ></Input>
+        <Button
+          width="6rem"
+          padding="0"
+          border="none"
+          _onClick={sendMessageBtn}
+          cursor="pointer"
+          bg={color.bg0}
+          radius={radius.inputBox}
+        >
+          <Text color={color.brand100} size={fontSize.small} bg={color.bg0}>
+            보내기
+          </Text>
+        </Button>
+      </Grid>
     </GridTop>
   );
 };
 
 const GridTop = styled.div`
   @media (min-width: 415px) {
+    border-style: solid;
+    border-width: 0 1px;
+    border-color: #cfcfcf;
     max-width: 36rem;
-    margin: 0 auto 0 -0.1rem;
+    margin: 0 auto;
+    box-sizing: border-box;
   }
   height: 5rem;
   width: 100%;
@@ -86,6 +89,5 @@ const GridTop = styled.div`
   transform: translateX(-50%);
   box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.06);
 `;
-
 
 export default MessageWrite;
