@@ -156,6 +156,7 @@ export const HeadSelect = (props) => {
           }}
           styles={customStyles2}
           theme={customTheme2}
+          isSearchable={false}
         />
       </div>
     </React.Fragment>
@@ -188,6 +189,7 @@ export const CTGSelect = (props) => {
           styles={customStyles2}
           theme={customTheme2}
           maxMenuHeight={200}
+          isSearchable={false}
         />
       </div>
     </React.Fragment>
@@ -227,6 +229,7 @@ export const MeetingSelect = (props) => {
           }}
           styles={customStyles2}
           theme={customTheme2}
+          isSearchable={false}
         />
       </div>
     </React.Fragment>

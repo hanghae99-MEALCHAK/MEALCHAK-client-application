@@ -94,7 +94,7 @@ const getPostAX = (category, sort = "recent") => {
               room_id: p.roomId,
               nowHeadCount: p.nowHeadCount,
               valid: p.valid,
-              meeting: p.meetingType,
+              meeting: p.meetingType === null ? "SEPARATE" : p.meetingType,
             };
             // logger("post", post);
             post_list.push(post);
@@ -217,14 +217,17 @@ const addPostAX = (post_info) => {
         restaurant: post_info.restaurant,
         longitude: longitude,
         latitude: latitude,
-        meetingType: post_info.meeting,
+        meeting: post_info.meeting === null ? "SEPARATE" : post_info.meeting,
       })
       .then((res) => {
         dispatch(chatActions.setChatListAX());
-        
+
         customAlert.sweetConfirmReload(
           "밀착 준비 완료",
-          ["모임 만들기 작성글을 성공적으로 작성했어요.", "이제 채팅을 기다려볼까요?"],
+          [
+            "모임 만들기 작성글을 성공적으로 작성했어요.",
+            "이제 채팅을 기다려볼까요?",
+          ],
           "/home"
         );
 
@@ -285,13 +288,14 @@ const editPostAX = (post_id, post_info, path) => {
           insert_dt: res.data.createdAt,
           distance: res.data.distance,
           room_id: res.data.roomId,
-          meeting: res.data.meetingType,
+          meeting:
+            res.data.meetingType === null ? "SEPARATE" : res.data.meetingType,
         };
 
         logger("수정 포스트 내용", post);
 
         dispatch(editPost(post_id, post));
-        if(path === "/mypost"){
+        if (path === "/mypost") {
           customAlert.sweetConfirmReload(
             "수정 완료",
             ["모집글 수정이 완료되었습니다."],
@@ -309,10 +313,7 @@ const editPostAX = (post_id, post_info, path) => {
       .catch((e) => {
         logger("모집글 수정 모듈 에러", e);
         customAlert
-          .sweetOK(
-            "이미 모집 마감된 글이에요",
-            "새로운 모집글을 확인해주세요."
-          )
+          .sweetOK("이미 모집 마감된 글이에요", "새로운 모집글을 확인해주세요.")
           .then(() => {
             window.location.replace("/home");
           });
