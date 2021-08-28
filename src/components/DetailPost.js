@@ -1,24 +1,24 @@
-import React from "react";
-import styled from "styled-components";
-import { history } from "../redux/configureStore";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postAction } from "../redux/modules/post";
-import Map from "../components/Map";
+import React from 'react';
+import styled from 'styled-components';
+import { history } from '../redux/configureStore';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as postAction } from '../redux/modules/post';
+import Map from '../components/Map';
 
-import { Grid, Button, Text, Image } from "../elements";
+import { Grid, Button, Text, Image } from '../elements';
 
-import theme from "../styles/theme";
-import logger from "../shared/Console";
-import { customAlert } from "./Sweet";
+import theme from '../styles/theme';
+import logger from '../shared/Console';
+import { customAlert } from './Sweet';
 
 // 이미지
-import { png } from "../styles/img/index";
-import { webp } from "../styles/img/webp";
-import { isWebpSupported } from "react-image-webp/dist/utils";
-import moment from "moment";
+import { png } from '../styles/img/index';
+import { webp } from '../styles/img/webp';
+import { isWebpSupported } from 'react-image-webp/dist/utils';
+import moment from 'moment';
 
 const DetailPost = React.memo((props) => {
-  logger("상세포스트 프롭스", props);
+  logger('상세포스트 프롭스', props);
   const {
     address,
     detail_address,
@@ -35,9 +35,10 @@ const DetailPost = React.memo((props) => {
     username,
     valid,
     chat_user_list,
+    meeting,
   } = props;
 
-  const { color, radius, fontSize } = theme;
+  const { color, radius, fontSize, border } = theme;
 
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
@@ -52,19 +53,19 @@ const DetailPost = React.memo((props) => {
   const distance = props?.distance * 1000;
 
   // 연, 월
-  const ym = props?.insert_dt.split("-");
+  const ym = props?.insert_dt.split('-');
   // 일
-  const day = ym[2].split(" ");
+  const day = ym[2].split(' ');
   // 시, 분
-  const hm = day[1].split(":");
+  const hm = day[1].split(':');
 
   // 예상 만남 시간
-  const ordDate = orderDate.split("-");
-  const ordTime = orderTime.split(":");
+  const ordDate = orderDate.split('-');
+  const ordTime = orderTime.split(':');
 
   // 오늘 표시
-  const today = moment().format("YYYY-MM-DD");
-  const tomorrow = moment().add(1, "d").format("YYYY-MM-DD");
+  const today = moment().format('YYYY-MM-DD');
+  const tomorrow = moment().add(1, 'd').format('YYYY-MM-DD');
   const is_today = today === orderDate ? true : false;
   const is_tomorrow = tomorrow === orderDate ? true : false;
 
@@ -95,7 +96,7 @@ const DetailPost = React.memo((props) => {
     dispatch(
       postAction.deletePostAX(
         props?.post_id,
-        props?.is_profile ? "is_profile" : null
+        props?.is_profile ? 'is_profile' : null
       )
     );
   };
@@ -108,12 +109,24 @@ const DetailPost = React.memo((props) => {
           user_info?.user_id,
           user_id,
           post_id,
-          "post"
+          'post'
         )
       );
       return;
     } else {
       customAlert.sweetNeedLogin();
+    }
+  };
+
+  const meetingType = () => {
+    if (meeting === 'SHARE') {
+      return '배달만';
+    }
+    if (meeting === 'TOGETHER') {
+      return '배달+식사';
+    }
+    if (meeting === 'WHATEVER') {
+      return '상관없음';
     }
   };
 
@@ -134,7 +147,7 @@ const DetailPost = React.memo((props) => {
                 if (is_login) {
                   if (user_info.user_id === props.user_id) {
                     return history.push({
-                      pathname: "/myprofile",
+                      pathname: '/myprofile',
                       state: { ...props },
                     });
                   }
@@ -149,43 +162,82 @@ const DetailPost = React.memo((props) => {
             />
             <Grid>
               <Grid is_flex>
-                <Text size={fontSize.small} color={color.bg100} bold2="500">
-                  {username}
-                </Text>
-                <Grid
-                  // width={valid === false ? "5.5rem" : ""}
-                  width="fit-content"
-                  height="fit-content"
-                  white_space="nowrap"
-                  bg={
-                    props.valid === false || disabled
-                      ? color.bg20
-                      : "rgba(84, 189, 88, 0.1)"
-                  }
-                  radius="0.5rem"
-                  padding="0.4rem 0.8rem"
-                >
-                  <Text
+                <Grid>
+                  <Text size={fontSize.small} color={color.bg100} bold2="500">
+                    {username}
+                  </Text>
+                </Grid>
+                <Grid flex justify_content="flex-end" width="fit-content">
+                  <Grid
+                    // width={valid === false ? "5.5rem" : ""}
                     width="fit-content"
-                    size="1rem"
-                    text_align="center"
+                    height="fit-content"
                     white_space="nowrap"
-                    color={
+                    bg={
                       props.valid === false || disabled
-                        ? color.bg80
-                        : color.success100
+                        ? color.bg20
+                        : 'rgba(84, 189, 88, 0.1)'
                     }
-                    bold
+                    radius="0.5rem"
+                    margin="0 0.4rem 0 0"
+                    padding="0.4rem 0.4rem"
                   >
-                    {valid === false || disabled
-                      ? `모집마감`
-                      : `모집 인원 ${nowHeadCount}/${headCount}명`}
+                    <Text
+                      width="fit-content"
+                      size="1rem"
+                      line_height="150%"
+                      text_align="center"
+                      white_space="nowrap"
+                      color={
+                        props.valid === false || disabled
+                          ? color.bg80
+                          : color.success100
+                      }
+                      bold
+                    >
+                      {valid === false || disabled
+                        ? `모집마감`
+                        : `모집 ${nowHeadCount}/${headCount}명`}
+                    </Text>
+                  </Grid>
+                  <Grid
+                    // width={valid === false ? "5.5rem" : ""}
+                    width="fit-content"
+                    height="fit-content"
+                    white_space="nowrap"
+                    border={
+                      props.valid === false || disabled
+                        ? border.bg40
+                        : border.success100
+                    }
+                    radius="0.5rem"
+                    padding="0.3rem 0.3rem"
+                  >
+                    <Text
+                      width="fit-content"
+                      size="1rem"
+                      line_height="150%"
+                      text_align="center"
+                      white_space="nowrap"
+                      color={
+                        props.valid === false || disabled
+                          ? color.bg80
+                          : color.success100
+                      }
+                      bold
+                    >
+                      {meetingType()}
+                    </Text>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid>
+                <Grid is_flex>
+                  <Text size="1rem" color={color.bg80} bold2="400">
+                    {ym[0]}년 {ym[1]}월 {day[0]}일 {hm[0]}:{hm[1]}
                   </Text>
                 </Grid>
               </Grid>
-              <Text size="1rem" color={color.bg80} bold2="400">
-                {ym[0]}년 {ym[1]}월 {day[0]}일 {hm[0]}:{hm[1]}
-              </Text>
             </Grid>
           </Grid>
           <Grid>
@@ -266,7 +318,7 @@ const DetailPost = React.memo((props) => {
               width="15rem"
               size="1.3rem"
               color={color.bg100}
-              margin="0 0 1.6rem 0"
+              // margin="0 0 1.6rem 0"
             >
               {shop}
             </Text>
@@ -274,7 +326,7 @@ const DetailPost = React.memo((props) => {
               width="15rem"
               size="1.3rem"
               color={color.bg100}
-              margin="0 0 1.6rem 0"
+              // margin="0 0 1.6rem 0"
             >
               {date_time()}
             </Text>
@@ -371,7 +423,7 @@ const DetailPost = React.memo((props) => {
                       if (is_login) {
                         if (user_info?.user_id === p.user_id) {
                           return history.push({
-                            pathname: "/myprofile",
+                            pathname: '/myprofile',
                             state: { ...p },
                           });
                         }
@@ -493,7 +545,7 @@ const DetailPost = React.memo((props) => {
               <Grid maxWidth="32rem" height="5rem">
                 <Button
                   shape="large"
-                  color={disabled ? "#EBE9E8" : color.brand100}
+                  color={disabled ? '#EBE9E8' : color.brand100}
                   size={fontSize.small}
                   disabled={disabled}
                   cursor="pointer"
@@ -507,9 +559,9 @@ const DetailPost = React.memo((props) => {
                   <Text
                     bold
                     size="1.6rem"
-                    color={disabled ? "#CECAC7" : color.bg0}
+                    color={disabled ? '#CECAC7' : color.bg0}
                   >
-                    {disabled ? "모집 마감됐어요" : "채팅 시작하기"}
+                    {disabled ? '모집 마감됐어요' : '채팅 시작하기'}
                   </Text>
                 </Button>
               </Grid>
@@ -528,10 +580,10 @@ const UserProfile = styled.div`
   width: 4.925rem;
   height: 4rem;
   border-radius: 2rem;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   background-size: cover;
   background-position: center;
-  margin: 1rem 1rem 1rem 0;
+  margin: 0 0.8rem 0 0;
   cursor: pointer;
 `;
 
@@ -549,7 +601,7 @@ const GridGap = styled.div`
 
 const LogoImg = styled.div`
   margin: 2.4rem auto 1.6rem auto;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   width: 12.7rem;
   height: 11.5rem;
   background-size: cover;

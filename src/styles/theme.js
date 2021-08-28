@@ -24,6 +24,7 @@ const theme = {
     line3: '2px solid #36373C',
     bg20: '1px solid #F1F2F4',
     bg40: '1px solid #EBE9E8',
+    success100: '1px solid #54BD58',
     boldLine: '0.8rem solid #F1F2F4',
   },
 

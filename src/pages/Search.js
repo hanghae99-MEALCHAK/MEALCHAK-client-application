@@ -16,7 +16,7 @@ import { webp } from "../styles/img/webp";
 import {isWebpSupported} from 'react-image-webp/dist/utils';
 
 const Search = (props) => {
-  const { color } = theme;
+  const { color, border, fontSize } = theme;
 
   const dispatch = useDispatch();
   const [food, setFood] = React.useState('');
@@ -60,9 +60,9 @@ const Search = (props) => {
           <Grid width="32rem" margin="auto">
             <Input
               padding="1.4rem 8rem 1.4rem 1.6rem"
-              border="0.1rem solid #EBE9E8"
+              border={border.bg40}
               placeholder="제목+내용으로 검색 돼요."
-              size="1.6rem"
+              size={fontSize.base}
               value={food}
               _onChange={onChange}
               onSubmit={search}
@@ -135,13 +135,13 @@ const Search = (props) => {
         </Grid>
         <Grid is_flex2 width="32rem" margin="2.15rem auto">
           <Grid>
-            <Text size="1.3rem" color={color.bg80} bold2="500">
+            <Text size={fontSize.small} color={color.bg80} bold2="500">
               정렬 기준
             </Text>
           </Grid>
           <Grid flex justify_content="flex-end">
             <Text
-              size="1.3rem"
+              size={fontSize.small}
               color={sort?.recent ? color.brand100 : color.bg60}
               bold
               cursor="t"
@@ -153,7 +153,7 @@ const Search = (props) => {
               마감임박순
             </Text>
             <Text
-              size="1.3rem"
+              size={fontSize.small}
               color={sort?.nearby ? color.brand100 : color.bg60}
               bold
               margin="0 0 0 1rem"
