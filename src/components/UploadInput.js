@@ -2,45 +2,46 @@ import React from "react";
 import styled from "styled-components";
 import { Grid, Text, Input, Button } from "../elements";
 import { useState } from "react";
-import theme from "../styles/theme";
-import logger from "../shared/Console";
 import { useDispatch, useSelector } from "react-redux";
-
-// 날짜
-import moment from "moment";
-import DatePicker from "react-datepicker";
-import { ko } from "date-fns/esm/locale";
-import "react-datepicker/dist/react-datepicker.css";
-
-// select
-import { HeadSelect, CTGSelect, MeetingSelect } from "./ReactSelect";
-
-import "./style.css";
-import "./restaurant.css";
-
 import { useDetectOutsideClick } from "./useDetectOutsideClick";
 
-import { PostAddress, ShopAddress } from ".";
-import { actionCreators as locateActions } from "../redux/modules/loc";
+// 날짜
+import moment from 'moment';
+import DatePicker from 'react-datepicker';
+import { ko } from 'date-fns/esm/locale';
+import 'react-datepicker/dist/react-datepicker.css';
+
+// select
+import { HeadSelect, CTGSelect, MeetingSelect } from './ReactSelect';
+
+// style
+import "./style.css";
+import "./restaurant.css";
+import { IoIosCloseCircle } from "react-icons/io";
+import theme from "../styles/theme";
+import logger from "../shared/Console";
+
+import { PostAddress, ShopAddress } from '.';
+import { actionCreators as locateActions } from '../redux/modules/loc';
 
 const UploadInput = React.memo((props) => {
   const { color, fontSize, radius, border } = theme;
 
   // select options
   const head_options = [
-    { value: "2", label: "2명" },
-    { value: "3", label: "3명" },
-    { value: "4", label: "4명" },
+    { value: '2', label: '2명' },
+    { value: '3', label: '3명' },
+    { value: '4', label: '4명' },
   ];
 
   const food_options = [
-    { value: "한식", label: "한식" },
-    { value: "분식", label: "분식" },
-    { value: "중식", label: "중식" },
-    { value: "일식", label: "일식" },
-    { value: "양식", label: "양식" },
-    { value: "카페", label: "카페" },
-    { value: "기타", label: "기타" },
+    { value: '한식', label: '한식' },
+    { value: '분식', label: '분식' },
+    { value: '중식', label: '중식' },
+    { value: '일식', label: '일식' },
+    { value: '양식', label: '양식' },
+    { value: '카페', label: '카페' },
+    { value: '기타', label: '기타' },
   ];
 
   const meeting_options = [
@@ -49,7 +50,7 @@ const UploadInput = React.memo((props) => {
   ];
 
   const getDayName = (date) => {
-    return date.toLocaleDateString("ko-KR", { weekday: "long" }).substr(0, 1);
+    return date.toLocaleDateString('ko-KR', { weekday: 'long' }).substr(0, 1);
   };
 
   // 날짜 비교시 년 월 일까지만 비교하게끔
@@ -87,16 +88,16 @@ const UploadInput = React.memo((props) => {
           meeting: props.post_info.meeting,
         }
       : {
-          place: "",
-          detail_place: "",
-          restaurant: shopAddress ? shopAddress : "",
-          headCount: "",
+          place: '',
+          detail_place: '',
+          restaurant: shopAddress ? shopAddress : '',
+          headCount: '',
           appointmentTime: today,
           appointmentDate: today,
-          foodCategory: "",
+          foodCategory: '',
           longitude: longitude,
           latitude: latitude,
-          meeting: "",
+          meeting: '',
         }
   );
 
@@ -112,12 +113,20 @@ const UploadInput = React.memo((props) => {
   const onClickShop = () => {
     setShopActive(!shopActive);
   };
+  const nullShop = (e) => {
+    dispatch(locateActions.setShopAddress(""));
+  };
 
   React.useEffect(() => {
     if (!post_address && props?.find_address) {
       dispatch(locateActions.getMyPostCoordAX(props.find_address));
       setPostInfo({ ...post_info, place: post_address });
       props?.onChange({ place: post_address });
+    }
+    if (!shopAddress && post_info?.restaurant) {
+      dispatch(locateActions.setShopAddress(post_info?.restaurant));
+      setPostInfo({ ...post_info, restaurant: shopAddress });
+      props?.onChange({ restaurant: shopAddress });
     }
     logger("uploadinput 페이지", props);
     logger("uploadinput 페이지2", post_info);
@@ -152,13 +161,13 @@ const UploadInput = React.memo((props) => {
               <div className="menu-container">
                 <nav
                   ref={dropdownRef}
-                  className={`menu ${isActive ? "active" : "inactive"}`}
+                  className={`menu ${isActive ? 'active' : 'inactive'}`}
                   style={{
-                    backgroundColor: "transparent",
-                    cursor: "pointer",
-                    zIndex: "101",
+                    backgroundColor: 'transparent',
+                    cursor: 'pointer',
+                    zIndex: '101',
                     top: 0,
-                    position: "fixed",
+                    position: 'fixed',
                   }}
                 >
                   <PostAddress close={onClick} />
@@ -179,7 +188,7 @@ const UploadInput = React.memo((props) => {
                   ? post_address
                   : props?.find_address
                   ? props.find_address
-                  : "주소를 찾으면 자동으로 입력돼요."}
+                  : '주소를 찾으면 자동으로 입력돼요.'}
               </Text>
             </Grid>
             <FocusWithin>
@@ -218,16 +227,16 @@ const UploadInput = React.memo((props) => {
               <div className="shop-container">
                 <nav
                   ref={shopRef}
-                  className={`shop ${shopActive ? "active" : "inactive"}`}
+                  className={`shop ${shopActive ? 'active' : 'inactive'}`}
                   style={{
-                    backgroundColor: "transparent",
-                    cursor: "pointer",
-                    zIndex: "101",
+                    backgroundColor: 'transparent',
+                    cursor: 'pointer',
+                    zIndex: '101',
                     top: 0,
-                    position: "fixed",
+                    position: 'fixed',
                   }}
                 >
-                  <ShopAddress close={onClickShop} active={shopActive} />
+                  <ShopAddress close={onClickShop} />
                 </nav>
               </div>
             </div>
@@ -249,10 +258,17 @@ const UploadInput = React.memo((props) => {
                   bg={color.bg20}
                   margin="0 0 0.8rem"
                   white_space="pre-wrap"
+                  is_flex
                 >
                   <Text color={color.bg80} size={fontSize.base}>
                     {shopAddress}
                   </Text>
+                  <IoIosCloseCircle
+                    size="2.2rem"
+                    color="gray"
+                    cursor="pointer"
+                    onClick={nullShop}
+                  />
                 </Grid>
               ) : (
                 <Input
@@ -262,11 +278,11 @@ const UploadInput = React.memo((props) => {
                   color={color.bg80}
                   placeholder="배달 예정인 음식점을 입력해주세요."
                   value={
-                    post_info.restaurant
-                      ? post_info.restaurant
+                    post_info?.restaurant
+                      ? post_info?.restaurant
                       : shopAddress
                       ? shopAddress
-                      : post_info.restaurant
+                      : post_info?.restaurant
                   }
                   _onChange={(e) => {
                     setPostInfo({ ...post_info, restaurant: e.target.value });
@@ -349,10 +365,10 @@ const UploadInput = React.memo((props) => {
                       ...post_info,
                       appointmentDate: date,
                     });
-                    logger("현재시간", moment(date).format("YYYY-MM-DD"));
+                    logger('현재시간', moment(date).format('YYYY-MM-DD'));
 
                     props.onChange({
-                      appointmentDate: moment(date).format("YYYY-MM-DD"),
+                      appointmentDate: moment(date).format('YYYY-MM-DD'),
                     });
                   }}
                   withPortal={true}
@@ -363,7 +379,7 @@ const UploadInput = React.memo((props) => {
                   }}
                   popperPlacement="auto"
                   dayClassName={(date) =>
-                    getDayName(createDate(date)) === "일" ? "sunday" : undefined
+                    getDayName(createDate(date)) === '일' ? 'sunday' : undefined
                   }
                 />
 
@@ -383,9 +399,9 @@ const UploadInput = React.memo((props) => {
                       ...post_info,
                       appointmentTime: date,
                     });
-                    logger("현재시간", moment(date).format("HH:mm"));
+                    logger('현재시간', moment(date).format('HH:mm'));
                     props.onChange({
-                      appointmentTime: moment(date).format("HH:mm"),
+                      appointmentTime: moment(date).format('HH:mm'),
                     });
                   }}
                   withPortal={true}
@@ -517,7 +533,7 @@ const SDatePicker = styled(DatePicker)`
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-  background: url("https://image.flaticon.com/icons/png/512/32/32195.png")
+  background: url('https://image.flaticon.com/icons/png/512/32/32195.png')
     no-repeat 92% 50% #fff;
   background-size: 1rem;
 `;
@@ -535,7 +551,7 @@ const TDatePicker = styled(DatePicker)`
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-  background: url("https://image.flaticon.com/icons/png/512/992/992700.png")
+  background: url('https://image.flaticon.com/icons/png/512/992/992700.png')
     no-repeat 88% 50% #fff;
   background-size: 1.5rem;
 `;
