@@ -24,13 +24,14 @@ const Input = forwardRef((props, ref) => {
     width,
     flex,
     height,
+    rows,
   } = props;
 
   if (multiLine) {
     return (
       <Grid>
         <ElTextarea
-          rows={15}
+          rows={rows? rows : 15}
           height={height}
           value={value}
           color={color}

@@ -318,6 +318,7 @@ const getMyPostAX = () => {
                 room_id: p.roomId,
                 nowHeadCount: p.nowHeadCount,
                 valid: p.valid,
+                meeting: p.meetingType,
               };
               posts.push(my_post);
             });

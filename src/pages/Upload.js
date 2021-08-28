@@ -73,6 +73,7 @@ const Upload = React.memo((props) => {
     restaurant: _post?.shop,
     longitude: longitude,
     latitude: latitude,
+    meeting: _post?.meeting,
   };
   const [post_info, setPostInfo] = useState(_post ? { ...past_post } : {});
   const today = moment().format("YYYY-MM-DD");
@@ -170,6 +171,15 @@ const Upload = React.memo((props) => {
       return;
     }
 
+    if (!post_info.meeting || post_info.meeting === "") {
+      customAlert.sweetConfirmReload(
+        "앗 빈칸이 있어요",
+        [`모집 유형;을 선택해주세요.`],
+        ""
+      );
+      return;
+    }
+
     logger("post 업로드 상태", post_info);
     delete post_info.disabled;
     dispatch(postAction.addPostAX(post_info));
@@ -258,6 +268,15 @@ const Upload = React.memo((props) => {
       customAlert.sweetConfirmReload(
         "앗 빈칸이 있어요",
         [`음식의 /카테고리/를 선택해주세요.`],
+        ""
+      );
+      return;
+    }
+
+    if (!post_info.meeting || post_info.meeting === "") {
+      customAlert.sweetConfirmReload(
+        "앗 빈칸이 있어요",
+        [`모집 유형;을 선택해주세요.`],
         ""
       );
       return;

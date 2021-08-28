@@ -94,6 +94,7 @@ const getPostAX = (category, sort = "recent") => {
               room_id: p.roomId,
               nowHeadCount: p.nowHeadCount,
               valid: p.valid,
+              meeting: p.meetingType,
             };
             // logger("post", post);
             post_list.push(post);
@@ -216,10 +217,11 @@ const addPostAX = (post_info) => {
         restaurant: post_info.restaurant,
         longitude: longitude,
         latitude: latitude,
+        meetingType: post_info.meeting,
       })
       .then((res) => {
         dispatch(chatActions.setChatListAX());
-
+        
         customAlert.sweetConfirmReload(
           "밀착 준비 완료",
           ["모임 만들기 작성글을 성공적으로 작성했어요.", "이제 채팅을 기다려볼까요?"],
@@ -259,6 +261,7 @@ const editPostAX = (post_id, post_info, path) => {
         restaurant: post_info.restaurant,
         longitude: longitude,
         latitude: latitude,
+        meetingType: post_info.meeting,
       })
       .then((res) => {
         logger("수정 후 res", res);
@@ -282,6 +285,7 @@ const editPostAX = (post_id, post_info, path) => {
           insert_dt: res.data.createdAt,
           distance: res.data.distance,
           room_id: res.data.roomId,
+          meeting: res.data.meetingType,
         };
 
         logger("수정 포스트 내용", post);
