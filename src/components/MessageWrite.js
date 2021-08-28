@@ -9,7 +9,6 @@ import { Grid, Input, Button, Text } from "../elements";
 import theme from "../styles/theme";
 import { customAlert } from "./Sweet";
 const MessageWrite = (props) => {
-
   const now_message = useRef();
   const msg = now_message.current;
 
@@ -67,10 +66,10 @@ const MessageWrite = (props) => {
 };
 const GridTop = styled.div`
   @media (min-width: 415px) {
-    max-width: 36rem;
     border-style: solid;
     border-width: 0 1px;
-    border-color: #CFCFCF;
+    border-color: #cfcfcf;
+    max-width: 36rem;
     box-sizing: border-box;
   }
   height: 5rem;

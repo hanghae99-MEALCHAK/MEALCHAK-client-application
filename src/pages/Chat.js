@@ -35,9 +35,11 @@ const Chat = (props) => {
     setIsOpen(!isOpen);
   };
 
+  const env = process.env.NODE_ENV;
+  const devTarget =
+    env === "development" ? "http://115.85.182.57/chatting" : "https://gorokke.shop/chatting";
   // 소켓
-  const sock = new SockJS("http://115.85.182.57/chatting");
-  // const sock = new SockJS("https://gorokke.shop/chatting");
+  const sock = new SockJS(devTarget);
   const ws = Stomp.over(sock);
 
   // 현재 방정보
@@ -267,7 +269,6 @@ const Chat = (props) => {
     }
   };
 
-
   const messages = useSelector((state) => state.chat.messages);
 
   // 스크롤 대상
@@ -283,7 +284,6 @@ const Chat = (props) => {
     scrollTomBottom();
     logger("tell me you are moving now", messageEndRef);
   }, [messages.length]);
-
 
   if (!room_id) {
     return (
@@ -334,9 +334,7 @@ const Chat = (props) => {
             </Header>
 
             <MessageList />
-            <MessageWrite
-              sendMessage={sendMessage}
-            />
+            <MessageWrite sendMessage={sendMessage} />
           </Grid>
         </Container>
       </React.Fragment>
@@ -358,14 +356,13 @@ const Container = styled.div`
   --inputBox: 4.4rem;
   height: 100vh;
   margin: 0 auto;
-  background-color: #7B6E62;
+  background-color: #7b6e62;
   width: 100%;
   overflow: scroll;
 
   &::-webkit-scrollbar {
-  display: none;
-}
+    display: none;
+  }
 `;
-
 
 export default Chat;
