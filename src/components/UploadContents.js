@@ -52,6 +52,7 @@ const UploadContents = React.memo((props) => {
         </FocusWithinTitle>
         <Grid padding="0 2rem">
           <Input
+            rows="11"
             bold="400"
             border="none"
             size={fontSize.base}

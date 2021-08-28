@@ -212,7 +212,7 @@ const Post = React.memo((props) => {
               </Text>
               {!props.is_profile && (
                 <Text
-                  height="1.5rem"
+                  // height="1.5rem"
                   size="1rem"
                   bold2="500"
                   color={color.success100}

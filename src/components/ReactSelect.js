@@ -69,6 +69,28 @@ const customStyles2 = {
     ...provided,
     color: color.bg80,
   }),
+  menuList: (base) => ({
+    ...base,
+    borderRadius: "1.2rem",
+    padding: "0",
+
+    "::-webkit-scrollbar": {
+      width: "0.5rem",
+      height: "1rem",
+    },
+    "::-webkit-scrollbar-track": {
+      background: "none",
+      margin: "1rem 0",
+    },
+    "::-webkit-scrollbar-thumb": {
+      background: theme.color.bg40,
+      borderRadius: "1rem",
+    },
+    "::-webkit-scrollbar-thumb:hover": {
+      background: theme.color.bg60,
+      borderRadius: "1rem",
+    },
+  }),
 };
 
 const customTheme2 = (theme) => {
@@ -82,7 +104,6 @@ const customTheme2 = (theme) => {
     },
   };
 };
-
 
 const ReactSelect = (props) => {
   return (
@@ -131,7 +152,7 @@ export const HeadSelect = (props) => {
               ...props.post_info,
               headCount: e.value,
             });
-            props.onChange({ headCount: e.value });            
+            props.onChange({ headCount: e.value });
           }}
           styles={customStyles2}
           theme={customTheme2}
@@ -146,7 +167,7 @@ export const CTGSelect = (props) => {
     <React.Fragment>
       <div style={styles.app}>
         <Select
-          menuPlacement="top"
+          // menuPlacement="top"
           components={{
             IndicatorSeparator: () => null,
             DropdownIndicator,
@@ -155,7 +176,7 @@ export const CTGSelect = (props) => {
           placeholder={
             props.foodCategory
               ? `${props.foodCategory}`
-              : "음식 카테고리를 선택해주세요."
+              : "카테고리를 선택해주세요."
           }
           onChange={(e) => {
             props.setPostInfo({
@@ -163,6 +184,49 @@ export const CTGSelect = (props) => {
               foodCategory: e.value,
             });
             props.onChange({ foodCategory: e.value });
+          }}
+          styles={customStyles2}
+          theme={customTheme2}
+          maxMenuHeight={200}
+        />
+      </div>
+    </React.Fragment>
+  );
+};
+
+export const MeetingSelect = (props) => {
+  const meetingName = () => {
+    if (props.meeting === "SHARE") {
+      return "배달만";
+    }
+    if (props.meeting === "TOGETHER") {
+      return "배달 + 식사";
+    }
+    if (props.meeting === "WHATEVER") {
+      return "협의 가능";
+    }
+    return;
+  };
+
+  return (
+    <React.Fragment>
+      <div style={styles.app}>
+        <Select
+          menuPlacement="top"
+          components={{
+            IndicatorSeparator: () => null,
+            DropdownIndicator,
+          }}
+          options={props.options}
+          placeholder={
+            props.meeting ? `${meetingName()}` : "카테고리를 선택해주세요."
+          }
+          onChange={(e) => {
+            props.setPostInfo({
+              ...props.post_info,
+              meeting: e.value,
+            });
+            props.onChange({ meeting: e.value });
           }}
           styles={customStyles2}
           theme={customTheme2}

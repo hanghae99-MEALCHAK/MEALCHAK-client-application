@@ -13,7 +13,7 @@ import { ko } from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 
 // select
-import { HeadSelect, CTGSelect } from "./ReactSelect";
+import { HeadSelect, CTGSelect, MeetingSelect } from "./ReactSelect";
 
 import "./style.css";
 import "./restaurant.css";
@@ -41,6 +41,12 @@ const UploadInput = React.memo((props) => {
     { value: "양식", label: "양식" },
     { value: "카페", label: "카페" },
     { value: "기타", label: "기타" },
+  ];
+
+  const meeting_options = [
+    { value: "SHARE", label: "배달만" },
+    { value: "TOGETHER", label: "배달 + 식사" },
+    { value: "WHATEVER", label: "협의 가능" },
   ];
 
   const getDayName = (date) => {
@@ -79,6 +85,7 @@ const UploadInput = React.memo((props) => {
           foodCategory: props.post_info.foodCategory,
           longitude: props.post_info.longitude,
           latitude: props.post_info.latitude,
+          meeting: props.post_info.meeting,
         }
       : {
           place: "",
@@ -90,6 +97,7 @@ const UploadInput = React.memo((props) => {
           foodCategory: "",
           longitude: longitude,
           latitude: latitude,
+          meeting: "",
         }
   );
 
@@ -207,7 +215,7 @@ const UploadInput = React.memo((props) => {
             </FocusWithin>
           </Grid>
           <Grid>
-            <div className="container">
+            {/* <div className="container">
               <div className="shop-container">
                 <nav
                   ref={shopRef}
@@ -223,7 +231,7 @@ const UploadInput = React.memo((props) => {
                   <ShopAddress close={onClickShop} active={shopActive} />
                 </nav>
               </div>
-            </div>
+            </div> */}
             <Text
               padding="2.4rem 0 0.8rem"
               color={color.bg100}
@@ -282,7 +290,7 @@ const UploadInput = React.memo((props) => {
                 <Text color={color.brand100} size={fontSize.base} bold2="700">
                   식당 찾기
                 </Text>
-              </Button>
+              </Button> */}
             </FocusWithin>
           </Grid>
 
@@ -400,7 +408,7 @@ const UploadInput = React.memo((props) => {
               line_height="150%"
               padding="0.8rem 1rem 0 0rem"
             >
-              만남 예정 시간이 지나면 자동으로 모집글이 사라집니다.
+              만남 예정 시간이 지나면 홈 화면에서 모집글이 사라져요.
             </Text>
           </Grid>
 
@@ -422,6 +430,29 @@ const UploadInput = React.memo((props) => {
                   post_info={post_info}
                   onChange={props.onChange}
                   foodCategory={post_info.foodCategory}
+                />
+              </Grid>
+            </FocusSelect>
+          </Grid>
+
+          <Grid margin="0 auto 1rem">
+            <FocusSelect>
+              <Text
+                padding="2.4rem 0 0.8rem"
+                color={color.bg100}
+                bold2="500"
+                size={fontSize.base}
+              >
+                모집 유형
+              </Text>
+              <Grid border={border.bg40} radius="1.2rem" height="auto">
+                <MeetingSelect
+                  options={meeting_options}
+                  value={post_info.meeting}
+                  setPostInfo={setPostInfo}
+                  post_info={post_info}
+                  onChange={props.onChange}
+                  meeting={post_info.meeting}
                 />
               </Grid>
             </FocusSelect>
