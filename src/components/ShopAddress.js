@@ -51,7 +51,7 @@ const ShopAddress = (props) => {
           margin="0 0 0 0.1rem"
         >
           <Grid
-            width="48.8rem"
+            width="fit-content"
             height="5rem"
             radius="1.2rem"
             border="0.1rem solid #EBE9E9"
