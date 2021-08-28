@@ -24,6 +24,7 @@ const sweet = withReactContent(Swal);
 const sweetConfirmReload = (msg_title, msg_content_array, path) => {
   return sweet
     .fire({
+      heightAuto: false,
       customClass: {
         popup: "border",
         confirmButton: "confirm",
@@ -138,6 +139,7 @@ const sweetConfirmReload = (msg_title, msg_content_array, path) => {
 const sweetReviewWrite = (msg_title, msg_name, msg_content, path) => {
   return sweet
     .fire({
+      heightAuto: false,
       customClass: {
         popup: "border",
         confirmButton: "confirmButton",
@@ -235,6 +237,7 @@ const sweetOK = (title, message1, message2, confirmText) => {
         </Grid>
       ),
       focusConfirm: false,
+      heightAuto: false,
     })
     .then((res) => {
       if (res.isConfirmed) {
@@ -248,6 +251,7 @@ const sweetOK = (title, message1, message2, confirmText) => {
 const sweetPromise = (title, message1, message2, confirmText, cancelText) => {
   return sweet
     .fire({
+      heightAuto: false,
       customClass: {
         popup: "border",
         confirmButton: "confirmButton",
@@ -299,6 +303,7 @@ const sweetPromise = (title, message1, message2, confirmText, cancelText) => {
 const sweetNeedLogin = () => {
   return sweet
     .fire({
+      heightAuto: false,
       customClass: {
         popup: "border",
         confirmButton: "confirmButton",
@@ -351,6 +356,7 @@ const sweetNeedLogin = () => {
 const sweetWA = () => {
   return sweet
     .fire({
+      heightAuto: false,
       customClass: {
         popup: "border",
         confirmButton: "confirmButton",
@@ -399,6 +405,7 @@ const sweetWA = () => {
 const sweetAddCheck = () => {
   return sweet
     .fire({
+      heightAuto: false,
       customClass: {
         popup: "border",
         confirmButton: "confirmButton",
@@ -475,6 +482,7 @@ const sweetUserInfo = (age, gender) => {
 
   return sweet
     .fire({
+      heightAuto: false,
       customClass: {
         popup: "border",
         confirmButton: "confirmButton",
@@ -531,6 +539,7 @@ const sweetUserInfo = (age, gender) => {
 const SweetAllowChat = (join_id) => {
   sweet
     .fire({
+      heightAuto: false,
       customClass: {
         popup: "border",
         confirmButton: "confirmButton",
@@ -599,6 +608,7 @@ const SweetAllowChat = (join_id) => {
 const SweetDenyChat = (join_id) => {
   sweet
     .fire({
+      heightAuto: false,
       customClass: {
         popup: "border",
         confirmButton: "confirmButton",
@@ -667,6 +677,7 @@ const SweetDenyChat = (join_id) => {
 const SweetBen = (sendBen, other_user_id, other_user_name) => {
   sweet
     .fire({
+      heightAuto: false,
       customClass: {
         popup: "border",
         confirmButton: "confirmButton",
@@ -718,6 +729,7 @@ const SweetBen = (sendBen, other_user_id, other_user_name) => {
 const SweetBreak = (sendBreak, post_id) => {
   sweet
     .fire({
+      heightAuto: false,
       customClass: {
         popup: "border",
         confirmButton: "confirmButton",

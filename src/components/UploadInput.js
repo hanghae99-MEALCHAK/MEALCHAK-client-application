@@ -45,9 +45,8 @@ const UploadInput = React.memo((props) => {
   ];
 
   const meeting_options = [
-    { value: 'SHARE', label: '배달만' },
-    { value: 'TOGETHER', label: '배달 + 식사' },
-    { value: 'WHATEVER', label: '협의 가능' },
+    { value: "SEPARATE", label: "배달만" },
+    { value: "TOGETHER", label: "배달 + 식사" },
   ];
 
   const getDayName = (date) => {

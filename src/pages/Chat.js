@@ -38,6 +38,28 @@ const Chat = (props) => {
     setIsOpen(!isOpen);
   };
 
+  const messages = useSelector((state) => state.chat.messages);
+
+  const [chatLength, setChatLength] = React.useState(0);
+
+  // 스크롤 대상
+  const messageEndRef = React.useRef(null);
+  //  하단 스크롤 함수
+  const scrollTomBottom = () => {
+    messageEndRef.current.scrollIntoView({ behavior: 'smooth'});
+  };
+
+  // 렌더링시 이동
+  React.useEffect(() => {
+    setChatLength(messages.length);
+  }, [messages]);
+
+  // 렌더링시 이동
+  React.useEffect(() => {
+    scrollTomBottom();
+    // logger("tell me you are moving now", messageEndRef);
+  }, [chatLength]);
+
   // 소켓
   const sock = new SockJS("http://115.85.182.57/chatting");
   // const sock = new SockJS("https://gorokke.shop/chatting");
@@ -60,7 +82,6 @@ const Chat = (props) => {
   const sender_nick = useSelector((state) => state.user.user?.user_nickname);
   const sender_profile = useSelector((state) => state.user.user?.user_profile);
   const sender_id = useSelector((state) => state.user.user?.user_id);
-  const messageText = useSelector((state) => state.chat.messageText);
 
   // 새로고침될때 방 정보 날아가지 않도록 함
   React.useEffect(() => {
@@ -107,7 +128,7 @@ const Chat = (props) => {
   // 채팅방시작하기, 채팅방 클릭 시 room_id에 해당하는 방을 구독
   const wsConnectSubscribe = async () => {
     try {
-      ws.debug = null;
+      // ws.debug = null;
       await ws.connect(
         {
           token: token,
@@ -119,6 +140,7 @@ const Chat = (props) => {
               const newMessage = JSON.parse(data.body);
               logger("구독후 새로운 메세지 data", newMessage);
 
+              scrollTomBottom();
               // 실시간 채팅 시간 넣어주는 부분
               const now_time = moment().format("YYYY-MM-DD HH:mm:ss");
               dispatch(
@@ -139,7 +161,7 @@ const Chat = (props) => {
   // 다른 방을 클릭하거나 뒤로가기 버튼 클릭시 연결해제 및 구독해제
   const wsDisConnectUnsubscribe = () => {
     try {
-      ws.debug = null;
+      // ws.debug = null;
       ws.disconnect(
         () => {
           ws.unsubscribe("sub-0");
@@ -192,7 +214,7 @@ const Chat = (props) => {
       // dispatch(chatActions.loading());
       // dispatch(chatActions.setTime());
       waitForConnection(ws, () => {
-        ws.debug = null;
+        // ws.debug = null;
 
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
         logger("메세지보내기 상태", ws.ws.readyState);
@@ -224,7 +246,7 @@ const Chat = (props) => {
       // 로딩
       // dispatch(chatActions.loading());
       waitForConnection(ws, () => {
-        ws.debug = null;
+        // ws.debug = null;
 
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
         logger("강퇴 메세지 상태", ws.ws.readyState);
@@ -264,7 +286,7 @@ const Chat = (props) => {
       // 로딩
       // dispatch(chatActions.loading());
       waitForConnection(ws, () => {
-        ws.debug = null;
+        // ws.debug = null;
 
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
         logger("방폭 메세지 상태", ws.ws.readyState);
@@ -335,7 +357,11 @@ const Chat = (props) => {
             </Header>
 
             <MessageList />
-            <MessageWrite sendMessage={sendMessage} />
+            <MessageWrite
+              sendMessage={sendMessage}
+              scrollTomBottom={scrollTomBottom}
+            />
+            <div ref={messageEndRef}></div>
           </Grid>
         </Grid>
       </React.Fragment>

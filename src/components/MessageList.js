@@ -8,31 +8,12 @@ import logger from "../shared/Console";
 const MessageList = (props) => {
   const messages = useSelector((state) => state.chat.messages);
 
-  // 스크롤 대상
-  const messageEndRef = React.useRef(null);
-  //  하단 스크롤 함수
-  const scrollTomBottom = () => {
-    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  // 렌더링시 이동
-  React.useEffect(() => {
-    scrollTomBottom();
-    logger("tell me you are moving now", messageEndRef);
-  }, [messages.length]);
-
-  React.useEffect(() => {
-    // logger("메시지 DB", messages);
-  }, []);
-
   return (
     <Grid padding="0 2rem">
       <Grid height="6rem"></Grid>
       {messages?.map((m, idx) => {
         return <Message key={idx} messagesInfo={m} />;
       })}
-
-      <div ref={messageEndRef}></div>
       <Grid height="7rem"></Grid>
     </Grid>
   );

@@ -15,10 +15,10 @@ const MessageWrite = (props) => {
   // const throttle = _.throttle((m) => dispatch(chatActions.writeMessage(m)), 300);
   // const send_action = React.useCallback(throttle, []);
 
-  const now_message = useRef();
-  const msg = now_message.current;
+  // const now_message = useRef();
+  // const msg = now_message.current;
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { color, border, radius, fontSize } = theme;
   const { sendMessage } = props;
 
@@ -33,8 +33,8 @@ const MessageWrite = (props) => {
     if (new_message === "") {
       return customAlert.sweetConfirmReload("메세지를 입력해주세요", ["무엇을 먹을지, 어디서 배달시킬지", "이야기해봐요 :)"], "");
     }
-    logger("보낼 메세지 내용", typeof msg.defaultValue);
-    sendMessage(msg.defaultValue);
+    // logger("보낼 메세지 내용", typeof msg.defaultValue);
+    sendMessage(new_message);
     setMessage("");
   };
 
@@ -52,7 +52,7 @@ const MessageWrite = (props) => {
             padding="1.1rem 1.6rem"
             value={new_message}
             _onChange={changeMessage}
-            ref={now_message}
+            // ref={now_message}
             border="none"
             size="1.6rem"
           ></Input>
