@@ -18,7 +18,10 @@ const MapContainer = (props) => {
 
     const container = document.getElementById("map");
     const options = {
-      center: new kakao.maps.LatLng(latitude, longitude),
+      center: new kakao.maps.LatLng(
+        latitude ? latitude : 33.450701,
+        longitude ? longitude : 126.570667
+      ),
       level: 3,
     };
 
@@ -107,7 +110,7 @@ const MapContainer = (props) => {
         id="map"
         absolute="relative"
         overflow="hidden"
-        width="35.97rem"
+        width="auto"
         height="100vh"
       />
       {/* <Grid id="menu_wrap" className="bg_white">
