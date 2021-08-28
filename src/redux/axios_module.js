@@ -7,8 +7,8 @@ const axiosModule = axios.create({
     'Access-Control-Allow-Headers': 'Content-Type',
     'Content-Type': 'application/json',
   },
-  baseURL: 'http://115.85.182.57',
-  // baseURL: "https://gorokke.shop",
+  // baseURL: 'http://115.85.182.57',
+  baseURL: "https://gorokke.shop",
 });
 
 axiosModule.interceptors.request.use((config) => {

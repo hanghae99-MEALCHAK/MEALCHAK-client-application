@@ -30,8 +30,6 @@ import "../styles/side.css";
 import Sidebar from "react-sidebar";
 
 const Chat = (props) => {
-  const { border } = theme;
-
   // side nav
   const [isOpen, setIsOpen] = React.useState(false);
   const onClick = () => {
@@ -61,8 +59,8 @@ const Chat = (props) => {
   }, [chatLength]);
 
   // 소켓
-  const sock = new SockJS("http://115.85.182.57/chatting");
-  // const sock = new SockJS("https://gorokke.shop/chatting");
+  // const sock = new SockJS("http://115.85.182.57/chatting");
+  const sock = new SockJS("https://gorokke.shop/chatting");
   const ws = Stomp.over(sock);
   // ws.reconnect_delay = 500;
 
@@ -128,7 +126,7 @@ const Chat = (props) => {
   // 채팅방시작하기, 채팅방 클릭 시 room_id에 해당하는 방을 구독
   const wsConnectSubscribe = async () => {
     try {
-      // ws.debug = null;
+      ws.debug = null;
       await ws.connect(
         {
           token: token,
@@ -161,7 +159,7 @@ const Chat = (props) => {
   // 다른 방을 클릭하거나 뒤로가기 버튼 클릭시 연결해제 및 구독해제
   const wsDisConnectUnsubscribe = () => {
     try {
-      // ws.debug = null;
+      ws.debug = null;
       ws.disconnect(
         () => {
           ws.unsubscribe("sub-0");
@@ -214,7 +212,7 @@ const Chat = (props) => {
       // dispatch(chatActions.loading());
       // dispatch(chatActions.setTime());
       waitForConnection(ws, () => {
-        // ws.debug = null;
+        ws.debug = null;
 
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
         logger("메세지보내기 상태", ws.ws.readyState);
@@ -246,7 +244,7 @@ const Chat = (props) => {
       // 로딩
       // dispatch(chatActions.loading());
       waitForConnection(ws, () => {
-        // ws.debug = null;
+        ws.debug = null;
 
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
         logger("강퇴 메세지 상태", ws.ws.readyState);
@@ -286,7 +284,7 @@ const Chat = (props) => {
       // 로딩
       // dispatch(chatActions.loading());
       waitForConnection(ws, () => {
-        // ws.debug = null;
+        ws.debug = null;
 
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
         logger("방폭 메세지 상태", ws.ws.readyState);
