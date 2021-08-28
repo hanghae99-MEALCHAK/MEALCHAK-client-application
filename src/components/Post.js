@@ -79,14 +79,11 @@ const Post = React.memo((props) => {
   };
 
   const meetingType = () => {
-    if (props.meeting === 'SHARE') {
+    if (props.meeting === 'SEPARATE') {
       return '배달만';
     }
     if (props.meeting === 'TOGETHER') {
       return '배달+식사';
-    }
-    if (props.meeting === 'WHATEVER') {
-      return '상괍없음';
     }
   };
 
