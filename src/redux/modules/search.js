@@ -52,7 +52,7 @@ const getSearchListDB = (food, sort = "recent") => {
             room_id: p.roomId,
             nowHeadCount: p.nowHeadCount,
             valid: p.valid,
-            meeting: p.meetingType,
+            meeting: p.meetingType === null? "SEPARATE" : p.meetingType,
           };
           search_list.push(post);
         });
