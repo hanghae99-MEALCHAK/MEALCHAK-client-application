@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 import { Grid } from "../elements";
 import { Message } from ".";
-import logger from "../shared/Console";
 
 const MessageList = (props) => {
   const messages = useSelector((state) => state.chat.messages);
@@ -11,12 +10,14 @@ const MessageList = (props) => {
   return (
     <Grid padding="0 2rem">
       <Grid height="6rem"></Grid>
-      {messages?.map((m, idx) => {
-        return <Message key={idx} messagesInfo={m} />;
-      })}
-      <Grid height="7rem"></Grid>
+        {messages?.map((m, idx) => {
+          return <Message key={idx} messagesInfo={m} />;
+        })}
+      <Grid height="4.4rem"></Grid>
     </Grid>
   );
 };
+
+
 
 export default MessageList;
