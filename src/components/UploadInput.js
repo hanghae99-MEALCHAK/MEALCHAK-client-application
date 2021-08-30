@@ -1,39 +1,41 @@
+// 모임 만들기 하단 인풋 모음 컨포넌트
 import React from "react";
-import styled from "styled-components";
-import { Grid, Text, Input, Button } from "../elements";
+import logger from "../shared/Console";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDetectOutsideClick } from "./useDetectOutsideClick";
-
-// 날짜
-import moment from "moment";
-import DatePicker from "react-datepicker";
-import { ko } from "date-fns/esm/locale";
-import "react-datepicker/dist/react-datepicker.css";
-
-// select
-import { HeadSelect, CTGSelect, MeetingSelect } from "./ReactSelect";
-
-// style
-import "./style.css";
-import "./restaurant.css";
-import { IoIosCloseCircle } from "react-icons/io";
-import theme from "../styles/theme";
-import logger from "../shared/Console";
-
 import { PostAddress, ShopAddress } from ".";
 import { actionCreators as locateActions } from "../redux/modules/loc";
 
+// 날짜 설정
+import moment from "moment";
+import DatePicker from "react-datepicker";
+import { ko } from "date-fns/esm/locale";
+
+// select 라이브러리 커스텀 함수 모음
+import { HeadSelect, CTGSelect, MeetingSelect } from "./ReactSelect";
+
+// style
+import theme from "../styles/theme";
+import styled from "styled-components";
+import { Grid, Text, Input, Button } from "../elements";
+import { IoIosCloseCircle } from "react-icons/io";
+import "./style.css";
+import "./restaurant.css";
+import "react-datepicker/dist/react-datepicker.css";
+
 const UploadInput = React.memo((props) => {
+  const dispatch = useDispatch();
   const { color, fontSize, radius, border } = theme;
 
-  // select options
+  // 모집인원 select options
   const head_options = [
     { value: "2", label: "2명" },
     { value: "3", label: "3명" },
     { value: "4", label: "4명" },
   ];
 
+  // 음식 카테고리 select options
   const food_options = [
     { value: "한식", label: "한식" },
     { value: "분식", label: "분식" },
@@ -44,11 +46,13 @@ const UploadInput = React.memo((props) => {
     { value: "기타", label: "기타" },
   ];
 
+  // 모집 유형 카테고리 select options
   const meeting_options = [
     { value: "SEPARATE", label: "배달만" },
     { value: "TOGETHER", label: "배달 + 식사" },
   ];
 
+  // 날짜 한국어 표시 함수
   const getDayName = (date) => {
     return date.toLocaleDateString("ko-KR", { weekday: "long" }).substr(0, 1);
   };
@@ -60,11 +64,11 @@ const UploadInput = React.memo((props) => {
     );
   };
 
-  const dispatch = useDispatch();
-
+  // datepicker 라이브러리 사용을 위해, date 객체 사용
+  // 디폴트 현재 시간
   const today = moment().toDate();
+  // 수정 페이지 시간
   const modi_time = `${props.post_info.appointmentDate} ${props.post_info.appointmentTime}`;
-  // const today = moment().format("YYYY-MM-DD");
 
   const post_address = useSelector((state) => state.loc.post_address?.address);
   const shopAddress = useSelector((state) => state.loc.shop_address);
@@ -355,7 +359,7 @@ const UploadInput = React.memo((props) => {
 
               <Grid display_grid="t">
                 <SDatePicker
-                  onFocus={(e) => (e.target.readOnly = true)}
+                  onFocus={(e) => (e.target.readOnly = true)}  //mobile 가상키보드 방지
                   showDisabledMonthNavigation
                   theme={theme}
                   minDate={new Date()}
@@ -369,6 +373,7 @@ const UploadInput = React.memo((props) => {
                     });
                     logger("현재시간", moment(date).format("YYYY-MM-DD"));
 
+                    // 상위 컴포넌트로 데이터 보내기
                     props.onChange({
                       appointmentDate: moment(date).format("YYYY-MM-DD"),
                     });
@@ -386,7 +391,7 @@ const UploadInput = React.memo((props) => {
                 />
 
                 <TDatePicker
-                  onFocus={(e) => (e.target.readOnly = true)}
+                  onFocus={(e) => (e.target.readOnly = true)}  //mobile 가상키보드 방지
                   timeCaption="Time"
                   dateFormat="p"
                   timeIntervals={15}
@@ -402,6 +407,8 @@ const UploadInput = React.memo((props) => {
                       appointmentTime: date,
                     });
                     logger("현재시간", moment(date).format("HH:mm"));
+
+                    // 상위 컴포넌트로 데이터 보내기
                     props.onChange({
                       appointmentTime: moment(date).format("HH:mm"),
                     });
@@ -485,17 +492,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Select = styled.select`
-  width: 100%;
-  height: 4.7rem;
-  border: none;
-  padding: 0;
-  font-size: 1.4rem;
-  &:focus {
-    outline: none;
-  }
-`;
-
+// input 포커스 css
 const FocusWithin = styled.div`
   &:focus-within p {
     color: #ff9425;
@@ -505,23 +502,14 @@ const FocusWithin = styled.div`
     outline: none;
   }
 `;
-
+// input 포커스 css
 const FocusSelect = styled.div`
   &:focus-within p {
     color: #ff9425;
   }
 `;
 
-const FocusWithinSelect = styled.div`
-  &:focus-within p {
-    color: #ff9425;
-  }
-  &:focus-within div {
-    border: 1px solid #ff9425;
-    outline: none;
-  }
-`;
-
+// 달력선택 css
 const SDatePicker = styled(DatePicker)`
   width: 100%;
   height: 5rem;
@@ -540,6 +528,7 @@ const SDatePicker = styled(DatePicker)`
   background-size: 1rem;
 `;
 
+// 시간선택 css
 const TDatePicker = styled(DatePicker)`
   width: 100%;
   height: 5rem;

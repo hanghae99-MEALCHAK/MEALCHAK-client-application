@@ -33,12 +33,14 @@ const AddressGrid = (props) => {
 };
 
 const GridTop = styled.div`
+  // pc 환경 뷰
   @media (min-width: 415px) {
     min-height: ${(props) => (props.is_home ? "100vh" : "")};
     max-width: "36rem";
     width: ${(props) => (props.is_home ? "36rem" : "")};
     ${(props) => (props.is_post ? `transform: translateX(0.1rem)` : "")};
   }
+  // 모바일 환경 뷰
   width: 100%;
 `;
 

@@ -1,16 +1,21 @@
+// 첫 회원가입 이후 주소 설정 가이드 컴포넌트
 import React from "react";
-import styled from "styled-components";
+import { history } from "../redux/configureStore";
 import { useSelector } from "react-redux";
+
+// style
+import styled from "styled-components";
 import { Grid, Text } from "../elements";
-import { BsArrow90DegUp } from "react-icons/bs";
 import theme from "../styles/theme";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { history } from "../redux/configureStore";
 
 const Tour = (props) => {
   const { color, fontSize } = theme;
+  // inline css 미디어쿼리
+  const media = useMediaQuery("(min-width: 415px)"); 
+  // 가이드 필요 여부 판단
+  // 가입 이후 주소 설정을 하지 않은 사용자의 경우 is_mask로 가이드 기능 제공
   const is_mask = useSelector((state) => state.image.is_mask);
-  const media = useMediaQuery("(min-width: 415px)");
 
   return (
     <Mask is_mask={is_mask}>
@@ -84,6 +89,7 @@ const Mask = styled.div`
   z-index: 101;
 `;
 
+// 가이드 말풍선
 const GuideBubble = styled.div`
   display: flex;
   justify-content: center;

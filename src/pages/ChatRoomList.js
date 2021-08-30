@@ -1,3 +1,4 @@
+// 채팅 참여 리스트 목록 페이지 
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as chatActions } from "../redux/modules/chat";
@@ -16,27 +17,26 @@ import { png } from "../styles/img/index";
 import { webp } from "../styles/img/webp/index";
 import { isWebpSupported } from "react-image-webp/dist/utils";
 
-import logger from "../shared/Console";
-
 const ChatRoomList = (props) => {
   const dispatch = useDispatch();
+  const { color, border, fontSize } = theme;
 
+  // 로그인 체크
   React.useEffect(() => {
     document
       .querySelector("body")
       .scrollTo({ top: 0, left: 0, behavior: "instant" });
     dispatch(userAction.loginCheck("/chatlist"));
 
+    // 로그인 후 토큰이 있는 경우
+    // 참여중인 채팅방 목록, 승인 대기 목록 요청
+    // 현재 채팅방 정보 초기화
     if (token) {
       dispatch(chatActions.setChatListAX());
       dispatch(chatActions.awaitChatListAX());
       dispatch(chatActions.clearChat());
     }
   }, []);
-
-  // 현재 room_id 필요
-
-  const { color, border, radius, fontSize } = theme;
 
   // 채팅 목록
   const chat_list = useSelector((state) => state.chat.chatListInfo);
@@ -50,9 +50,7 @@ const ChatRoomList = (props) => {
   const enterRoom = (room_id, roomName, post_id, own_user_id, order_time) => {
     // 채팅방 들어갔다가 뒤로가기 누르면 자동으로 방나가기
     // room_id 리덕스에 저장된 걸로 실제 채팅 페이지 이동했을 때 서버연결 시켜서 보여줌
-
-    // 채팅 시작하기 버튼 누를때 입장 axios 요청
-    // 동시에 구독
+    // 현재 채팅방 정보 바꾸기
     dispatch(
       chatActions.moveChatRoom(
         room_id,
@@ -62,6 +60,7 @@ const ChatRoomList = (props) => {
         order_time
       )
     );
+    // 채팅방 이동하면서 방 정보 넣어주기
     history.push({
       pathname: "/chatting",
       state: {
@@ -79,9 +78,7 @@ const ChatRoomList = (props) => {
       <PcSide {...props} />
       <Grid
         minWidth="36rem"
-        // maxWidth="36rem"
         minHeight="100vh"
-        // border={border.line1}
         margin="0 auto"
         padding="0 0 5.2rem 0"
       >
@@ -114,6 +111,7 @@ const ChatRoomList = (props) => {
             right="1.2rem"
             >
 
+            {/* 채팅 알림 있는 경우 */}
             {is_alarm && (
               <Image 
               size="0.9"
@@ -134,6 +132,8 @@ const ChatRoomList = (props) => {
             </Text>
           </Grid>
         </TapGrid>
+
+        {/* 채팅 목록 */}
         {chat_list?.map((info, idx) => {
           return (
             <ChatListItem
@@ -157,12 +157,14 @@ const ChatRoomList = (props) => {
           );
         })}
 
+        {/* 대기 목록 */}
         {await_list?.map((info, idx) => {
           return (
             <AwaitList key={idx} roomName={info.title} join_id={info.join_id} />
           );
         })}
 
+        {/* 참여중인 채팅 목록, 대기 목록 모두 없는 경우 빈 기본값 이미지 */}
         {await_list?.length === 0 && chat_list?.length === 0 && (
           <>
             <Grid

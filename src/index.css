@@ -71,6 +71,7 @@ html {
   font-size: 62.5%;
 }
 
+/* 모바일 기종 별 뷰 설정 */
 @media all and (min-width: 800px) {
   html {
     position: relative;
@@ -86,25 +87,6 @@ html {
     font-size: 85%;
   }
 }
-
-/* @media all and (min-width: 360px) {
-  html {
-    position: relative;
-    overflow-x: hidden;
-    font-size: 65%;
-  }
-} */
-/* @media all and (max-width: 800px) {
-  html {
-    font-size: 50%;
-  }
-}
-
-@media all and (max-width: 700px) {
-  html {
-    font-size: 40%;
-  }
-}*/
 
 @media all and (max-width: 600px) {
   html {

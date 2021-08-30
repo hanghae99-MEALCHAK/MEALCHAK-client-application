@@ -1,8 +1,10 @@
+// 메세지 리스트 컴포넌트
 import React from "react";
 import { useSelector } from "react-redux";
-
-import { Grid } from "../elements";
 import { Message } from ".";
+
+// style
+import { Grid } from "../elements";
 
 const MessageList = (props) => {
   const messages = useSelector((state) => state.chat.messages);
