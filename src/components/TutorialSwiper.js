@@ -1,3 +1,4 @@
+// 사이트 들어올 때 보이는 서비스 간단 소개
 import React from 'react';
 import styled from 'styled-components';
 

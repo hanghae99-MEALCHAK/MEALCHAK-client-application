@@ -24,18 +24,23 @@ const Search = (props) => {
     recent: true,
     nearby: false,
   });
+
+  // 검색된 post들 가져오기
   let search_list = useSelector((state) => state.search.list);
+  // input에 검색어가 있는지 확인
   const is_food = useSelector((state) => state.search.is_food);
 
   const onChange = (e) => {
     setFood(e.target.value);
   };
 
+  // 정렬기준을 가지고 검색하기
   const search = () => {
     setSort({ ...{ sort: false }, recent: true });
     dispatch(searchActions.getSearchListDB(food));
   };
 
+  // 검색input 초기화
   const foodReset = () => {
     setFood('');
     dispatch(searchActions.food_check(false));
@@ -45,10 +50,8 @@ const Search = (props) => {
     <React.Fragment>
       <PcSide {...props} />
       <Grid
-        // width="36rem"
         minHeight="100vh"
-        margin="0 auto"
-        // border={border.line1}
+        margin="0 auto"      
       >
         <Grid shape="container">
           <Header {...props} shape="검색">

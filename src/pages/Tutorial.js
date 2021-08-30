@@ -1,8 +1,9 @@
-// 첫 화면 튜토리얼 페이지
+// mealchak서비스 첫 페이지(splash screen, 간단 소개, 카카오 로그인)
 import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { useSelector } from "react-redux";
+
 // kakao login
 import { Kakao_auth_url } from "../shared/OAuth";
 
@@ -24,6 +25,7 @@ const Tutorial = (props) => {
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
+    // splash screen 시간 설정
     setLoading(true);
     setTimeout(() => {
       setLoading(false);

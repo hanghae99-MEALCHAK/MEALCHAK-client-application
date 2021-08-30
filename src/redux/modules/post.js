@@ -59,7 +59,6 @@ const initialState = {
 // main 게시글 정보 조회
 const getPostAX = (category, sort = "recent") => {
   return function (dispatch, getState, { history }) {
-    // dispatch(userActions.loading(true));
     axiosModule
       .get(`/posts/around?category=${category}&sort=${sort}`)
       .then((res) => {
@@ -176,7 +175,7 @@ const getOnePostAX = (post_id) => {
   };
 };
 
-// 상세페이지 참여중인 사용자 목록 조회
+// 각 post별 채팅방에 참여중인 유저 리스트
 const getDetailPostUserListAX = (postId) => {
   return function (dispatch, getState, { history }) {
     axiosModule
@@ -558,6 +557,7 @@ const deletePostAX = (post_id, path) => {
   };
 };
 
+// 메인 페이지 인기 카테고리
 const getRankDB = () => {
   return function (dispatch, getState, { history }) {
     axiosModule
