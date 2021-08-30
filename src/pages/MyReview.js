@@ -3,14 +3,13 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-import Spinner from "../shared/Spinner";
 import { MyOneReview, PcSide } from "../components";
 
 // style
 import { Grid } from "../elements";
 import { Header } from "../components";
+import Spinner from "../shared/Spinner";
 import logger from "../shared/Console";
-import theme from "../styles/theme";
 
 // 이미지
 import { png } from "../styles/img/index";
@@ -37,10 +36,8 @@ const MyReview = (props) => {
       <>
         <PcSide {...props} />
         <Grid
-          // maxWidth="36rem"
           minWidth="36rem"
           minHeight="100vh"
-          // border={border.line1}
           margin="0 auto"
         >
           <Grid shape="container" minWidth="36rem">
@@ -92,21 +89,6 @@ const MyReviewText = styled.div`
   text-align: center;
   font-weight: 400;
   color: #9a9896;
-`;
-
-const Profile = styled.div`
-  position: absolute;
-  margin: auto;
-  width: 4rem;
-  height: 4rem;
-  border-radius: 2rem;
-  background-color: black;
-  ${(props) =>
-    props.user_profile
-      ? `background-image: url(${props.user_profile});`
-      : `background-image: url(http://115.85.182.57:8080/image/profileDefaultImg.jpg)`}
-  background-size: cover;
-  background-position: center;
 `;
 
 export default MyReview;

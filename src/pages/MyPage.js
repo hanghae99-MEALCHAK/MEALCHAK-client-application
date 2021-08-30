@@ -1,5 +1,5 @@
+// 마이페이지
 import React from "react";
-import styled from "styled-components";
 
 import { actionCreators as userAction } from "../redux/modules/user";
 import { useDispatch, useSelector } from "react-redux";
@@ -307,13 +307,13 @@ const MyPage = (props) => {
               >
                 <Image
                   shape="setting"
-                  src={png.setting}
+                  src={isWebpSupported() ? webp.settingWebp : png.setting}
                   size="30"
                   margin="0 1.2rem 0 0"
                 />
 
                 <Text color={color.bg100} size={fontSize.base} bold2="400">
-                  앱 설정
+                  설정
                 </Text>
               </Grid>
             )}
@@ -325,16 +325,5 @@ const MyPage = (props) => {
     return <Spinner />;
   }
 };
-
-MyPage.defaultProps = {};
-
-const Profile = styled.div`
-  margin: auto;
-  width: 10rem;
-  height: 10rem;
-  border-radius: 5rem;
-  background-size: cover;
-  background-position: center;
-`;
 
 export default MyPage;

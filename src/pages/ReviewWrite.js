@@ -1,17 +1,18 @@
+// 리뷰 작성 페이지
 import React from "react";
 import styled from "styled-components";
-import { actionCreators as userActions } from "../redux/modules/user";
-import { customAlert } from "../components/Sweet";
-
-import { Grid, Button, Text, Input } from "../elements";
-import { Header, PcSide } from "../components";
-import theme from "../styles/theme";
-import logger from "../shared/Console";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
-
+import { actionCreators as userActions } from "../redux/modules/user";
+import { customAlert } from "../components/Sweet";
+import { Grid, Button, Text, Input } from "../elements";
+import { Header, PcSide } from "../components";
 import Select from "../components/ReactSelect";
-const { color, fontSize } = theme;
+
+import theme from "../styles/theme";
+import logger from "../shared/Console";
+
+
 // select options
 const options = [
   { value: "chocolate", label: "최고예요!" },
@@ -20,6 +21,7 @@ const options = [
 ];
 
 const ReviewWrite = (props) => {
+  const { color, fontSize } = theme;
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -80,9 +82,7 @@ const ReviewWrite = (props) => {
     <>
       <PcSide {...props} />
       <Grid
-        // maxWidth="36rem"
         minHeight="100vh"
-        // border={border.line1}
         margin="0 auto"
       >
         <Grid shape="container">
@@ -126,7 +126,6 @@ const ReviewWrite = (props) => {
           </Grid>
           <Grid
             width="36rem"
-            // 임시 height
             height="30rem"
             padding="1rem 3rem 0 3rem"
             borderTop="0.1rem solid #EBE9E8"
@@ -145,7 +144,6 @@ const ReviewWrite = (props) => {
               _onChange={changeDisabled}
             />
           </Grid>
-
         </Grid>
         <Grid
           maxWidth="35.9rem"

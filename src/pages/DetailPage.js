@@ -16,7 +16,7 @@ const DetailPage = React.memo((props) => {
 
   React.useEffect(() => {
     dispatch(postActions.getOnePostAX(id));
-  }, [])
+  }, []);
 
   const post_list = useSelector((state) => state.post.list);
   const user_info = useSelector((state) => state.user.user);
@@ -39,7 +39,7 @@ const DetailPage = React.memo((props) => {
 
   return (
     <React.Fragment>
-       <PcSide {...props}/>
+      <PcSide {...props} />
       <Grid
         minHeight="100vh"
         // maxWidth="36rem"

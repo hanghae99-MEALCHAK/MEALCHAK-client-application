@@ -148,7 +148,6 @@ const ProfileEdit = (props) => {
 
     setProfile({ ...editProfile, image: img });
     reader.readAsDataURL(img);
-
     reader.onloadend = () => {
       dispatch(imageActions.setPreview(reader.result));
     };
@@ -443,7 +442,6 @@ const Profile = styled.div`
       : `background-image: url(http://115.85.182.57:8080/image/profileDefaultImg.jpg);`}
   background-size: cover;
   background-position: center;
-  /* padding: 10rem 0 0 0; */
 `;
 
 const ProfileCover = styled.div`

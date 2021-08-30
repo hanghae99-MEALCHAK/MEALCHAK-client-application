@@ -212,7 +212,7 @@ const loginCheck = (path) => {
         )
         .then((res) => {
           if (res) {
-            return window.location.href = `${Kakao_auth_url}`;
+            return (window.location.href = `${Kakao_auth_url}`);
           } else {
             return history.replace("/home");
           }
@@ -309,7 +309,8 @@ const getMyPostAX = () => {
                 room_id: p.roomId,
                 nowHeadCount: p.nowHeadCount,
                 valid: p.valid,
-                meeting: p.meetingType === null? "SEPARATE" : p.meetingType,
+                meeting: p.meetingType === null ? "SEPARATE" : p.meetingType,
+                place_url: p.placeUrl,
               };
               posts.push(my_post);
             });

@@ -93,6 +93,7 @@ const getPostAX = (category, sort = "recent") => {
               nowHeadCount: p.nowHeadCount,
               valid: p.valid,
               meeting: p.meetingType === null ? "SEPARATE" : p.meetingType,
+              place_url: p.placeUrl,
             };
             // logger("post", post);
             post_list.push(post);
@@ -211,6 +212,7 @@ const addPostAX = (post_info) => {
     const address = getState().loc.post_address.address;
     const longitude = getState().loc.post_address.longitude;
     const latitude = getState().loc.post_address.latitude;
+    const place_url = getState().loc.place_url;
     logger("post모듈 addPostAX - 1", post_info.appointmentDate);
 
     axiosModule
@@ -225,6 +227,7 @@ const addPostAX = (post_info) => {
         longitude: longitude,
         latitude: latitude,
         meeting: post_info.meeting === null ? "SEPARATE" : post_info.meeting,
+        placeUrl: place_url,
       })
       .then((res) => {
         dispatch(chatActions.setChatListAX());

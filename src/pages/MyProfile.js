@@ -1,14 +1,14 @@
+// 내가 보는 내 프로필(마이페이지 아닌 타 유저가 보는 내 프로필과 비교)
 import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router";
 import { actionCreators as userAction } from "../redux/modules/user";
+import { MyOneReview } from "../components";
 
 // style
 import { Button, Grid, Text } from "../elements";
 import { Header, ProfileTab, PcSide } from "../components";
 import theme from "../styles/theme";
-import { MyOneReview } from "../components";
 import Spinner from "../shared/Spinner";
 import logger from "../shared/Console";
 
@@ -19,24 +19,20 @@ import { isWebpSupported } from "react-image-webp/dist/utils";
 
 const MyProfile = (props) => {
   const dispatch = useDispatch();
-  const location = useLocation();
+
   const is_login = useSelector((state) => state.user?.is_login);
   const other_user = useSelector((state) => state.user?.anotherUser);
   const user_id = props.location.state.user_id
     ? props.location.state.user_id
     : props.location.state.userId;
+
   const { color, fontSize, radius } = theme;
 
   React.useEffect(() => {
-    document
-      .querySelector("body")
-      .scrollTo({ top: 0, left: 0, behavior: "instant" });
+    document.querySelector("body").scrollTo(0, 0);
 
     dispatch(userAction.loginCheck());
     dispatch(userAction.findUserProfileAX(user_id));
-    logger("props from MyPage : ", location.state);
-    logger("props from MyPage2 : ", props);
-    logger("MyProfile another_user_info: ", other_user);
   }, []);
 
   if (is_login) {
@@ -44,15 +40,12 @@ const MyProfile = (props) => {
       <React.Fragment>
         <PcSide {...props} />
         <Grid
-          // maxWidth="36rem"
           minHeight="100vh"
-          // border={border.line1}
           margin="0 auto"
         >
           <Grid shape="container">
             <Header {...props} shape="프로필" />
             <Grid height="4.4rem" />
-
             <Grid margin="1.6rem auto 2rem">
               <Profile user_profile={other_user?.user_profile}></Profile>
             </Grid>

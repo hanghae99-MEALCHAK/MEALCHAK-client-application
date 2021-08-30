@@ -1,6 +1,5 @@
-// RoadAddress.js의 DaumPostCode 컴포넌트를 감싸줄 컴포넌트
+// pages - RoadAddress.js의 DaumPostCode 컴포넌트를 감싸줄 컴포넌트
 import React from "react";
-
 import { Header } from "../components";
 
 // style

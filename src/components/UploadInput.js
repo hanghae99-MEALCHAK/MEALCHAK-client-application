@@ -73,8 +73,8 @@ const UploadInput = React.memo((props) => {
   const post_address = useSelector((state) => state.loc.post_address?.address);
   const shopAddress = useSelector((state) => state.loc.shop_address);
   const coords = useSelector((state) => state.loc.post_address);
-  const longitude = coords.longitude;
-  const latitude = coords.latitude;
+  const longitude = coords?.longitude;
+  const latitude = coords?.latitude;
 
   const [post_info, setPostInfo] = useState(
     // post_info 자체는 항상 내려오는데 값이 수정전에는 undefined라서 그중에 하나 정해서 있는지 확인해본 코드
@@ -108,8 +108,10 @@ const UploadInput = React.memo((props) => {
   const dropdownRef = React.useRef(null);
   const shopRef = React.useRef(null);
 
-  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-  const [shopActive, setShopActive] = useDetectOutsideClick(shopRef, false);
+  // const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  // const [shopActive, setShopActive] = useDetectOutsideClick(shopRef, false);
+  const [isActive, setIsActive] = useState(false);
+  const [shopActive, setShopActive] = useState(false);
 
   const onClick = () => {
     setIsActive(!isActive);
@@ -370,6 +372,7 @@ const UploadInput = React.memo((props) => {
                       appointmentDate: date,
                     });
                     logger("현재시간", moment(date).format("YYYY-MM-DD"));
+
                     // 상위 컴포넌트로 데이터 보내기
                     props.onChange({
                       appointmentDate: moment(date).format("YYYY-MM-DD"),
@@ -404,6 +407,7 @@ const UploadInput = React.memo((props) => {
                       appointmentTime: date,
                     });
                     logger("현재시간", moment(date).format("HH:mm"));
+
                     // 상위 컴포넌트로 데이터 보내기
                     props.onChange({
                       appointmentTime: moment(date).format("HH:mm"),

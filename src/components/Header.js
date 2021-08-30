@@ -4,6 +4,7 @@ import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as searchActions } from "../redux/modules/search";
 import { actionCreators as imageActions } from "../redux/modules/image";
+import { actionCreators as locateActions } from "../redux/modules/loc";
 
 // styles
 import styled from "styled-components";
@@ -444,7 +445,7 @@ const ChatGridTop = styled.div`
   @media (min-width: 415px) {
     border-style: solid;
     border-width: 0 1px;
-    border-color: #CFCFCF;
+    border-color: #cfcfcf;
     max-width: 36rem;
     margin: 0 auto;
     box-sizing: border-box;
