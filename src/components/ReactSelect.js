@@ -13,7 +13,6 @@ const styles = {
   // select, option 전체
   app: {
     fontSize: fontSize.base,
-    // fontSize: fontSize.small,
     fontWeight: "400",
   },
 };
@@ -110,7 +109,6 @@ const ReactSelect = (props) => {
     <React.Fragment>
       <div style={styles.app}>
         <Select
-          //   value={props.value}
           options={props.options}
           placeholder="해당 사용자의 평가를 선택해주세요"
           onChange={(e) => {

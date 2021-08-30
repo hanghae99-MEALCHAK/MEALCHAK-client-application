@@ -1,3 +1,4 @@
+// post 자세히 보기 (post상세, 채팅방 참여 중인 사용자, 식당 지도)
 import React from 'react';
 import styled from 'styled-components';
 import { history } from '../redux/configureStore';
@@ -63,13 +64,13 @@ const DetailPost = React.memo((props) => {
   const ordDate = orderDate.split('-');
   const ordTime = orderTime.split(':');
 
-  // 오늘 표시
+  // 오늘,내일 날짜
   const today = moment().format('YYYY-MM-DD');
   const tomorrow = moment().add(1, 'd').format('YYYY-MM-DD');
   const is_today = today === orderDate ? true : false;
   const is_tomorrow = tomorrow === orderDate ? true : false;
 
-  // 날짜에 따라서 오늘 내일 변겨 함수
+  // 오늘, 내일 표시
   const date_time = () => {
     if (is_today) {
       return `오늘 ${ordTime[0]}:${ordTime[1]}`;
@@ -103,7 +104,6 @@ const DetailPost = React.memo((props) => {
 
   const requestJoin = () => {
     if (is_login) {
-      // customAlert.SweetChatRequest(user_info?.user_id, user_id, post_id);
       dispatch(
         postAction.requestChatPostAX(
           user_info?.user_id,
@@ -118,6 +118,7 @@ const DetailPost = React.memo((props) => {
     }
   };
 
+  // 모집 유형 표시
   const meetingType = () => {
     if (meeting === 'SEPARATE') {
       return '배달만';
@@ -166,7 +167,6 @@ const DetailPost = React.memo((props) => {
                 </Grid>
                 <Grid flex justify_content="flex-end" width="fit-content">
                   <Grid
-                    // width={valid === false ? "5.5rem" : ""}
                     width="fit-content"
                     height="fit-content"
                     white_space="nowrap"
@@ -198,7 +198,6 @@ const DetailPost = React.memo((props) => {
                     </Text>
                   </Grid>
                   <Grid
-                    // width={valid === false ? "5.5rem" : ""}
                     width="fit-content"
                     height="fit-content"
                     white_space="nowrap"
@@ -269,7 +268,6 @@ const DetailPost = React.memo((props) => {
             </Text>
             {!props.is_profile && (
               <Text
-                // height="1.5rem"
                 size="1rem"
                 bold2="500"
                 color={color.success100}
@@ -315,7 +313,6 @@ const DetailPost = React.memo((props) => {
               width="15rem"
               size="1.3rem"
               color={color.bg100}
-              // margin="0 0 1.6rem 0"
             >
               {shop}
             </Text>
@@ -323,7 +320,6 @@ const DetailPost = React.memo((props) => {
               width="15rem"
               size="1.3rem"
               color={color.bg100}
-              // margin="0 0 1.6rem 0"
             >
               {date_time()}
             </Text>
@@ -499,8 +495,6 @@ const DetailPost = React.memo((props) => {
             maxWidth="32rem"
             margin="0 auto"
             height="auto"
-            // is_fixed="t"
-            // bottom="1rem"
           >
             {props.is_me ? (
               <Grid text_align="center" is_flex3 maxWidth="32rem" gap="0.8rem">

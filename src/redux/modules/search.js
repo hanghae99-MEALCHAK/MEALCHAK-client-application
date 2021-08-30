@@ -3,8 +3,6 @@ import { produce } from "immer";
 import axiosModule from "../axios_module";
 
 import logger from "../../shared/Console";
-import { customAlert } from "../../components/Sweet";
-import { history } from "../configureStore";
 
 const GET_SEARCH_LIST = "GET_SEARCH_LIST";
 const FOOD_CHECK = "FOOD_CHECK";
@@ -21,9 +19,9 @@ const initialState = {
   is_food: false,
 };
 
+// 검색어, 정결기준을 가지고 검색한 post리스트
 const getSearchListDB = (food, sort = "recent") => {
   return function (dispatch, getState, { history }) {
-    // const username = getState().user.user.username;
     dispatch(food_check(true));
     axiosModule
       .get(`/search?keyword=${food}&sort=${sort}`)

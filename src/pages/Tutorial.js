@@ -1,3 +1,4 @@
+// mealchak서비스 첫 페이지(splash screen, 간단 소개, 카카오 로그인)
 import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
@@ -17,12 +18,13 @@ import { webp } from '../styles/img/webp/index';
 import {isWebpSupported} from 'react-image-webp/dist/utils';
 
 const Tutorial = (props) => {
-  const { color, border, fontSize, radius } = theme;
+  const { color, fontSize, radius } = theme;
   const is_login = useSelector((state) => state.user.is_login);
   // splash screen
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
+    // splash screen 시간 설정
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -47,9 +49,7 @@ const Tutorial = (props) => {
       ) : (
         <Grid
           maxWidth="36rem"
-          // border={border.line1}
           margin="0 auto"
-          // padding="2rem"
           minHeight="100vh"
           text_align="center"
         >

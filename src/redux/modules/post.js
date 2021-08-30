@@ -7,15 +7,12 @@ import { actionCreators as chatActions } from "./chat";
 import { actionCreators as searchActions } from "./search";
 import { customAlert } from "../../components/Sweet";
 import moment from "moment";
-import { actionCreators as locateActions } from "./loc";
-import { useLocation } from "react-router";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { Text, Grid } from "../../elements";
 import theme from "../../styles/theme";
 import "../../components/sweet.css";
-import { KingBedRounded } from "@material-ui/icons";
 
 const { color, fontSize } = theme;
 const sweet = withReactContent(Swal);
@@ -61,7 +58,6 @@ const initialState = {
 
 const getPostAX = (category, sort = "recent") => {
   return function (dispatch, getState, { history }) {
-    // dispatch(userActions.loading(true));
     axiosModule
       .get(`/posts/around?category=${category}&sort=${sort}`)
       .then((res) => {
@@ -169,6 +165,7 @@ const getOnePostAX = (post_id) => {
   };
 };
 
+// 각 post별 채팅방에 참여중인 유저 리스트
 const getDetailPostUserListAX = (postId) => {
   return function (dispatch, getState, { history }) {
     axiosModule
@@ -210,7 +207,6 @@ const addPostAX = (post_info) => {
         title: post_info.title,
         headCount: post_info.headCount,
         category: post_info.foodCategory,
-        // address: post_info.place,
         address: `${address}/${post_info.detail_place}`,
         orderTime: `${post_info.appointmentDate} ${post_info.appointmentTime}:00`,
         contents: post_info.contents,
@@ -230,8 +226,6 @@ const addPostAX = (post_info) => {
           ],
           "/home"
         );
-
-        // dispatch(locateActions.setAddressNull());
       })
       .catch((e) => {
         logger("모집글 작성 모듈 에러", e);
@@ -308,7 +302,6 @@ const editPostAX = (post_id, post_info, path) => {
           ["성공적으로 모집글 수정이 완료되었어요."],
           `/post/${post_id}`
         );
-        // customAlert.sweetConfirmReload("수정 완료", '모집글 수정이 완료되었습니다.', `/home`);
       })
       .catch((e) => {
         logger("모집글 수정 모듈 에러", e);
@@ -551,6 +544,7 @@ const deletePostAX = (post_id, path) => {
   };
 };
 
+// 메인 페이지 인기 카테고리
 const getRankDB = () => {
   return function (dispatch, getState, { history }) {
     axiosModule
@@ -577,15 +571,6 @@ export default handleActions(
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.push(...action.payload.post_list);
-
-        // draft.list = draft.list.reduce((acc, cur) => {
-        //   if (acc.findIndex((a) => a.id === cur.post_id) === -1) {
-        //     return [...acc, cur];
-        //   } else {
-        //     acc[acc.findIndex((a) => a.id === cur.post_id)] = cur;
-        //     return acc;
-        //   }
-        // }, []);
       }),
 
     [GET_DETAIL_POST_USER_LIST]: (state, action) =>
