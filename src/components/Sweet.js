@@ -345,8 +345,7 @@ const sweetNeedLogin = () => {
     })
     .then((res) => {
       if (res.isConfirmed) {
-        return window.location.href = `${Kakao_auth_url}`;
-        
+        return (window.location.href = `${Kakao_auth_url}`);
       }
       return;
     });

@@ -1,22 +1,15 @@
-/*global kakao */
+// 게시글 작성 및 수정 시 지도에서 키워드로 식당 찾기
 import React from "react";
-import DaumPostCode from "react-daum-postcode";
-import { customAlert } from "./Sweet";
+
 import { AddressGrid, MapContainer } from ".";
+import { Grid, Image } from "../elements";
 
-import { Grid, Input, Button, Image, Text } from "../elements";
-import { useDispatch } from "react-redux";
-import { actionCreators as locateActions } from "../redux/modules/loc";
-import logger from "../shared/Console";
-
-import theme from "../styles/theme";
 // 이미지
 import { png } from "../styles/img/index";
 import { webp } from "../styles/img/webp/index";
 import { isWebpSupported } from "react-image-webp/dist/utils";
 
 const ShopAddress = (props) => {
-  const { border, fontSize, btn_border, color } = theme;
 
   const [inputText, setInputText] = React.useState("");
   const [place, setPlace] = React.useState("");
@@ -31,11 +24,13 @@ const ShopAddress = (props) => {
     }
   };
 
+  // setPlace로 place값 지정하고 MapContainer 컴포넌트로 넘겨줌
   const handleSubmit = (e) => {
     e.preventDefault();
     setPlace(inputText);
   };
 
+  // 검색 - 식당 설정 후 지도 초기화
   const placeNull = () => {
     setInputText("");
     setPlace("");

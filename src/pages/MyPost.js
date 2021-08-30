@@ -3,8 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-import Spinner from "../shared/Spinner";
 import { DetailPost, PcSide } from "../components";
+import Spinner from "../shared/Spinner";
 
 // style
 import { Grid } from "../elements";
@@ -13,8 +13,8 @@ import logger from "../shared/Console";
 
 // 이미지
 import { png } from "../styles/img/index";
-import { webp } from '../styles/img/webp/index';
-import {isWebpSupported} from 'react-image-webp/dist/utils';
+import { webp } from "../styles/img/webp/index";
+import { isWebpSupported } from "react-image-webp/dist/utils";
 
 const MyPost = (props) => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const MyPost = (props) => {
   React.useEffect(() => {
     document.querySelector("body").scrollTo(0, 0);
     dispatch(userActions.loaded(false));
-    if(my_post.length !== 0){
+    if (my_post.length !== 0) {
       dispatch(userActions.loaded(true));
     }
     dispatch(userActions.loginCheck());
@@ -38,13 +38,7 @@ const MyPost = (props) => {
       <>
         {!is_loaded && !my_post ? <Spinner /> : ""}
         <PcSide {...props} />
-        <Grid
-          // maxWidth="36rem"
-          // minWidth="36rem"
-          minHeight="100vh"
-          // border={border.line1}
-          margin="0 auto"
-        >
+        <Grid minHeight="100vh" margin="0 auto">
           <Grid shape="container" minWidth="36rem">
             <Header {...props} shape="내가쓴글" />
             <Grid height="4.4rem" />
@@ -54,7 +48,11 @@ const MyPost = (props) => {
               })
             ) : (
               <Grid width="36rem" margin="18rem auto 0 auto">
-                <MyReviewImg src={isWebpSupported()? webp.emptyMeal_3xWebp : png.emptyMeal_3x}></MyReviewImg>
+                <MyReviewImg
+                  src={
+                    isWebpSupported() ? webp.emptyMeal_3xWebp : png.emptyMeal_3x
+                  }
+                ></MyReviewImg>
                 <MyReviewText>아직 내가 쓴 글이 없어요.</MyReviewText>
               </Grid>
             )}

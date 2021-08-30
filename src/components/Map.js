@@ -1,25 +1,30 @@
 /*global kakao */
+// 상세페이지 - 게시글 올린 유저의 위치(지도로 보여주기)
 import React from "react";
 import { useSelector } from "react-redux";
 
 import "../styles/map.css";
 
-import { Grid, Text } from "../elements";
+import { Grid } from "../elements";
 import theme from "../styles/theme";
 
 const Map = (props) => {
   const { radius } = theme;
 
+  // 게시글 - 만날 장소의 위도, 경도
   const latitude = useSelector((state) => state.post.post_lat_lng?.latitude);
   const longitude = useSelector((state) => state.post.post_lat_lng?.longitude);
 
   React.useEffect(() => {
+    // 지도를 그릴 container (JSX - <Grid id="map">)
+    // 지도의 중심좌표(center)와 확대 레벨(level)
     const container = document.getElementById("map");
     const options = {
       center: new kakao.maps.LatLng(latitude, longitude),
       level: 4,
     };
 
+    // 지도 생성
     const map = new kakao.maps.Map(container, options);
 
     const markerPosition = new kakao.maps.LatLng(latitude, longitude);
@@ -36,12 +41,12 @@ const Map = (props) => {
     // const zoomControl = new kakao.maps.ZoomControl();
     // map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
+    // 커스텀 인포윈도우
     const content =
       '<div class="wrap">' +
       '    <div class="info">' +
       '        <div class="title">' +
       `            ${props?.title}` +
-      // '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
       "        </div>" +
       '        <div class="body">' +
       '            <div class="img">' +
@@ -49,23 +54,20 @@ const Map = (props) => {
       "           </div>" +
       '            <div class="desc">' +
       `                <div class="ellipsis">${props?.address}</div>` +
-      `                <div class="jibun ellipsis">${
-        props?.detail_address ? props?.detail_address : ""
-      }</div>` +
+      `                <div class="jibun ellipsis">${props?.detail_address ? props?.detail_address : ""}</div>` +
       "            </div>" +
       "        </div>" +
       "    </div>" +
       "</div>";
 
-    // 마커 위에 커스텀오버레이를 표시합니다
-    // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+    // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS 이용해 위치를 설정
     const overlay = new kakao.maps.CustomOverlay({
       content: content,
       map: map,
       position: marker.getPosition(),
     });
 
-    // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+    // 마커를 클릭했을 때 커스텀 오버레이를 표시
     kakao.maps.event.addListener(marker, "click", function () {
       overlay.setMap(map);
     });

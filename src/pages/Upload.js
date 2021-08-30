@@ -282,19 +282,20 @@ const Upload = React.memo((props) => {
       return;
     }
     delete post_info.disabled;
-    dispatch(postAction.editPostAX(post_id, post_info, (my_post.length > 0 ? "/mypost" : null)));
+    dispatch(
+      postAction.editPostAX(
+        post_id,
+        post_info,
+        my_post.length > 0 ? "/mypost" : null
+      )
+    );
   };
 
   if (is_login) {
     return (
       <>
         <PcSide {...props} />
-        <Grid
-          // maxWidth="36rem"
-          minHeight="100vh"
-          // border={border.line1}
-          margin="0 auto"
-        >
+        <Grid minHeight="100vh" margin="0 auto">
           <Grid shape="container">
             <Header {...props} shape="모임 만들기" />
             <Grid height="4.4rem" />

@@ -6,13 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDetectOutsideClick } from "./useDetectOutsideClick";
 
 // 날짜
-import moment from 'moment';
-import DatePicker from 'react-datepicker';
-import { ko } from 'date-fns/esm/locale';
-import 'react-datepicker/dist/react-datepicker.css';
+import moment from "moment";
+import DatePicker from "react-datepicker";
+import { ko } from "date-fns/esm/locale";
+import "react-datepicker/dist/react-datepicker.css";
 
 // select
-import { HeadSelect, CTGSelect, MeetingSelect } from './ReactSelect';
+import { HeadSelect, CTGSelect, MeetingSelect } from "./ReactSelect";
 
 // style
 import "./style.css";
@@ -21,27 +21,27 @@ import { IoIosCloseCircle } from "react-icons/io";
 import theme from "../styles/theme";
 import logger from "../shared/Console";
 
-import { PostAddress, ShopAddress } from '.';
-import { actionCreators as locateActions } from '../redux/modules/loc';
+import { PostAddress, ShopAddress } from ".";
+import { actionCreators as locateActions } from "../redux/modules/loc";
 
 const UploadInput = React.memo((props) => {
   const { color, fontSize, radius, border } = theme;
 
   // select options
   const head_options = [
-    { value: '2', label: '2명' },
-    { value: '3', label: '3명' },
-    { value: '4', label: '4명' },
+    { value: "2", label: "2명" },
+    { value: "3", label: "3명" },
+    { value: "4", label: "4명" },
   ];
 
   const food_options = [
-    { value: '한식', label: '한식' },
-    { value: '분식', label: '분식' },
-    { value: '중식', label: '중식' },
-    { value: '일식', label: '일식' },
-    { value: '양식', label: '양식' },
-    { value: '카페', label: '카페' },
-    { value: '기타', label: '기타' },
+    { value: "한식", label: "한식" },
+    { value: "분식", label: "분식" },
+    { value: "중식", label: "중식" },
+    { value: "일식", label: "일식" },
+    { value: "양식", label: "양식" },
+    { value: "카페", label: "카페" },
+    { value: "기타", label: "기타" },
   ];
 
   const meeting_options = [
@@ -50,7 +50,7 @@ const UploadInput = React.memo((props) => {
   ];
 
   const getDayName = (date) => {
-    return date.toLocaleDateString('ko-KR', { weekday: 'long' }).substr(0, 1);
+    return date.toLocaleDateString("ko-KR", { weekday: "long" }).substr(0, 1);
   };
 
   // 날짜 비교시 년 월 일까지만 비교하게끔
@@ -69,8 +69,8 @@ const UploadInput = React.memo((props) => {
   const post_address = useSelector((state) => state.loc.post_address?.address);
   const shopAddress = useSelector((state) => state.loc.shop_address);
   const coords = useSelector((state) => state.loc.post_address);
-  const longitude = coords.longitude;
-  const latitude = coords.latitude;
+  const longitude = coords?.longitude;
+  const latitude = coords?.latitude;
 
   const [post_info, setPostInfo] = useState(
     // post_info 자체는 항상 내려오는데 값이 수정전에는 undefined라서 그중에 하나 정해서 있는지 확인해본 코드
@@ -88,24 +88,26 @@ const UploadInput = React.memo((props) => {
           meeting: props.post_info.meeting,
         }
       : {
-          place: '',
-          detail_place: '',
-          restaurant: shopAddress ? shopAddress : '',
-          headCount: '',
+          place: "",
+          detail_place: "",
+          restaurant: shopAddress ? shopAddress : "",
+          headCount: "",
           appointmentTime: today,
           appointmentDate: today,
-          foodCategory: '',
+          foodCategory: "",
           longitude: longitude,
           latitude: latitude,
-          meeting: '',
+          meeting: "",
         }
   );
 
   const dropdownRef = React.useRef(null);
   const shopRef = React.useRef(null);
 
-  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-  const [shopActive, setShopActive] = useDetectOutsideClick(shopRef, false);
+  // const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  // const [shopActive, setShopActive] = useDetectOutsideClick(shopRef, false);
+  const [isActive, setIsActive] = useState(false);
+  const [shopActive, setShopActive] = useState(false);
 
   const onClick = () => {
     setIsActive(!isActive);
@@ -161,13 +163,13 @@ const UploadInput = React.memo((props) => {
               <div className="menu-container">
                 <nav
                   ref={dropdownRef}
-                  className={`menu ${isActive ? 'active' : 'inactive'}`}
+                  className={`menu ${isActive ? "active" : "inactive"}`}
                   style={{
-                    backgroundColor: 'transparent',
-                    cursor: 'pointer',
-                    zIndex: '101',
+                    backgroundColor: "transparent",
+                    cursor: "pointer",
+                    zIndex: "101",
                     top: 0,
-                    position: 'fixed',
+                    position: "fixed",
                   }}
                 >
                   <PostAddress close={onClick} />
@@ -188,7 +190,7 @@ const UploadInput = React.memo((props) => {
                   ? post_address
                   : props?.find_address
                   ? props.find_address
-                  : '주소를 찾으면 자동으로 입력돼요.'}
+                  : "주소를 찾으면 자동으로 입력돼요."}
               </Text>
             </Grid>
             <FocusWithin>
@@ -227,13 +229,13 @@ const UploadInput = React.memo((props) => {
               <div className="shop-container">
                 <nav
                   ref={shopRef}
-                  className={`shop ${shopActive ? 'active' : 'inactive'}`}
+                  className={`shop ${shopActive ? "active" : "inactive"}`}
                   style={{
-                    backgroundColor: 'transparent',
-                    cursor: 'pointer',
-                    zIndex: '101',
+                    backgroundColor: "transparent",
+                    cursor: "pointer",
+                    zIndex: "101",
                     top: 0,
-                    position: 'fixed',
+                    position: "fixed",
                   }}
                 >
                   <ShopAddress close={onClickShop} />
@@ -365,10 +367,10 @@ const UploadInput = React.memo((props) => {
                       ...post_info,
                       appointmentDate: date,
                     });
-                    logger('현재시간', moment(date).format('YYYY-MM-DD'));
+                    logger("현재시간", moment(date).format("YYYY-MM-DD"));
 
                     props.onChange({
-                      appointmentDate: moment(date).format('YYYY-MM-DD'),
+                      appointmentDate: moment(date).format("YYYY-MM-DD"),
                     });
                   }}
                   withPortal={true}
@@ -379,7 +381,7 @@ const UploadInput = React.memo((props) => {
                   }}
                   popperPlacement="auto"
                   dayClassName={(date) =>
-                    getDayName(createDate(date)) === '일' ? 'sunday' : undefined
+                    getDayName(createDate(date)) === "일" ? "sunday" : undefined
                   }
                 />
 
@@ -399,9 +401,9 @@ const UploadInput = React.memo((props) => {
                       ...post_info,
                       appointmentTime: date,
                     });
-                    logger('현재시간', moment(date).format('HH:mm'));
+                    logger("현재시간", moment(date).format("HH:mm"));
                     props.onChange({
-                      appointmentTime: moment(date).format('HH:mm'),
+                      appointmentTime: moment(date).format("HH:mm"),
                     });
                   }}
                   withPortal={true}
@@ -533,7 +535,7 @@ const SDatePicker = styled(DatePicker)`
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-  background: url('https://image.flaticon.com/icons/png/512/32/32195.png')
+  background: url("https://image.flaticon.com/icons/png/512/32/32195.png")
     no-repeat 92% 50% #fff;
   background-size: 1rem;
 `;
@@ -551,7 +553,7 @@ const TDatePicker = styled(DatePicker)`
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-  background: url('https://image.flaticon.com/icons/png/512/992/992700.png')
+  background: url("https://image.flaticon.com/icons/png/512/992/992700.png")
     no-repeat 88% 50% #fff;
   background-size: 1.5rem;
 `;

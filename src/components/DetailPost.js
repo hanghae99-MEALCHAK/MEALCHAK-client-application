@@ -1,24 +1,24 @@
-import React from 'react';
-import styled from 'styled-components';
-import { history } from '../redux/configureStore';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as postAction } from '../redux/modules/post';
-import Map from '../components/Map';
+import React from "react";
+import styled from "styled-components";
+import { history } from "../redux/configureStore";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as postAction } from "../redux/modules/post";
+import Map from "../components/Map";
 
-import { Grid, Button, Text, Image } from '../elements';
+import { Grid, Button, Text, Image } from "../elements";
 
-import theme from '../styles/theme';
-import logger from '../shared/Console';
-import { customAlert } from './Sweet';
+import theme from "../styles/theme";
+import logger from "../shared/Console";
+import { customAlert } from "./Sweet";
 
 // 이미지
-import { png } from '../styles/img/index';
-import { webp } from '../styles/img/webp';
-import { isWebpSupported } from 'react-image-webp/dist/utils';
-import moment from 'moment';
+import { png } from "../styles/img/index";
+import { webp } from "../styles/img/webp";
+import { isWebpSupported } from "react-image-webp/dist/utils";
+import moment from "moment";
 
 const DetailPost = React.memo((props) => {
-  logger('상세포스트 프롭스', props);
+  logger("상세포스트 프롭스", props);
   const {
     address,
     detail_address,
@@ -53,19 +53,19 @@ const DetailPost = React.memo((props) => {
   const distance = props?.distance * 1000;
 
   // 연, 월
-  const ym = props?.insert_dt.split('-');
+  const ym = props?.insert_dt.split("-");
   // 일
-  const day = ym[2].split(' ');
+  const day = ym[2].split(" ");
   // 시, 분
-  const hm = day[1].split(':');
+  const hm = day[1].split(":");
 
   // 예상 만남 시간
-  const ordDate = orderDate.split('-');
-  const ordTime = orderTime.split(':');
+  const ordDate = orderDate.split("-");
+  const ordTime = orderTime.split(":");
 
   // 오늘 표시
-  const today = moment().format('YYYY-MM-DD');
-  const tomorrow = moment().add(1, 'd').format('YYYY-MM-DD');
+  const today = moment().format("YYYY-MM-DD");
+  const tomorrow = moment().add(1, "d").format("YYYY-MM-DD");
   const is_today = today === orderDate ? true : false;
   const is_tomorrow = tomorrow === orderDate ? true : false;
 
@@ -82,6 +82,12 @@ const DetailPost = React.memo((props) => {
   };
 
   React.useEffect(() => {
+    document
+      .querySelector("body")
+      .scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, []);
+
+  React.useEffect(() => {
     if (valid === false) {
       return setDisabled(true);
     }
@@ -96,20 +102,19 @@ const DetailPost = React.memo((props) => {
     dispatch(
       postAction.deletePostAX(
         props?.post_id,
-        props?.is_profile ? 'is_profile' : null
+        props?.is_profile ? "is_profile" : null
       )
     );
   };
 
   const requestJoin = () => {
     if (is_login) {
-      // customAlert.SweetChatRequest(user_info?.user_id, user_id, post_id);
       dispatch(
         postAction.requestChatPostAX(
           user_info?.user_id,
           user_id,
           post_id,
-          'post'
+          "post"
         )
       );
       return;
@@ -119,11 +124,11 @@ const DetailPost = React.memo((props) => {
   };
 
   const meetingType = () => {
-    if (meeting === 'SEPARATE') {
-      return '배달만';
+    if (meeting === "SEPARATE") {
+      return "배달만";
     }
-    if (meeting === 'TOGETHER') {
-      return '배달+식사';
+    if (meeting === "TOGETHER") {
+      return "배달+식사";
     }
   };
 
@@ -144,7 +149,7 @@ const DetailPost = React.memo((props) => {
                 if (is_login) {
                   if (user_info.user_id === props.user_id) {
                     return history.push({
-                      pathname: '/myprofile',
+                      pathname: "/myprofile",
                       state: { ...props },
                     });
                   }
@@ -173,7 +178,7 @@ const DetailPost = React.memo((props) => {
                     bg={
                       props.valid === false || disabled
                         ? color.bg20
-                        : 'rgba(84, 189, 88, 0.1)'
+                        : "rgba(84, 189, 88, 0.1)"
                     }
                     radius="0.5rem"
                     margin="0 0.4rem 0 0"
@@ -315,14 +320,22 @@ const DetailPost = React.memo((props) => {
               width="15rem"
               size="1.3rem"
               color={color.bg100}
+              bold2="500"
               // margin="0 0 1.6rem 0"
             >
-              {shop}
+              {props?.place_url ? (
+                <a href={props?.place_url} target="_blank" rel="noreferrer">
+                  {shop}
+                </a>
+              ) : (
+                `${shop}`
+              )}
             </Text>
             <Text
               width="15rem"
               size="1.3rem"
               color={color.bg100}
+              bold2="500"
               // margin="0 0 1.6rem 0"
             >
               {date_time()}
@@ -380,7 +393,7 @@ const DetailPost = React.memo((props) => {
                       bold={fontSize.bold}
                       cursor="t"
                       _onClick={() => {
-                        history.replace({
+                        history.push({
                           pathname: `/upload/${post_id}`,
                           state: { ...props },
                         });
@@ -420,7 +433,7 @@ const DetailPost = React.memo((props) => {
                       if (is_login) {
                         if (user_info?.user_id === p.user_id) {
                           return history.push({
-                            pathname: '/myprofile',
+                            pathname: "/myprofile",
                             state: { ...p },
                           });
                         }
@@ -529,7 +542,7 @@ const DetailPost = React.memo((props) => {
                   bold={fontSize.bold}
                   cursor="t"
                   _onClick={() => {
-                    history.replace({
+                    history.push({
                       pathname: `/upload/${post_id}`,
                       state: { ...props },
                     });
@@ -542,7 +555,7 @@ const DetailPost = React.memo((props) => {
               <Grid maxWidth="32rem" height="5rem">
                 <Button
                   shape="large"
-                  color={disabled ? '#EBE9E8' : color.brand100}
+                  color={disabled ? "#EBE9E8" : color.brand100}
                   size={fontSize.small}
                   disabled={disabled}
                   cursor="pointer"
@@ -556,9 +569,9 @@ const DetailPost = React.memo((props) => {
                   <Text
                     bold
                     size="1.6rem"
-                    color={disabled ? '#CECAC7' : color.bg0}
+                    color={disabled ? "#CECAC7" : color.bg0}
                   >
-                    {disabled ? '모집 마감됐어요' : '채팅 시작하기'}
+                    {disabled ? "모집 마감됐어요" : "채팅 시작하기"}
                   </Text>
                 </Button>
               </Grid>
@@ -577,7 +590,7 @@ const UserProfile = styled.div`
   width: 4.925rem;
   height: 4rem;
   border-radius: 2rem;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   background-size: cover;
   background-position: center;
   margin: 0 0.8rem 0 0;
@@ -598,7 +611,7 @@ const GridGap = styled.div`
 
 const LogoImg = styled.div`
   margin: 2.4rem auto 1.6rem auto;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   width: 12.7rem;
   height: 11.5rem;
   background-size: cover;
