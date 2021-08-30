@@ -1,19 +1,15 @@
+// 참여 중인 채팅 목록 탭의 채팅 리스트 컴포넌트
 import React from "react";
 import theme from "../styles/theme";
 import { Grid, Text } from "../elements";
-import logger from "../shared/Console";
 
-const ChatListItem = React.memo((props) => {
+const ChatListItem = React.memo((props) => { // 컴포넌트 메모이징
   const { color, border, fontSize } = theme;
-  const { roomName, live_chat, _onClick, headCountChat, new_msg } = props;
+  const { roomName, live_chat, _onClick, headCountChat, new_msg } = props; // ChatRoomList.js의 props
 
-  React.useEffect(() => {
-    logger("chat list item props정보");
-  }, []);
-
+  // 방장이 채팅방 나갔을 경우 다른 사용자에게 보이는 채팅 리스트
   if (!live_chat) {
     return (
-      // 방장이 채팅방 나갔을 경우 다른 사용자에게 보이는 채팅 리스트
       <React.Fragment>
         <Grid
           justify_content="space-between"
@@ -23,7 +19,7 @@ const ChatListItem = React.memo((props) => {
         >
           <Grid is_flex4="t" width="70%">
             <Grid width="5rem" is_flex4="t" margin="0 1rem 0 0">
-              <svg
+              <svg  // 비 활성화 채팅 목록 아이콘
                 width="5rem"
                 height="5rem"
                 viewBox="0 0 50 50"
@@ -81,9 +77,8 @@ const ChatListItem = React.memo((props) => {
       </React.Fragment>
     );
   } else {
+    // 현재 활성화 되어 채팅이 가능한 목록 리스트
     return (
-      // 그 외
-
       <React.Fragment>
         <Grid
           justify_content="space-between"
@@ -95,7 +90,7 @@ const ChatListItem = React.memo((props) => {
         >
           <Grid is_flex4="t" width="70%">
             <Grid width="5rem" is_flex4="t" margin="0 1rem 0 0">
-              <svg
+              <svg // 활성화 채팅 목록 아이콘
                 width="5.0rem"
                 height="5.0rem"
                 viewBox="0 0 50 50"
@@ -118,7 +113,7 @@ const ChatListItem = React.memo((props) => {
                 color={color.bg100}
                 size={fontSize.base}
                 overflow="hidden"
-                text_overflow="ellipsis"
+                text_overflow="ellipsis" // 채팅 방이름 줄임표시
               >
                 {roomName}
               </Text>
@@ -129,21 +124,23 @@ const ChatListItem = React.memo((props) => {
           </Grid>
 
           <Grid is_flex4="t" width="auto">
-            {new_msg && <svg
-              style={{ marginRight: "0.4rem" }}
-              width="3.7rem"
-              height="2.1rem"
-              viewBox="0 0 37 21"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="37" height="21" rx="10.5" fill="#F35959" />
-              <path
-                d="M9.42 6.6H7.91V14H9.31V11.03C9.31 10.18 9.2 9.25 9.13 8.45H9.18L9.93 10.04L12.07 14H13.57V6.6H12.17V9.55C12.17 10.39 12.28 11.37 12.36 12.14H12.31L11.57 10.54L9.42 6.6ZM19.8402 6.6H15.3002V14H19.9502V12.76H16.7802V10.78H19.3802V9.54H16.7802V7.83H19.8402V6.6ZM22.1326 6.6H20.6226L22.0526 14H23.8626L24.6726 10.34C24.7926 9.74 24.8826 9.19 24.9926 8.63H25.0326C25.1226 9.19 25.2326 9.74 25.3526 10.34L26.1826 14H28.0226L29.3926 6.6H27.9826L27.4026 10.21C27.2926 10.98 27.1826 11.77 27.0726 12.57H27.0226C26.8626 11.77 26.7126 10.97 26.5526 10.21L25.6926 6.6H24.4326L23.5726 10.21C23.4126 10.98 23.2526 11.77 23.1026 12.57H23.0626C22.9526 11.77 22.8326 11.01 22.7226 10.21L22.1326 6.6Z"
-                fill="white"
-              />
-            </svg>}
-            <svg
+            {new_msg && (  // 새 메세지 여부 판단
+              <svg  // 새 메세지 왔을 때, 알림 아이콘
+                style={{ marginRight: "0.4rem" }}
+                width="3.7rem"
+                height="2.1rem"
+                viewBox="0 0 37 21"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="37" height="21" rx="10.5" fill="#F35959" />
+                <path
+                  d="M9.42 6.6H7.91V14H9.31V11.03C9.31 10.18 9.2 9.25 9.13 8.45H9.18L9.93 10.04L12.07 14H13.57V6.6H12.17V9.55C12.17 10.39 12.28 11.37 12.36 12.14H12.31L11.57 10.54L9.42 6.6ZM19.8402 6.6H15.3002V14H19.9502V12.76H16.7802V10.78H19.3802V9.54H16.7802V7.83H19.8402V6.6ZM22.1326 6.6H20.6226L22.0526 14H23.8626L24.6726 10.34C24.7926 9.74 24.8826 9.19 24.9926 8.63H25.0326C25.1226 9.19 25.2326 9.74 25.3526 10.34L26.1826 14H28.0226L29.3926 6.6H27.9826L27.4026 10.21C27.2926 10.98 27.1826 11.77 27.0726 12.57H27.0226C26.8626 11.77 26.7126 10.97 26.5526 10.21L25.6926 6.6H24.4326L23.5726 10.21C23.4126 10.98 23.2526 11.77 23.1026 12.57H23.0626C22.9526 11.77 22.8326 11.01 22.7226 10.21L22.1326 6.6Z"
+                  fill="white"
+                />
+              </svg>
+            )}
+            <svg // 기본 꺽쇠 아이콘
               width="2.4rem"
               height="2.4rem"
               viewBox="0 0 24 24"

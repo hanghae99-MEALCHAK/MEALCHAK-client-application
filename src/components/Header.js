@@ -1,32 +1,29 @@
+// 헤더 컴포넌트
 import React from "react";
-import styled from "styled-components";
-import logger from "../shared/Console";
 import { history } from "../redux/configureStore";
-import { customAlert } from "./Sweet";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as searchActions } from "../redux/modules/search";
 import { actionCreators as imageActions } from "../redux/modules/image";
+import { actionCreators as locateActions } from "../redux/modules/loc";
 
 // styles
+import styled from "styled-components";
 import { HiOutlineMenu } from "react-icons/hi";
 import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
-// 이미지
+import { customAlert } from "./Sweet";
+
+// 이미지, 아이콘의 경우 webp 사용
+// webp 사용 불가 환경일 경우만 png
 import { png } from "../styles/img/index";
 import { webp } from "../styles/img/webp/index";
 import { isWebpSupported } from "react-image-webp/dist/utils";
 
+// 헤더 props로는 page별 상위컴포넌트에서 내려받는 history, shape이 있음
 const Header = (props) => {
-  const dispatch = useDispatch();
-
-  const is_login = useSelector((state) => state.user.is_login);
-
   const { color, fontSize } = theme;
-
-  React.useEffect(() => {
-    // 헤더 props로는 page별 상위컴포넌트에서 내려받는 history, shape이 있음
-    logger("헤더 props", props);
-  }, []);
+  const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.user.is_login);
 
   // shape 홈일때, 지도 api 추가 되면
   // 상위 컴포넌트에서 children 으로 주소 보여줄 수 있을 것 같음
@@ -42,7 +39,7 @@ const Header = (props) => {
             if (!is_login) {
               return customAlert.sweetNeedLogin();
             }
-            history.replace("/address");
+            history.replace("/address");  // 주소 설정
           }}
         >
           {is_login ? props.children : "게스트 로그인"}
@@ -58,7 +55,7 @@ const Header = (props) => {
             if (!is_login) {
               customAlert.sweetNeedLogin();
             }
-            history.replace("/address");
+            history.replace("/address");  // 주소 설정
           }}
         >
           <path
@@ -83,7 +80,6 @@ const Header = (props) => {
           src={isWebpSupported() ? webp.deleteLogoWebp : png.deleteLogo}
           cursor="pointer"
           _onClick={() => {
-            // history.replace('/home');
             history.goBack();
           }}
         />
@@ -105,8 +101,7 @@ const Header = (props) => {
           src={isWebpSupported() ? webp.arrowLeftWebp : png.arrowLeft}
           cursor="pointer"
           _onClick={() => {
-            history.replace("/home");
-            // history.goBack();
+            history.goBack();
           }}
         />
         <Text
@@ -181,14 +176,13 @@ const Header = (props) => {
         >
           {props.children}
         </Text>
-        <HiOutlineMenu
+        <HiOutlineMenu  //채팅 사이드 바 아이콘
           size="2.4rem"
           color={color.bg100}
           style={{
             margin: "0rem 1.2rem 0 0",
             cursor: "pointer",
             zIndex: "1",
-            // opacity: isOpen ? 0 : 1,
           }}
           onClick={props._onClick}
         />
@@ -205,7 +199,6 @@ const Header = (props) => {
           마이페이지
         </Text>
         <Text
-          // width="6.4rem"
           width="fit-content"
           height="2rem"
           size="1.3rem"
@@ -342,9 +335,7 @@ const Header = (props) => {
           src={isWebpSupported() ? webp.arrowLeftWebp : png.arrowLeft}
           cursor="pointer"
           _onClick={() => {
-            // history.push('/home');
             history.goBack();
-            // dispatch(searchActions.food_check(false));
           }}
         />
         <Text margin="0 auto" size="1.6rem" bold2="700">
@@ -365,9 +356,7 @@ const Header = (props) => {
           src={isWebpSupported() ? webp.arrowLeftWebp : png.arrowLeft}
           cursor="pointer"
           _onClick={() => {
-            // history.goBack();
             history.push("/home");
-            // dispatch(postActions.getPostAX("전체"));
             dispatch(searchActions.food_check(false));
           }}
         />
@@ -431,11 +420,13 @@ Header.defaultProps = {
 };
 
 const GridTop = styled.div`
+  // pc 환경 뷰
   @media (min-width: 415px) {
     max-width: 35.6rem;
     margin: 0 auto;
     box-sizing: border-box;
   }
+  // 모바일 환경 뷰
   width: 100%;
   display: flex;
   align-items: center;
@@ -450,14 +441,16 @@ const GridTop = styled.div`
 `;
 
 const ChatGridTop = styled.div`
+  // 채팅방 안 pc 환경 뷰
   @media (min-width: 415px) {
     border-style: solid;
     border-width: 0 1px;
-    border-color: #CFCFCF;
+    border-color: #cfcfcf;
     max-width: 36rem;
     margin: 0 auto;
     box-sizing: border-box;
   }
+  // 모바일 환경 뷰
   width: 100%;
   display: flex;
   align-items: center;

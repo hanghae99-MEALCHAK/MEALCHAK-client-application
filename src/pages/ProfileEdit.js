@@ -1,23 +1,29 @@
+// 마이페이지 프로필 수정 페이지
 import React from "react";
-import styled from "styled-components";
 import { useState } from "react";
+import logger from "../shared/Console";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userAction } from "../redux/modules/user";
 import { actionCreators as imageActions } from "../redux/modules/image";
 
-// select
+// select 라이브러리
+// 사용자 연령, 성별 선택
 import { GenderSelect, AgeSelect } from "../components/ReactSelect";
 
 // style
 import Resizer from "react-image-file-resizer";
 import { Button, Grid, Input, Text } from "../elements";
-import { customAlert } from "../components/Sweet";
 import { Header, PcSide } from "../components";
 import Spinner from "../shared/Spinner";
-import logger from "../shared/Console";
 import theme from "../styles/theme";
+import styled from "styled-components";
+import { customAlert } from "../components/Sweet";
 
 const ProfileEdit = (props) => {
+  // 프로필 수정 업로드 시 파일 사이즈 줄이는 함수
+  // 300px 품질 95%로 고정
+  // 콜백 함수로 uri file 객체 반환
+  // 이미지 수정 속도 개선
   const resizeFile = (file) =>
     new Promise((resolve) => {
       Resizer.imageFileResizer(
@@ -41,11 +47,13 @@ const ProfileEdit = (props) => {
   const user_info = useSelector((state) => state.user.user);
   const preview = useSelector((state) => state.image?.preview);
 
+  // 성별 options
   const gender_options = [
     { value: "female", label: "여성" },
     { value: "male", label: "남성" },
   ];
 
+  // 연령 options
   const age_options = [
     { value: "10~19", label: "10대" },
     { value: "20~29", label: "20대" },
@@ -63,11 +71,14 @@ const ProfileEdit = (props) => {
     age: user_info?.user_age ? user_info?.user_age : null,
   });
 
+  // 이름 수정 함수
   const changeNick = (e) => {
     setProfile({ ...editProfile, nickname: e.target.value });
     setDisabled(false);
   };
 
+  // 소개글 수정 함수
+  // 글자수 제한
   const changeComment = (e) => {
     if (e.target.value.length >= 120) {
       return customAlert.sweetOK(
@@ -82,29 +93,27 @@ const ProfileEdit = (props) => {
     }
   };
 
-  // 사용자 추가 정보 따로 axios 요청이있는지?
+  // 사용자 정보 수정 함수
   const editUser = () => {
     logger("수정할 이름", editProfile.nickname);
     logger("수정할 이름", editProfile.comment);
     logger("수정 내용", editProfile);
-
+    
     if (!user_info?.user_age && !user_info?.user_gender) {
+      // 연령, 성별 입력시 확인 알럿
+      // 최종 확인 이후 수정 요청 서버와 통신
       if (editProfile.gender && editProfile.age) {
         customAlert
-          .sweetUserInfo(editProfile.age, editProfile.gender)
-          .then((res) => {
-            if (res) {
-              dispatch(userAction.editUserProfileAX({ ...editProfile }));
-              // customAlert.sweetConfirmReload(
-              //   "프로필 수정 완료",
-              //   ["멋진 프로필이시네요!"],
-              //   "/mypage"
-              // );
-            } else {
-              return;
-            }
-          });
+        .sweetUserInfo(editProfile.age, editProfile.gender)
+        .then((res) => {
+          if (res) {
+            dispatch(userAction.editUserProfileAX({ ...editProfile }));
+          } else {
+            return;
+          }
+        });
       } else {
+        // 사용자 정보에 연령, 성별이 하나라도 없는 경우 경고 알럿
         customAlert.sweetConfirmReload(
           "앗 빈칸이 있어요",
           ["성별과 연령을 모두 선택해주세요."],
@@ -112,14 +121,9 @@ const ProfileEdit = (props) => {
         );
       }
     } else {
-      // 프로필 age, gender 둘다 이미 있는 사람
+      // 프로필 age, gender 둘다 이미 있는 사람인 경우
       if (editProfile.gender && editProfile.age) {
         dispatch(userAction.editUserProfileAX({ ...editProfile }));
-        // customAlert.sweetConfirmReload(
-        //   "프로필 수정 완료",
-        //   ["멋진 프로필이시네요!"],
-        //   "/mypage"
-        // );
       } else {
         customAlert.sweetConfirmReload(
           "앗 빈칸이 있어요",
@@ -136,13 +140,14 @@ const ProfileEdit = (props) => {
     const reader = new FileReader();
     const file = fileInput.current.files[0];
 
+    // 이미지 파일 리사이즈 이후 비동기적으로 처리
+    // resizeFile 함수 실행후 반환 받은 파일 객체로 이후 과정 처리
     const img = await resizeFile(file);
     logger("이미지 정보", file);
     logger("resize 이미지 정보", img);
 
     setProfile({ ...editProfile, image: img });
     reader.readAsDataURL(img);
-
     reader.onloadend = () => {
       dispatch(imageActions.setPreview(reader.result));
     };
@@ -152,6 +157,8 @@ const ProfileEdit = (props) => {
     dispatch(userAction.loginCheck("/profile"));
   }, []);
 
+  // 이름, 소개란이 하나라도 비어있는 경우 
+  // 성별, 연령이 비어있는 경우 변화 감지 후 처리
   React.useEffect(() => {
     if (!editProfile.comment || !editProfile.nickname) {
       setDisabled(true);
@@ -180,10 +187,8 @@ const ProfileEdit = (props) => {
       <>
         <PcSide {...props} />
         <Grid
-          // maxWidth="36rem"
           minWidth="32rem"
           minHeight="100vh"
-          // border={border.line1}
           margin="0 auto"
         >
           <Grid shape="container" minWidth="32rem">
@@ -437,7 +442,6 @@ const Profile = styled.div`
       : `background-image: url(http://115.85.182.57:8080/image/profileDefaultImg.jpg);`}
   background-size: cover;
   background-position: center;
-  /* padding: 10rem 0 0 0; */
 `;
 
 const ProfileCover = styled.div`
@@ -467,6 +471,7 @@ const TextArea = styled.textarea`
   padding: 1.6rem;
   resize: none;
   -ms-overflow-style: none;
+  /* 모바일 및 브라우저별 호환 */
   &::placeholder {
     color: ${theme.color.bg80};
     font-size: ${theme.fontSize.base};

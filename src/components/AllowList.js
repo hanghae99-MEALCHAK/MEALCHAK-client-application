@@ -1,17 +1,15 @@
+// 나에게 들어온 승인 요청 리스트 항목 컴포넌트
 import React from "react";
+import { history } from "../redux/configureStore";
+
+// style
 import theme from "../styles/theme";
 import { Grid, Text, Image, Button } from "../elements";
-import logger from "../shared/Console";
 import { customAlert } from "./Sweet";
-import { history } from "../redux/configureStore";
 
 const AllowList = (props) => {
   const { color, border, fontSize } = theme;
-  const { roomName, join_id, user_img, username, user_id } = props;
-
-  React.useEffect(() => {
-    logger("승인요청대기 페이지", props);
-  }, []);
+  const { roomName, join_id, user_img, username, user_id } = props; // AllowChat.js의 props
 
   return (
     <React.Fragment>
@@ -25,7 +23,7 @@ const AllowList = (props) => {
               cursor="pointer"
               _onClick={() => {
                 history.push({
-                  pathname: `/userprofile/${user_id}`,
+                  pathname: `/userprofile/${user_id}`, // 나에게 채팅 요청한 사용자 정보 보기
                   state: { ...props },
                 });
               }}
@@ -61,7 +59,7 @@ const AllowList = (props) => {
               bg={color.brand20}
               radius="1.2rem"
               _onClick={() => {
-                customAlert.SweetDenyChat(join_id);
+                customAlert.SweetDenyChat(join_id); // 알럿에서 요청 id 로 승인 거절
               }}
               cursor="pointer"
             >
@@ -81,7 +79,7 @@ const AllowList = (props) => {
               bg={color.brand100}
               radius="1.2rem"
               _onClick={() => {
-                customAlert.SweetAllowChat(join_id);
+                customAlert.SweetAllowChat(join_id); // 알럿에서 요청 id 로 승인 수락
               }}
               cursor="pointer"
             >

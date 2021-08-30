@@ -1,3 +1,4 @@
+// 메인 페이지
 import React from "react";
 import styled from "styled-components";
 
@@ -30,19 +31,19 @@ const Main = (props) => {
   const media = useMediaQuery("(min-width: 950px)");
   const backdrop = CSS.supports("backdrop-filter: blur(4px)");
 
-  const { color, border, btn_border, fontSize } = theme;
+  const { color, btn_border, fontSize } = theme;
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const post_list = useSelector((state) => state.post?.list);
   const rank_list = useSelector((state) => state.post?.rank);
-  const is_loading = useSelector((state) => state.user.is_loading);
 
   const [ctg, setCtg] = React.useState("");
   const [sort, setSort] = React.useState({
     recent: true,
     nearBy: false,
   });
+
   const [category, setCategory] = React.useState({
     all: true,
     kr: false,
@@ -54,11 +55,7 @@ const Main = (props) => {
     etc: false,
   });
 
-  const [start, setStart] = React.useState(true);
   React.useEffect(() => {
-    document
-      .querySelector("body")
-      .scrollTo({ top: 0, left: 0, behavior: "instant" });
     if (post_list.length === 0) {
       dispatch(postActions.getPostAX("전체"));
       setCtg("전체");
@@ -74,7 +71,8 @@ const Main = (props) => {
   }, []);
 
   const swiperRef = React.useRef(null);
-  const mainRef = React.useRef(null);
+
+  // 오늘의 인기메뉴 클릭 - 카테고리로 스크롤 이동
   const scrollToCategory = () => {
     swiperRef.current.scrollIntoView({ behavior: "smooth" });
   };
@@ -96,7 +94,6 @@ const Main = (props) => {
   return (
     <React.Fragment>
       <PcSide {...props} />
-      <div ref={mainRef}></div>
       <Grid
         minHeight="100vh"
         margin="0 auto"
@@ -112,7 +109,9 @@ const Main = (props) => {
             width="5rem"
             height="5rem"
             radius="2.5rem"
-            bg={backdrop ? "rgba(255, 204, 151, 0.3)" : "rgba(255, 204,151, 0.6)"}
+            bg={
+              backdrop ? "rgba(255, 204, 151, 0.3)" : "rgba(255, 204,151, 0.6)"
+            }
             position="fixed"
             border="none"
             padding="0"
@@ -248,7 +247,6 @@ const Main = (props) => {
                 color={category.all ? color.bg100 : color.bg80}
                 bold
                 cursor="t"
-                // margin="-0.4rem 0rem 0.1rem 0.5rem"
                 margin="-0.4rem 1.6rem 0.1rem 0rem"
                 padding="1.6rem 0 2.8rem 0"
                 border_bottom={category.all ? "0.2rem solid black" : ""}
@@ -431,7 +429,6 @@ const Main = (props) => {
               color={sort?.recent ? "#ff9425" : "#cecac7"}
               bold
               cursor="t"
-              // getPostAX(category, sort="recent") - 기본 정렬(sort)값이 recent(마감임박순)
               _onClick={() => {
                 setSort({ ...{ sort: false }, recent: true });
                 dispatch(postActions.getPostAX(ctg));

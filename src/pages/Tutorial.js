@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { useSelector } from "react-redux";
+
 // kakao login
 import { Kakao_auth_url } from "../shared/OAuth";
 
@@ -30,7 +31,7 @@ const Tutorial = (props) => {
       setLoading(false);
     }, 1000);
 
-    // 로그인 한 사용자가 로딩 시간때문인지 일정시간이 지나야 아래 부분실행됨
+    // 이미 로그인 한 사용자가 접근한 경우 서비스 내부로 이동시킴
     if (is_login) {
       customAlert.sweetConfirmReload(
         "앗 이미 로그인 중이에요",
@@ -57,6 +58,8 @@ const Tutorial = (props) => {
             <Grid margin="2rem auto">
               <TutorialSwiper></TutorialSwiper>
             </Grid>
+
+            {/* 둘러보기 사용자 용 버튼 */}
             <DisplayGrid>
               <Button
                 height="5rem"
@@ -77,6 +80,8 @@ const Tutorial = (props) => {
                   밀착 둘러보기
                 </Text>
               </Button>
+
+              {/* 소셜 로그인 기능 */}
               <Button
                 bg="#FEE500"
                 height="5rem"

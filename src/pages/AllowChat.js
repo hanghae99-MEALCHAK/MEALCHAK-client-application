@@ -1,3 +1,4 @@
+// 채팅 승인 요청 수락, 거절 페이지
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as chatActions } from "../redux/modules/chat";
@@ -9,7 +10,6 @@ import { Header, Footer, AllowList, PcSide } from "../components";
 import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
 import { TapGrid } from "./ChatRoomList";
-import logger from "../shared/Console";
 
 // 이미지
 import { png } from "../styles/img/index";
@@ -18,17 +18,16 @@ import { isWebpSupported } from "react-image-webp/dist/utils";
 
 const AllowChat = (props) => {
   const dispatch = useDispatch();
+  const { color, border, fontSize } = theme;
+
+  // 첫 렌더시 들어온 요청 목록 조회
   React.useEffect(() => {
     dispatch(chatActions.requestChatListAX());
   }, []);
 
-  // 현재 room_id 필요
-
-  const { color, border, fontSize } = theme;
-
   // 채팅 승인 목록
   const allow_list = useSelector((state) => state.chat.requestList);
-  // 알람
+  // 채팅 알림 여부 판단
   const is_alarm = useSelector((state) => state.user.user?.new_join_request);
 
   return (
@@ -36,9 +35,7 @@ const AllowChat = (props) => {
       <PcSide {...props} />
       <Grid
         minWidth="36rem"
-        // maxWidth="36rem"
         minHeight="100vh"
-        // border={border.line1}
         margin="0 auto"
         padding="0 0 5.2rem 0"
       >
@@ -96,6 +93,7 @@ const AllowChat = (props) => {
             </Grid>
           </TapGrid>
 
+          {/* 들어온 승인 요청 항목 리스트*/}
           {allow_list.map((info, idx) => {
             return (
               <AllowList
@@ -109,10 +107,11 @@ const AllowChat = (props) => {
             );
           })}
 
+          {/* 들어온 요청이 없는 경우 기본 이미지*/}
           {allow_list.length === 0 && (
             <>
               <Grid
-                shape="empty"
+                shape="empty"  // 화면 중앙에 이미지 정렬
                 src={
                   isWebpSupported() ? webp.emptyBubblesWebp : png.emptyBubbles
                 }

@@ -1,28 +1,27 @@
+// 채팅 메세지 컴포넌트
 import React from "react";
 import { useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
-import logger from "../shared/Console";
 import Spinner from "../shared/Spinner";
 
+// style
 import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
 
 const Message = (props) => {
   const { color, fontSize } = theme;
-  const { messagesInfo } = props;
+  const { messagesInfo } = props; // MessageList.js 의 props
 
-  // 사용자 이름, 이미지
+  // 사용자 이름, 이미지 정보
   const user_info = useSelector((state) => state.user.user);
 
-  //   메세지 타임
-  // const now_time = moment().format("h:m");
-  const now_time = useSelector((state) => state.chat.now_time);
-
+  // 메세지 타임
   let time = "";
   if (!(messagesInfo.createdAt === null)) {
     time = messagesInfo.createdAt?.split(" ")[1];
   }
-  const DB_time = time?.split(":")[0] + ":" + time?.split(":")[1];
+  const DB_time = time?.split(":")[0] + ":" + time?.split(":")[1]; // DB에서 불러온 메세지 시간 정보
+  const now_time = useSelector((state) => state.chat.now_time); // 실시간 메세지의 시간 정보
 
   React.useEffect(() => {
     // 로딩중
@@ -31,13 +30,7 @@ const Message = (props) => {
     }
   }, []);
 
-  // 사용자 정보 잘 들어오는지 확인
-  React.useEffect(() => {
-    logger("user id", typeof user_info?.user_id);
-    logger("msg id", typeof messagesInfo.sender_id);
-    logger("Message props : ", props);
-  }, [user_info?.user_nickname]);
-
+  // 메세지 타입이 출입 정보인 경우 뷰
   if (messagesInfo.type === "ENTER" || messagesInfo.type === "QUIT") {
     return (
       <Grid
@@ -56,12 +49,15 @@ const Message = (props) => {
     );
   }
 
+  // 메세지 타입이 강퇴인 경우 메세지 보이지 않기
   if (messagesInfo.type === "BAN") {
     return;
   }
 
+  // 메세지 타입이 대화인 경우 뷰
   // 메세지 작성자 user id, 현재 사용자 id 비교
   if (messagesInfo.type === "TALK") {
+    // 내가 보낸 메세지의 뷰
     if (user_info?.user_id === parseInt(messagesInfo.sender_id)) {
       return (
         <Grid margin="0 auto 1.6rem" text_align="left">
@@ -96,7 +92,7 @@ const Message = (props) => {
         </Grid>
       );
     } else {
-      // 다른 사람 메세지
+      // 타 사용자의 메세지 뷰
       return (
         <Grid
           is_flex4="t"
@@ -110,12 +106,6 @@ const Message = (props) => {
               cursor="t"
               src={messagesInfo.sender_img}
               _onClick={() => {
-                if (user_info.user_id === messagesInfo?.sender_id) {
-                  return history.push({
-                    pathname: "/myprofile",
-                    state: { user_id: messagesInfo?.sender_id },
-                  });
-                }
                 history.push({
                   pathname: `/userprofile/${messagesInfo?.sender_id}`,
                   state: { user_id: messagesInfo?.sender_id },

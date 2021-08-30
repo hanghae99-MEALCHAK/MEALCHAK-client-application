@@ -1,7 +1,6 @@
 import "./App.css";
 import React, { Suspense, lazy } from "react";
 import GlobalStyle from "./GlobalStyle";
-import styled from "styled-components";
 
 import { Route, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
@@ -12,33 +11,12 @@ import { actionCreators as userAction } from "../redux/modules/user";
 import Spinner from "./Spinner";
 import { Grid } from "../elements";
 
-// import {
-//   Main,
-//   LoginRedirect,
-//   Tutorial,
-//   Upload,
-//   DetailPage,
-//   Search,
-//   MyPage,
-//   RoadAddress,
-//   ChatRoomList,
-//   Chat,
-//   NotFound,
-//   ProfileEdit,
-//   Settings,
-//   MyPost,
-//   MyReview,
-//   MyProfile,
-//   UserProfile,
-//   AllowChat,
-//   ReviewWrite,
-// } from "../pages";
-
 // 사용자 token 여부
 import { token } from "./OAuth";
 import logger from "./Console";
 import Tour from "../components/Tour";
 
+// 코드 분할
 const Main = lazy(() => import("../pages/Main"));
 const LoginRedirect = lazy(() => import("../pages/LoginRedirect"));
 const Tutorial = lazy(() => import("../pages/Tutorial"));

@@ -1,27 +1,31 @@
+// 모임 만들기 및 모임 만들기 수정 페이지
 import React from "react";
+import moment from "moment";
+import logger from "../shared/Console";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
-
 import { actionCreators as postAction } from "../redux/modules/post";
 import { actionCreators as userAction } from "../redux/modules/user";
-import logger from "../shared/Console";
 
 // style
+import theme from "../styles/theme";
+import Spinner from "../shared/Spinner";
 import { Button, Grid, Text } from "../elements";
 import { UploadInput, UploadContents, Header, PcSide } from "../components";
-import theme from "../styles/theme";
 import { customAlert } from "../components/Sweet";
-import Spinner from "../shared/Spinner";
 
 const Upload = React.memo((props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
+  // 홈에서의 접근인 경우
   const post_list = useSelector((state) => state.post.list);
+
+  // 홈에서의 접근이 아닌 내가쓴 글에서의 접근인 경우 반별
+  // 내가쓴 글일 경우 user의 myPost array가 있음
   const my_post = useSelector((state) => state.user?.myPost);
-  logger("Upload:19: ", props);
+
   // style
-  const { color, border, radius, fontSize } = theme;
+  const { color, radius, fontSize } = theme;
 
   const post_address = useSelector((state) => state.loc.post_address);
   const longitude = post_address?.longitude;
@@ -30,18 +34,24 @@ const Upload = React.memo((props) => {
   // 수정판별
   const post_id = props.match.params.id;
   const is_edit = post_id ? true : false;
+
+  // 수정에 접근 한 경로 판별 후 이후 행동 결정
   const post_idx = is_edit
     ? post_list.findIndex((p) => p.post_id === parseInt(post_id))
     : null;
   const my_post_idx = is_edit
     ? my_post.findIndex((p) => p.post_id === parseInt(post_id))
     : null;
+
+  // post_list의 배열이 있는 경우 post 모듈에서 정보를 가지고 오기
+  // 반대의 경우 내가 쓴 글이므로 user의 게시글 정보 가지고 오기
   let _post = post_list.length > 0 ? post_list[post_idx] : my_post[my_post_idx];
 
   React.useEffect(() => {
     document
       .querySelector("body")
       .scrollTo({ top: 0, left: 0, behavior: "instant" });
+      // 잘못된 접근일 경우 예외 처리
     if (is_edit && !_post) {
       customAlert.sweetConfirmReload(
         "해당게시물을 찾을 수 없습니다.",
@@ -60,7 +70,7 @@ const Upload = React.memo((props) => {
     dispatch(userAction.loginCheck("/upload"));
   }, []);
 
-  // upload 될 내용
+  // 수정하는 상황인 경우 수정 될 이전 내용 불러오기
   const past_post = {
     title: _post?.title,
     headCount: _post?.headCount,
@@ -282,7 +292,13 @@ const Upload = React.memo((props) => {
       return;
     }
     delete post_info.disabled;
-    dispatch(postAction.editPostAX(post_id, post_info, (my_post.length > 0 ? "/mypost" : null)));
+    dispatch(
+      postAction.editPostAX(
+        post_id,
+        post_info,
+        my_post.length > 0 ? "/mypost" : null
+      )
+    );
   };
 
   if (is_login) {
@@ -290,26 +306,28 @@ const Upload = React.memo((props) => {
       <>
         <PcSide {...props} />
         <Grid
-          // maxWidth="36rem"
           minHeight="100vh"
-          // border={border.line1}
           margin="0 auto"
         >
           <Grid shape="container">
             <Header {...props} shape="모임 만들기" />
             <Grid height="4.4rem" />
+            {/* 모임 만들기 텍스트 인풋 모음 */}
             <UploadContents
               post_info={post_info}
+              // 하위에서 상위로 데이터 올리기
               onChange={(value) => setPostInfo({ ...post_info, ...value })}
             />
 
-            {/* <Grid borderBottom={border.line2}></Grid> */}
+            {/* 모임 만들기 input 모음 */}
             <UploadInput
               post_info={post_info}
               find_address={props.location.state?.address}
+              // 하위에서 상위로 데이터 올리기
               onChange={(value) => setPostInfo({ ...post_info, ...value })}
             />
-            {/* <Grid height="10rem" /> */}
+            
+            {/* 최초 업로드, 수정 여부 판별 후 버튼 바꾸기 */}
             <Grid padding="0 2rem">
               <Grid
                 height="auto"

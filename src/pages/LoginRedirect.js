@@ -1,3 +1,5 @@
+// 소셜 로그인 버튼 클릭 후 리다이렉트 되는 url의 페이지 뷰
+// 이 url주소에서 인가코드를 서버에 보내줌
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import Spinner from '../shared/Spinner';

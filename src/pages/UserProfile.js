@@ -1,17 +1,17 @@
+// 타 유저 프로필
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router";
 import { history } from "../redux/configureStore";
+import { useLocation } from "react-router";
 import { actionCreators as userAction } from "../redux/modules/user";
-
+import { Header, ProfileTab, PcSide } from "../components";
 import { MyOneReview } from "../components";
-import Spinner from "../shared/Spinner";
 
 // style
 import { Button, Grid, Text } from "../elements";
-import { Header, ProfileTab, PcSide } from "../components";
 import styled from "styled-components";
 import theme from "../styles/theme";
+import Spinner from "../shared/Spinner";
 import logger from "../shared/Console";
 
 // 이미지
@@ -22,40 +22,34 @@ import { isWebpSupported } from "react-image-webp/dist/utils";
 const UserProfile = React.memo((props) => {
   const dispatch = useDispatch();
   const location = useLocation();
+
   const is_login = useSelector((state) => state.user?.is_login);
   const other_user = useSelector((state) => state.user?.anotherUser);
   const user_id = location.state?.user_id
     ? location.state.user_id
     : location.state.userId;
   const id = props.match.params.id;
-  const { color, border, fontSize, radius } = theme;
+  const { color, fontSize, radius } = theme;
 
   React.useEffect(() => {
-    document
-      .querySelector("body")
-      .scrollTo({ top: 0, left: 0, behavior: "instant" });
+    document.querySelector("body").scrollTo(0, 0);
     if (!is_login) {
       dispatch(userAction.loginCheck());
     }
     dispatch(userAction.findUserProfileAX(user_id));
-    logger("UserProfile props state: ", location.state);
     logger("UserProfile props: ", props);
-    logger("another_user_info: ", other_user);
-    logger("id : ", typeof id);
   }, []);
 
   React.useEffect(() => {
     dispatch(userAction.findUserProfileAX(id));
   }, [dispatch, props.match.params.id]);
-  
+
   if (is_login) {
     return (
       <React.Fragment>
         <PcSide {...props} />
         <Grid
-          // maxWidth="36rem"
           minHeight="100vh"
-          // border={border.line1}
           margin="0 auto"
         >
           <Grid shape="container">

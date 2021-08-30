@@ -1,3 +1,4 @@
+// axios 모듈화
 import axios from 'axios';
 import { token } from '../shared/OAuth';
 
@@ -13,6 +14,7 @@ const axiosModule = axios.create({
   },
 });
 
+// axios 호출 후 중간에서 헤더와 토큰 정보를 실어서 서버와 통신
 axiosModule.interceptors.request.use((config) => {
   config.headers['Access-Control-Allow-Origin'] = '*';
   config.headers['Access-Control-Allow-Headers'] = 'Content-Type';
@@ -23,14 +25,4 @@ axiosModule.interceptors.request.use((config) => {
   return config;
 });
 
-// import axios from 'axios';
-
-// const axiosModule = axios.create({
-//     headers: {
-//         'Access-Control-Allow-Origin': "*",
-//         "Access-Control-Allow-Headers": "Content-Type",
-//         "Content-Type": "application/json",
-//     },
-//     baseURL: "http://115.85.182.57:8080",
-// });
 export default axiosModule;
