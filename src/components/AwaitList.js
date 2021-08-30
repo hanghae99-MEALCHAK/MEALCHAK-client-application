@@ -1,24 +1,18 @@
+// 내가 보낸 승인 요청 리스트 항목 컴포넌트
 import React from "react";
 import { useDispatch } from "react-redux";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 
+// style
 import { IoIosCloseCircle } from "react-icons/io";
-
 import theme from "../styles/theme";
 import { Grid, Text } from "../elements";
-import logger from "../shared/Console";
 import { customAlert } from "./Sweet";
 
 const AwaitList = (props) => {
   const dispatch = useDispatch();
-
   const { color, border, fontSize } = theme;
-  const { roomName } = props;
-  const { join_id } = props;
-
-  React.useEffect(() => {
-    logger("참여대기 리스트", props);
-  }, []);
+  const { roomName, join_id } = props; // ChatRoomList.js의 props
 
   return (
     <React.Fragment>
@@ -31,7 +25,7 @@ const AwaitList = (props) => {
       >
         <Grid is_flex4="t" width="70%">
           <Grid width="5rem" is_flex4="t" margin="0 1rem 0 0">
-            <svg
+            <svg // 목록 아이콘
               width="5rem"
               height="5rem"
               viewBox="0 0 50 50"
@@ -54,7 +48,7 @@ const AwaitList = (props) => {
               color={color.bg100}
               size={fontSize.base}
               overflow="hidden"
-              text_overflow="ellipsis"
+              text_overflow="ellipsis" // 목록에서 방 이름 길때, 말줄임 처리
             >
               {roomName}
             </Text>
@@ -62,17 +56,12 @@ const AwaitList = (props) => {
               승인 대기 중
             </Text>
           </Grid>
-          {/* <Button
-          _onClick={() => {
-            dispatch(chatActions.awaitChatOut(join_id))
-          }}
-          >신청 취소</Button> */}
         </Grid>
-        <IoIosCloseCircle
+        <IoIosCloseCircle // 승인 요청 취소 아이콘
           size="2.4rem"
           color={color.bg60}
           onClick={() => {
-            customAlert
+            customAlert // 승인 요청 취소 알럿
               .sweetPromise(
                 "승인 요청을 취소하시겠어요?",
                 "참여중인 채팅방 목록에서",
@@ -80,6 +69,7 @@ const AwaitList = (props) => {
                 "취소하기"
               )
               .then((res) => {
+                // 알럿에서 확인 res 일때, 요청 id로 승인 요청 취소하기
                 if (res) {
                   dispatch(chatActions.awaitChatOut(join_id));
                 }

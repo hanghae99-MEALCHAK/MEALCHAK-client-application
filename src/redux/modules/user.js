@@ -1,17 +1,17 @@
-import { createAction, handleActions } from "redux-actions";
+// 사용자 관련 모듈
 import { produce } from "immer";
+import { createAction, handleActions } from "redux-actions";
 import axiosModule from "../axios_module";
-import jwtDecode from "jwt-decode";
-import { customAlert } from "../../components/Sweet";
 import { Kakao_auth_url } from "../../shared/OAuth";
-
 import { actionCreators as imageActions } from "./image";
+import { customAlert } from "../../components/Sweet";
 
 // 개발환경 console.log() 관리용
 import logger from "../../shared/Console";
 
 // token
 import { token } from "../../shared/OAuth";
+import jwtDecode from "jwt-decode";
 
 // Action
 const SET_USER = "SET_USER";
@@ -39,9 +39,6 @@ const loaded = createAction(LOADED, (is_loaded) => ({ is_loaded }));
 const editProfile = createAction(EDIT_PROFILE, (profile) => ({
   profile,
 }));
-// const editComment = createAction(EDIT_NICK, (edit_comment) => ({
-//   edit_comment,
-// }));
 const editAddress = createAction(EDIT_ADDRESS, (address) => ({ address }));
 
 // Initial State
@@ -195,7 +192,7 @@ const loginCheck = (path) => {
           }
         })
         .then(() => {
-          // is_login은 안되었는데 토큰 남아있는경우 토큰 지우고 싶은데 방법을 모르겠음
+          // is_login은 안되었는데 토큰 남아있는경우 로그아웃 시킴
           const is_login = getState().user.is_login;
           if (!is_login) {
             dispatch(logOut());
@@ -248,7 +245,6 @@ const editUserAddressAX = (address) => {
 // 타 유저 프로필 페이지 - 해당 유저 정보 가져오기
 const findUserProfileAX = (user_id) => {
   return function (dispatch, getState, { history }) {
-    // dispatch(setAnotherUser(null));
     if (token) {
       axiosModule
         .get(`/userInfo/${user_id}`)
@@ -270,13 +266,6 @@ const findUserProfileAX = (user_id) => {
             })
           );
         })
-        .then(() => {
-          // // is_login은 안되었는데 토큰 남아있는경우 토큰 지우고 싶은데 방법을 모르겠음
-          // const is_login = getState().user.is_login;
-          // if (!is_login) {
-          //   dispatch(logOut());
-          // }
-        })
         .catch((e) => {
           logger("타 유저 프로필 확인 에러", e);
         });
@@ -285,6 +274,7 @@ const findUserProfileAX = (user_id) => {
     }
   };
 };
+
 // 마이페이지 - 내가 쓴 글 조회
 const getMyPostAX = () => {
   return function (dispatch, getState, { history }) {
@@ -316,7 +306,6 @@ const getMyPostAX = () => {
                 username: p.username,
                 user_id: p.userId,
                 userImg: p.profileImg,
-                // distance: p.distance,
                 room_id: p.roomId,
                 nowHeadCount: p.nowHeadCount,
                 valid: p.valid,
@@ -328,7 +317,7 @@ const getMyPostAX = () => {
           dispatch(setMyPost(posts));
         })
         .catch((e) => {
-          logger("내가 받은 리뷰 에러1111111", e);
+          logger("내가 받은 리뷰 에러", e);
         });
     } else {
       dispatch(loginCheck());
@@ -388,8 +377,6 @@ const reviewWriteAX = (manner, review, user_id, nickname) => {
             "따뜻한 마음이 전송되었어요 :)",
             "goBack"
           );
-          // history.replace("/userprofile");
-          // window.location.replace("/userprofile");
         })
         .catch((e) => {
           logger("내가 받은 리뷰 에러", e);

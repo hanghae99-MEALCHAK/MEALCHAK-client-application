@@ -13,7 +13,6 @@ const styles = {
   // select, option 전체
   app: {
     fontSize: fontSize.base,
-    // fontSize: fontSize.small,
     fontWeight: "400",
   },
 };
@@ -69,11 +68,13 @@ const customStyles2 = {
     ...provided,
     color: color.bg80,
   }),
+  // 셀렉트 드롭다운 메뉴 css
   menuList: (base) => ({
     ...base,
     borderRadius: "1.2rem",
     padding: "0",
 
+    // 셀렉트 드롭다운 스크롤 css
     "::-webkit-scrollbar": {
       width: "0.5rem",
       height: "1rem",
@@ -124,6 +125,7 @@ const ReactSelect = (props) => {
   );
 };
 
+// 드롭다운 아이콘 변경 함수
 const DropdownIndicator = (props) => {
   return (
     <components.DropdownIndicator {...props}>
@@ -132,14 +134,15 @@ const DropdownIndicator = (props) => {
   );
 };
 
+// 모임만들기 모집 인원수 선택
 export const HeadSelect = (props) => {
   return (
     <React.Fragment>
       <div style={styles.app}>
         <Select
           components={{
-            IndicatorSeparator: () => null,
-            DropdownIndicator,
+            IndicatorSeparator: () => null, // 구분자 지우는 속성
+            DropdownIndicator,  // 드롭다운 아이콘 변경
           }}
           options={props.options}
           placeholder={
@@ -156,13 +159,14 @@ export const HeadSelect = (props) => {
           }}
           styles={customStyles2}
           theme={customTheme2}
-          isSearchable={false}
+          isSearchable={false}  // 검색 설정, 모바일 가상키보드 방지
         />
       </div>
     </React.Fragment>
   );
 };
 
+// 모임 만들기 음식 카테고리 선택
 export const CTGSelect = (props) => {
   return (
     <React.Fragment>
@@ -188,7 +192,7 @@ export const CTGSelect = (props) => {
           }}
           styles={customStyles2}
           theme={customTheme2}
-          maxMenuHeight={200}
+          maxMenuHeight={200}  // 드롭다운 최대 높이 설정
           isSearchable={false}
         />
       </div>
@@ -196,6 +200,7 @@ export const CTGSelect = (props) => {
   );
 };
 
+// 모임 만들기 모집 유형 선택
 export const MeetingSelect = (props) => {
   const meetingName = () => {
     if (props.meeting === "SEPARATE") {
@@ -211,7 +216,6 @@ export const MeetingSelect = (props) => {
     <React.Fragment>
       <div style={styles.app}>
         <Select
-          // menuPlacement="top"
           components={{
             IndicatorSeparator: () => null,
             DropdownIndicator,
@@ -236,6 +240,7 @@ export const MeetingSelect = (props) => {
   );
 };
 
+// 프로필 수정 성별 선택
 export const GenderSelect = (props) => {
   const user_info = useSelector((state) => state.user.user);
   const gender = user_info.user_gender === "female" ? "여성" : "남성";
@@ -260,12 +265,14 @@ export const GenderSelect = (props) => {
           }}
           styles={customStyles2}
           theme={customTheme2}
+          isSearchable={false}
         />
       </div>
     </React.Fragment>
   );
 };
 
+// 프로필 수정 연령 선택
 export const AgeSelect = (props) => {
   const user_info = useSelector((state) => state.user.user);
   const age = () => {
@@ -309,6 +316,7 @@ export const AgeSelect = (props) => {
           }}
           styles={customStyles2}
           theme={customTheme2}
+          isSearchable={false}
         />
       </div>
     </React.Fragment>

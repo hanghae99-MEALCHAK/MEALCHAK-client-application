@@ -1,36 +1,32 @@
+// pc 사이드 메뉴 바 컴포넌트
 import React from "react";
-import logger from "../shared/Console";
 import { history } from "../redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { token } from "../shared/OAuth";
 
+// style
 import { Grid, Text, Image } from "../elements";
 import theme from "../styles/theme";
 import styled from "styled-components";
 import { customAlert } from "./Sweet";
 
-// 이미지
+// 이미지, 아이콘의 경우 webp 사용
+// webp 사용 불가 환경일 경우만 png
 import { png } from "../styles/img/index";
 import { webp } from "../styles/img/webp/index";
 import { isWebpSupported } from "react-image-webp/dist/utils";
 
 const PcSide = (props) => {
-  const dispatch = useDispatch();
   const { color, fontSize } = theme;
-
-  //   const path = document.location.href.split("/")[3];
-  //   const path = props.history.location.pathname;
-  const path = props.match.path;
-
+  const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
-  const is_alarm = useSelector((state) => state.user.user?.is_alarm);
+  const is_alarm = useSelector((state) => state.user.user?.is_alarm);  // 채팅 알람 여부
 
   // props로 받아온 주소정보로 현재위치 탭 color 변경
-  React.useEffect(() => {
-    logger("side props", props);
-  }, [path]);
+  const path = props.match.path;
 
+  // 로그인 체크 함수
   const loginCheck = (path) => {
     if (is_login) {
       history.push(`/${path}`);
@@ -40,9 +36,9 @@ const PcSide = (props) => {
   };
 
   return (
-    <SideGrid is_tutorial={path}>
+    <SideGrid>
       <Grid shape="container" maxWidth="16rem">
-        <SideLogo
+        <SideLogo  // 밀착 로고
           src={isWebpSupported() ? webp.mainLogoWebp : png.mainLogo}
           alt="side-menu-logo"
           onClick={() => {
@@ -50,6 +46,7 @@ const PcSide = (props) => {
           }}
         />
 
+        {/* 홈 */}
         <Grid
           is_flex4="t"
           align_items="center"
@@ -98,6 +95,7 @@ const PcSide = (props) => {
           </Text>
         </Grid>
 
+        {/* 모임 만들기 */}
         <Grid
           is_flex4="t"
           align_items="center"
@@ -142,6 +140,7 @@ const PcSide = (props) => {
           </Text>
         </Grid>
 
+        {/* 채팅 */}
         <Grid
           is_flex4="t"
           align_items="center"
@@ -197,7 +196,7 @@ const PcSide = (props) => {
             채팅
           </Text>
             {is_alarm && (
-              <Image
+              <Image  // 채팅 알람 아이콘
               shape="rectangle"
               size="1.6"
               margin="0 0 0.2rem 0.8rem"
@@ -205,6 +204,7 @@ const PcSide = (props) => {
             )}
         </Grid>
 
+        {/* 마이페이지 */}
         <Grid
           is_flex4="t"
           align_items="center"
@@ -269,6 +269,7 @@ const PcSide = (props) => {
           </Text>
         </Grid>
 
+        {/* 로그인한 사용자의 경우 로그아웃 보여주기 */}
         {token && path !== "/settings" && (
           <Grid
             is_flex4="t"
@@ -300,8 +301,7 @@ const PcSide = (props) => {
 };
 
 const SideGrid = styled.div`
-  /* width: fit-content; */
-  width: intrinsic;
+  width: intrinsic;  // 사파리 뷰 고려 width 설정
   height: 100%;
   box-sizing: border-box;
   padding: 2.19rem 6.18rem 0 0;
@@ -310,6 +310,8 @@ const SideGrid = styled.div`
   left: 50%;
   transform: translateX(-200%);
   -webkit-transform: translateX(-200%);
+
+  // width 별 간격 조정
   @media (max-width: 1200px) {
     padding: 2.19rem 5rem 0 0;
   }
@@ -326,6 +328,7 @@ const SideGrid = styled.div`
     padding: 2.19rem 3.5rem 0 0;
   }
 
+  // 950px 이하의 경우 footer 전환
   @media (max-width: 950px) {
     display: none;
   }

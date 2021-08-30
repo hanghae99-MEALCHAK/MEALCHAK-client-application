@@ -7,6 +7,7 @@ const SET_PREVIEW = "SET_PREVIEW";
 const SET_MASK = "SET_MASK";
 
 const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }));
+// 첫 회원가입 후 주소설정이 되어있지 않은 사용자의 가이드 뷰 필요 여부 판별 상태값
 const setMask = createAction(SET_MASK, (is_mask) => ({is_mask}));
 
 const initialState = {

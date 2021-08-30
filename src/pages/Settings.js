@@ -1,7 +1,4 @@
 import React from "react";
-import styled from "styled-components";
-import { useState } from "react";
-import logger from "../shared/Console";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { Grid, Text } from "../elements";

@@ -146,20 +146,6 @@ const ReviewWrite = (props) => {
             />
           </Grid>
 
-          {/* <Grid margin="1.5rem 0" padding="0 2rem">
-          <Text
-            width="auto"
-            size={fontSize.small}
-            color={manner.label ? color.bg100 : color.bg80}
-            bold2="400"
-            line_height="150%"
-            text_align="left"
-          >
-            {manner.label
-              ? "너무 즐거웠어요! 다음에 또 같이 식사해요~"
-              : "해당 사용자와의 밀착이 만족스러우셨다면 따뜻한 리뷰를 전해보세요!"}
-          </Text>
-        </Grid> */}
         </Grid>
         <Grid
           maxWidth="35.9rem"
@@ -167,7 +153,6 @@ const ReviewWrite = (props) => {
           height="auto"
           margin="1rem auto 0 auto"
           padding="1.5rem 2rem"
-          // is_fixed="t"
           borderTop="0.1rem solid #EBE9E8"
         >
           <Button

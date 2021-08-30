@@ -380,7 +380,7 @@ const DetailPost = React.memo((props) => {
                       bold={fontSize.bold}
                       cursor="t"
                       _onClick={() => {
-                        history.replace({
+                        history.push({
                           pathname: `/upload/${post_id}`,
                           state: { ...props },
                         });

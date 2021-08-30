@@ -1,46 +1,42 @@
-import { createAction, handleActions } from "redux-actions";
+// 게시글 관련 모듈
 import { produce } from "immer";
-import axiosModule from "../axios_module";
+import moment from "moment";
 import logger from "../../shared/Console";
+import axiosModule from "../axios_module";
 import { actionCreators as userActions } from "./user";
 import { actionCreators as chatActions } from "./chat";
 import { actionCreators as searchActions } from "./search";
-import { customAlert } from "../../components/Sweet";
-import moment from "moment";
-import { actionCreators as locateActions } from "./loc";
-import { useLocation } from "react-router";
+import { createAction, handleActions } from "redux-actions";
 
+// sweet alert
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { Text, Grid } from "../../elements";
 import theme from "../../styles/theme";
+import { customAlert } from "../../components/Sweet";
 import "../../components/sweet.css";
-import { KingBedRounded } from "@material-ui/icons";
 
 const { color, fontSize } = theme;
 const sweet = withReactContent(Swal);
 const path = document.location.href.split("/")[3];
 
+// Action
 const SET_POST = "SET_POST";
 const GET_DETAIL_POST_USER_LIST = "GET_DETAIL_POST_USER_LIST";
-const GET_ONE_POST = "GET_ONE_POST";
-const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
 const DELETE_POST = "DELETE_POST";
 const SET_RANK = "SET_RANK";
 const CLEAR_POST = "CLEAR_POST";
-const CLEAR_OLD_POST = "CLEAR_OLD_POST";
 const ADD_LAT_LNG = "ADD_LAT_LNG";
 
+// ActionCreator
 const setPost = createAction(SET_POST, (post_list) => ({
   post_list,
 }));
-const getOnePost = createAction(GET_ONE_POST, (one_post) => ({ one_post }));
 const getDetailPostUserList = createAction(
   GET_DETAIL_POST_USER_LIST,
   (user_list) => ({ user_list })
 );
-const addPost = createAction(ADD_POST, (post_item) => ({ post_item }));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
   post,
@@ -48,9 +44,9 @@ const editPost = createAction(EDIT_POST, (post_id, post) => ({
 const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
 const setRank = createAction(SET_RANK, (rank_list) => ({ rank_list }));
 const clearPost = createAction(CLEAR_POST, () => ({}));
-const clearOldPost = createAction(CLEAR_OLD_POST, (post_id) => ({ post_id }));
 const addLatLng = createAction(ADD_LAT_LNG, (x_y) => ({ x_y }));
 
+// initialState
 const initialState = {
   list: [],
   rank: [],
@@ -59,6 +55,8 @@ const initialState = {
   post_lat_lng: [],
 };
 
+// middleware
+// main 게시글 정보 조회
 const getPostAX = (category, sort = "recent") => {
   return function (dispatch, getState, { history }) {
     // dispatch(userActions.loading(true));
@@ -111,6 +109,9 @@ const getPostAX = (category, sort = "recent") => {
   };
 };
 
+// 게시글 하나의 정보조회
+// 상세페이지에서 해당 게시글의 만료여부를 판단하기 위해 사용
+// 마감된 글에서 사용자가 남아있던 경우 예외처리를 위한 함수
 const getOnePostAX = (post_id) => {
   return function (dispatch, getState, { history }) {
     axiosModule
@@ -118,6 +119,7 @@ const getOnePostAX = (post_id) => {
       .then((res) => {
         logger("get one post 정보", res);
 
+        // 게시글의 만남 예정시간 조회 후 현재시간과 비교하여 마감 여부 판단
         let p = res.data;
         const time = p.orderTime.split(" ")[1].split(":").join("");
         const orderDate = p.orderTime.split(" ")[0].split("-").join("");
@@ -131,6 +133,9 @@ const getOnePostAX = (post_id) => {
         );
         logger("get one post 정보", now_time_int);
         logger("get one post 정보", post_time_int);
+
+        // 현재시간이 클 경우, 모집 마감된 경우
+        // 로직 작성 당시 어디에서 실행이 안되는지 판단하기 위해 로거 사용
         if (now_time_int > post_time_int) {
           return customAlert
             .sweetOK(
@@ -154,6 +159,7 @@ const getOnePostAX = (post_id) => {
                 } else {
                   logger("상세 확인 검색 길이 많음");
                   history.goBack();
+                  // 검색결과가 있는경우 마감된 글만 제외후 검색결과를 유지하여 보여줌
                   return dispatch(searchActions.clearOldSearch(post_id));
                 }
               }
@@ -169,6 +175,7 @@ const getOnePostAX = (post_id) => {
   };
 };
 
+// 상세페이지 참여중인 사용자 목록 조회
 const getDetailPostUserListAX = (postId) => {
   return function (dispatch, getState, { history }) {
     axiosModule
@@ -198,6 +205,7 @@ const getDetailPostUserListAX = (postId) => {
   };
 };
 
+// 모임 만들기 신규 글 업로드 함수
 const addPostAX = (post_info) => {
   return function (dispatch, getState, { history }) {
     const address = getState().loc.post_address.address;
@@ -210,7 +218,6 @@ const addPostAX = (post_info) => {
         title: post_info.title,
         headCount: post_info.headCount,
         category: post_info.foodCategory,
-        // address: post_info.place,
         address: `${address}/${post_info.detail_place}`,
         orderTime: `${post_info.appointmentDate} ${post_info.appointmentTime}:00`,
         contents: post_info.contents,
@@ -222,6 +229,7 @@ const addPostAX = (post_info) => {
       .then((res) => {
         dispatch(chatActions.setChatListAX());
 
+        // 모집글 게시 성공 시
         customAlert.sweetConfirmReload(
           "밀착 준비 완료",
           [
@@ -230,8 +238,6 @@ const addPostAX = (post_info) => {
           ],
           "/home"
         );
-
-        // dispatch(locateActions.setAddressNull());
       })
       .catch((e) => {
         logger("모집글 작성 모듈 에러", e);
@@ -248,6 +254,7 @@ const addPostAX = (post_info) => {
   };
 };
 
+// 모임 만들기 수정 함수
 const editPostAX = (post_id, post_info, path) => {
   return function (dispatch, getState, { history }) {
     const longitude = getState().loc.post_address.longitude;
@@ -294,6 +301,7 @@ const editPostAX = (post_id, post_info, path) => {
 
         logger("수정 포스트 내용", post);
 
+        // 마이페이지에서 수정한 경우 수정 완료 이후 렌딩 페이지 처리
         dispatch(editPost(post_id, post));
         if (path === "/mypost") {
           customAlert.sweetConfirmReload(
@@ -308,9 +316,9 @@ const editPostAX = (post_id, post_info, path) => {
           ["성공적으로 모집글 수정이 완료되었어요."],
           `/post/${post_id}`
         );
-        // customAlert.sweetConfirmReload("수정 완료", '모집글 수정이 완료되었습니다.', `/home`);
       })
       .catch((e) => {
+        // 모집글 수정 중 마감기한이 지난 경우의 예외 처리
         logger("모집글 수정 모듈 에러", e);
         customAlert
           .sweetOK("이미 모집 마감된 글이에요", "새로운 모집글을 확인해주세요.")
@@ -321,7 +329,8 @@ const editPostAX = (post_id, post_info, path) => {
   };
 };
 
-// 채팅 신청
+// 채팅 신청함수
+// 신청 예외 처리 (이미 신청한 경우, 본인 글인 경우, 참여중인 경우, 마감된 경우)
 const requestChatPostAX = (user_id, post_user_id, post_id, detail_path) => {
   return function (dispatch, getState, { history }) {
     if (user_id === post_user_id) {
@@ -458,11 +467,6 @@ const requestChatPostAX = (user_id, post_user_id, post_id, detail_path) => {
               });
           } else {
             return;
-            // return customAlert.sweetConfirmReload(
-            //   "요청 취소",
-            //   ["승인 요청이 취소되었습니다."],
-            //   ""
-            // );
           }
         });
     }
@@ -577,15 +581,6 @@ export default handleActions(
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.push(...action.payload.post_list);
-
-        // draft.list = draft.list.reduce((acc, cur) => {
-        //   if (acc.findIndex((a) => a.id === cur.post_id) === -1) {
-        //     return [...acc, cur];
-        //   } else {
-        //     acc[acc.findIndex((a) => a.id === cur.post_id)] = cur;
-        //     return acc;
-        //   }
-        // }, []);
       }),
 
     [GET_DETAIL_POST_USER_LIST]: (state, action) =>
@@ -595,10 +590,6 @@ export default handleActions(
     [ADD_LAT_LNG]: (state, action) =>
       produce(state, (draft) => {
         draft.post_lat_lng = action.payload.x_y;
-      }),
-    [ADD_POST]: (state, action) =>
-      produce(state, (draft) => {
-        draft.list.unshift(action.payload.post_item);
       }),
     [EDIT_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -623,15 +614,6 @@ export default handleActions(
     [CLEAR_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list = [];
-      }),
-    [CLEAR_OLD_POST]: (state, action) =>
-      produce(state, (draft) => {
-        let idx = draft.list.findIndex(
-          (p) => p.post_id === action.payload.post_id
-        );
-        if (idx !== -1) {
-          draft.list.splice(idx, 1);
-        }
       }),
   },
   initialState
