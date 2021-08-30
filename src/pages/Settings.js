@@ -1,32 +1,25 @@
+// 마이페이지 - 설정
 import React from "react";
-import styled from "styled-components";
-import { useState } from "react";
-import logger from "../shared/Console";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { Grid, Text } from "../elements";
-import theme from "../styles/theme";
-import { customAlert } from "../components/Sweet";
 import { Header, PcSide } from "../components";
+import { customAlert } from "../components/Sweet";
+
+import logger from "../shared/Console";
+import theme from "../styles/theme";
 
 const Settings = (props) => {
   const dispatch = useDispatch();
   const { color, border, fontSize } = theme;
 
   React.useEffect(() => {
-    document
-      .querySelector("body")
-      .scrollTo({ top: 0, left: 0, behavior: "instant" });
+    document.querySelector("body").scrollTo(0, 0);
   }, []);
   return (
     <>
       <PcSide {...props} />
-      <Grid
-        // maxWidth="36rem"
-        minHeight="100vh"
-        // border={border.line1}
-        margin="0 auto"
-      >
+      <Grid minHeight="100vh" margin="0 auto">
         <Grid shape="container">
           <Header {...props} shape="설정" />
           <Grid height="4.4rem" />

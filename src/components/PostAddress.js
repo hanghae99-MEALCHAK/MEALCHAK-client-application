@@ -1,3 +1,4 @@
+// 게시글 작성 및 수정 시 주소 설정
 import React from "react";
 import DaumPostCode from "react-daum-postcode";
 import { customAlert } from "./Sweet";
@@ -12,24 +13,13 @@ import "./style.css";
 const PostAddress = React.memo((props) => {
   const dispatch = useDispatch();
   const [address, setAddress] = React.useState("");
-  // Header의 주소 입력과 게시글 주소 입력 구분
 
-  // 주소 검색 후 클릭 시 실행되는 함수(fullname은 추후에 활용 예정)
+  // 주소 검색 후 클릭 시 실행되는 함수
   // 도로명주소를 게시글에 보여줄 예정
   const handleComplete = (data) => {
-    logger("RoadAddress:16: ", data);
-    // let fullAddress = data.address;
-    // let extraAddress = "";
-    if (data.addressType === "R" && data.userSelectedType === "R") {
-      // if (data.bname !== "") {
-      //   extraAddress += data.bname;
-      // }
-      // if (data.buildingName !== "") {
-      //   extraAddress +=
-      //     extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-      // }
-      // fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    logger("PostAddress:20 : ", data);
 
+    if (data.addressType === "R" && data.userSelectedType === "R") {
       setAddress(data.address);
     } else if (data.userSelectedType === "J") {
       setAddress(data.address);

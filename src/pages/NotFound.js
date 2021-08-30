@@ -1,3 +1,4 @@
+// 에러 발생 시, 보여줄 페이지
 import React from "react";
 import styled from "styled-components";
 import { Button, Grid, Text } from "../elements";

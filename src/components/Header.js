@@ -6,6 +6,7 @@ import { customAlert } from "./Sweet";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as searchActions } from "../redux/modules/search";
 import { actionCreators as imageActions } from "../redux/modules/image";
+import { actionCreators as locateActions } from "../redux/modules/loc";
 
 // styles
 import { HiOutlineMenu } from "react-icons/hi";
@@ -28,8 +29,6 @@ const Header = (props) => {
     logger("헤더 props", props);
   }, []);
 
-  // shape 홈일때, 지도 api 추가 되면
-  // 상위 컴포넌트에서 children 으로 주소 보여줄 수 있을 것 같음
   if (props.shape === "홈") {
     return (
       <Grid is_flex2="t" height="4.4rem" margin="0rem auto 0.8rem" bg="#ffffff">
@@ -83,7 +82,6 @@ const Header = (props) => {
           src={isWebpSupported() ? webp.deleteLogoWebp : png.deleteLogo}
           cursor="pointer"
           _onClick={() => {
-            // history.replace('/home');
             history.goBack();
           }}
         />
@@ -105,8 +103,7 @@ const Header = (props) => {
           src={isWebpSupported() ? webp.arrowLeftWebp : png.arrowLeft}
           cursor="pointer"
           _onClick={() => {
-            history.replace("/home");
-            // history.goBack();
+            history.goBack();
           }}
         />
         <Text
@@ -205,7 +202,6 @@ const Header = (props) => {
           마이페이지
         </Text>
         <Text
-          // width="6.4rem"
           width="fit-content"
           height="2rem"
           size="1.3rem"
@@ -453,7 +449,7 @@ const ChatGridTop = styled.div`
   @media (min-width: 415px) {
     border-style: solid;
     border-width: 0 1px;
-    border-color: #CFCFCF;
+    border-color: #cfcfcf;
     max-width: 36rem;
     margin: 0 auto;
     box-sizing: border-box;

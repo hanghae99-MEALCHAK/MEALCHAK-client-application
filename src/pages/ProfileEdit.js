@@ -1,3 +1,4 @@
+// 프로필 수정 페이지
 import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
@@ -95,11 +96,6 @@ const ProfileEdit = (props) => {
           .then((res) => {
             if (res) {
               dispatch(userAction.editUserProfileAX({ ...editProfile }));
-              // customAlert.sweetConfirmReload(
-              //   "프로필 수정 완료",
-              //   ["멋진 프로필이시네요!"],
-              //   "/mypage"
-              // );
             } else {
               return;
             }
@@ -115,11 +111,6 @@ const ProfileEdit = (props) => {
       // 프로필 age, gender 둘다 이미 있는 사람
       if (editProfile.gender && editProfile.age) {
         dispatch(userAction.editUserProfileAX({ ...editProfile }));
-        // customAlert.sweetConfirmReload(
-        //   "프로필 수정 완료",
-        //   ["멋진 프로필이시네요!"],
-        //   "/mypage"
-        // );
       } else {
         customAlert.sweetConfirmReload(
           "앗 빈칸이 있어요",
@@ -142,7 +133,6 @@ const ProfileEdit = (props) => {
 
     setProfile({ ...editProfile, image: img });
     reader.readAsDataURL(img);
-
     reader.onloadend = () => {
       dispatch(imageActions.setPreview(reader.result));
     };
@@ -180,10 +170,8 @@ const ProfileEdit = (props) => {
       <>
         <PcSide {...props} />
         <Grid
-          // maxWidth="36rem"
           minWidth="32rem"
           minHeight="100vh"
-          // border={border.line1}
           margin="0 auto"
         >
           <Grid shape="container" minWidth="32rem">
@@ -437,7 +425,6 @@ const Profile = styled.div`
       : `background-image: url(http://115.85.182.57:8080/image/profileDefaultImg.jpg);`}
   background-size: cover;
   background-position: center;
-  /* padding: 10rem 0 0 0; */
 `;
 
 const ProfileCover = styled.div`
