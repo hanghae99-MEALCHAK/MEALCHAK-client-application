@@ -32,6 +32,7 @@ const DetailPage = React.memo((props) => {
   const is_me = post?.user_id === user_info?.user_id ? true : false;
 
   React.useEffect(() => {
+    console.log(props);
     if (post) {
       return;
     }

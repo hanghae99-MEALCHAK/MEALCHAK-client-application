@@ -259,8 +259,9 @@ const addPostAX = (post_info) => {
 // 모임 만들기 수정 함수
 const editPostAX = (post_id, post_info, path) => {
   return function (dispatch, getState, { history }) {
-    const longitude = getState().loc.post_address.longitude;
-    const latitude = getState().loc.post_address.latitude;
+    const longitude = getState().loc?.post_address.longitude;
+    const latitude = getState().loc?.post_address.latitude;
+    const place_url = getState().loc?.place_url;
 
     axiosModule
       .put(`/posts/${post_id}`, {
@@ -274,6 +275,7 @@ const editPostAX = (post_id, post_info, path) => {
         longitude: longitude,
         latitude: latitude,
         meetingType: post_info.meeting,
+        placeUrl: place_url,
       })
       .then((res) => {
         logger("수정 후 res", res);

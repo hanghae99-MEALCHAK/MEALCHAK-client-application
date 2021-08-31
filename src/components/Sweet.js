@@ -98,6 +98,9 @@ const sweetConfirmReload = (msg_title, msg_content_array, path) => {
         if (path === "/break") {
           return history.push("/chatlist");
         }
+        if (path.split("/")[0] === "post") {
+          history.replace(path);
+        }
         // 그 외 새로 리로드 될때
         window.location.replace(path);
       } else if (res.isDismissed) {
