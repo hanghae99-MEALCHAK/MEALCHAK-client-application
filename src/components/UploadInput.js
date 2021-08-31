@@ -3,7 +3,6 @@ import React from "react";
 import logger from "../shared/Console";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useDetectOutsideClick } from "./useDetectOutsideClick";
 import { PostAddress, ShopAddress } from ".";
 import { actionCreators as locateActions } from "../redux/modules/loc";
 
@@ -72,6 +71,7 @@ const UploadInput = React.memo((props) => {
 
   const post_address = useSelector((state) => state.loc.post_address?.address);
   const shopAddress = useSelector((state) => state.loc.shop_address);
+  const place_url = useSelector((state) => state.loc.place_url);
   const coords = useSelector((state) => state.loc.post_address);
   const longitude = coords?.longitude;
   const latitude = coords?.latitude;
@@ -90,6 +90,7 @@ const UploadInput = React.memo((props) => {
           longitude: props.post_info.longitude,
           latitude: props.post_info.latitude,
           meeting: props.post_info.meeting,
+          place_url: props.post_info.place_url,
         }
       : {
           place: "",
@@ -102,6 +103,7 @@ const UploadInput = React.memo((props) => {
           longitude: longitude,
           latitude: latitude,
           meeting: "",
+          place_url: place_url ? place_url : "",
         }
   );
 
@@ -134,8 +136,14 @@ const UploadInput = React.memo((props) => {
       setPostInfo({ ...post_info, restaurant: shopAddress });
       props?.onChange({ restaurant: shopAddress });
     }
+    if (!place_url && post_info?.place_url) {
+      dispatch(locateActions.setPlaceUrl(post_info?.place_url));
+      setPostInfo({ ...post_info, place_url: place_url });
+      props?.onChange({ place_url: place_url });
+    }
     logger("uploadinput 페이지", props);
     logger("uploadinput 페이지2", post_info);
+    console.log(shopAddress);
   }, []);
 
   React.useEffect(() => {
@@ -147,6 +155,11 @@ const UploadInput = React.memo((props) => {
     setPostInfo({ ...post_info, restaurant: shopAddress });
     props?.onChange({ restaurant: shopAddress });
   }, [shopAddress ? shopAddress : null]);
+
+  React.useEffect(() => {
+    setPostInfo({ ...post_info, place_url: place_url });
+    props?.onChange({ place_url: place_url });
+  }, [place_url ? place_url : null]);
 
   return (
     <React.Fragment>
@@ -359,7 +372,7 @@ const UploadInput = React.memo((props) => {
 
               <Grid display_grid="t">
                 <SDatePicker
-                  onFocus={(e) => (e.target.readOnly = true)}  //mobile 가상키보드 방지
+                  onFocus={(e) => (e.target.readOnly = true)} //mobile 가상키보드 방지
                   showDisabledMonthNavigation
                   theme={theme}
                   minDate={new Date()}
@@ -391,7 +404,7 @@ const UploadInput = React.memo((props) => {
                 />
 
                 <TDatePicker
-                  onFocus={(e) => (e.target.readOnly = true)}  //mobile 가상키보드 방지
+                  onFocus={(e) => (e.target.readOnly = true)} //mobile 가상키보드 방지
                   timeCaption="Time"
                   dateFormat="p"
                   timeIntervals={15}

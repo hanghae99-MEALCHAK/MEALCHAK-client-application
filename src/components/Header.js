@@ -39,7 +39,7 @@ const Header = (props) => {
             if (!is_login) {
               return customAlert.sweetNeedLogin();
             }
-            history.replace("/address");  // 주소 설정
+            history.replace("/address"); // 주소 설정
           }}
         >
           {is_login ? props.children : "게스트 로그인"}
@@ -55,7 +55,7 @@ const Header = (props) => {
             if (!is_login) {
               customAlert.sweetNeedLogin();
             }
-            history.replace("/address");  // 주소 설정
+            history.replace("/address"); // 주소 설정
           }}
         >
           <path
@@ -101,7 +101,8 @@ const Header = (props) => {
           src={isWebpSupported() ? webp.arrowLeftWebp : png.arrowLeft}
           cursor="pointer"
           _onClick={() => {
-            history.goBack();
+            // history.goBack();
+            history.push("/home");
           }}
         />
         <Text
@@ -176,7 +177,7 @@ const Header = (props) => {
         >
           {props.children}
         </Text>
-        <HiOutlineMenu  //채팅 사이드 바 아이콘
+        <HiOutlineMenu //채팅 사이드 바 아이콘
           size="2.4rem"
           color={color.bg100}
           style={{

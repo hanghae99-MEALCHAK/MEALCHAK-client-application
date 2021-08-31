@@ -84,6 +84,7 @@ const Upload = React.memo((props) => {
     longitude: longitude,
     latitude: latitude,
     meeting: _post?.meeting,
+    place_url: _post?.place_url,
   };
   const [post_info, setPostInfo] = useState(_post ? { ...past_post } : {});
   const today = moment().format("YYYY-MM-DD");

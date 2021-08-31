@@ -48,8 +48,8 @@ const DetailPost = React.memo((props) => {
   const [disabled, setDisabled] = React.useState(false);
 
   // 지도 표시 위도, 경도
-  const latitude = useSelector((state) => state.post.post_lat_lng?.latitude);
-  const longitude = useSelector((state) => state.post.post_lat_lng?.longitude);
+  const latitude = useSelector((state) => state.post?.post_lat_lng.latitude);
+  const longitude = useSelector((state) => state.post?.post_lat_lng.longitude);
 
   const distance = props?.distance * 1000;
 
