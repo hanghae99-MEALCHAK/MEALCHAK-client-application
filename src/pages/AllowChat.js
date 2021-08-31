@@ -43,85 +43,83 @@ const AllowChat = (props) => {
           <Header {...props} shape="채팅리스트" />
           <Grid height="4.4rem" />
           <Footer {...props}></Footer>
-          <TapGrid>
-            <Grid
-              width="100%"
-              padding="0 2rem"
-              margin="0"
-              _onClick={() => {
-                history.push("/chatlist");
-              }}
-              cursor="pointer"
-            >
-              <Text
-                size={fontSize.base}
-                margin="0 0 0.8rem"
-                color={color.bg60}
-                bold2="700"
-              >
-                참여중인 채팅방
-              </Text>
-            </Grid>
-            <Grid
-              borderBottom={border.line3}
-              width="100%"
-              padding="0 2rem"
-              margin="0"
-              _onClick={() => {
-                history.push("/allowchat");
-              }}
-              cursor="pointer"
-              position="relative"
-            >
-              <Grid
-                width="fit-content"
-                height="fit-content"
-                position="absolute"
-                top="-0.6rem"
-                right="1.2rem"
-              >
-                {is_alarm && (
-                  <Image
-                    size="0.9"
-                    src={isWebpSupported() ? webp.alarmWebp : png.alarm}
-                  />
-                )}
-              </Grid>
-              <Text size={fontSize.base} bold2="700" margin="0 0 0.8rem">
-                들어온 승인 요청
-              </Text>
-            </Grid>
-          </TapGrid>
-
-          {/* 들어온 승인 요청 항목 리스트*/}
-          {allow_list.map((info, idx) => {
-            return (
-              <AllowList
-                key={idx}
-                join_id={info.join_id}
-                roomName={info.title}
-                user_id={info.user_id}
-                user_img={info.user_img}
-                username={info.username}
-              />
-            );
-          })}
-
-          {/* 들어온 요청이 없는 경우 기본 이미지*/}
-          {allow_list.length === 0 && (
-            <>
-              <Grid
-                shape="empty"  // 화면 중앙에 이미지 정렬
-                src={
-                  isWebpSupported() ? webp.emptyBubblesWebp : png.emptyBubbles
-                }
-              >
-                <EmptyText theme={theme}>아직 들어온 요청이 없어요.</EmptyText>
-              </Grid>
-              <Grid height="20rem"></Grid>
-            </>
-          )}
         </Grid>
+        <TapGrid>
+          <Grid
+            width="100%"
+            padding="0 2rem"
+            margin="0"
+            _onClick={() => {
+              history.push("/chatlist");
+            }}
+            cursor="pointer"
+          >
+            <Text
+              size={fontSize.base}
+              margin="0 0 0.8rem"
+              color={color.bg60}
+              bold2="700"
+            >
+              참여중인 채팅방
+            </Text>
+          </Grid>
+          <Grid
+            borderBottom={border.line3}
+            width="100%"
+            padding="0 2rem"
+            margin="0"
+            _onClick={() => {
+              history.push("/allowchat");
+            }}
+            cursor="pointer"
+            position="relative"
+          >
+            <Grid
+              width="fit-content"
+              height="fit-content"
+              position="absolute"
+              top="-0.6rem"
+              right="1.2rem"
+            >
+              {is_alarm && (
+                <Image
+                  size="0.9"
+                  src={isWebpSupported() ? webp.alarmWebp : png.alarm}
+                />
+              )}
+            </Grid>
+            <Text size={fontSize.base} bold2="700" margin="0 0 0.8rem">
+              들어온 승인 요청
+            </Text>
+          </Grid>
+        </TapGrid>
+
+        {/* 들어온 승인 요청 항목 리스트*/}
+        {allow_list.map((info, idx) => {
+          return (
+            <AllowList
+              key={idx}
+              join_id={info.join_id}
+              roomName={info.title}
+              user_id={info.user_id}
+              user_img={info.user_img}
+              username={info.username}
+            />
+          );
+        })}
+
+        {/* 들어온 요청이 없는 경우 기본 이미지*/}
+        {allow_list.length === 0 && (
+          <>
+            <Grid
+              shape="empty" // 화면 중앙에 이미지 정렬
+              src={isWebpSupported() ? webp.emptyBubblesWebp : png.emptyBubbles}
+            >
+              <EmptyText theme={theme}>아직 들어온 요청이 없어요.</EmptyText>
+            </Grid>
+            <Grid height="20rem"></Grid>
+          </>
+        )}
       </Grid>
     </React.Fragment>
   );
