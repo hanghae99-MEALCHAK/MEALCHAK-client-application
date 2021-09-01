@@ -11,6 +11,7 @@ import logger from "../shared/Console";
 const MapContainer = (props) => {
   const dispatch = useDispatch();
 
+  const infoRef = React.useRef("");
   // 게시글 - 만날 장소의 위도, 경도
   const latitude = useSelector((state) => state.user.user.latitude);
   const longitude = useSelector((state) => state.user.user.longitude);
@@ -74,7 +75,7 @@ const MapContainer = (props) => {
 
       // 검색 결과가 정확한 경우, 인포윈도우 노출
       infowindow.setContent(
-        '<div style="padding:5px;font-size:1rem;width:max-content;">' +
+        '<div style="padding:0.5rem;font-size:1rem;width:max-content;">' +
           place.place_name +
           "</div>"
       );
@@ -83,7 +84,7 @@ const MapContainer = (props) => {
       // 마커영역에 마우스를 올리면 장소명, 주소를 포함한 인포윈도우 노출
       kakao.maps.event.addListener(marker, "mouseover", function () {
         infowindow.setContent(
-          '<div style="padding:5px;font-size:1rem;width:max-content;">' +
+          '<div style="padding:0.5rem;font-size:1rem;width:max-content;">' +
             place.place_name +
             "</div>"
         );
@@ -92,6 +93,9 @@ const MapContainer = (props) => {
 
       // 마커 영역에 마우스를 내리면 장소명, 주소를 포함한 인포윈도우 제거
       kakao.maps.event.addListener(marker, "mouseout", function () {
+        infowindow.close();
+      });
+      kakao.maps.event.addListener(map, "click", function () {
         infowindow.close();
       });
 
@@ -105,7 +109,7 @@ const MapContainer = (props) => {
           )
           .then((res) => {
             if (res === true) {
-              dispatch(locateActions.setShopAddress(infowindow.a.innerText));
+              dispatch(locateActions.setShopAddress(place.place_name));
               dispatch(locateActions.setPlaceUrl(place.place_url));
               props?.close();
               props?.placeNull();

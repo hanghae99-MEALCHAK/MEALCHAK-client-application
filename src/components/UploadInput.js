@@ -110,8 +110,6 @@ const UploadInput = React.memo((props) => {
   const dropdownRef = React.useRef(null);
   const shopRef = React.useRef(null);
 
-  // const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-  // const [shopActive, setShopActive] = useDetectOutsideClick(shopRef, false);
   const [isActive, setIsActive] = useState(false);
   const [shopActive, setShopActive] = useState(false);
 
