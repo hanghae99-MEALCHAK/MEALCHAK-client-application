@@ -1,4 +1,4 @@
-/*global kakao */
+/*global kakao*/
 // 게시글 작성 및 수정 시 지도로 식당 찾기
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -74,7 +74,7 @@ const MapContainer = (props) => {
 
       // 검색 결과가 정확한 경우, 인포윈도우 노출
       infowindow.setContent(
-        '<div style="padding:5px;font-size:1rem;width:max-content;">' +
+        '<div style="padding:0.5rem;font-size:1rem;width:max-content;">' +
           place.place_name +
           "</div>"
       );
@@ -83,7 +83,7 @@ const MapContainer = (props) => {
       // 마커영역에 마우스를 올리면 장소명, 주소를 포함한 인포윈도우 노출
       kakao.maps.event.addListener(marker, "mouseover", function () {
         infowindow.setContent(
-          '<div style="padding:5px;font-size:1rem;width:max-content;">' +
+          '<div style="padding:0.5rem;font-size:1rem;width:max-content;">' +
             place.place_name +
             "</div>"
         );
@@ -92,6 +92,9 @@ const MapContainer = (props) => {
 
       // 마커 영역에 마우스를 내리면 장소명, 주소를 포함한 인포윈도우 제거
       kakao.maps.event.addListener(marker, "mouseout", function () {
+        infowindow.close();
+      });
+      kakao.maps.event.addListener(map, "click", function () {
         infowindow.close();
       });
 
