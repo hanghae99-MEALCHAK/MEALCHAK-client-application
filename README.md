@@ -1,6 +1,5 @@
 # 밀착 MealChak
 
----
 
 - [MealChak](https://mealchak.com/)
 - [FrontEnd Github](https://github.com/hanghae99-MEALCHAK/MEALCHAK-client-application)
@@ -10,7 +9,6 @@
 
 # **프로젝트 소개**
 
----
 
 점심을 시켜먹고 싶은데  최소 주문 금액이 높아 1인분 만 시킬 수가 없어서,
 때론 배달비가 아깝거나 가격이 비싸서, 때론 양이 너무 많아서
@@ -20,7 +18,6 @@
 
 # **Target**
 
----
 
 - 최소 주문금액 때문에 먹고 싶은걸 포기하는 모든 이들
 - 배달비가 부담스러운 사회 초년생과 대학생
@@ -28,7 +25,6 @@
 
 # **기획 배경**
 
----
 
 > 우리는 코로나 이후에 배달 음식을 더 많이 주문하게 되었습니다. 
 만약 내가 다른 이웃과 같은 음식점에서 같이 주문을 한다면
@@ -38,7 +34,6 @@
 
 # **밀착 Team 소개**
 
----
 
 ### 👨‍👨‍👧‍👦  팀원( 노션 링크 넣기)
 
@@ -63,7 +58,6 @@
 
 # 서비스 **소개**
 
----
 
 - 회원가입 없이 카카오톡으로 로그인을 할 수 있습니다.
 - 오늘의 인기 메뉴를 확인 할 수 있습니다.
@@ -78,7 +72,6 @@
 <img width="100%" alt="meal-feature" src="https://user-images.githubusercontent.com/73174694/131767800-900310b9-9ff6-4048-985b-572b3b806051.png">
 
 # 사용 패키지
----
 * **Redux (redux-actions, immer)**
   * 데이터 전역 관리를 위한 리덕스 관리
 * **connected-react-router, history**
@@ -104,13 +97,12 @@
 
 # 트러블 슈팅
 
----
 
 ### 1 웹 소켓 간헐적 끊김
 
 
 #### 문제 발견 과정
-    (onChange > useState > dispatch - action > state 값 변경 > 과도한 리렌더링)
+(onChange > useState > dispatch - action > state 값 변경 > 과도한 리렌더링)
 
 1. 사용자의 채팅 메시지 작성 시, onChange 이벤트와 동시에 이벤트의 value값을 useState로 변경시키고 Redux에 저장하는 Action을 실행하는 구조로 되어 있어 웹 소켓에 구독중인 컴포넌트 전체에 과도한 리렌더링이 발생하였습니다.
 
@@ -132,8 +124,8 @@
 
 3. 웹 소켓 끊어짐 현상이 해결되었고, 채팅 입력시 input의 text 밀림 현상 및 채팅 속도가 개선 되었습니다.
 
-![chat_rendering](https://user-images.githubusercontent.com/73174694/131772390-5e3ad742-e5cf-4074-8cd2-fabce4bb2883.gif)
-<img width="90%" alt="Screen Shot 2021-09-02 at 13 29 07 PM" src="https://user-images.githubusercontent.com/73174694/131781941-50864bcc-d5cc-43ae-b831-14e5b856e414.png">
+<img width="90%" alt="chat-disconnect" src="https://user-images.githubusercontent.com/73174694/131772390-5e3ad742-e5cf-4074-8cd2-fabce4bb2883.gif">
+<img width="90%" alt="re-render" src="https://user-images.githubusercontent.com/73174694/131781941-50864bcc-d5cc-43ae-b831-14e5b856e414.png">
 
 ### 2 이미지 렌더링 속도 최적화
 #### 문제 발견 과정
