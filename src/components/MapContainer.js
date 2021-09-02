@@ -105,7 +105,7 @@ const MapContainer = (props) => {
           )
           .then((res) => {
             if (res === true) {
-              dispatch(locateActions.setShopAddress(infowindow.a.innerText));
+              dispatch(locateActions.setShopAddress(place.place_name));
               dispatch(locateActions.setPlaceUrl(place.place_url));
               props?.close();
               props?.placeNull();
