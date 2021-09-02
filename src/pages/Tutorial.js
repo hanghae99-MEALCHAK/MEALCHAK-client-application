@@ -1,39 +1,41 @@
+// mealchak서비스 첫 페이지(splash screen, 간단 소개, 카카오 로그인)
 import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { useSelector } from "react-redux";
+
 // kakao login
 import { Kakao_auth_url } from "../shared/OAuth";
 
 // style
-import { mainLogo } from "../styles/img/index";
-import { mainLogoWebp } from "../styles/img/webp/index";
-
 import { Button, Grid, Text } from "../elements";
 import theme from "../styles/theme";
-import {isWebpSupported} from 'react-image-webp/dist/utils';
-
-
 import { TutorialSwiper } from "../components";
 import { customAlert } from "../components/Sweet";
 
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from '../styles/img/webp/index';
+import {isWebpSupported} from 'react-image-webp/dist/utils';
+
 const Tutorial = (props) => {
-  const { color, border, fontSize, radius } = theme;
+  const { color, fontSize, radius } = theme;
   const is_login = useSelector((state) => state.user.is_login);
   // splash screen
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
+    // splash screen 시간 설정
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
     }, 1000);
 
-    // 로그인 한 사용자가 로딩 시간때문인지 일정시간이 지나야 아래 부분실행됨
+    // 이미 로그인 한 사용자가 접근한 경우 서비스 내부로 이동시킴
     if (is_login) {
       customAlert.sweetConfirmReload(
-        "로그인 한 사용자입니다.",
-        ["홈으로 돌아갑니다."],
+        "앗 이미 로그인 중이에요",
+        ["홈 화면으로 이동할게요."],
         "history"
       );
     }
@@ -43,14 +45,12 @@ const Tutorial = (props) => {
     <React.Fragment>
       {loading ? (
         <Grid is_flex4 height="100vh">
-          {isWebpSupported() ? <LogoImg src={mainLogoWebp}></LogoImg>  : <LogoImg src={mainLogo}></LogoImg> }
+          <LogoImg src={isWebpSupported() ? webp.mainLogoWebp : png.mainLogo}/>
         </Grid>
       ) : (
         <Grid
           maxWidth="36rem"
-          // border={border.line1}
           margin="0 auto"
-          // padding="2rem"
           minHeight="100vh"
           text_align="center"
         >
@@ -58,15 +58,18 @@ const Tutorial = (props) => {
             <Grid margin="2rem auto">
               <TutorialSwiper></TutorialSwiper>
             </Grid>
+
+            {/* 둘러보기 사용자 용 버튼 */}
             <DisplayGrid>
               <Button
                 height="5rem"
                 border="none"
                 radius={radius.button}
+                bg={color.brand20}
+                cursor="t"
                 _onClick={() => {
                   history.push("/home");
                 }}
-                bg={color.brand20}
               >
                 <Text
                   margin="auto"
@@ -77,11 +80,14 @@ const Tutorial = (props) => {
                   밀착 둘러보기
                 </Text>
               </Button>
+
+              {/* 소셜 로그인 기능 */}
               <Button
                 bg="#FEE500"
                 height="5rem"
                 border="none"
                 radius={radius.button}
+                cursor="t"
                 _onClick={() => {
                   window.location.href = `${Kakao_auth_url}`;
                 }}

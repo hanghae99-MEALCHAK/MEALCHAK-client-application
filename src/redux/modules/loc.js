@@ -14,16 +14,22 @@ import logger from "../../shared/Console";
 const SET_LOC = "SET_LOC";
 const SET_POSTADDRESS = "SET_POSTADDRESS";
 const SET_ADDRESSNULL = "SET_ADDRESSNULL";
+const SET_SETSHOPADDRESS = "SET_SETSHOPADDRESS";
+const SET_PLACEURL = "SET_PLACEURL";
 
 const setLoc = createAction(SET_LOC, (coordinate) => ({ coordinate }));
 const setPostAddress = createAction(SET_POSTADDRESS, (address) => ({
   address,
 }));
 const setAddressNull = createAction(SET_ADDRESSNULL, () => ({}));
+const setShopAddress = createAction(SET_SETSHOPADDRESS, (shop) => ({ shop }));
+const setPlaceUrl = createAction(SET_PLACEURL, (url) => ({ url }));
 
 const initialState = {
   list: [],
   post_address: "",
+  shop_address: "",
+  place_url: "",
 };
 
 // 특정 주소(도로명주소 혹은 지번주소)로 위도, 경도, 지번, 도로명주소, 우편번호 도출 middleware
@@ -99,6 +105,14 @@ export default handleActions(
       produce(state, (draft) => {
         draft.post_address = action.payload.address;
       }),
+    [SET_SETSHOPADDRESS]: (state, action) =>
+      produce(state, (draft) => {
+        draft.shop_address = action.payload.shop;
+      }),
+    [SET_PLACEURL]: (state, action) =>
+      produce(state, (draft) => {
+        draft.place_url = action.payload.url;
+      }),
     [SET_ADDRESSNULL]: (state, action) =>
       produce(state, (draft) => {
         draft.post_address = null;
@@ -110,9 +124,11 @@ export default handleActions(
 const actionCreators = {
   setLoc,
   setAddressNull,
-  // getCoordinate,
   getMyCoordinateAX,
   getMyPostCoordAX,
+  setShopAddress,
+  setPostAddress,
+  setPlaceUrl,
 };
 
 export { actionCreators };

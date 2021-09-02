@@ -1,38 +1,38 @@
+// 내가 보는 내 프로필(마이페이지 아닌 타 유저가 보는 내 프로필과 비교)
 import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router";
 import { actionCreators as userAction } from "../redux/modules/user";
+import { MyOneReview } from "../components";
 
 // style
 import { Button, Grid, Text } from "../elements";
 import { Header, ProfileTab, PcSide } from "../components";
-import { emptyMeal_3x } from "../styles/img/index";
 import theme from "../styles/theme";
-import { MyOneReview } from "../components";
 import Spinner from "../shared/Spinner";
 import logger from "../shared/Console";
 
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from "../styles/img/webp/index";
+import { isWebpSupported } from "react-image-webp/dist/utils";
+
 const MyProfile = (props) => {
   const dispatch = useDispatch();
-  const location = useLocation();
+
   const is_login = useSelector((state) => state.user?.is_login);
   const other_user = useSelector((state) => state.user?.anotherUser);
   const user_id = props.location.state.user_id
     ? props.location.state.user_id
     : props.location.state.userId;
+
   const { color, fontSize, radius } = theme;
 
   React.useEffect(() => {
-    document
-      .querySelector("body")
-      .scrollTo({ top: 0, left: 0, behavior: "instant" });
+    document.querySelector("body").scrollTo(0, 0);
 
     dispatch(userAction.loginCheck());
     dispatch(userAction.findUserProfileAX(user_id));
-    logger("props from MyPage : ", location.state);
-    logger("props from MyPage2 : ", props);
-    logger("MyProfile another_user_info: ", other_user);
   }, []);
 
   if (is_login) {
@@ -40,15 +40,12 @@ const MyProfile = (props) => {
       <React.Fragment>
         <PcSide {...props} />
         <Grid
-          // maxWidth="36rem"
           minHeight="100vh"
-          // border={border.line1}
           margin="0 auto"
         >
           <Grid shape="container">
             <Header {...props} shape="프로필" />
             <Grid height="4.4rem" />
-
             <Grid margin="1.6rem auto 2rem">
               <Profile user_profile={other_user?.user_profile}></Profile>
             </Grid>
@@ -67,9 +64,15 @@ const MyProfile = (props) => {
               >
                 {other_user?.user_nickname}
               </Text>
-              <Grid width="auto" text_align="center">
+              <Grid
+                width="24rem"
+                text_align="center"
+                margin="0.5rem auto 0 auto"
+              >
                 <Text size={fontSize.small} color="#9A9896" line_height="150%">
-                  <span style={{ whiteSpace: "pre-wrap" }}>
+                  <span
+                    style={{ whiteSpace: "pre-wrap", wordBreak: "break-all" }}
+                  >
                     {other_user?.user_comment ? other_user?.user_comment : ""}
                   </span>
                 </Text>
@@ -117,7 +120,11 @@ const MyProfile = (props) => {
               })
             ) : (
               <Grid width="36rem" margin="0 auto">
-                <MyReviewImg src={emptyMeal_3x}></MyReviewImg>
+                <MyReviewImg
+                  src={
+                    isWebpSupported() ? webp.emptyMeal_3xWebp : png.emptyMeal_3x
+                  }
+                ></MyReviewImg>
                 <MyReviewText>아직 받은 리뷰가 없어요.</MyReviewText>
               </Grid>
             )}

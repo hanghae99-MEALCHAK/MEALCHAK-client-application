@@ -10,8 +10,13 @@ import { actionCreators as searchActions } from '../redux/modules/search';
 
 import theme from '../styles/theme';
 
+// 이미지 
+import { png } from "../styles/img/index"; 
+import { webp } from "../styles/img/webp"; 
+import {isWebpSupported} from 'react-image-webp/dist/utils';
+
 const Search = (props) => {
-  const { color } = theme;
+  const { color, border, fontSize } = theme;
 
   const dispatch = useDispatch();
   const [food, setFood] = React.useState('');
@@ -19,34 +24,34 @@ const Search = (props) => {
     recent: true,
     nearby: false,
   });
+
+  // 검색된 post들 가져오기
   let search_list = useSelector((state) => state.search.list);
+  // input에 검색어가 있는지 확인
   const is_food = useSelector((state) => state.search.is_food);
 
   const onChange = (e) => {
     setFood(e.target.value);
   };
 
+  // 정렬기준을 가지고 검색하기
   const search = () => {
     setSort({ ...{ sort: false }, recent: true });
     dispatch(searchActions.getSearchListDB(food));
   };
 
+  // 검색input 초기화
   const foodReset = () => {
     setFood('');
     dispatch(searchActions.food_check(false));
   };
-
-  React.useEffect(() => {
-    // dispatch(searchActions.food_check(false));
-  }, []);
+  
   return (
     <React.Fragment>
       <PcSide {...props} />
       <Grid
-        // width="36rem"
         minHeight="100vh"
-        margin="0 auto"
-        // border={border.line1}
+        margin="0 auto"      
       >
         <Grid shape="container">
           <Header {...props} shape="검색">
@@ -57,15 +62,14 @@ const Search = (props) => {
         <Grid is_flex4="t" height="4.4rem" margin="1.6rem auto 0 auto">
           <Grid width="32rem" margin="auto">
             <Input
-              padding="1.4rem 1.6rem"
-              border="0.1rem solid #EBE9E8"
+              padding="1.4rem 8rem 1.4rem 1.6rem"
+              border={border.bg40}
               placeholder="제목+내용으로 검색 돼요."
-              size="1.6rem"
+              size={fontSize.base}
               value={food}
               _onChange={onChange}
               onSubmit={search}
               is_submit
-              style={{ margin: '1.6rem 0' }}
             ></Input>
           </Grid>
 
@@ -134,13 +138,13 @@ const Search = (props) => {
         </Grid>
         <Grid is_flex2 width="32rem" margin="2.15rem auto">
           <Grid>
-            <Text size="1.3rem" color={color.bg80} bold2="500">
+            <Text size={fontSize.small} color={color.bg80} bold2="500">
               정렬 기준
             </Text>
           </Grid>
           <Grid flex justify_content="flex-end">
             <Text
-              size="1.3rem"
+              size={fontSize.small}
               color={sort?.recent ? color.brand100 : color.bg60}
               bold
               cursor="t"
@@ -152,7 +156,7 @@ const Search = (props) => {
               마감임박순
             </Text>
             <Text
-              size="1.3rem"
+              size={fontSize.small}
               color={sort?.nearby ? color.brand100 : color.bg60}
               bold
               margin="0 0 0 1rem"
@@ -196,7 +200,7 @@ const SearchLogoImg = styled.div`
   width: 28rem;
   height: 25.8rem;
   border-radius: 2rem;
-  background-image: url('/illust/whatDoIeat_3x.png');
+  background-image: url('${isWebpSupported() ? webp.whatDoIeatWebp : png.whatDoIeat}');
   background-size: 28rem 25.8rem;
   margin: 0 auto;
 `;
@@ -205,7 +209,7 @@ const ZeroImg = styled.div`
   width: 14.3rem;
   height: 26.4rem;
   border-radius: 2rem;
-  background-image: url('/illust/Group182_3x.png');
+  background-image: url('${isWebpSupported() ? webp.Group182_3xWebp : png.Group182_3x}');
   background-size: 14.3rem 26.4rem;
   margin: 0 auto;
 `;

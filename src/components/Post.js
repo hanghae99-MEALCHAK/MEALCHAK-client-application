@@ -1,3 +1,4 @@
+// 메인에 표시될 게시글
 import React from "react";
 import styled from "styled-components";
 import { actionCreators as postActions } from "../redux/modules/post";
@@ -13,8 +14,8 @@ import logger from "../shared/Console";
 import moment from "moment";
 
 const Post = React.memo((props) => {
-  logger("포스트 리렌더링이 되었습니다.");
-  const { color, fontSize } = theme;
+  logger("포스트 리렌더링이 되었습니다.", props);
+  const { color, fontSize, border } = theme;
 
   // 글 생성 시간
   // 연, 월
@@ -30,7 +31,6 @@ const Post = React.memo((props) => {
 
   // 오늘 표시
   const today = moment().format("YYYY-MM-DD");
-  const now = moment().format("HH:mm");
   const tomorrow = moment().add(1, "d").format("YYYY-MM-DD");
   const is_today = today === props.orderDate ? true : false;
   const is_tomorrow = tomorrow === props.orderDate ? true : false;
@@ -39,17 +39,9 @@ const Post = React.memo((props) => {
   const user_info = useSelector((state) => state.user.user);
   const [disabled, setDisabled] = React.useState(false);
 
-  // 마감여부
-  const now_time_int = parseInt(
-    today.split("-").join("") + now.split(":").join("")
-  );
-  const post_time_int = parseInt(ordDate.join("") + ordTime.join(""));
-  const is_over = now_time_int > post_time_int ? true : false;
-
   const dispatch = useDispatch();
-  // 내 위치에서부터 얼마나 떨어져있는지 보여주는 변수(소수점이므로 1000을 곱해 m로 나타냄)
+  // 내 위치에서부터 얼마나 떨어져있는지 보여주는 변수
   const distance = props.distance * 1000;
-  // logger("Post.js props: ", props);
 
   const requestJoin = () => {
     if (is_login) {
@@ -78,6 +70,15 @@ const Post = React.memo((props) => {
     return `${ordDate[1]}월 ${ordDate[2]}일 ${ordTime[0]}:${ordTime[1]}`;
   };
 
+  const meetingType = () => {
+    if (props.meeting === "SEPARATE") {
+      return "배달만";
+    }
+    if (props.meeting === "TOGETHER") {
+      return "배달+식사";
+    }
+  };
+
   React.useEffect(() => {
     if (props.valid === false) {
       return setDisabled(true);
@@ -98,11 +99,7 @@ const Post = React.memo((props) => {
         border="0.1rem solid #EBE9E8"
         radius={fontSize.base}
       >
-        <Grid
-          is_float="left"
-          // margin="0.5rem 1.5rem 0 1.5rem"
-          margin="0.5rem 1.5rem 0.8rem 1.5rem"
-        >
+        <Grid padding="1.6rem 1.6rem 0 1.6rem" margin="0 0 1.6rem 0">
           <Grid is_flex>
             <UserProfile
               src={props.userImg}
@@ -125,39 +122,72 @@ const Post = React.memo((props) => {
             />
             <Grid>
               <Grid is_flex>
-                <Text size={fontSize.small} color={color.bg100} bold2="500">
-                  {props.username}
-                </Text>
-                <Grid
-                  width={props.valid === false || disabled ? "5rem" : ""}
-                  minWidth="5.5rem"
-                  maxWidth="9.1rem"
-                  height="2.3rem"
-                  bg={
-                    props.valid === false || disabled
-                      ? `${color.bg20}`
-                      : "rgba(84, 189, 88, 0.1)"
-                  }
-                  radius="0.5rem"
-                  padding="0.4rem 0.8rem"
-                  margin="0 3.3rem 0 0"
-                  opacity="0.9"
-                >
-                  <Text
-                    size="1rem"
-                    text_align="center"
-                    margin="0"
-                    color={
-                      props.valid === false || disabled
-                        ? `${color.bg80}`
-                        : color.success100
-                    }
-                    bold
-                  >
-                    {props.valid === false || disabled
-                      ? `모집마감`
-                      : `모집 인원 ${props.nowHeadCount}/${props.headCount}명`}
+                <Grid>
+                  <Text size={fontSize.small} color={color.bg100} bold2="500">
+                    {props.username}
                   </Text>
+                </Grid>
+                <Grid flex justify_content="flex-end" width="fit-content">
+                  <Grid
+                    width="fit-content"
+                    height="fit-content"
+                    white_space="nowrap"
+                    bg={
+                      props.valid === false || disabled
+                        ? `${color.bg20}`
+                        : "rgba(84, 189, 88, 0.1)"
+                    }
+                    radius="0.5rem"
+                    padding="0.4rem 0.4rem"
+                    margin="0 0.4rem 0 0"
+                    opacity="0.9"
+                  >
+                    <Text
+                      size="1rem"
+                      text_align="center"
+                      margin="0"
+                      width="fit-content"
+                      white_space="nowrap"
+                      color={
+                        props.valid === false || disabled
+                          ? `${color.bg80}`
+                          : color.success100
+                      }
+                      bold
+                    >
+                      {props.valid === false || disabled
+                        ? `모집마감`
+                        : `모집 ${props.nowHeadCount}/${props.headCount}명`}
+                    </Text>
+                  </Grid>
+                  <Grid
+                    width="fit-content"
+                    height="fit-content"
+                    white_space="nowrap"
+                    border={
+                      props.valid === false || disabled
+                        ? border.bg40
+                        : border.success100
+                    }
+                    radius="0.5rem"
+                    padding="0.3rem 0.3rem"
+                  >
+                    <Text
+                      width="fit-content"
+                      size="1rem"
+                      line_height="150%"
+                      text_align="center"
+                      white_space="nowrap"
+                      color={
+                        props.valid === false || disabled
+                          ? color.bg80
+                          : color.success100
+                      }
+                      bold
+                    >
+                      {meetingType()}
+                    </Text>
+                  </Grid>
                 </Grid>
               </Grid>
               <Text size="1rem" color={color.bg80} bold2="400">
@@ -174,14 +204,12 @@ const Post = React.memo((props) => {
               line_height="150%"
               color={color.bg100}
               bold
-              // margin="0"
               margin="0 0 0.8rem 0"
             >
               {props.title}
             </Text>
             <Text
               width="28.8rem"
-              // margin="0 0 0.6rem 0"
               margin="0 0 0.8rem 0"
               size={fontSize.small}
               line_height="150%"
@@ -209,7 +237,7 @@ const Post = React.memo((props) => {
               </Text>
               {!props.is_profile && (
                 <Text
-                  height="1.5rem"
+                  // height="1.5rem"
                   size="1rem"
                   bold2="500"
                   color={color.success100}
@@ -239,7 +267,6 @@ const Post = React.memo((props) => {
             </Text>
           </Grid>
           <Hr />
-
           <Grid is_flex align_items="center">
             <Grid>
               <Text
@@ -263,7 +290,17 @@ const Post = React.memo((props) => {
                 white_space="nowrap"
                 display="block"
               >
-                {props.shop}
+                {props?.place_url ? (
+                  <a
+                    href={props?.place_url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {props?.shop}
+                  </a>
+                ) : (
+                  `${props?.shop}`
+                )}
               </Text>
             </Grid>
             <Grid>
@@ -275,7 +312,7 @@ const Post = React.memo((props) => {
                   color={color.bg80}
                   margin="0.7rem 0"
                 >
-                  예상 만남 시간
+                  만남 예정 시간
                 </Text>
                 <Text
                   width="13.6rem"
@@ -348,18 +385,18 @@ Post.defaultProps = {};
 
 const UserProfile = styled.div`
   width: 4.3rem;
-  height: 3.8rem;
+  height: 3.6rem;
   border-radius: 2rem;
   background-image: url("${(props) => props.src}");
   background-size: cover;
   background-position: center;
-  margin: 1rem 1rem 1rem 0;
+  margin: 0 0.8rem 0 0;
   cursor: pointer;
 `;
 
 const Hr = styled.hr`
   width: 29rem;
-  height: 0.01rem;
+  height: 0.05rem;
   background-color: #f4f4f3;
   border: none;
   margin: 0;

@@ -3,15 +3,18 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-import Spinner from "../shared/Spinner";
 import { MyOneReview, PcSide } from "../components";
 
 // style
-import { Grid} from "../elements";
-import { emptyMeal_3x } from "../styles/img/index";
+import { Grid } from "../elements";
 import { Header } from "../components";
+import Spinner from "../shared/Spinner";
 import logger from "../shared/Console";
-import theme from "../styles/theme";
+
+// 이미지
+import { png } from "../styles/img/index";
+import { webp } from "../styles/img/webp/index";
+import { isWebpSupported } from "react-image-webp/dist/utils";
 
 const MyReview = (props) => {
   const dispatch = useDispatch();
@@ -20,8 +23,9 @@ const MyReview = (props) => {
   const my_review = useSelector((state) => state.user?.myReview);
 
   React.useEffect(() => {
-    window.scrollTo(0, 0);
-    dispatch(userActions.loginCheck());
+    if (!is_login) {
+      dispatch(userActions.loginCheck());
+    }
     if (my_review.length === 0) {
       dispatch(userActions.getMyReviewAX());
     }
@@ -32,10 +36,8 @@ const MyReview = (props) => {
       <>
         <PcSide {...props} />
         <Grid
-          // maxWidth="36rem"
           minWidth="36rem"
           minHeight="100vh"
-          // border={border.line1}
           margin="0 auto"
         >
           <Grid shape="container" minWidth="36rem">
@@ -48,7 +50,11 @@ const MyReview = (props) => {
               })
             ) : (
               <Grid>
-                <MyReviewImg src={emptyMeal_3x}></MyReviewImg>
+                <MyReviewImg
+                  src={
+                    isWebpSupported() ? webp.emptyMeal_3xWebp : png.emptyMeal_3x
+                  }
+                ></MyReviewImg>
                 <MyReviewText>아직 받은 리뷰가 없어요.</MyReviewText>
               </Grid>
             )}
@@ -83,21 +89,6 @@ const MyReviewText = styled.div`
   text-align: center;
   font-weight: 400;
   color: #9a9896;
-`;
-
-const Profile = styled.div`
-  position: absolute;
-  margin: auto;
-  width: 4rem;
-  height: 4rem;
-  border-radius: 2rem;
-  background-color: black;
-  ${(props) =>
-    props.user_profile
-      ? `background-image: url(${props.user_profile});`
-      : `background-image: url(http://115.85.182.57:8080/image/profileDefaultImg.jpg)`}
-  background-size: cover;
-  background-position: center;
 `;
 
 export default MyReview;

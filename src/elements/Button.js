@@ -25,6 +25,13 @@ const Button = (props) => {
     borderBottom,
     is_float,
     display,
+    position,
+    bottom,
+    z_index,
+    top,
+    feedback,
+    backdrop,
+    type,
   } = props;
 
   const styles = {
@@ -43,6 +50,13 @@ const Button = (props) => {
     bold: bold,
     borderBottom: borderBottom,
     display: display,
+    position: position,
+    bottom: bottom,
+    z_index: z_index,
+    top: top,
+    feedback: feedback,
+    backdrop: backdrop,
+    type:type,
   };
 
   if (shape === 'large') {
@@ -127,6 +141,10 @@ Button.defaultProps = {
   bold: '',
   borderBottom: '',
   is_float: false,
+  top: '',
+  feedback: false,
+  backdrop: '',
+  type: '',
 };
 
 const FloatButton = styled.button`
@@ -164,6 +182,13 @@ const ElButton = styled.button`
   ${(props) => (props.border ? `border: ${props.border};` : '')}
   ${(props) => (props.bold ? `font-weight: ${props.bold};` : '')}
   ${(props) => (props.display ? `display: ${props.display};` : '')}
+  ${(props) => (props.position ? `position: ${props.position};` : '')}
+  ${(props) => (props.bottom ? `bottom: ${props.bottom};` : '')}
+  ${(props) => (props.z_index ? `z-index: ${props.z_index};` : '')}
+  ${(props) => (props.feedback ? `display: flex; justify-content: center; align-items: center;` : '')}
+  ${(props) => (props.top ? `top: ${props.top};` : '')}
+  ${(props) => (props.backdrop ? `backdrop-filter: ${props.backdrop};` : '')}
+  ${(props) => (props.type ? `type: ${props.type};` : '')}
   ${(props) =>
     props.borderBottom ? `border-bottom: ${props.borderBottom};` : ''}
   ${(props) =>

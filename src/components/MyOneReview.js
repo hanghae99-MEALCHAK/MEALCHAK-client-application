@@ -24,19 +24,15 @@ const MyOneReview = React.memo((props) => {
   // 시, 분
   const hm = day[1].split(":");
 
-  logger("MyOneReview props: ", props);
-
   return (
     <React.Fragment>
       <Grid
-        padding="0 0 0 2rem"
+        padding="0 2rem 0 2rem"
         margin="1.5rem 0 0 0"
         borderBottom="0.1rem solid #F4F4F3"
       >
         <Profile
-          user_profile={
-            props.other_user ? props.profileImg : props.user_profile
-          }
+          user_profile={props.other_user ? props.profileImg : props.user_profile}
           onClick={() => {
             if (is_login) {
               if (user_info.user_id === props.userId) {
@@ -73,7 +69,6 @@ const MyOneReview = React.memo((props) => {
           <Text size={fontSize.small} line_height="150%" color={color.bg100}>
             {props.other_user ? props.username : props.user_nickname}
           </Text>
-          {props?.is_me && (
             <Text
               width="5.7rem"
               height="1.9rem"
@@ -87,14 +82,13 @@ const MyOneReview = React.memo((props) => {
               padding="0.2rem"
               margin="0 0 0 0.6rem"
             >
-              {props?.my_manner}
+              {props?.is_me ? props?.my_manner : props?.manner}
             </Text>
-          )}
         </Grid>
         <Grid
           width="fit-content"
           bg="#F4F4F3"
-          margin="0 0 0 5rem"
+          margin="0.4rem 0 0 5rem"
           padding="0.8rem 0.5rem"
           flex
           align_items="flex-start"

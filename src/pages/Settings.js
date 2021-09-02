@@ -1,13 +1,13 @@
+// 마이페이지 - 설정
 import React from "react";
-import styled from "styled-components";
-import { useState } from "react";
-import logger from "../shared/Console";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { Grid, Text } from "../elements";
-import theme from "../styles/theme";
-import { customAlert } from "../components/Sweet";
 import { Header, PcSide } from "../components";
+import { customAlert } from "../components/Sweet";
+
+import logger from "../shared/Console";
+import theme from "../styles/theme";
 
 const Settings = (props) => {
   const dispatch = useDispatch();
@@ -19,12 +19,7 @@ const Settings = (props) => {
   return (
     <>
       <PcSide {...props} />
-      <Grid
-        // maxWidth="36rem"
-        minHeight="100vh"
-        // border={border.line1}
-        margin="0 auto"
-      >
+      <Grid minHeight="100vh" margin="0 auto">
         <Grid shape="container">
           <Header {...props} shape="설정" />
           <Grid height="4.4rem" />
@@ -77,9 +72,15 @@ const Settings = (props) => {
             borderBottom={border.bg20}
             cursor="t"
             _onClick={() => {
-              customAlert.sweetOK("밀착 알림", "아직 구현되지 않은 기능입니다.").then(() => {
-                return ;
-              })
+              customAlert
+                .sweetOK(
+                  "아직 개발 중인 기능이에요.",
+                  "열심히 개발하고 있으니",
+                  "조금만 기다려주세요."
+                )
+                .then(() => {
+                  return;
+                });
             }}
           >
             <svg

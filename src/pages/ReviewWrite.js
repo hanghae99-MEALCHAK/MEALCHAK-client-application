@@ -1,17 +1,18 @@
+// 리뷰 작성 페이지
 import React from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { useLocation } from "react-router";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { customAlert } from "../components/Sweet";
 import { Grid, Button, Text, Input } from "../elements";
 import { Header, PcSide } from "../components";
-import theme from "../styles/theme";
-import logger from "../shared/Console";
-import { useDispatch } from "react-redux";
-import { useLocation } from "react-router";
-
 import Select from "../components/ReactSelect";
 
-const { color, fontSize } = theme;
+import theme from "../styles/theme";
+import logger from "../shared/Console";
+
+
 // select options
 const options = [
   { value: "chocolate", label: "최고예요!" },
@@ -20,6 +21,7 @@ const options = [
 ];
 
 const ReviewWrite = (props) => {
+  const { color, fontSize } = theme;
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -55,7 +57,7 @@ const ReviewWrite = (props) => {
 
   const changeDisabled = (e) => {
     if (e.target.value.length === 150) {
-      customAlert.sweetOK("리뷰 알림", "리뷰 작성 시 150자 이상 입력할 수 없습니다.").then(() => {
+      customAlert.sweetOK("입력 가능한 글자수를 초과했어요", "리뷰 작성 시 150자 이내로 작성해주세요.").then(() => {
         return ;
       })
     }
@@ -80,9 +82,7 @@ const ReviewWrite = (props) => {
     <>
       <PcSide {...props} />
       <Grid
-        // maxWidth="36rem"
         minHeight="100vh"
-        // border={border.line1}
         margin="0 auto"
       >
         <Grid shape="container">
@@ -126,7 +126,6 @@ const ReviewWrite = (props) => {
           </Grid>
           <Grid
             width="36rem"
-            // 임시 height
             height="30rem"
             padding="1rem 3rem 0 3rem"
             borderTop="0.1rem solid #EBE9E8"
@@ -145,21 +144,6 @@ const ReviewWrite = (props) => {
               _onChange={changeDisabled}
             />
           </Grid>
-
-          {/* <Grid margin="1.5rem 0" padding="0 2rem">
-          <Text
-            width="auto"
-            size={fontSize.small}
-            color={manner.label ? color.bg100 : color.bg80}
-            bold2="400"
-            line_height="150%"
-            text_align="left"
-          >
-            {manner.label
-              ? "너무 즐거웠어요! 다음에 또 같이 식사해요~"
-              : "해당 사용자와의 밀착이 만족스러우셨다면 따뜻한 리뷰를 전해보세요!"}
-          </Text>
-        </Grid> */}
         </Grid>
         <Grid
           maxWidth="35.9rem"
@@ -167,7 +151,6 @@ const ReviewWrite = (props) => {
           height="auto"
           margin="1rem auto 0 auto"
           padding="1.5rem 2rem"
-          // is_fixed="t"
           borderTop="0.1rem solid #EBE9E8"
         >
           <Button

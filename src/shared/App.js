@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import GlobalStyle from "./GlobalStyle";
 
 import { Route, Switch } from "react-router-dom";
@@ -11,32 +11,31 @@ import { actionCreators as userAction } from "../redux/modules/user";
 import Spinner from "./Spinner";
 import { Grid } from "../elements";
 
-import {
-  Main,
-  LoginRedirect,
-  Tutorial,
-  Upload,
-  DetailPage,
-  Search,
-  MyPage,
-  RoadAddress,
-  ChatRoomList,
-  Chat,
-  NotFound,
-  ProfileEdit,
-  Settings,
-  MyPost,
-  MyReview,
-  MyProfile,
-  UserProfile,
-  AllowChat,
-} from "../pages";
-
-import ReviewWrite from "../pages/ReviewWrite";
-
 // 사용자 token 여부
 import { token } from "./OAuth";
 import logger from "./Console";
+import Tour from "../components/Tour";
+
+// 코드 분할
+const Main = lazy(() => import("../pages/Main"));
+const LoginRedirect = lazy(() => import("../pages/LoginRedirect"));
+const Tutorial = lazy(() => import("../pages/Tutorial"));
+const Upload = lazy(() => import("../pages/Upload"));
+const DetailPage = lazy(() => import("../pages/DetailPage"));
+const Search = lazy(() => import("../pages/Search"));
+const MyPage = lazy(() => import("../pages/MyPage"));
+const RoadAddress = lazy(() => import("../pages/RoadAddress"));
+const ChatRoomList = lazy(() => import("../pages/ChatRoomList"));
+const Chat = lazy(() => import("../pages/Chat"));
+const NotFound = lazy(() => import("../pages/NotFound"));
+const ProfileEdit = lazy(() => import("../pages/ProfileEdit"));
+const Settings = lazy(() => import("../pages/Settings"));
+const MyPost = lazy(() => import("../pages/MyPost"));
+const MyReview = lazy(() => import("../pages/MyReview"));
+const MyProfile = lazy(() => import("../pages/MyProfile"));
+const UserProfile = lazy(() => import("../pages/UserProfile"));
+const AllowChat = lazy(() => import("../pages/AllowChat"));
+const ReviewWrite = lazy(() => import("../pages/ReviewWrite"));
 
 function App() {
   const dispatch = useDispatch();
@@ -45,7 +44,6 @@ function App() {
 
   const user_info = useSelector((state) => state.user.user);
   const is_loading = useSelector((state) => state.user.is_loading);
-  const is_login = useSelector((state) => state.user.is_login);
 
   // token 정보 있을때 user redux에 저장
   React.useEffect(() => {
@@ -53,7 +51,6 @@ function App() {
       dispatch(userAction.loginCheck(`/${path}`));
       logger("app.js user 정보", user_info);
     }
-    logger("app.js token 정보", token);
     logger("is_loading", is_loading);
     logger("path", path);
   }, []);
@@ -68,15 +65,21 @@ function App() {
 
   return (
     <React.Fragment>
-        <ConnectedRouter history={history}>
-          <GlobalStyle />
+      <ConnectedRouter history={history}>
+        <GlobalStyle />
+        <Suspense fallback={<Spinner />}>
+          <Tour/>
           <Grid shape="topGrid">
             <Switch>
               <Route path="/" exact component={Tutorial} />
               <Route path="/home" exact component={Main} />
               <Route path="/post/:id" exact component={DetailPage} />
               <Route path="/address" exact component={RoadAddress} />
-              <Route path="/user/kakao/callback" exact component={LoginRedirect}/>
+              <Route
+                path="/user/kakao/callback"
+                exact
+                component={LoginRedirect}
+              />
               <Route path="/upload" exact component={Upload} />
               <Route path="/upload/:id" exact component={Upload} />
               <Route path="/search" exact component={Search} />
@@ -94,7 +97,8 @@ function App() {
               <Route component={NotFound} />
             </Switch>
           </Grid>
-        </ConnectedRouter>
+        </Suspense>
+      </ConnectedRouter>
     </React.Fragment>
   );
 }

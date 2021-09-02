@@ -29,18 +29,19 @@ const ProfileTab = (props) => {
           radius={radius.button}
         >
           <Text
-            width="3.1rem"
+            width="fit-content"
             height="3.2rem"
             size={fontSize.display4}
             bold
             text_align="center"
             line_height="150%"
             color={color.brand100}
+            white_space="nowrap"
           >
             {info?.user_manner.toFixed(1)}
           </Text>
           <Text
-            width="4rem"
+            width="fit-content"
             height="1.5rem"
             size={fontSize.tiny}
             bold2="500"
@@ -182,7 +183,7 @@ const ProfileTab = (props) => {
           radius={radius.button}
         >
           <Text
-            width={info?.user_age ? '4.5rem' : '5.8rem'}
+            width={info?.user_age ? 'fit-content' : '5.8rem'}
             height="3.2rem"
             size={fontSize.display4}
             bold

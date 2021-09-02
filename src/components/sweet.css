@@ -1,6 +1,4 @@
 button {
-  /* border-radius: 1.2rem !important; */
-  /* width: 12rem; */
   height: 4.4rem;
   outline: 0;
 }
@@ -37,11 +35,7 @@ button {
   border-radius: 1.2rem !important;
 }
 
-.gcETRM, .dJzONg, .gaOeuF, .gpKDNZ, .dJzONg{
-  margin: auto;
-}
-
-
+/* 버튼 간격 설정 */
 .meal-action-class {
   display: grid !important;
   grid-template-columns: 1fr 1fr;

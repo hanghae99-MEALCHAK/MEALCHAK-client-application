@@ -1,8 +1,12 @@
+// 실제 채팅이 이루어지는 채팅방 페이지
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { token } from "../shared/OAuth";
-import { history } from "../redux/configureStore";
 import moment from "moment";
+import logger from "../shared/Console";
+import { token } from "../shared/OAuth";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
+import { actionCreators as chatActions } from "../redux/modules/chat";
+import { actionCreators as userAction } from "../redux/modules/user";
 
 // 소켓 통신
 import Stomp from "stompjs";
@@ -19,10 +23,6 @@ import {
   PcSide,
 } from "../components";
 import { Grid } from "../elements";
-import { actionCreators as chatActions } from "../redux/modules/chat";
-import { actionCreators as userAction } from "../redux/modules/user";
-import theme from "../styles/theme";
-import logger from "../shared/Console";
 import { customAlert } from "../components/Sweet";
 import "../styles/side.css";
 
@@ -30,24 +30,24 @@ import "../styles/side.css";
 import Sidebar from "react-sidebar";
 
 const Chat = (props) => {
-  const { border } = theme;
-
-  // side nav
+  // side bar 열기, 닫기 상태 관리
   const [isOpen, setIsOpen] = React.useState(false);
   const onClick = () => {
     setIsOpen(!isOpen);
   };
 
+  // 배포, 개발 환경 채팅 주소 관리
+  const env = process.env.NODE_ENV;
+  const devTarget =
+    env === "development" ? "http://115.85.182.57/chatting" : "https://gorokke.shop/chatting";
   // 소켓
-  // const sock = new SockJS("http://52.78.204.238/chatting");
-  const sock = new SockJS("http://115.85.182.57/chatting");
-  // const sock = new SockJS("https://gorokke.shop/chatting");
+  const sock = new SockJS(devTarget);
   const ws = Stomp.over(sock);
-  // ws.reconnect_delay = 500;
 
   // 현재 방정보
+  // ChatRoomList에서 받아오는 정보
+  // 채팅 목록 조회시 받아온 정보로 특정 채팅방 입장
   const dispatch = useDispatch();
-
   const roomName = props.history.location.state?.roomName;
   const room_id = props.history.location.state?.room_id;
   const post_id = props.history.location.state?.post_id;
@@ -61,7 +61,6 @@ const Chat = (props) => {
   const sender_nick = useSelector((state) => state.user.user?.user_nickname);
   const sender_profile = useSelector((state) => state.user.user?.user_profile);
   const sender_id = useSelector((state) => state.user.user?.user_id);
-  const messageText = useSelector((state) => state.chat.messageText);
 
   // 새로고침될때 방 정보 날아가지 않도록 함
   React.useEffect(() => {
@@ -70,6 +69,7 @@ const Chat = (props) => {
     logger("chat user_in_chat", user_in_chat);
     dispatch(userAction.loginCheck());
 
+    // 리덕스의 현재방 정보 변경
     if (token) {
       dispatch(
         chatActions.moveChatRoom(
@@ -80,13 +80,16 @@ const Chat = (props) => {
           order_time
         )
       );
+      // 이전 대화 기록 불러오기
       dispatch(chatActions.getChatMessagesAX());
+      // 현재 채팅방 참여 사용자 정보 불러오기
       dispatch(chatActions.getChatUserAX(room_id));
     }
   }, []);
 
   // 방 정보가 바뀌면 소켓 연결 구독, 구독해제
   React.useEffect(() => {
+    // 방 정보가 없는 경우 홈으로 돌려보내기
     if (!room_id) {
       return customAlert
         .sweetOK(
@@ -106,10 +109,10 @@ const Chat = (props) => {
   }, [room_id ? room_id : null]);
 
   // 채팅방시작하기, 채팅방 클릭 시 room_id에 해당하는 방을 구독
-  const wsConnectSubscribe = async () => {
+  const wsConnectSubscribe = () => {
     try {
       ws.debug = null;
-      await ws.connect(
+      ws.connect(
         {
           token: token,
         },
@@ -168,7 +171,7 @@ const Chat = (props) => {
     try {
       // 토큰없으면 다시 로그인 시키기
       if (!token) {
-        customAlert.sweetNeedLogin("replace");
+        customAlert.sweetNeedLogin();
       }
       // send할 데이터
       const data = {
@@ -178,28 +181,12 @@ const Chat = (props) => {
         senderImg: sender_profile,
         senderId: sender_id,
         message: new_message,
-        // message : 해당 유저 id
-        // roomId : 방 번호
       };
-      // 빈 텍스트일때 보내기 방지
-      if (new_message === "" || new_message === " ") {
-        return customAlert.sweetConfirmReload(
-          "메세지를 입력해주세요.",
-          null,
-          ""
-        );
-      }
-      // 로딩
-      // dispatch(chatActions.loading());
-      dispatch(chatActions.setTime());
       waitForConnection(ws, () => {
         ws.debug = null;
 
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
         logger("메세지보내기 상태", ws.ws.readyState);
-
-        // 메세지 보내고 나면 다시 초기화시켜주는 작업
-        dispatch(chatActions.writeMessage(""));
       });
     } catch (e) {
       logger("message 소켓 함수 에러", e);
@@ -207,11 +194,12 @@ const Chat = (props) => {
     }
   };
 
+  // 방장이 악성 유저 강퇴 시키도록 만든 강퇴 함수
   const sendBen = (other_user_id, other_user_name) => {
     try {
       // 토큰없으면 다시 로그인 시키기
       if (!token) {
-        customAlert.sweetNeedLogin("replace");
+        customAlert.sweetNeedLogin();
       }
       // send할 데이터
       const data = {
@@ -221,24 +209,22 @@ const Chat = (props) => {
         // 강퇴할 사람 user_id
         message: other_user_id,
       };
-
-      // 로딩
-      // dispatch(chatActions.loading());
       waitForConnection(ws, () => {
         ws.debug = null;
 
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
         logger("강퇴 메세지 상태", ws.ws.readyState);
         customAlert.sweetOK(
-          "퇴장 시키기 완료",
-          `${other_user_name}님이 퇴장 되었습니다.`,
+          "퇴장 처리가 완료되었어요",
+          `${other_user_name}님을`,
+          `채팅에서 내보냈어요.`,
           ""
         );
       });
     } catch (e) {
       customAlert.sweetConfirmReload(
-        "퇴장 에러",
-        ["퇴장 요청중 에러 발생"],
+        "퇴장 처리 실패",
+        ["채팅에서 내보내는 데 실패했어요.", "잠시 후 다시 시도해주세요."],
         ""
       );
       logger("message 소켓 함수 에러", e);
@@ -246,33 +232,31 @@ const Chat = (props) => {
     }
   };
 
-  // 방장 방폭 함수
+  // 방장 채팅방 나가기 함수
+  // 방장이 나가면 채팅방이 사라지고, 글이 삭제 됩니다.
   const sendBreak = () => {
     try {
       // 토큰없으면 다시 로그인 시키기
       if (!token) {
-        return customAlert.sweetNeedLogin("replace");
+        return customAlert.sweetNeedLogin();
       }
       // send할 데이터
       const data = {
         type: "BREAK",
         roomId: room_id,
         senderId: sender_id,
-        message: "방장이 방을 폭파시켰습니다. 안녕히가세요 :)",
+        message: "방장이 삭제한 채팅방이에요.",
       };
-
-      // 로딩
-      // dispatch(chatActions.loading());
       waitForConnection(ws, () => {
         ws.debug = null;
 
         ws.send("/pub/message", { token: token }, JSON.stringify(data));
-        logger("강퇴 메세지 상태", ws.ws.readyState);
+        logger("방폭 메세지 상태", ws.ws.readyState);
       });
     } catch (e) {
       customAlert.sweetConfirmReload(
-        "방폭 에러",
-        ["방폭 요청중 에러 발생"],
+        "방 삭제 실패",
+        ["방 삭제 요청에 실패했어요."],
         ""
       );
       logger("message 소켓 함수 에러", e);
@@ -280,9 +264,26 @@ const Chat = (props) => {
     }
   };
 
+  // 메세지가 변할 때마다 스크롤 이동시켜주기
+  const messages = useSelector((state) => state.chat.messages);
+
+  // 스크롤 대상
+  const messageEndRef = React.useRef();
+
+  const scrollTomBottom = () => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollTop = messageEndRef.current.scrollHeight;
+    }
+  };
+  // 렌더링시 이동
+  React.useEffect(() => {
+    scrollTomBottom();
+    logger("tell me you are moving now", messageEndRef);
+  }, [messages.length]);
+
+  // 방 정보가 없는 경우 
   if (!room_id) {
     return (
-      // alert("잘못된 접근입니다")
       <React.Fragment>
         <Spinner />
       </React.Fragment>
@@ -291,14 +292,9 @@ const Chat = (props) => {
     return (
       <React.Fragment>
         <PcSide {...props} />
-        <Grid
-          // maxWidth="36rem"
-          minHeight="100vh"
-          // border={border.line1}
-          margin="0 auto"
-          bg="#7B6E62"
-        >
+        <Container ref={messageEndRef}>
           <Grid shape="container" align_items="flex-end">
+            {/* 채팅방 안 사이드 메뉴 창 */}
             <SideGrid isOpen={isOpen}>
               <Sidebar
                 transitions={true}
@@ -322,7 +318,6 @@ const Chat = (props) => {
                   content: { text_align: "right" },
                 }}
               >
-                <></>
               </Sidebar>
             </SideGrid>
             <Header
@@ -334,10 +329,12 @@ const Chat = (props) => {
               {roomName}
             </Header>
 
+            {/* 메세지 뷰 */}
             <MessageList />
+            {/* 메세지 보내기 input */}
             <MessageWrite sendMessage={sendMessage} />
           </Grid>
-        </Grid>
+        </Container>
       </React.Fragment>
     );
   }
@@ -350,6 +347,20 @@ const SideGrid = styled.div`
   z-index: 101;
   text-align: right;
   display: ${(props) => (props.isOpen ? "auto" : "none")};
+  touch-action: none;
+`;
+
+const Container = styled.div`
+  --inputBox: 4.4rem;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: #7b6e62;
+  width: 100%;
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default Chat;

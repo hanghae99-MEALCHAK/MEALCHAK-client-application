@@ -1,3 +1,4 @@
+// 메인페이지 - 인기 카테고리 스와이퍼
 import React from "react";
 import styled from "styled-components";
 
@@ -21,14 +22,13 @@ const MainBanner = React.memo((props) => {
   const { color } = theme;
 
   const dispatch = useDispatch();
-  const post_list = useSelector((state) => state.post?.list);
+  // 인기 카테고리 순위
   const rank_list = useSelector((state) => state.post?.rank);
 
   logger("MainBanner props : ", props);
 
   return (
     <React.Fragment>
-      <div>
         <Swiper
           className="banner"
           spaceBetween={50}
@@ -37,7 +37,6 @@ const MainBanner = React.memo((props) => {
             clickable: true,
           }}
           autoplay={{ delay: 3000 }}
-          // autoplay={{ delay: 30000 }}
         >
           {rank_list.map((p, idx) => {
             return (
@@ -48,11 +47,7 @@ const MainBanner = React.memo((props) => {
                   margin="0.5rem auto"
                   cursor="t"
                   _onClick={() => {
-                    if (post_list?.length !== 0) {
-                      document
-                        .querySelector("body")
-                        .scrollTo({ top: 410, left: 0, behavior: "smooth" });
-                    }
+                    props?.scrollToCategory();
                     if (p.category === "한식") {
                       dispatch(postActions.getPostAX(p.category));
                       props?.getCategory({ kr: true });
@@ -116,7 +111,6 @@ const MainBanner = React.memo((props) => {
           })}
         </Swiper>
         <Grid height="1.2rem" />
-      </div>
     </React.Fragment>
   );
 });
@@ -128,7 +122,6 @@ const MainBannerBtn = styled.div`
   height: 10rem;
   margin: 1rem auto;
   border-radius: 1rem;
-  /* background-image: url('https://cdn.pixabay.com/photo/2016/06/06/18/29/meat-skewer-1440105__340.jpg'); */
   background-image: url("${(props) => props.src}");
   background-size: cover;
   background-position: center;

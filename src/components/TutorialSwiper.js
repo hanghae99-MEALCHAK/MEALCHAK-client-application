@@ -1,9 +1,10 @@
+// 사이트 들어올 때 보이는 서비스 간단 소개
 import React from 'react';
 import styled from 'styled-components';
 
 import { Grid, Text } from '../elements';
-import { introA_3x, introB_3x, introC_3x } from '../styles/img/index';
-import { introA_3xWebp, introB_3xWebp, introC_3xWebp } from '../styles/img/webp/index';
+import { png } from '../styles/img/index';
+import { webp } from '../styles/img/webp/index';
 
 import theme from '../styles/theme';
 import {isWebpSupported} from 'react-image-webp/dist/utils';
@@ -35,7 +36,7 @@ const TutorialSwiper = (props) => {
           <SwiperSlide>
             <Grid shape="container">              
               <Grid maxWidth="36rem">              
-              {isWebpSupported() ? <ElIntro src={introA_3xWebp} alt="intro"></ElIntro>  : <ElIntro src={introA_3x} alt="intro"></ElIntro> }              
+              <ElIntro src={isWebpSupported() ? webp.introA_3xWebp : png.introA_3x} loading="lazy" alt="intro"/>            
               </Grid>              
               <Grid>
                 <Text
@@ -59,7 +60,7 @@ const TutorialSwiper = (props) => {
           <SwiperSlide>
             <Grid shape="container">
               <Grid maxWidth="36rem">
-              {isWebpSupported() ? <ElIntro src={introB_3xWebp} alt="intro"></ElIntro>  : <ElIntro src={introB_3x} alt="intro"></ElIntro> }              
+              <ElIntro src={isWebpSupported() ? webp.introB_3xWebp : png.introB_3x} loading="lazy" alt="intro"/>            
               </Grid>
               <Grid>
                 <Text
@@ -83,7 +84,7 @@ const TutorialSwiper = (props) => {
           <SwiperSlide>
             <Grid shape="container">
               <Grid>
-              {isWebpSupported() ? <ElIntro src={introC_3xWebp} alt="intro"></ElIntro>  : <ElIntro src={introC_3x} alt="intro"></ElIntro> }              
+              <ElIntro src={isWebpSupported() ? webp.introC_3xWebp : png.introC_3x} loading="lazy" alt="intro"/>          
               </Grid>
               <Grid>
                 <Text

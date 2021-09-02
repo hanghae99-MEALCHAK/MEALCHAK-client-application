@@ -1,18 +1,17 @@
-import { createAction, handleActions } from "redux-actions";
-import { useMemo } from "react";
+// 사용자 관련 모듈
 import { produce } from "immer";
+import { createAction, handleActions } from "redux-actions";
 import axiosModule from "../axios_module";
-import jwtDecode from "jwt-decode";
-import { customAlert } from "../../components/Sweet";
-import { Text } from "../../elements";
-
+import { Kakao_auth_url } from "../../shared/OAuth";
 import { actionCreators as imageActions } from "./image";
+import { customAlert } from "../../components/Sweet";
 
 // 개발환경 console.log() 관리용
 import logger from "../../shared/Console";
 
 // token
 import { token } from "../../shared/OAuth";
+import jwtDecode from "jwt-decode";
 
 // Action
 const SET_USER = "SET_USER";
@@ -21,8 +20,10 @@ const SET_MYREVIEW = "SET_MYREVIEW";
 const SET_MYPOST = "SET_MYPOST";
 const LOG_OUT = "LOG_OUT";
 const LOADING = "LOADING";
+const LOADED = "LOADED";
 const EDIT_PROFILE = "EDIT_PROFILE";
 const EDIT_ADDRESS = "EDIT_ADDRESS";
+const CLEAR_POST = "CLEAR_POST";
 
 // Action Creator
 const setUser = createAction(SET_USER, (user_info) => ({ user_info }));
@@ -31,14 +32,13 @@ const setAnotherUser = createAction(SET_ANOTHER_USER, (user_info) => ({
 }));
 const setMyReview = createAction(SET_MYREVIEW, (my_review) => ({ my_review }));
 const setMyPost = createAction(SET_MYPOST, (my_post) => ({ my_post }));
+const clearPost = createAction(CLEAR_POST, () => ({}));
 const logOut = createAction(LOG_OUT, () => {});
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+const loaded = createAction(LOADED, (is_loaded) => ({ is_loaded }));
 const editProfile = createAction(EDIT_PROFILE, (profile) => ({
   profile,
 }));
-// const editComment = createAction(EDIT_NICK, (edit_comment) => ({
-//   edit_comment,
-// }));
 const editAddress = createAction(EDIT_ADDRESS, (address) => ({ address }));
 
 // Initial State
@@ -49,6 +49,7 @@ const initialState = {
   myPost: [],
   is_login: false,
   is_loading: false,
+  is_loaded: true,
 };
 
 // middleware
@@ -85,7 +86,7 @@ const kakaoLogin = (code) => {
         customAlert.sweetConfirmReload(
           "로그인 성공",
           [
-            `${user_nickname}님 반가워요!`,
+            `${user_nickname};님 반가워요!`,
             `밀착에서 사람도, 환경도`,
             `한 걸음 더 가까워져봐요!`,
           ],
@@ -95,8 +96,8 @@ const kakaoLogin = (code) => {
       .catch((err) => {
         logger("user 모듈 74 - 소셜로그인 에러", err);
         customAlert.sweetConfirmReload(
-          "로그인 오류",
-          ["로그인에 실패하였습니다."],
+          "로그인 실패",
+          ["로그인에 실패했어요.", "잠시 후 다시 시도해주세요."],
           "/"
         ); // 로그인 실패하면 로그인화면으로 돌려보냄
       });
@@ -106,32 +107,38 @@ const kakaoLogin = (code) => {
 // 사용자 정보 변경 middleware
 const editUserProfileAX = (profile) => {
   return function (dispatch, getState, { history }) {
-    let form = new FormData();
-    form.append("username", profile.nickname);
-    form.append("comment", profile.comment);
-    form.append("file", profile.image);
-    form.append("gender", profile.gender);
-    form.append("age", profile.age);
+    customAlert.sweetOK("프로필 수정 완료", "멋진 프로필이시네요!").then(() => {
+      dispatch(loading(true));
+      let form = new FormData();
+      form.append("username", profile.nickname);
+      form.append("comment", profile.comment);
+      form.append("file", profile.image);
+      form.append("gender", profile.gender);
+      form.append("age", profile.age);
 
-    axiosModule
-      .put("/userInfo/update", form)
-      .then((res) => {
-        logger("profile 수정 모듈", res);
-        let _profile = res.data;
-        let profile = {
-          username: _profile.username,
-          comment: _profile.comment,
-          profileImg: _profile.profileImg,
-          user_age: _profile.age,
-          user_gender: _profile.gender,
-        };
-        dispatch(editProfile(profile));
-        dispatch(imageActions.setPreview(null));
-        logger("profile 수정 모듈", res);
-      })
-      .catch((e) => {
-        logger("profile 수정 모듈 e", e);
-      });
+      axiosModule
+        .put("/userInfo/update", form)
+        .then((res) => {
+          logger("profile 수정 모듈", res);
+          let _profile = res.data;
+          let profile = {
+            username: _profile.username,
+            comment: _profile.comment,
+            profileImg: _profile.profileImg,
+            user_age: _profile.age,
+            user_gender: _profile.gender,
+          };
+          dispatch(editProfile(profile));
+          dispatch(imageActions.setPreview(null));
+        })
+        .then(() => {
+          dispatch(loading(false));
+          history.push("/mypage");
+        })
+        .catch((e) => {
+          logger("profile 수정 모듈 e", e);
+        });
+    });
   };
 };
 
@@ -153,6 +160,11 @@ const loginCheck = (path) => {
             user_manner: res.data.mannerScore,
             user_age: res.data.age,
             user_gender: res.data.gender,
+            latitude: res.data.latitude,
+            longitude: res.data.longitude,
+            new_msg: res.data.newMessage,
+            new_join_request: res.data.newJoinRequest,
+            is_alarm: res.data.newMessage || res.data.newJoinRequest,
           };
           dispatch(
             setUser({
@@ -180,7 +192,7 @@ const loginCheck = (path) => {
           }
         })
         .then(() => {
-          // is_login은 안되었는데 토큰 남아있는경우 토큰 지우고 싶은데 방법을 모르겠음
+          // is_login은 안되었는데 토큰 남아있는경우 로그아웃 시킴
           const is_login = getState().user.is_login;
           if (!is_login) {
             dispatch(logOut());
@@ -200,7 +212,7 @@ const loginCheck = (path) => {
         )
         .then((res) => {
           if (res) {
-            return history.replace("/");
+            return (window.location.href = `${Kakao_auth_url}`);
           } else {
             return history.replace("/home");
           }
@@ -230,11 +242,9 @@ const editUserAddressAX = (address) => {
   };
 };
 
-
 // 타 유저 프로필 페이지 - 해당 유저 정보 가져오기
 const findUserProfileAX = (user_id) => {
   return function (dispatch, getState, { history }) {
-    // dispatch(setAnotherUser(null));
     if (token) {
       axiosModule
         .get(`/userInfo/${user_id}`)
@@ -256,13 +266,6 @@ const findUserProfileAX = (user_id) => {
             })
           );
         })
-        .then(() => {
-          // // is_login은 안되었는데 토큰 남아있는경우 토큰 지우고 싶은데 방법을 모르겠음
-          // const is_login = getState().user.is_login;
-          // if (!is_login) {
-          //   dispatch(logOut());
-          // }
-        })
         .catch((e) => {
           logger("타 유저 프로필 확인 에러", e);
         });
@@ -271,6 +274,7 @@ const findUserProfileAX = (user_id) => {
     }
   };
 };
+
 // 마이페이지 - 내가 쓴 글 조회
 const getMyPostAX = () => {
   return function (dispatch, getState, { history }) {
@@ -279,6 +283,7 @@ const getMyPostAX = () => {
         .get("/posts/myPosts")
         .then((res) => {
           logger("내가 쓴 글 res", res);
+          dispatch(clearPost());
           let posts = [];
 
           if (res.data.length !== 0) {
@@ -301,10 +306,11 @@ const getMyPostAX = () => {
                 username: p.username,
                 user_id: p.userId,
                 userImg: p.profileImg,
-                // distance: p.distance,
                 room_id: p.roomId,
                 nowHeadCount: p.nowHeadCount,
                 valid: p.valid,
+                meeting: p.meetingType === null ? "SEPARATE" : p.meetingType,
+                place_url: p.placeUrl,
               };
               posts.push(my_post);
             });
@@ -312,7 +318,7 @@ const getMyPostAX = () => {
           dispatch(setMyPost(posts));
         })
         .catch((e) => {
-          logger("내가 받은 리뷰 에러1111111", e);
+          logger("내가 받은 리뷰 에러", e);
         });
     } else {
       dispatch(loginCheck());
@@ -372,14 +378,12 @@ const reviewWriteAX = (manner, review, user_id, nickname) => {
             "따뜻한 마음이 전송되었어요 :)",
             "goBack"
           );
-          // history.replace("/userprofile");
-          // window.location.replace("/userprofile");
         })
         .catch((e) => {
           logger("내가 받은 리뷰 에러", e);
           customAlert.sweetConfirmReload(
-            "이미 리뷰를 작성하셨습니다!",
-            ["이전 페이지로 돌아갑니다."],
+            "이미 리뷰를 남겼어요",
+            ["이미 리뷰를 남겨주셨네요.", "이전 페이지로 돌아갈게요."],
             "goBack"
           );
         });
@@ -413,6 +417,10 @@ export default handleActions(
         draft.myPost.push(...action.payload.my_post);
         logger("set_my_post 리듀서", draft.myPost);
       }),
+    [CLEAR_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.myPost = [];
+      }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
         sessionStorage.removeItem("token");
@@ -421,7 +429,7 @@ export default handleActions(
         draft.is_loading = false;
 
         customAlert
-          .sweetOK("로그아웃 되었습니다.", "또 만나요!", "")
+          .sweetOK("로그아웃 완료", "다음 밀착을 기다릴게요!", "또 만나요 :)")
           .then((res) => {
             return window.location.replace("/");
           });
@@ -429,6 +437,10 @@ export default handleActions(
     [LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
+      }),
+    [LOADED]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loaded = action.payload.is_loaded;
       }),
     [EDIT_PROFILE]: (state, action) =>
       produce(state, (draft) => {
@@ -451,6 +463,7 @@ const actionCreators = {
   loginCheck,
   logOut,
   loading,
+  loaded,
   setAnotherUser,
   editUserProfileAX,
   editUserAddressAX,

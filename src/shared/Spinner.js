@@ -1,10 +1,11 @@
+// 로딩 컴포넌트
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+// 커스텀 theme
 const theme = createTheme({
   palette: {
     primary: {
@@ -17,11 +18,7 @@ const Spinner = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <Outter>
-        <Box>
-          <div>
-            <CircularProgress />
-          </div>
-        </Box>
+        <CircularProgress />
       </Outter>
     </ThemeProvider>
   );
@@ -37,19 +34,6 @@ const Outter = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #fefefe;
-`;
-
-const move = keyframes`
-    from {
-        transform: rotate(0);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-`;
-
-const Box = styled.div`
-  animation: ${move} 1.5s 0s infinite;
 `;
 
 export default Spinner;
