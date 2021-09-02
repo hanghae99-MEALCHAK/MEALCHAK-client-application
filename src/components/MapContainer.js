@@ -1,4 +1,4 @@
-/*global kakao */
+/*global kakao*/
 // 게시글 작성 및 수정 시 지도로 식당 찾기
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,6 @@ import logger from "../shared/Console";
 const MapContainer = (props) => {
   const dispatch = useDispatch();
 
-  const infoRef = React.useRef("");
   // 게시글 - 만날 장소의 위도, 경도
   const latitude = useSelector((state) => state.user.user.latitude);
   const longitude = useSelector((state) => state.user.user.longitude);
