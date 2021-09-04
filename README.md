@@ -56,7 +56,7 @@ Project MealChak Notion : https://www.notion.so/Meal-4e2b5486d44e4123a1d352a63eb
  
 #### 🎥 시연 영상
 
-- 유툽링크링크  
+- <a>https://youtu.be/upRrJW7sRLk</a>
 
 ### 🗣️ **커뮤니케이션 툴**
 
