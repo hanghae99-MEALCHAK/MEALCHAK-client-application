@@ -150,6 +150,3 @@ Project MealChak Notion : https://www.notion.so/Meal-4e2b5486d44e4123a1d352a63eb
 #### 결과 및 소감
 1. 큰 용량의 이미지를 업로드 해도 최대 사이즈가 300px을 넘지 않게 되었고, 처리 속도가 향상 되었다.
 2. 이전까지 서버에서 이미지 리사이징을 해왔지만 이것을 계기로 프론트 단의 처리가 필요함을 느꼈다. 
-
-### 3 Build 실시간 적용되지 않는 문제
-####[velog에서 확인](https://velog.io/@yjh8806/s3-%EB%B2%84%ED%82%B7%EC%97%90-%EC%97%85%EB%A1%9C%EB%93%9C%ED%95%9C-build%ED%8C%8C%EC%9D%BC%EC%9D%B4-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EC%A0%81%EC%9A%A9%EB%90%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B8%EC%A0%9C)
