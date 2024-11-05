@@ -12,6 +12,7 @@ import theme from './styles/theme';
 
 import store from './redux/configureStore';
 
+// test for Pull Request
 // commit test
 // test
 ReactDOM.render(
