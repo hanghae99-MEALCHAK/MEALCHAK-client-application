@@ -12,6 +12,7 @@ import theme from './styles/theme';
 
 import store from './redux/configureStore';
 
+// commit test
 // test
 ReactDOM.render(
   <Provider store={store}>
