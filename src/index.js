@@ -12,6 +12,8 @@ import theme from './styles/theme';
 
 import store from './redux/configureStore';
 
+
+// test for pull request
 // commit test
 // test
 ReactDOM.render(
